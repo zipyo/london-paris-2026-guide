@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사치갤러리 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a1a2e;
+    --accent-light: #f0eff5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* 전시 정보 */
+  .exhibition-box {
+    margin: 16px 16px 0;
+    background: var(--accent-light);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .exhibition-box h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+  .exhibition-box .exh-item {
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .exhibition-box .exh-item:last-child { margin-bottom: 0; }
+  .exhibition-box .exh-name {
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+  .exhibition-box .exh-detail {
+    color: #4b5563;
+    font-size: 12.5px;
+  }
+  .exhibition-box .exh-price {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .exhibition-box .exh-free {
+    display: inline-block;
+    background: #059669;
+    color: #fff;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  /* 공통 섹션 */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* 스토리 */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* 핵심 포인트 */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* 체험 & 인터랙티브 */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* 꿀팁 */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① 헤더 -->
+<div class="header">
+  <h1>사치갤러리 <span class="en">Saatchi Gallery</span></h1>
+  <p class="oneliner">광고의 제왕이 현대미술의 판도를 뒤집은 곳 — 상어 포르말린부터 타이어 놀이터까지, 40년간 "충격"을 전시해온 갤러리</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/17(화) 15:00~16:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 전시 + 유료 전시</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">King's Road 정문</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Sloane Square</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">매일 10:00~18:00</span>
+    </div>
+  </div>
+  <div class="info-warn">마지막 입장 17:20 (유료 전시 17:00) · 6세 미만 무료, 6~16세 할인</div>
+</div>
+
+<!-- 2026년 2월 전시 정보 -->
+<div class="exhibition-box">
+  <h3>2026년 2월 17일 전시 현황</h3>
+  <div class="exh-item">
+    <div class="exh-name">The Long Now: Saatchi Gallery at 40</div>
+    <div class="exh-detail">개관 40주년 기념 대규모 전시 · 9개 전시실, 2개 층 · ~4/26</div>
+    <div><span class="exh-price">£16.50</span></div>
+  </div>
+  <div class="exh-item">
+    <div class="exh-name">Domestic Relics</div>
+    <div class="exh-detail">기억과 집을 탐구하는 그룹전 · Gallery 1 & 2 · 2/5~3/23</div>
+    <div><span class="exh-free">무료</span></div>
+  </div>
+  <div class="exh-item">
+    <div class="exh-name">Chain of Hope: Share Your Heart</div>
+    <div class="exh-detail">하트 테마 자선 전시 · Gallery 3 · 2/11~15 (15일 14시 마감)</div>
+    <div><span class="exh-free">무료</span> <span style="font-size:12px; color:#6b7280;">· 2/17에는 종료됨</span></div>
+  </div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>광고계의 전설이 미술관을 열다</h4>
+    <p>1943년 이라크 바그다드에서 태어난 찰스 사치(Charles Saatchi)는 어린 시절 가족과 함께 런던으로 이주했다. 18세에 광고 카피라이터로 시작한 그는 1970년 형 모리스와 함께 Saatchi & Saatchi를 설립했고, 이 회사는 1986년 세계 최대 광고 대행사로 성장한다. 대처 수상의 선거 캠페인을 맡으며 영국 정치까지 흔든 이 형제는 광고계의 전설이었다.</p>
+    <p>하지만 찰스의 진짜 열정은 다른 곳에 있었다. 1969년, 20대 중반부터 미술품 수집을 시작한 그는 처음에는 미국 미니멀리즘(도널드 저드, 댄 플래빈 등)에 집중했다. 1980년대 초에는 매년 수백만 파운드를 현대미술에 쏟아부었고, 그가 작품을 사느냐 마느냐에 따라 작가의 시장 가치가 널뛰기했다. 1985년, 마침내 자신만의 갤러리를 열었다 — 그것이 바로 사치갤러리의 시작이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>YBA — "젊고 무례한" 영국 미술의 탄생</h4>
+    <p>1990년대, 찰스 사치는 골드스미스 대학 출신의 젊은 예술가들에게 눈을 돌렸다. 그들이 바로 YBA(Young British Artists) — 데미안 허스트, 트레이시 에민, 제이크 & 다이노스 채프먼, 마커스 하비, 제니 사빌, 레이첼 화이트리드 등이다.</p>
+    <p>1991년, 사치는 허스트에게 말했다: "상상할 수 있는 가장 충격적인 작품을 만들어봐. 내가 돈을 댈게." 허스트의 대답은 "사람을 잡아먹을 만큼 큰 상어"였다. 4.3미터짜리 호랑이상어를 포르말린에 담근 이 작품 — &lt;살아있는 자의 마음속에서 죽음이 물리적으로 불가능함&gt; — 은 £50,000에 제작되어 현대미술의 아이콘이 되었다. 2004년 사치는 이 상어를 헤지펀드 거물 스티븐 코언에게 약 800만 달러에 팔았다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"센세이션" — 미술이 뉴스가 된 순간</h4>
+    <p>1997년, 토니 블레어가 다우닝가 10번지에 입성한 지 4개월 후, 런던 왕립미술원(Royal Academy)에서 사치 컬렉션 전시 &lt;Sensation&gt;이 열렸다. 30만 명이 몰려든 이 전시에는 허스트의 상어, 트레이시 에민의 텐트(&lt;내가 잠자리를 같이한 모든 사람 1963-1995&gt;), 마크 퀸의 자신의 피로 만든 자화상 두상 등이 포함됐다.</p>
+    <p>아동 살인범 마이라 힌들리의 초상화(아이들의 손도장으로 만든 작품)가 전시되자 시위가 벌어졌고, 왕립미술원 회원 여럿이 항의 사직했다. 1999년 뉴욕 브루클린 미술관 순회전에서는 크리스 오필리의 코끼리 똥을 사용한 성모 마리아 작품에 당시 시장 줄리아니가 격분하며 미술관 보조금 삭감을 위협했다. 논란이든 찬사든, 이 전시는 현대미술을 대중 뉴스의 한복판에 올려놓았다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>군사 시설에서 갤러리로 — 건물의 이중생활</h4>
+    <p>지금 사치갤러리가 자리한 Duke of York's HQ는 1801년 건축가 존 샌더스가 설계한 건물이다. 원래는 전사한 군인의 자녀 1,000명(남자 700명, 여자 300명)을 수용하는 왕립군사보호소(Royal Military Asylum)였다. 노란 벽돌에 로마 도릭 양식의 포르티코를 갖춘 위풍당당한 이 건물은, 1909년 학교가 도버로 이전한 뒤 군사 시설(Duke of York's Barracks)로 사용되었고, 2차 대전 때는 독일 스파이 재판이 열린 장소이기도 했다.</p>
+    <p>2008년 사치갤러리가 이 건물 전체 약 6,500m²(7만 평방피트)에 입주하면서, 군사 역사와 현대미술이 한 지붕 아래 공존하게 되었다. The Observer는 이곳을 "런던에서 가장 아름다운 미술 공간 중 하나"라 평했다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 (90분 동선) -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">15:00</div>
+      <div class="name">① 무료 전시 — Domestic Relics</div>
+      <div class="desc">Gallery 1 & 2. 기억과 집을 탐구하는 8인 그룹전. 회화, 조각, 혼합매체 작품으로 일상의 오브제가 어떻게 기억을 보존하고 왜곡하는지 보여준다. 무료 입장이므로 부담 없이 시작.</div>
+      <div class="highlight">20분 · 1층 입구 들어서면 바로</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:20</div>
+      <div class="name">② The Long Now — 타이어 놀이터 & 회전 자동차</div>
+      <div class="desc">40주년 기념전의 하이라이트. Allan Kaprow의 YARD는 자동차 타이어가 쌓인 설치물로, 직접 올라가고 탐험할 수 있다. 그 위에서 Conrad Shawcross의 Golden Lotus(빈티지 로터스 자동차를 뒤집어 매단 회전 조각)가 디스코 음악과 함께 돌아간다. 아이가 가장 신나할 구간.</div>
+      <div class="highlight">25분 · 유료 전시 £16.50 · 아이 체험 가능</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:45</div>
+      <div class="name">③ The Long Now — 회화 & 설치미술</div>
+      <div class="desc">Jenny Saville의 기념비적 인체 회화 &lt;Passage&gt;, Damien Hirst 작품, Alex Katz의 회화 등 2개 층 9개 전시실을 여유롭게 관람. Alejandro Ospina의 캔버스는 인터넷 이미지와 아이들 그림이 섞여 아이도 흥미를 느낄 수 있다. Frankie Boyle의 LED 조명 설치는 하루의 일출~일몰을 시뮬레이션한다.</div>
+      <div class="highlight">30분 · 2개 층 순회</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:15</div>
+      <div class="name">④ 기프트샵 & 퇴장</div>
+      <div class="desc">1층 입구 오른쪽 Saatchi Store. 전시 관련 아트북과 기념품. Duke of York Square로 나가면 킹스로드가 바로 이어진다.</div>
+      <div class="highlight">15분 · 코스 종료</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:30</div>
+      <div class="name">퇴장 → 킹스로드 구경</div>
+      <div class="desc">갤러리 정문에서 바로 King's Road로 이어짐. 도보 0분.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>Allan Kaprow의 YARD — 타이어 놀이터</h4>
+    <p>자동차 타이어 수백 개가 쌓인 설치물 위를 직접 올라가고, 움직이고, 탐험할 수 있다. 원래 1961년 작품의 재현으로, "조각은 만지면 안 된다"는 고정관념을 깬 참여형 예술. 아이에게 "여기서는 올라가도 돼!"라고 말해줄 수 있는 드문 갤러리 경험. The Long Now 유료 전시 내부.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Frankie Boyle의 Ecliptic — 빛의 체험</h4>
+    <p>커스텀 양면 LED 튜브로 하루의 일출부터 일몰까지를 시뮬레이션하는 조명 설치. 빛이 커뮤니케이션 수단이 되는 방식을 시각적으로 체험할 수 있다.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">The Long Now 전시 — 볼 가치 있을까?</div>
+    사치갤러리 40주년 회고전으로, 관련 작가 40여 명의 작품을 9개 전시실에서 볼 수 있다. 특히 YARD(타이어 설치물)가 아이에게 강력 추천. 다만 £16.50 × 인원수이므로 가족 3인 약 £50. 온라인 사전 예매 시 할인 가능성 있으니 확인. 6세 미만은 무료, 6~16세는 할인 적용.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">무료 전시만으로도 OK</div>
+    Domestic Relics(Gallery 1 & 2)는 무료 입장. 시간이나 예산이 부담되면 무료 전시만 관람해도 충분히 의미 있다. 2/18부터는 Gesture & Being(신진 졸업 작가전, 무료)도 추가 오픈되나, 방문일(2/17)에는 아직 시작 전.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영</div>
+    전시마다 정책이 다르다. 대부분 플래시 없는 개인 촬영은 허용되지만, 전시실 입구의 안내 표지판을 확인하거나 스태프에게 물어볼 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페 & 식사</div>
+    갤러리 내부에 카페가 없다. 하지만 건물 바로 앞 Duke of York Square에 Gallery Mess(갤러리 옆 레스토랑), Cafe Linea(베이커리 카페), Vardo(글로벌 퓨전) 등 다양한 식당이 있다. 16:30 이후 킹스로드에서도 선택지 풍부.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">짐 보관</div>
+    큰 가방이나 캐리어는 클로크룸에 맡겨야 한다. 간단한 백팩은 소지 가능.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> The Long Now 유료 전시 갈지 결정 (£16.50/인, 온라인 사전 예매 확인)</label>
+    <label><input type="checkbox"> 공식 사이트에서 최신 전시 정보 확인 (saatchigallery.com/whats-on)</label>
+    <label><input type="checkbox"> 큰 가방 없이 가벼운 차림</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 킹스로드 구경</strong><br>
+  갤러리 정문(King's Road)으로 나가면 바로 킹스로드. 도보 0분.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-13
+</div>
+
+</body>
+</html>

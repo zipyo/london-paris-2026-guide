@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>해러즈 백화점 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a5632;
+    --accent-light: #f0f5e9;
+    --gold: #b8860b;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #1a5632 0%, #0d2e1a 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① 헤더 -->
+<div class="header">
+  <h1>해러즈 백화점 <span class="en">Harrods</span></h1>
+  <p class="oneliner">175년 역사의 세계에서 가장 유명한 백화점. 12,000개 전구가 밝히는 야경 속으로, Food Hall부터 이집트 에스컬레이터까지 60분 탐험.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/17(화) 18:30~19:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">추천 입구</span>
+      <span class="value">Brompton Road 정문</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Knightsbridge</span>
+    </div>
+    <div class="info-item">
+      <span class="label">영업시간</span>
+      <span class="value">월~토 10-21 / 일 11:30-18</span>
+    </div>
+  </div>
+  <div class="info-warn">화요일 저녁 방문 — 21:00 폐점이므로 여유 있지만, Food Hall 일부 카운터는 20:00 전후 마감할 수 있음</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 해러즈 이야기</h2>
+
+  <div class="story-block">
+    <h4>식료품 가게에서 세계 최대 백화점으로</h4>
+    <p>1849년, 찰스 헨리 해러드(Charles Henry Harrod)라는 청년이 나이츠브리지의 작은 가게에서 차와 식료품을 팔기 시작했습니다. 당시 이 동네는 런던 외곽의 조용한 지역이었죠.</p>
+    <p>아들 찰스 디그비 해러드가 사업을 물려받아 확장하던 중, 1883년 12월 크리스마스 시즌 직전에 대화재가 발생합니다. 4층짜리 건물이 전소되는 재앙이었지만, 놀랍게도 해러드는 크리스마스 주문을 모두 정시에 배달해냅니다. 이 사건이 해러즈의 명성을 만들었습니다.</p>
+    <p>1905년 지금의 테라코타 외관 건물이 완공되었고, "Omnia Omnibus Ubique(모든 이에게 모든 것을 어디서나)"라는 모토 아래 7층 330개 이상의 부서를 갖춘 세계 최대 백화점으로 성장했습니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>알 파예드, 이집트 에스컬레이터, 그리고 다이애나</h4>
+    <p>1985년, 이집트 출신 사업가 모하메드 알 파예드가 해러즈를 6억 1,500만 파운드에 인수합니다. 그는 해러즈에 자신의 정체성을 깊이 새겨 넣었는데, 그 상징이 바로 이집트풍 에스컬레이터(Egyptian Escalator)입니다.</p>
+    <p>1996~97년 7층 높이의 아트리움이 이집트 신전 스타일로 개조되었습니다. 영국 예술가 윌리엄 미첼(William Mitchell)이 만든 거대한 기둥, 상형문자 부조, 이집트 전사 조각이 에스컬레이터를 감싸고 있습니다. 알 파예드는 이 프로젝트에 2,000만~7,500만 파운드를 투자했다고 알려져 있습니다.</p>
+    <p>1997년 알 파예드의 아들 도디와 다이애나 왕세자비가 파리에서 사고로 세상을 떠나자, 이집트 에스컬레이터 하단에 두 사람의 기념물이 설치되기도 했습니다. 이 기념물은 2018년 알 파예드 가족에게 반환되었습니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>현재의 해러즈: 카타르 시대</h4>
+    <p>2010년 카타르 투자청(Qatar Investment Authority)이 15억 파운드에 해러즈를 인수했습니다. 이후 대대적인 리노베이션이 진행되어, Food Hall은 데이비드 콜린스 스튜디오의 설계로 4개 홀(Fresh Market Hall, Dining Hall, Roastery & Bake Hall, Chocolate Hall)이 새롭게 단장되었습니다.</p>
+    <p>밤이 되면 외관을 장식하는 12,000개의 전구가 켜지는데, 원래 1950년대 임시 크리스마스 장식이었던 것이 해러즈의 상징이 되었습니다. 매일 300개의 전구를 교체해야 할 정도입니다. 18:30 방문이면 겨울 해가 진 뒤라 이 야경을 볼 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트: 60분 동선 -->
+<section>
+  <h2><span class="icon">🗺️</span> 60분 핵심 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">18:30 (15분)</div>
+      <div class="name">① Food Hall (G층)</div>
+      <div class="desc">Brompton Road 정문으로 입장하면 바로 연결. 빅토리아 시대 Royal Doulton 타일 장식이 천장과 벽을 감싼 4개 홀을 둘러보세요. Fresh Market Hall의 치즈·샤퀴테리, Chocolate Hall의 세계 최고급 초콜릿, 그리고 화려한 진열이 압권입니다.</div>
+      <div class="highlight">15분 · 저녁식사 대용으로 Dining Hall도 고려 (아래 꿀팁 참조)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:45 (10분)</div>
+      <div class="name">② Egyptian Escalator</div>
+      <div class="desc">매장 중앙의 이집트풍 에스컬레이터. 7층을 관통하는 아트리움에 25피트 높이의 상형문자 기둥, 이집트 전사 부조가 장관입니다. 에스컬레이터를 타고 올라가며 감상하세요.</div>
+      <div class="highlight">10분 · Grade II* 지정 문화재 — 리노베이션 계획이 있어 지금 보는 것이 좋음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:55 (15분)</div>
+      <div class="name">③ Toy Kingdom (4층)</div>
+      <div class="desc">이집트 에스컬레이터로 4층까지 올라가면 장난감 왕국. Jellycat, Steiff 인형, 보드게임, Toylander 미니 자동차, 그리고 거대한 봉제인형까지. Toy Concierge 서비스도 있습니다.</div>
+      <div class="highlight">15분 · 아이와 함께라면 시간 조절 필요 — Sweet Street(과자 코너)도 같은 층</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:10 (10분)</div>
+      <div class="name">④ 기념품 + 야경 (LG층 → 외부)</div>
+      <div class="desc">Lower Ground Floor의 기프트숍에서 해러즈 그린 백(소형 토트 약 £12~25), 해러즈 초콜릿, 테디베어 등 기념품 구입. 밖으로 나와 12,000개 전구가 빛나는 외관 야경을 감상하며 마무리.</div>
+      <div class="highlight">10분 · 야경 사진은 Brompton Road 건너편에서 전체 건물 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:20</div>
+      <div class="name">퇴장 → 저녁식사</div>
+      <div class="desc">Knightsbridge 근처 저녁식사로 이동. 또는 해러즈 내 Dining Hall에서 식사 가능 (별도 시간 필요).</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">드레스코드</div>
+    공식적인 드레스코드는 없지만, 지저분하거나 불쾌한 복장은 입장 거부될 수 있습니다. 깔끔한 캐주얼이면 충분. 대형 배낭은 손에 들거나 물품보관소에 맡겨야 합니다 — 등에 메고 입장 불가.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Food Hall에서 저녁?</div>
+    Dining Hall에 미슐랭 스타 셰프 마사 타카야마의 스시바, 그리스 메제, 라멘 등 6개 레스토랑이 있습니다. 가격대는 메인 £20~50 수준. 19:30 저녁식사를 여기서 해결하면 이동 시간 절약. 다만 예약 없이 자리가 있을지는 당일 상황에 따라 다릅니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    화요일 저녁은 비교적 한산한 시간대. 주말이나 점심시간(하루 평균 방문객 10만 명)에 비하면 여유롭게 둘러볼 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    2층과 4층에 무료 화장실 있음. 지하 Food Hall 근처에도 무료 화장실이 있습니다. 4층 Toy Kingdom 방문 시 같은 층에서 해결 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">야경 촬영</div>
+    18:30이면 이미 해가 져서 12,000개 전구가 켜져 있습니다. 퇴장 후 Brompton Road 건너편에서 건물 전체를 담을 수 있습니다. 건물 앞에서는 너무 가까워 전체가 안 잡힙니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">이집트 에스컬레이터 참고</div>
+    2025년 카타르 소유주가 이집트 에스컬레이터 철거 및 현대화 계획을 제출했으나, Grade II* 지정 문화재로 보존 단체의 반대가 있어 진행이 불확실합니다. 2026년 2월 기준 아직 볼 수 있을 가능성이 높지만, 혹시 공사 중이라면 일반 에스컬레이터를 이용하세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">해러즈 그린 백</div>
+    해러즈의 상징적인 초록색 쇼핑백. 기념품으로 인기 있는 소형 토트백은 LG층 기프트숍에서 £12~25 정도. 50년 넘게 변하지 않은 디자인입니다.
+  </div>
+
+  <div class="checklist">
+    <h3>방문 전 체크리스트</h3>
+    <label><input type="checkbox"> 대형 배낭 대신 작은 가방으로 교체</label>
+    <label><input type="checkbox"> Food Hall 저녁식사 여부 사전 결정</label>
+    <label><input type="checkbox"> 기념품 예산 설정 (그린 백, 초콜릿 등)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 저녁식사 (19:30)</strong><br>
+  Knightsbridge 근처 레스토랑으로 이동, 또는 해러즈 Dining Hall에서 바로 식사.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-13
+</div>
+
+</body>
+</html>
