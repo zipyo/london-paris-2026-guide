@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>근위병 교대식 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #8b1a1a;
+    --accent-light: #fdf2f2;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f5f0;
+    --screen-bg: #1a1a2e;
+    --screen-text: #e0e0e0;
+    --regiment-bg: #0f172a;
+    --gold: #d4af37;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #8b1a1a 0%, #1a1a3e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Screen Section */
+  .screen { background: var(--screen-bg); color: var(--screen-text); }
+  .screen h2 { color: #fff; }
+  .screen-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .screen-card .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .screen-card .year { color: #9ca3af; font-weight: 400; }
+  .screen-card p { font-size: 13px; color: #d1d5db; margin-bottom: 6px; }
+  .screen-card p:last-child { margin-bottom: 0; }
+  .screen-card .where {
+    font-size: 12px;
+    color: #a78bfa;
+    margin-top: 8px;
+  }
+
+  /* Regiment Section (dark themed) */
+  .regiment { background: var(--regiment-bg); color: var(--screen-text); }
+  .regiment h2 { color: #fff; }
+  .regiment .intro {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+  }
+  .reg-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--gold);
+  }
+  .reg-card .reg-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .reg-card .reg-en {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+  }
+  .reg-card .buttons {
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .reg-card .plume {
+    font-size: 12px;
+    color: #cbd5e1;
+  }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Spot Comparison Table */
+  .spot-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+  .spot-table th {
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 8px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .spot-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .spot-table tr:nth-child(even) { background: #f9fafb; }
+  .spot-recommend { color: var(--accent); font-weight: 700; }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① HEADER -->
+<div class="header">
+  <h1>근위병 교대식 <span class="en">Changing of the Guard</span></h1>
+  <p class="oneliner">520년째 이어지는 의식. 나폴레옹에게서 빼앗은 곰털 모자를 쓰고, Taylor Swift를 연주하며, 아프가니스탄에서 돌아온 진짜 군인들이 왕의 궁전 열쇠를 건넨다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 10:30~</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분 (행진 포함)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">비용</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">관람 장소</span>
+      <span class="value">Wellington Barracks</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">St James's Park</span>
+    </div>
+    <div class="info-item">
+      <span class="label">겨울 스케줄</span>
+      <span class="value">월/수/금 11:00</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 기간(2/16~20) — 평소 2~3배 혼잡. 폭우·강풍 시 당일 취소 가능 → 아침에 공식 캘린더 확인 필수</div>
+</div>
+
+<!-- ② 이곳의 이야기 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 이곳의 이야기</h2>
+
+  <div class="story-block">
+    <h4>곰털 모자 — 워털루에서 빼앗은 전리품</h4>
+    <p>높이 46cm, 캐나다산 흑곰 모피로 만든 곰털 모자(Bearskin Cap). 왜 영국 근위병이 이걸 쓰게 됐을까?</p>
+    <p>1815년 6월 18일, 워털루 전투. 나폴레옹의 프랑스 제국 근위대는 적에게 위압감을 주기 위해 곰털 모자를 쓰고 있었다. 이날 영국 1st Foot Guards(현 Grenadier Guards)가 프랑스 제국 근위대를 격파했다.</p>
+    <p>승리의 기념으로 영국 근위병들은 프랑스군의 상징이었던 곰털 모자를 자기 것으로 만들었다. 적의 전리품을 머리에 쓰고 왕의 궁전을 경비하는 것이다. 210년이 지난 지금도.</p>
+    <p>한 개에 약 110만 원. 잘 관리하면 80년 이상 사용한다. 영국군이 합성 소재로 대체하려 시도했지만 실패 — 강풍에 형태가 무너지고, 폭우에 물에 젖었다. 진짜 곰털을 이길 수 없었다.</p>
+    <p>턱끈은 턱 아래가 아닌 아랫입술 바로 아래에 착용한다. 이유: 총에 맞거나 뒤로 넘어질 때 턱끈이 턱 아래에 있으면 목이 부러질 위험이 있기 때문이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>군악대의 비밀 — 강남스타일부터 Taylor Swift까지</h4>
+    <p>교대식 중 군악대가 연주하는 음악. 전통 군악곡만 연주할 것 같지만, 뜻밖의 곡들이 나온다.</p>
+    <p>2024년 Taylor Swift 런던 공연 기간, 군악대가 "Shake It Off"를 연주했다. 팬들 사이에서 "Changing of the Guard — Taylor's Version"이라는 농담까지 돌았다.</p>
+    <p>2023년에는 PSY의 "강남스타일"과 BLACKPINK 히트곡을 연주했다. Aretha Franklin이 세상을 떠난 날에는 "Respect"를, Tina Turner 추모로 "The Best"를. Game of Thrones 테마곡, Star Wars, ABBA 메들리도 레퍼토리에 있다.</p>
+    <p>1920년에 조지 5세가 오페레타 곡 연주를 듣고 "다시는 연주하지 말 것"이라고 명령한 기록도 있다. 왕도 선곡에 관여하는 전통.</p>
+    <p>2/18은 Irish Guards + Scots Guards 군악대 + 백파이프 조합. 전통 군악곡부터 팝송까지, 어떤 곡이 나올지는 당일의 서프라이즈다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>그들은 진짜 군인이다</h4>
+    <p>관광객을 위해 서 있는 사람들이 아니다. 5개 근위 연대 모두 아프가니스탄, 이라크에서 실전을 치른 전투 부대다.</p>
+    <p>2012년 6월, 아프가니스탄 헬만드. Grenadier Guards 소속 23세 Lance Corporal James Ashworth는 적 저격수 제거 작전에 투입되었다. 적 기관총 사격 속에서 무릎 높이의 벽 뒤로 3분간 기어서 15m를 전진했다. 5m 거리에서 수류탄을 던지기 위해 의도적으로 몸을 드러냈고, 수류탄을 던지는 순간 전사했다. 영국 최고 무공훈장인 빅토리아 십자훈장이 추서되었다.</p>
+    <p>궁전 앞에 서 있는 근위병은 몇 달 전까지 전장에 있었을 수 있고, 몇 달 후 다시 전장으로 갈 수 있는 사람들이다. 보초는 2시간 근무 + 4시간 휴식. 10분마다 15걸음 좌우로 행진할 수 있지만 그 외에는 부동자세. 관광객이 너무 가까이 오면 발을 "쾅" 구르며 "Stand back from the King's Guard!" 라고 외친다. 그래도 무시하면 소총을 겨눈다.</p>
+  </div>
+</section>
+
+<!-- ③ 스크린 속 이곳 -->
+<section class="screen">
+  <h2><span class="icon">🎬</span> 스크린 속 이곳</h2>
+
+  <div class="screen-card">
+    <div class="title">여왕과 패딩턴의 차 한잔 <span class="year">(2022)</span></div>
+    <p>엘리자베스 2세 즉위 70주년 기념 영상. 패딩턴이 궁전에서 여왕과 차를 마신다. 패딩턴이 모자에서 마멀레이드 샌드위치를 꺼내자, 여왕이 핸드백을 열고 "나도 여기 넣어둔다"고 답한다. 함께 찻잔으로 "We Will Rock You" 리듬을 연주. 석 달 후 여왕이 세상을 떠나자, 조문객들이 궁전 앞에 패딩턴 인형과 샌드위치를 놓아두었다.</p>
+    <div class="where">📍 버킹엄 궁전 — 여왕이 실제로 출연한 마지막 영상</div>
+  </div>
+
+  <div class="screen-card">
+    <div class="title">007 런던 올림픽 개막식 <span class="year">(2012)</span></div>
+    <p>다니엘 크레이그가 본드 역으로 버킹엄 궁전을 방문한다. 실제 엘리자베스 2세가 본인 역으로 출연, 복도를 함께 걷다가 헬리콥터를 타고 올림픽 스타디움 상공으로. 여왕(스턴트 더블)이 낙하산을 펴고 뛰어내린다. 전 세계 9억 명이 시청.</p>
+    <div class="where">📍 버킹엄 궁전 복도 — 여왕이 연기한 007 장면</div>
+  </div>
+
+  <div class="screen-card">
+    <div class="title">The BFG <span class="year">(2016, 스필버그)</span></div>
+    <p>소녀 Sophie와 BFG(Big Friendly Giant)가 여왕에게 악몽을 전달하기 위해 궁전에 침입. 여왕(Penelope Wilton)과 대면하여 함께 아침 식사를 하는 장면. 실제 궁전에서 촬영 허가를 받은 드문 사례.</p>
+    <div class="where">📍 버킹엄 궁전 — 스필버그가 촬영 허가를 받다</div>
+  </div>
+</section>
+
+<!-- ④ 관람 동선 -->
+<section>
+  <h2><span class="icon">🗺️</span> 관람 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:30</div>
+      <div class="name">St James's Park 산책</div>
+      <div class="desc">호텔 출발 → 공원 산책. 호수의 펠리컨·오리·거위 관찰, Blue Bridge 포토스팟 (궁전 배경). 공원 내 화장실/매점 이용.</div>
+      <div class="highlight">30분 · 대기 시간을 공원 산책으로 활용</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:00~10:15</div>
+      <div class="name">① Wellington Barracks 이동</div>
+      <div class="desc">공원 남쪽 → Birdcage Walk 도보 5분. 병영 앞 도로변에 자리잡기. 울타리 없음, 앞줄 확보 쉬움.</div>
+      <div class="highlight">Half Term이라도 이곳은 한산 · 아이 키에서도 시야 확보</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:30</div>
+      <div class="name">② New Guard 사열 + 군악대 워밍업</div>
+      <div class="desc">New Guard가 병영 앞에서 사열. 군악대가 원형 대형으로 워밍업 연주 — 팝송이 여기서 나온다. Regimental Colour(연대기) 등장. 백파이프 포함 시 가장 웅장한 사운드.</div>
+      <div class="highlight">25분 · 군악대를 가장 가까이서 보는 순간</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:57</div>
+      <div class="name">③ 행진 따라걷기</div>
+      <div class="desc">New Guard 출발 → Birdcage Walk 따라 궁전 방향으로 행진. 함께 걸으며 체험 가능. 아이에게 가장 기억에 남을 순간.</div>
+      <div class="highlight">15분 · 근위병과 나란히 걷는 체험</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:10</div>
+      <div class="name">④ The Mall 행진 관람</div>
+      <div class="desc">St James's Palace 분견대가 군악대와 함께 The Mall을 행진. 도로와 보도 사이 울타리 없음 — 바로 옆으로 지나간다. 사진 촬영 최적 타이밍.</div>
+      <div class="highlight">20분 · 도로 옆에서 행진 근접 관람</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:30</div>
+      <div class="name">퇴장 → 점심</div>
+      <div class="desc">The Mall에서 점심식사 장소로 이동. 교대식 끝나면 군중이 한꺼번에 빠져나오므로 아이 손 꼭 잡기.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 연대 구별법 -->
+<section class="regiment">
+  <h2><span class="icon">🎖️</span> 연대 구별법</h2>
+  <p class="intro">근위 연대는 5개. 겉보기엔 같아 보이지만, 튜닉 단추 배열과 깃털 색으로 구별할 수 있다. 아이에게 "단추가 몇 개씩 모여 있는지 세어봐!"라고 하면 퀴즈가 된다.</p>
+
+  <div class="reg-card">
+    <div class="reg-name">Grenadier Guards</div>
+    <div class="reg-en">제1근위연대 · 1656년 창설</div>
+    <div class="buttons">● &nbsp; ● &nbsp; ● &nbsp; ● &nbsp; ●</div>
+    <div class="plume">단추 1개씩 등간격 · 흰색 깃털(왼쪽) · 워털루에서 곰털 모자를 처음 쓴 연대</div>
+  </div>
+
+  <div class="reg-card">
+    <div class="reg-name">Coldstream Guards</div>
+    <div class="reg-en">제2근위연대 · 1650년 창설 (가장 오래된 연속 복무)</div>
+    <div class="buttons">●● &nbsp; ●● &nbsp; ●●</div>
+    <div class="plume">단추 2개씩 쌍 · 빨간색 깃털(오른쪽) · 모토: "Second to None"</div>
+  </div>
+
+  <div class="reg-card">
+    <div class="reg-name">Scots Guards</div>
+    <div class="reg-en">제3근위연대 · 1650년 창설</div>
+    <div class="buttons">●●● &nbsp; ●●● &nbsp; ●●●</div>
+    <div class="plume">단추 3개씩 묶음 · 깃털 없음(유일!) · 엉겅퀴(Thistle) 뱃지</div>
+  </div>
+
+  <div class="reg-card">
+    <div class="reg-name">Irish Guards ← 2/18 교대식 수행</div>
+    <div class="reg-en">제4근위연대 · 1900년 빅토리아 여왕이 창설</div>
+    <div class="buttons">●●●● &nbsp; ●●●● &nbsp; ●●●●</div>
+    <div class="plume">단추 4개씩 묶음 · 파란색 깃털(오른쪽) · 마스코트: 아이리시 울프하운드 Seamus</div>
+  </div>
+
+  <div class="reg-card">
+    <div class="reg-name">Welsh Guards</div>
+    <div class="reg-en">제5근위연대 · 1915년 창설 (가장 젊은 연대)</div>
+    <div class="buttons">●●●●● &nbsp; ●●●●●</div>
+    <div class="plume">단추 5개씩 묶음 · 흰-초록-흰 삼색 깃털(왼쪽) · 부추(Leek) 뱃지</div>
+  </div>
+</section>
+
+<!-- ⑥ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">관람 포인트 비교</div>
+    <table class="spot-table">
+      <tr><th>위치</th><th>혼잡도</th><th>아이 친화</th><th>특징</th></tr>
+      <tr class="spot-recommend"><td>Wellington Barracks</td><td>낮음</td><td>★★★★★</td><td>군악대 근접, 행진 따라걷기 가능</td></tr>
+      <tr><td>The Mall</td><td>보통</td><td>★★★★</td><td>울타리 없음, 사진 최적</td></tr>
+      <tr><td>Victoria Memorial</td><td>혼잡</td><td>★★★</td><td>높은 곳에서 전체 조망</td></tr>
+      <tr><td>궁전 철책 앞</td><td>극혼잡</td><td>★★</td><td>최근접이나 1.5시간 전 도착 필요</td></tr>
+    </table>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">겨울 복장 주의</div>
+    2월 교대식은 빨간 튜닉이 아닌 <strong>회색 Greatcoat</strong> 착용. 곰털 모자는 동일.<br>
+    반면 기마 근위대(Horse Guards)는 겨울에도 <strong>빨간/파란 정복 + 깃털 헬멧</strong> — 화려한 비주얼은 기마대가 우위.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">방한 필수</div>
+    야외 1시간+ 대기. 2월 평균 <strong>3~8°C</strong>.<br>
+    방한 외투, 장갑, 모자, 핫팩 필수. 우산 또는 레인코트 준비.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">소매치기 주의</div>
+    궁전 주변은 <strong>런던에서 소매치기가 가장 활발한 지역</strong>. 군중 밀집 시 특히 위험.<br>
+    수법: 말 걸기/사진 요청으로 주의 분산, 아이 떼가 몰려옴.<br>
+    대비: 크로스백 앞으로 메기, 주머니에 귀중품 넣지 않기, 핸드폰 목걸이 스트랩.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① Wellington Barracks — 군악대 원형 대형 정면에서<br>
+    ② Birdcage Walk — 행진하는 근위병과 나란히<br>
+    ③ The Mall — 군악대가 바로 옆을 지나가는 순간<br>
+    ④ Victoria Memorial — 궁전 전경 배경 (일찍 도착 시)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">취소 시 대안</div>
+    폭우/강풍으로 취소되면 → <strong>Horse Guards Parade 기마 교대식</strong> 확인 (같은 시간 11:00, 별도 운영).<br>
+    둘 다 취소 시 → Guards Museum(Wellington Barracks 내, 10:00 개장)에서 제복 체험.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">아이가 지루하면</div>
+    "단추 몇 개씩인지 세어봐!" (연대 구별 퀴즈) / "다음에 무슨 노래 나올까?" (군악대 맞추기) / St James's Park 펠리컨 관찰로 전환.
+  </div>
+
+  <h3>출발 전 체크리스트</h3>
+  <div class="checklist">
+    <label><input type="checkbox"> 당일 아침 <a href="https://www.householddivision.org.uk/changing-the-guard-calendar" style="color:var(--accent)">공식 캘린더</a> 확인 (취소 여부)</label>
+    <label><input type="checkbox"> 방한 준비 (외투, 장갑, 모자, 핫팩)</label>
+    <label><input type="checkbox"> 크로스백 앞으로 메기 (소매치기 대비)</label>
+    <label><input type="checkbox"> 핸드폰 목걸이 스트랩 착용</label>
+    <label><input type="checkbox"> 빈 물병 + 간식 (아이 대기 시간용)</label>
+  </div>
+</section>
+
+<!-- Horse Guards Parade 대안 -->
+<section>
+  <details>
+    <summary>🐴 대안: Horse Guards Parade 기마 교대식</summary>
+
+    <div class="story-block">
+      <h4>버킹엄 교대식과 같은 시간, 다른 경험</h4>
+      <p>같은 11:00에 Whitehall의 Horse Guards Parade에서 기마 근위대 교대식이 진행된다. 둘 다 보기는 어렵고 택 1.</p>
+      <p><strong>기마 교대식의 장점</strong>: 울타리 없이 기마대를 바로 옆에서 관람. 겨울에도 빨간/파란 정복 + 깃털 헬멧(보병은 회색 코트). 매우 한산. 호텔(Club Quarters)에서 도보 5분. 아침 10:15 출발이면 충분.</p>
+      <p><strong>기마 교대식의 단점</strong>: 군악대 없음(트럼펫 팡파르만). 버킹엄 궁전 본 교대식은 못 봄. 30분으로 짧음.</p>
+      <p><strong>추천</strong>: 군악대 연주와 행진 체험을 원하면 Wellington Barracks. 말을 좋아하는 아이 + 화려한 정복을 원하면 Horse Guards Parade.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 근위병 흥미 사실들 -->
+<section>
+  <details>
+    <summary>🎩 근위병 재미있는 사실들</summary>
+
+    <div class="story-block">
+      <h4>"Faint to Attention" — 기절에도 규칙이 있다</h4>
+      <p>근위병은 기절 시 "Faint to Attention" 훈련대로 반듯이 앞으로 쓰러지면서 소총을 차렷 자세로 유지한다. 동료 근위병은 쓰러진 동료를 무시하고 행진 — 임무 이탈은 어떤 상황에서도 금지.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>여왕의 침실에 침입한 남자 (1982)</h4>
+      <p>Michael Fagan이 4.3m 궁전 외벽을 넘고 배수관을 타고 올라갔다. 알람이 세 번 울렸지만 경찰은 모두 오작동으로 판단. Fagan은 30분간 궁전을 배회하며 치즈와 크래커를 먹었고, 결국 여왕의 침실까지 도달했다. 여왕이 교환대에 두 번 전화했으나 경찰 미도착. 가정부가 지나가다 겨우 해결. 이것이 첫 번째 침입도 아니었다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>Irish Guards의 마스코트 Seamus</h4>
+      <p>각 근위 연대에는 공식 동물 마스코트가 있다. Irish Guards의 마스코트는 아이리시 울프하운드 Seamus — "작은 말 크기"의 거대한 개가 군악대를 이끌고 행진한다. 운이 좋으면 2/18 교대식에서 볼 수 있다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>근위병이 소리 지를 때</h4>
+      <p>행인이 경로를 막으면: "Make way for the King's Guard!"<br>
+      관광객이 너무 가까이: "Stand back from the King's Guard!"<br>
+      만지려 하면: "Do not touch the King's Guard!" + 발 쾅 구르기.<br>
+      그래도 무시하면 소총을 겨눈다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 연계 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 점심식사</strong> → <strong>웨스트민스터 사원</strong> (12:30~)<br>
+  The Mall → 도보 15분 → 웨스트민스터 사원 방면 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-13
+</div>
+
+</body>
+</html>
