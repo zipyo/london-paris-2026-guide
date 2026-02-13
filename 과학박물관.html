@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>과학박물관 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1565c0;
+    --accent-light: #e3f2fd;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f0f4f8;
+    --space-bg: #0a1628;
+    --space-text: #e0e0e0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Space Section (dark themed) */
+  .space { background: var(--space-bg); color: var(--space-text); }
+  .space h2 { color: #fff; }
+  .space-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .space-card .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .space-card .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .badge-only { background: #ef4444; color: #fff; }
+  .badge-rare { background: #f59e0b; color: #1a1a1a; }
+  .badge-oldest { background: #8b5cf6; color: #fff; }
+  .space-card p { font-size: 13px; color: #d1d5db; margin-bottom: 6px; }
+  .space-card p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+  .route-ext {
+    border: 2px dashed var(--border);
+    background: transparent;
+    box-shadow: none;
+  }
+  .route-ext::before { background: #9ca3af; }
+  .route-ext .time { color: var(--muted); }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Gallery Map Table */
+  .gallery-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .gallery-table th {
+    background: var(--accent);
+    color: #fff;
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .gallery-table td {
+    padding: 7px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .gallery-table tr:nth-child(even) { background: #f9fafb; }
+  .in-route { color: var(--accent); font-weight: 600; }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① HEADER -->
+<div class="header">
+  <h1>과학박물관 <span class="en">Science Museum</span></h1>
+  <p class="oneliner">달 표면 14km까지 갔다 온 Apollo 10이 미국이 아닌 이곳에 있다. 세계에서 가장 오래된 증기기관차, 대서양을 16시간 만에 건넌 폭격기, 200대만 만들어진 최초의 애플 컴퓨터 — 복제품이 아닌 진짜가 모여 있는 곳.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/17(화) 11:30~</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분 (최대 120분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (사전예약)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Exhibition Road</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">South Kensington</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">매일 10:00~18:00</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 기간(2/16~20) — 연중 최고 혼잡. 입장 즉시 Space Gallery 직행 필수</div>
+</div>
+
+<!-- ② 이곳의 이야기 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 이곳의 이야기</h2>
+
+  <div class="story-block">
+    <h4>Apollo 10 "Charlie Brown" — 달에서 14km, 그리고 런던</h4>
+    <p>Ground Floor Space 갤러리에 Apollo 10 사령선이 있다. 미국 밖에서 전시된 유일한 Apollo 캡슐.</p>
+    <p>1969년 5월, Tom Stafford, John Young, Gene Cernan 세 사람이 이 캡슐을 타고 달로 갔다. 두 달 후 있을 Apollo 11 달 착륙의 최종 리허설. 달착륙선 "Snoopy"를 타고 달 표면 14.4km까지 접근했다 — 서울에서 잠실까지보다 가까운 거리에서 달을 봤다.</p>
+    <p>그런데 NASA는 승무원들의 성격을 잘 알고 있었다. Gene Cernan의 회고: "사람들이 우리를 알았다. '저 녀석들에게 기회를 주지 마, 진짜 착륙해버릴 테니까!' 그래서 달착륙선에 연료를 절반만 넣었다." 착륙하고 싶어도 물리적으로 불가능하게 만든 것이다.</p>
+    <p>돌아오는 길에 아찔한 사고가 있었다. 달 근접 비행 후 상승하는데, 스위치 조작 실수로 달착륙선이 미친 듯이 회전하기 시작했다. Cernan이 놀라 욕을 내뱉은 순간이 전 세계에 생중계되었다. Stafford가 수동 조종으로 몇 초 만에 바로잡았지만, 기체가 한 바퀴만 더 돌았으면 달에 추락했을 상황이었다.</p>
+    <p>지구 귀환 시 이 캡슐은 시속 39,897km를 기록했다. 기네스북 공인, 인류가 탑승한 우주선의 최고 속도. 이후 어떤 Apollo 미션도 이 기록을 깨지 못했다. 대기권 재진입 시 열 방패 온도 5,000°C — 그 그을린 자국이 55년이 지난 지금도 그대로 남아 있다.</p>
+    <p>왜 미국이 아닌 런던에? 1970년대 냉전 시대, 미국이 유럽 순회 전시용으로 보냈다. 프랑스, 네덜란드, 심지어 소련까지 돌다가 1976년 런던에 도착. 7톤짜리 우주선을 다시 옮기려면 비용이 너무 컸다. 그래서 그냥 런던에 남았다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>16시간의 도박 — Vickers Vimy</h4>
+    <p>3층 Flight 갤러리 천장에 매달린 커다란 쌍발 비행기. 이것이 Vickers Vimy다.</p>
+    <p>1919년, Daily Mail이 상금 10,000파운드(현재 가치 약 1억 원)를 내걸었다. "대서양을 무착륙으로 건너는 최초의 비행사에게." 1차 대전 참전 후 전쟁포로까지 경험한 John Alcock 대위와 Arthur Brown 중위가 도전했다. 비행기는 원래 폭격기. 폭탄 거치대를 떼어내고 3,975리터 연료 탱크를 달았다.</p>
+    <p>6월 14일 뉴펀들랜드 출발. 짙은 안개, 결빙, 눈, 난기류. Alcock이 기체 통제를 잃어 바다에 추락할 뻔한 순간이 두 번. 공기 흡입구가 얼어붙자 Brown이 시속 120km로 날고 있는 비행기의 엔진 위에 올라가 맨손으로 얼음을 긁어냈다.</p>
+    <p>16시간 27분 후 아일랜드 해안이 보였다. 초록 들판처럼 보인 곳에 내렸는데, 늪이었다. 비행기가 코부터 박혔지만 두 사람은 무사. 상금과 기사 작위를 받았다.</p>
+    <p>비행기 옆에 작은 검은 고양이 봉제인형이 있다. Alcock의 행운 부적 "Lucky Jim". 2024년 보존 처리 후 105년 만에 비행기와 다시 만났다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Albertopolis — 이 동네가 존재하는 이유</h4>
+    <p>자연사박물관에서 5분 걸어서 왔다면, 같은 이야기의 연장이다.</p>
+    <p>1851년, 빅토리아 여왕의 남편 앨버트 공이 하이드파크에서 세계 최초의 만국박람회를 열었다. 141일간 600만 명이 다녀갔고, 186,000파운드 흑자. 앨버트는 이 돈으로 South Kensington 30에이커를 사들였다. "국민을 위한 학교"를 짓겠다는 비전.</p>
+    <p>그 땅 위에 세워진 것: 아까 본 자연사박물관, V&A 미술관, 지금 서 있는 이 과학박물관, 임페리얼 칼리지 런던. 사람들은 이 일대를 "Albertopolis"라고 부르기 시작했다. 175년 전 한 박람회의 수익금에서 모두 태어난 것이다.</p>
+  </div>
+</section>
+
+<!-- ③ 여기서만 볼 수 있는 것들 -->
+<section class="space">
+  <h2><span class="icon">🔭</span> 여기서만 볼 수 있는 것들</h2>
+
+  <div class="space-card">
+    <div class="title">Apollo 10 사령선 "Charlie Brown"</div>
+    <span class="badge badge-only">미국 밖 유일한 Apollo</span>
+    <p>인류 최고 속도(시속 39,897km) 기록 보유. 55년 전 대기권 재진입 시 5,000°C를 견딘 열 방패의 그을린 자국이 눈앞에.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Soyuz TMA-19M</div>
+    <span class="badge badge-only">Tim Peake 귀환 실물</span>
+    <p>영국 최초 ESA 우주비행사 Tim Peake가 ISS에서 186일을 보내고 귀환한 실제 캡슐. 1,500°C 재진입 흔적이 그대로. Apollo 10 옆에 나란히 — 미국과 러시아 우주선을 동시에 비교할 수 있는 세계 유일한 장소.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Neil Armstrong 무선 헤드셋 + 달 암석</div>
+    <span class="badge badge-rare">극희귀 실물</span>
+    <p>1969년 Apollo 11 달 착륙 시 Armstrong이 착용한 실물 헤드셋. 옆에는 Apollo 15가 가져온 30억 년 된 달 조각.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Puffing Billy (1813)</div>
+    <span class="badge badge-oldest">세계 최고(最古) 증기기관차</span>
+    <p>210년 전 탄광에서 석탄을 실어나르던 기관차. 세계에서 가장 오래된 현존 증기기관차가 산업혁명의 시작점에 서 있다.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Apple I Computer (1976)</div>
+    <span class="badge badge-rare">전 세계 ~70대 현존</span>
+    <p>Steve Jobs가 폭스바겐 밴을 팔아 만든 최초의 애플 컴퓨터. 약 200대 생산, 현재 가치 한 대에 12억 원. 키보드도 모니터도 케이스도 없는 기판 상태로 $666.66에 판매되었다.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Vickers Vimy (1919)</div>
+    <span class="badge badge-only">대서양 횡단 실물</span>
+    <p>사상 최초로 대서양을 무착륙 횡단한 실제 비행기. 옆에는 105년 만에 재회한 행운의 고양이 인형 Lucky Jim.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Amy Johnson의 "Jason" (1930)</div>
+    <span class="badge badge-only">실물</span>
+    <p>26세 여성 Amy Johnson이 영국에서 호주까지 19.5일, 11,000마일을 단독 비행한 실제 비행기. 600파운드(중고)에 산 비행기로 역사를 만들었다.</p>
+  </div>
+
+  <div class="space-card">
+    <div class="title">Supermarine S6B (1931)</div>
+    <span class="badge badge-only">Spitfire의 직계 조상</span>
+    <p>시속 655km 세계 기록을 세운 수상비행기. 설계자 R.J. Mitchell이 이 기체의 경험으로 2차 대전의 전설 Spitfire를 만들었다. 같은 갤러리에 실물 Spitfire도 매달려 있다.</p>
+  </div>
+</section>
+
+<!-- ④ Must-See 동선 -->
+<section>
+  <h2><span class="icon">🗺️</span> Must-See 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">11:30</div>
+      <div class="name">① Space Gallery (Ground Floor 후방)</div>
+      <div class="desc">입장 즉시 Stair/Lift C 방향으로 직행. Apollo 10 사령선(그을린 열 방패 관찰) → Soyuz와 크기 비교 → Neil Armstrong 헤드셋 → 달 암석.</div>
+      <div class="highlight">25분 · 중앙홀 우회, "Space" 표지판 따라 후방 직행</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:55</div>
+      <div class="name">② Making the Modern World (Ground Floor)</div>
+      <div class="desc">Puffing Billy(1813년, 세계 최고(最古) 증기기관차) → Apple I(기판만 있는 최초 애플 컴퓨터). 산업혁명부터 디지털 시대까지 "진짜"가 한 줄로 서 있는 갤러리.</div>
+      <div class="highlight">15분 · Space Gallery에서 바로 연결</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:10</div>
+      <div class="name">③ Flight Gallery (3층)</div>
+      <div class="desc">엘리베이터로 3층 직행. Vickers Vimy(대서양 횡단 폭격기) + Lucky Jim(고양이 인형) → Amy Johnson의 "Jason" → Supermarine S6B(Spitfire의 조상) → 실물 Spitfire & Hurricane. 천장에 매달린 실물 항공기 21대를 오버헤드 워크웨이에서 가까이.</div>
+      <div class="highlight">25분 · 비교적 한산한 층</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:35</div>
+      <div class="name">④ 기념품샵 또는 여유 관람</div>
+      <div class="desc">Ground Floor 기념품샵(우주 피규어, NASA 굿즈). 또는 아이 반응에 따라 Space Gallery 재방문.</div>
+      <div class="highlight">15분 · 아이 컨디션에 맞게</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:50</div>
+      <div class="name">퇴장 → 점심</div>
+      <div class="desc">Exhibition Road 출구 → 인근 식당가 이동.</div>
+      <div class="highlight">기본 코스 종료</div>
+    </div>
+
+    <!-- 연장 -->
+    <div class="route-stop route-ext">
+      <div class="time">연장 시</div>
+      <div class="name">⑤ Energy Hall (1층)</div>
+      <div class="desc">산업혁명 시대 실물 대형 증기기관들. Puffing Billy의 후손 격.</div>
+      <div class="highlight">+10분</div>
+    </div>
+
+    <div class="route-stop route-ext">
+      <div class="time">연장 시</div>
+      <div class="name">⑥ Information Age (2층)</div>
+      <div class="desc">전신, 전화, 인터넷 200년사. Ground Floor보다 한산.</div>
+      <div class="highlight">+15분 · 13:15 퇴장</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도 피크</div>
+    Space Gallery 12:00~15:00 / Ground Floor 중앙 12:00~14:00.<br>
+    우리 동선은 11:30 입장으로 피크 전에 핵심 관람 완료.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">입구 & 동선</div>
+    <strong>Exhibition Road 메인 입구</strong> 이용. 입장 후 중앙홀 우회, Stair/Lift C로 후방 Space Gallery 직행.<br>
+    중앙홀은 혼잡 병목 — 지나가지 않는 게 핵심.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① Apollo 10 열 방패 그을린 자국 클로즈업<br>
+    ② Apollo 10과 Soyuz 사이에서 크기 비교<br>
+    ③ Vickers Vimy 아래에서 올려다보기 (광각 필수)<br>
+    ④ Puffing Billy 앞에서 (세계 최고(最古)와 함께)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">과감히 스킵</div>
+    <strong>Wonderlab</strong> (유료, 90분 필요 — 한국 과학관 체험과 유사)<br>
+    <strong>Power Up</strong> (게임존 — 어디서나 가능)<br>
+    <strong>Who Am I?</strong> (인터랙티브 체험 — 한국 과학관에도 있음)<br>
+    <strong>IMAX</strong> (별도 시간 필요)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">근처 식사</div>
+    박물관 내 카페는 비싸고 혼잡. 퇴장 후 Exhibition Road 또는 Gloucester Road 방면 식당가에서 점심 추천.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Ground Floor 입구 근처 + 각 층 엘리베이터 근처. Space Gallery 가기 전에 미리 다녀올 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">아이가 피곤하면</div>
+    3층 Flight Gallery 생략 → Ground Floor(Space Gallery + Making the Modern World)에 집중. 60분이면 핵심 완료.
+  </div>
+
+  <h3>출발 전 체크리스트</h3>
+  <div class="checklist">
+    <label><input type="checkbox"> 예약 확인서 저장 (11:15~11:45 입장)</label>
+    <label><input type="checkbox"> 자연사박물관 Cromwell Road 출구 → Exhibition Road 북쪽 도보 5분 경로 확인</label>
+    <label><input type="checkbox"> 가벼운 크로스백 (짐 보관 대기줄 회피)</label>
+    <label><input type="checkbox"> 충전된 스마트폰 (사진 촬영 많음)</label>
+  </div>
+</section>
+
+<!-- Tim Peake 더 알아보기 -->
+<section>
+  <details>
+    <summary>🚀 Tim Peake — 우주에서 마라톤을 뛴 사람</summary>
+
+    <div class="story-block">
+      <h4>영국 최초의 ESA 우주비행사</h4>
+      <p>Tim Peake는 전직 영국 육군 헬리콥터 조종사 출신. 2015년 12월 15일 카자흐스탄 바이코누르에서 Soyuz를 타고 ISS로 향했다. 미션명 "Principia"는 뉴턴의 『프린키피아』에서 따왔다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>암흑 속의 수리</h4>
+      <p>2016년 1월 15일, 영국인 최초로 ISS 선외활동(EVA)에 나섰다. 고장난 태양전지판 전압조절기를 교체하는 임무. 감전 위험 때문에 완전한 암흑 속에서 작업해야 했다. 총 4시간 43분.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>우주에서 뛴 런던 마라톤</h4>
+      <p>2016년 4월 24일, ISS의 트레드밀 위에서 런던 마라톤 42.195km를 완주했다. 우주에서 마라톤을 뛴 최초의 남성. 그가 뛰는 동안 지구에서는 실제 런던 마라톤이 진행되고 있었다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>130만 명이 본 귀환선</h4>
+      <p>186일간의 임무를 마치고 2016년 6월 18일 Soyuz로 귀환. 이 캡슐은 이후 영국 전역 20개월 순회 전시에서 130만 명이 관람했다. 지금은 Apollo 10 옆, 이 박물관의 Space Gallery에 있다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 층별 갤러리 맵 -->
+<section>
+  <details>
+    <summary>층별 갤러리 맵 펼치기</summary>
+    <table class="gallery-table">
+      <tr><th>층</th><th>갤러리</th><th>핵심 전시</th><th>동선</th></tr>
+      <tr><td rowspan="3">Ground</td><td>Space Gallery</td><td>Apollo 10, Soyuz, 달 암석</td><td class="in-route">①</td></tr>
+      <tr><td>Making the Modern World</td><td>Puffing Billy, Apple I</td><td class="in-route">②</td></tr>
+      <tr><td>Future of Food</td><td>미래 식량 전시 (무료)</td><td>여유 시</td></tr>
+      <tr><td rowspan="2">1F</td><td>Who Am I?</td><td>뇌·신체 인터랙티브</td><td>스킵</td></tr>
+      <tr><td>Energy Hall</td><td>산업혁명 증기기관</td><td>연장</td></tr>
+      <tr><td>2F</td><td>Information Age</td><td>통신 기술 200년사</td><td>연장</td></tr>
+      <tr><td>3F</td><td>Flight Gallery</td><td>Vickers Vimy, Spitfire 등 21대</td><td class="in-route">③</td></tr>
+      <tr><td rowspan="3">B1</td><td>Wonderlab (유료)</td><td>인터랙티브 과학 체험</td><td>스킵</td></tr>
+      <tr><td>Power Up</td><td>게임 체험</td><td>스킵</td></tr>
+      <tr><td>The Garden</td><td>유아 놀이 (3~6세)</td><td>스킵</td></tr>
+    </table>
+
+    <div style="margin-top:16px; font-size:12px; color:#6b7280;">
+      <strong>2025~2026 변화:</strong>
+      새 Space Gallery 개관 (2025 가을, Apollo 10 + Soyuz 나란히 전시) · Future of Food 전시 (~2026.09) · Water Pantanal Fire 사진전 (2026.02~05, 무료)
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 연계 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 점심식사</strong><br>
+  Exhibition Road 출구 → 인근 식당가로 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-13
+</div>
+
+</body>
+</html>
