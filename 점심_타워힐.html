@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/20 점심 · Tower Hill</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-french { background: #ede9fe; color: #5b21b6; }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>2/20 점심식사 <span class="sub">Tower Hill</span></h1>
+  <div class="context">
+    런던 타워(~12:00) 나온 뒤 → 점심 → 13:00 타워 브리지 이동<br>
+    Tower Hill · St Katharine Docks 도보 10분 이내 식당 5곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">12:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">런던 타워 출구</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">13:00 타워 브리지</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 마지막 날 (2/16~20) — Tower Hill 관광지 점심시간 매우 혼잡. 예약 가능한 곳은 미리 예약 필수!</div>
+</div>
+
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">PizzaExpress</td>
+        <td>피자</td>
+        <td>~£41</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Cote Brasserie</td>
+        <td>프렌치</td>
+        <td>~£42</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Cafe Rouge</td>
+        <td>프렌치</td>
+        <td>~£32</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">The Dickens Inn</td>
+        <td>영국 펍</td>
+        <td>~£47+</td>
+        <td style="color:var(--muted)">Walk-in</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Emilia's Pasta</td>
+        <td>수제 파스타</td>
+        <td>~£48</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. PizzaExpress -->
+  <div class="restaurant pick">
+    <div class="pick-badge">접근성 + 가성비 추천</div>
+    <div class="rest-header">
+      <div class="rest-name">PizzaExpress Tower Hill</div>
+      <span class="rest-cuisine cuisine-pizza">나폴리 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">2분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Half Term 키즈 무료!</span>
+      <span class="tag tag-good">런던 타워에서 가장 가까움</span>
+      <span class="tag tag-info">PizzaExpress Club 앱 필요</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Sloppy Giuseppe 피자</span><span class="price">£17.95</span></div>
+        <div class="menu-line"><span class="item">American 피자</span><span class="price">£16.75</span></div>
+        <div class="menu-line"><span class="item">Piccolo 키즈세트 (Half Term 무료!)</span><span class="price" style="color:var(--green)">£0</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£6.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£41</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.com/r/pizzaexpress-london-tower-hill-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=PizzaExpress,+1+Byward+Street,+London+EC3R+5AS" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Cote Brasserie -->
+  <div class="restaurant pick">
+    <div class="pick-badge" style="background:var(--green);">키즈 2코스 단돈 £1!</div>
+    <div class="rest-header">
+      <div class="rest-name">Cote Brasserie</div>
+      <span class="rest-cuisine cuisine-french">프렌치 브라세리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">7분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">08:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">2/16~20 키즈 2코스 £1</span>
+      <span class="tag tag-good">마리나뷰 테라스</span>
+      <span class="tag tag-info">Cote 앱 다운로드 필요</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Poulet Breton Roti (로스트 치킨)</span><span class="price">£17.75</span></div>
+        <div class="menu-line"><span class="item">Cote Burger</span><span class="price">£16.25</span></div>
+        <div class="menu-line"><span class="item">키즈 2코스 (Half Term £1!)</span><span class="price" style="color:var(--green)">£1.00</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£42</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.co.uk/r/cote-brasserie-st-katharine-docks-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Cote+Brasserie,+1+St+Katharine's+Way,+London+E1W+1UN" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Cafe Rouge -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Cafe Rouge</div>
+      <span class="rest-cuisine cuisine-french">프렌치 캐주얼</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">08:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">상시 키즈 무료 (매일 12~4pm)</span>
+      <span class="tag tag-good">앱 가입 불필요</span>
+      <span class="tag tag-info">워터프론트 테라스</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Demi Poulet (하프 치킨)</span><span class="price">£12.95</span></div>
+        <div class="menu-line"><span class="item">Rouge Burger</span><span class="price">£12.35</span></div>
+        <div class="menu-line"><span class="item">Kids 3코스+음료 (12~4pm 무료!)</span><span class="price" style="color:var(--green)">£0</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£32</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.caferouge.com/restaurants/london/st-katherine-docks" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Cafe+Rouge,+St+Katharine+Dock,+London+E1W+1AN" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. The Dickens Inn -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">The Dickens Inn</div>
+      <span class="rest-cuisine cuisine-british">영국 펍</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">09:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--muted)">Walk-in</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">18세기 역사 건물 (Grade II)</span>
+      <span class="tag tag-good">정통 Fish & Chips</span>
+      <span class="tag tag-warn">키즈 프로모 없음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Fish & Chips</span><span class="price">£19.95</span></div>
+        <div class="menu-line"><span class="item">Bangers & Mash</span><span class="price">£16.95</span></div>
+        <div class="menu-line"><span class="item">키즈 메뉴 (가격 현장 확인)</span><span class="price">별도</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£10.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£47+</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불필요 · Walk-in</span>
+      <a href="https://maps.google.com/?q=The+Dickens+Inn,+St+Katharine+Docks,+London+E1W+1UH" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 5. Emilia's Crafted Pasta -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Emilia's Crafted Pasta</div>
+      <span class="rest-cuisine cuisine-italian">수제 파스타</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~21:45</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">매일 수제 생면</span>
+      <span class="tag tag-good">오픈키친 파스타 제조 관람</span>
+      <span class="tag tag-warn">키즈 프로모 없음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Truffled Cacio e Pepe (casarecce)</span><span class="price">~£15.00</span></div>
+        <div class="menu-line"><span class="item">Bolognese (pappardelle)</span><span class="price">~£14.00</span></div>
+        <div class="menu-line"><span class="item">Pomodoro (radiatori)</span><span class="price">~£12.00</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£48</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.co.uk/r/emilias-crafted-pasta-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Emilia's+Crafted+Pasta,+St+Katharine+Docks,+London+E1W+1AT" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">Half Term 앱 미리 준비!</div>
+    PizzaExpress Kids Eat Free → PizzaExpress Club 앱 사전 가입 (무료).<br>
+    Cote 키즈 £1 → Cote 앱 다운로드 필수.<br>
+    Cafe Rouge는 별도 앱 없이 키즈 무료 이용 가능 (매일 12~4pm).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    런던 타워 서쪽 출구(Byward Street) → PizzaExpress 2분.<br>
+    동쪽 출구 → St Katharine Docks (Cote, Cafe Rouge, Dickens Inn, Emilia's) 5~8분.<br>
+    어느 식당이든 식사 후 타워 브리지까지 도보 5~8분.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025~2026년 확인 기준이며, 방문 시점에 소폭 인상될 수 있습니다.
+    런던 레스토랑 대부분 서비스 차지 12.5%가 자동 추가됩니다.
+    합계에는 서비스 차지 미포함이므로, 실제 결제 시 +12.5% 예상하세요.
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 타워 브리지 (13:00)</strong><br>
+  도보 이동 · 어느 식당이든 5~8분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
