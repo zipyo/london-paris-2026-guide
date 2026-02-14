@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>픽처 갤러리 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #002147;
+    --accent-light: #e8edf4;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #002147 0%, #1a3a5c 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>픽처 갤러리 <span class="en">Christ Church Picture Gallery</span></h1>
+  <p class="oneliner">18세기 군인이 전쟁터에서 모은 다빈치·라파엘로 — 절반이 땅속에 숨겨진 비밀 미술관</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/23(월) 11:15</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">30분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">£3/인 (CC 티켓 소지)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Canterbury Gate (별도 입구)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">월 11:00~17:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">현재 전시</span>
+      <span class="value">흑백 드로잉 특별전 (~3월)</span>
+    </div>
+  </div>
+  <div class="info-warn">갤러리 내 사진 촬영 금지 — 눈으로 감상하고 기억에 담기</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>전쟁터를 누빈 군인의 마지막 선물</h4>
+    <p>존 가이즈(John Guise) 장군은 18세기 초 스페인 왕위계승전쟁 등으로 유럽 전역에 배치되면서 틈틈이 미술품을 수집했다. 말버러 공작 휘하에서 우데나르더 전투(1708)에 참전하기도 한 역전의 군인이었다.</p>
+    <p>1765년, 아내와 아들을 모두 먼저 떠나보낸 장군은 자신이 평생 모은 200점의 회화와 2,000점의 드로잉을 전부 모교 크라이스트 처치에 기증했다. 그 속에 다빈치, 라파엘로, 미켈란젤로가 있었다. 덕분에 옥스포드 학생들은 이탈리아까지 가지 않고도 르네상스 명작을 직접 공부할 수 있게 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>사다리, 깨진 유리, 빈 액자</h4>
+    <p>2020년 3월 14일 밤 11시, 도둑들이 근처에서 훔친 사다리로 갤러리 지붕에 올라가 천창을 깨고 침입했다. 반 다이크의 "말 위의 군인", 카라치의 "물 마시는 소년", 살바토르 로사의 풍경화 — 세 점을 액자에서 빼내 캔버스만 들고 템즈강 보트로 도주한 것으로 추정된다. 피해 추정액 1,000만 파운드(약 170억 원).</p>
+    <p>갤러리는 부서진 액자를 복원해 <strong>원래 자리에 빈 채로 다시 걸었다</strong>. 4년 뒤인 2024년, 로사의 풍경화 한 점이 루마니아에서 발견되어 돌아왔지만, 나머지 두 점은 아직 행방불명이다. 갤러리에는 지금도 빈 액자가 걸려 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>정육점 그림이 미술사를 바꾸다</h4>
+    <p>안니발레 카라치의 "정육점(The Butcher's Shop)"은 이 갤러리의 대표작이다. 가로 2.7미터의 대형 캔버스에 고기를 자르고, 저울에 달고, 양을 도살하는 정육점 풍경이 그려져 있다.</p>
+    <p>1580년대, 화가가 그릴 만한 "격조 있는" 주제는 종교화나 신화뿐이었다. 카라치는 일상의 노동을 기념비적 스케일로 그린 최초의 화가였고, 이 한 점이 유럽 장르화의 문을 열었다. 자세히 보면 저울에 고기를 다는 장면은 최후의 심판에서 영혼을 재는 대천사 미카엘을, 전면의 도살된 양은 그리스도를 상징한다는 해석도 있다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">11:15</div>
+      <div class="name">① The Butcher's Shop (정육점)</div>
+      <div class="desc">입장 직후 가장 눈에 띄는 대형 작품. 500년 전 진짜 고기 자르는 장면을 이 크기로 그린 것은 당시 파격이었다. 벽 한 면을 차지하는 스케일에 압도된다.</div>
+      <div class="highlight">5분 · 갤러리 하이라이트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:20</div>
+      <div class="name">② 빈 액자들 (Empty Frames)</div>
+      <div class="desc">2020년 도난 사건의 흔적. 반 다이크와 카라치 작품이 걸려 있던 자리에 복원된 빈 액자가 남아 있다. 작품의 부재가 오히려 강렬한 존재감을 만든다.</div>
+      <div class="highlight">5분 · "원래 여기 뭐가 있었는지" 이야기해 주기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:25</div>
+      <div class="name">③ 특별전: "It's not just black and white"</div>
+      <div class="desc">2025.11~2026.3 진행 중인 르네상스·바로크 드로잉 전시. 레오나르도, 틴토레토, 카라치 등의 초크·목탄 드로잉. 빛에 약한 종이 작품이라 3개월마다 교체 — 이번 방문에서만 볼 수 있는 작품들.</div>
+      <div class="highlight">10분 · 다빈치 드로잉을 직접 볼 기회</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:35</div>
+      <div class="name">④ 상설 회화 컬렉션 + 퇴장</div>
+      <div class="desc">이탈리아 르네상스 회화를 빠르게 둘러보고 기프트샵 경유 후 퇴장. Canterbury Gate로 나와 Weston Library 방향으로 이동.</div>
+      <div class="highlight">10분 · 11:45 Duke Humfrey's Library 목표</div>
+    </div>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영 금지</div>
+    갤러리 내부 촬영 불가. 스케치는 허용되나 연필만 가능. 작품을 눈에 담아오자.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    소규모 갤러리라 한산할 때가 많다. 월요일 11시대는 특히 여유로워 작품 앞에서 천천히 감상 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">입구 주의</div>
+    Christ Church 본관 입구(Meadow Gate)와 <b>완전히 다른 입구</b>. Canterbury Gate(Oriel Square, King Edward Street 쪽)로 진입. Christ Church에서 나온 뒤 외부를 돌아가야 한다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">건물 자체가 볼거리</div>
+    1968년 Powell & Moya가 설계한 모더니스트 건물로, 절반이 땅속에 묻혀 있다. 밖에서 보면 정원인데 그 밑에 미술관이 숨어 있는 구조. 천창으로 자연광이 들어온다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    갤러리 내부에 일반 화장실 있음 (휠체어 접근 불가). 크라이스트 처치 Visitor Centre 화장실이 더 넓고 기저귀 교환대도 있다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> Christ Church 티켓 소지 확인 (할인 £3 적용)</label>
+    <label><input type="checkbox"> 갤러리 내 촬영 금지 — 폰 주머니에</label>
+    <label><input type="checkbox"> Canterbury Gate 위치 확인 (Oriel Square 쪽)</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: Duke Humfrey's Library 투어 시도</strong> (11:45)<br>
+  Canterbury Gate → Catte Street → Weston Library (도보 5분). HP 도서관 금지구역 촬영지. £12.50/인, 30분, 현장 구매. 매진 시 바로 점심 이동.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
