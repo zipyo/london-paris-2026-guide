@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>템즈강변 야경 산책 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1e3a5f;
+    --accent-light: #e8eef5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f4f1eb;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #0f2027 0%, #1e3a5f 50%, #2c5364 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>템즈강변 야경 산책 <span class="en">Thames Riverside Night Walk</span></h1>
+  <p class="oneliner">2,000년 역사가 흐르는 강. 로마 병사가 다리를 놓고, 바이킹이 무너뜨리고, 강이 얼어붙어 축제가 열렸던 곳을 야경과 함께 걷는다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/16(월) 20:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">약 60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">호텔(Trafalgar Sq)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">거리</span>
+      <span class="value">약 2.5km (루프)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">일몰</span>
+      <span class="value">17:17 (완전 야경)</span>
+    </div>
+  </div>
+  <div class="info-warn">2월 저녁 기온 2~4°C + 강바람 → 방풍 외투·장갑·모자 필수</div>
+</div>
+
+<!-- ── ② 왜 유명한가 ── -->
+<section class="story">
+  <h2><span class="icon">📖</span> 템즈강 이야기</h2>
+
+  <div class="story-block">
+    <h4>런던이 시작된 자리</h4>
+    <p>AD 43년, 클라우디우스 황제의 로마군이 브리타니아를 침공했을 때, 퇴각하는 켈트 부족을 추격하다 템즈강 앞에서 멈춰 섰다. 강을 건널 수 있는 가장 좁은 지점에 나무 다리를 놓았고, 그 다리를 지키기 위해 세운 작은 요새가 '론디니움(Londinium)' — 지금의 런던이다.</p>
+    <p>1981년 런던 브리지 근처에서 실제로 로마 교각 기초가 발굴되었다. 지금 런던 브리지 위에 서면, 거의 2,000년 전 로마 병사가 나무 다리를 놓았던 바로 그 자리다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"London Bridge Is Falling Down"의 진짜 이야기</h4>
+    <p>1014년, 앵글로색슨 왕 에셀레드가 왕좌를 되찾기 위해 노르웨이의 올라프 하랄드손과 동맹을 맺었다. 올라프의 작전: 뗏목에 초가지붕을 덮어 화살 방어막을 만들고, 템즈강을 따라 내려가 다리 기둥에 밧줄을 감은 뒤, 힘껏 당겨 다리를 무너뜨렸다.</p>
+    <p>이 이야기가 노르드 사가에 기록되었고, 19세기에 영어로 번역되면서 동요 "London Bridge is falling down"과 연결되었다. 중세 런던 브리지 위에는 140채의 건물과 551명의 주민이 살았으며, 다리 남쪽 문루에는 반역자의 잘린 머리가 전시되기도 했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>강이 얼어 축제를 열다 — 프로스트 페어</h4>
+    <p>소빙기(Little Ice Age) 동안 템즈강은 여러 차례 완전히 얼어붙었다. 1814년 2월, 마지막 프로스트 페어가 열렸을 때 — 코끼리 한 마리가 블랙프라이어스 다리 아래 얼음 위를 걸어 건넜고, 인쇄업자 조지 데이비스는 아예 얼음 위에서 책을 조판하여 인쇄했다.</p>
+    <p>이후 기후가 따뜻해지고, 옛 다리를 철거하면서 강의 유속이 빨라져 더 이상 얼지 않게 되었다. 지금 우리가 걷는 이 강은 200년 전만 해도 사람들이 위에서 축제를 벌이던 곳이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>대악취가 만든 현대 도시</h4>
+    <p>1858년 여름, 템즈강으로 흘러든 미처리 하수가 폭염에 발효되면서 런던 전체가 악취에 뒤덮였다. 강 바로 옆에 있던 국회의사당 의원들이 석회 적신 커튼으로 막아보았지만 소용없었고, 결국 수십 년간 미뤄두었던 하수도 개혁을 단 18일 만에 통과시켰다.</p>
+    <p>토목기사 조셉 바잘게트가 132km의 지하 벽돌 하수도를 건설했는데, 그 과정에서 만든 것이 바로 지금 우리가 걷는 빅토리아 엠뱅크먼트(Victoria Embankment)다. 이 둑길 아래에 160년 된 하수도가 지금도 작동 중이다.</p>
+  </div>
+</section>
+
+<!-- ── ③ 핵심 포인트 ── -->
+<section>
+  <h2><span class="icon">🗺️</span> 산책 코스</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">20:00</div>
+      <div class="name">① 호텔 출발 → 웨스트민스터 브리지</div>
+      <div class="desc">호텔에서 도보 10분. Whitehall을 따라 남쪽으로 걸으면 빅벤이 정면에 나타난다. 웨스트민스터 브리지 남단에서 빅벤 + 국회의사당의 조명 전경을 감상.</div>
+      <div class="highlight">도보 10분 · 1802년 시인 워즈워스가 이 다리 위에서 "세상에 이보다 아름다운 것은 없다"고 시를 썼다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:10</div>
+      <div class="name">② 사우스뱅크 진입 → 런던 아이</div>
+      <div class="desc">다리를 건너 사우스뱅크(Queen's Walk)로. 오른쪽에 런던 아이 조명이 보이고, 뒤돌아보면 국회의사당이 강 너머로 빛난다. Illuminated River 프로젝트 — 9개 다리에 설치된 LED 아트가 매일 일몰~새벽 2시까지 점등.</div>
+      <div class="highlight">도보 5분 · 런던 아이 + 빅벤 양방향 포토 스팟</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:15</div>
+      <div class="name">③ 사우스뱅크 센터 → 워터루 브리지</div>
+      <div class="desc">Royal Festival Hall 앞을 지나며 동쪽으로. 겨울에도 거리 공연이 가끔 있다. 워터루 브리지는 "숙녀들의 다리(The Ladies' Bridge)" — 2차 대전 때 남자들이 전쟁에 나가자 350명의 여성이 용접과 콘크리트 작업으로 이 다리를 지었다. 개통식에서 아무도 그 이야기를 하지 않았고, 70년이 지나 옛 신문 사진에서 비로소 증거가 발견되었다.</div>
+      <div class="highlight">도보 5분 · 워터루 브리지 위에서 동쪽(시티 스카이라인) + 서쪽(빅벤+런던아이) 양방향 파노라마</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:25</div>
+      <div class="name">④ OXO 타워 → 밀레니엄 브리지</div>
+      <div class="desc">강변을 따라 동쪽으로 계속. 테이트 모던 앞을 지나면 밀레니엄 브리지가 나온다. 2000년 개장일에 90,000명이 건너면서 좌우로 70mm씩 흔들려 이틀 만에 폐쇄 — 런던 시민들은 아직도 "Wibbly Wobbly Bridge"라 부른다. 해리포터 영화 '혼혈 왕자' 오프닝에서 데스이터들이 이 다리를 파괴하는 장면이 촬영되었다.</div>
+      <div class="highlight">도보 10분 · 밀레니엄 브리지 위에서 세인트 폴 대성당 정면 뷰</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:35</div>
+      <div class="name">⑤ 밀레니엄 브리지 → 세인트 폴 대성당</div>
+      <div class="desc">밀레니엄 브리지를 건너 북쪽으로. 다리 위에서 세인트 폴 대성당이 정면으로 다가온다. 1940년 12월 블리츠 폭격 때 10만 발의 소이탄이 런던에 쏟아졌지만, 템즈강 소방선이 강물을 퍼 올려 이 성당을 지켜냈다.</div>
+      <div class="highlight">도보 5분 · 다리 위 "빛의 칼날" LED 조명 + 성당 야경</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:45</div>
+      <div class="name">⑥ 복귀 → 호텔</div>
+      <div class="desc">세인트 폴 대성당에서 St Paul's역 → Central Line으로 1정거장(Tottenham Court Road) → 도보 10분. 또는 택시/버스로 Trafalgar Square까지 약 10분.</div>
+      <div class="highlight">지하철 or 택시 약 15분 · 21:00 호텔 도착</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ⑤ 꿀팁 ── -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    1. <strong>웨스트민스터 브리지 남단</strong> — 빅벤 + 국회의사당 전경, 보트 지나갈 때 광적(light trail) 촬영<br>
+    2. <strong>밀레니엄 브리지 위</strong> — 세인트 폴 대성당 정면 + 테이트 모던 양방향<br>
+    3. <strong>워터루 브리지 위</strong> — 런던 최고의 파노라마 (동쪽 시티 + 서쪽 빅벤)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 대비</div>
+    2월 저녁 기온 2~4°C, 강바람으로 체감온도는 더 낮음. 방풍 외투, 장갑, 모자 필수. 아이 핫초코는 Southbank Centre 내 카페 또는 OXO Tower 근처에서 구입 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">따뜻한 음료 쉼터</div>
+    <strong>Royal Festival Hall</strong> (Southbank Centre) — 실내 무료 입장, 카페 운영. 추위를 잠깐 피하기 좋다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Royal Festival Hall 내부(무료, 깨끗), National Theatre 내부. 사우스뱅크 구간에서 가장 접근성 좋은 두 곳.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Illuminated River</div>
+    아티스트 레오 빌라리얼이 설계한 LED 조명 아트. 매일 일몰~새벽 2시, 9개 다리에 걸쳐 5.1km — 세계 최장 공공예술 중 하나. 각 다리마다 조명 색과 패턴이 다르다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">머드라킹 이야기</div>
+    템즈강 갯벌에서 로마 동전, 중세 도자기 조각이 발견된다. 빅토리아 시대에는 가난한 아이들이 썰물 때 강바닥에서 석탄과 철을 주워 생계를 이었다. 지금은 허가를 받아 아마추어 고고학 취미로 즐기는 사람들이 있다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 방풍 외투 + 장갑 + 모자 착용</label>
+    <label><input type="checkbox"> 스마트폰 충전 (야경 사진용)</label>
+    <label><input type="checkbox"> 호텔 카드키 소지 확인</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 호텔 복귀 후 휴식</strong><br>
+  내일(2/17 화) 09:30 사우스켄싱턴 출발 — 자연사박물관 + 과학박물관.
+  긴 비행 후 첫날이니 푹 쉬기!
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
