@@ -225,6 +225,55 @@
   }
   .home-link:hover { color: #fff; }
   .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ── 작품 카드 ── */
+  .artwork-list { background: var(--accent-light); }
+  .artwork {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--accent);
+  }
+  .artwork .art-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .artwork h4 { font-size: 14px; font-weight: 700; }
+  .artwork .artist {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .artwork .art-meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .artwork p {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+  .artwork p:last-child { margin-bottom: 0; }
+  .artwork .kid-note {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+  }
+  .artwork.stolen {
+    border-left-color: var(--warn);
+    background: #fffbfb;
+  }
+  .artwork.stolen h4 { color: var(--warn); }
+  .artwork.exhibition {
+    border-left-color: #b45309;
+  }
 </style>
 </head>
 <body>
@@ -321,6 +370,89 @@
       <div class="desc">이탈리아 르네상스 회화를 빠르게 둘러보고 기프트샵 경유 후 퇴장. Canterbury Gate로 나와 Weston Library 방향으로 이동.</div>
       <div class="highlight">10분 · 11:45 Duke Humfrey's Library 목표</div>
     </div>
+  </div>
+</section>
+
+<section class="artwork-list">
+  <h2><span class="icon">🖼️</span> 주요 작품</h2>
+
+  <div class="artwork">
+    <div class="art-header">
+      <h4>The Butcher's Shop (정육점)</h4>
+    </div>
+    <div class="artist">안니발레 카라치 Annibale Carracci</div>
+    <div class="art-meta">c.1585 · 유화 · 190 × 272cm</div>
+    <p>가로 2.7미터의 대형 캔버스에 고기를 자르고, 저울에 달고, 양을 도살하는 정육점 풍경이 생생하게 그려져 있다. 등장인물들은 카라치 본인과 친척들로 추정된다.</p>
+    <p>당시 화가가 그릴 만한 "격조 있는" 주제는 종교화나 신화뿐이었다. 일상의 노동을 이 스케일로 그린 것은 파격이었고, 유럽 장르화의 문을 연 미술사적 전환점. 한때 크라이스트 처치 학교 주방에 걸려 있다가 20세기에 재발견되었다.</p>
+    <div class="kid-note">벽 한 면을 차지하는 크기 자체가 압도적. 고기를 재는 저울 장면은 최후의 심판에서 영혼을 재는 대천사 미카엘의 상징이라는 해석도 있다.</div>
+  </div>
+
+  <div class="artwork stolen">
+    <div class="art-header">
+      <h4>빈 액자 — A Soldier on Horseback</h4>
+    </div>
+    <div class="artist">안토니 반 다이크 Anthony van Dyck</div>
+    <div class="art-meta">c.1616-17 · 유화 · 91 × 55cm · 2020년 도난, 행방불명</div>
+    <p>2020년 3월 14일 밤, 도둑들이 사다리로 지붕에 올라가 천창을 깨고 침입해 훔쳐간 세 점 중 하나. 말 위의 군인을 그린 반 다이크의 초기작이다. 루마니아에서 다른 사람에게 팔려 나간 것으로 추정되며, 아직 찾지 못했다.</p>
+    <div class="kid-note">갤러리에는 복원된 빈 액자가 원래 자리에 걸려 있다. "이 액자 안에 원래 말 탄 군인 그림이 있었는데, 도둑이 훔쳐갔어."</div>
+  </div>
+
+  <div class="artwork stolen">
+    <div class="art-header">
+      <h4>빈 액자 — A Boy Drinking</h4>
+    </div>
+    <div class="artist">안니발레 카라치 Annibale Carracci</div>
+    <div class="art-meta">c.1580 · 유화 · 2020년 도난, 행방불명</div>
+    <p>물을 마시는 소년을 그린 카라치의 초기 장르화. 역시 2020년 도난 세 점 중 하나로, 반 다이크 작품과 함께 루마니아에서 매각된 것으로 추정된다.</p>
+  </div>
+
+  <div class="artwork">
+    <div class="art-header">
+      <h4>A Rocky Coast, with Soldiers Studying a Plan</h4>
+    </div>
+    <div class="artist">살바토르 로사 Salvator Rosa</div>
+    <div class="art-meta">17세기 · 유화 · 75 × 61cm · 2020년 도난 → 2024년 회수</div>
+    <p>바위 해안에서 군인들이 지도를 연구하는 바로크 풍경화. 2020년 도난 세 점 중 유일하게 돌아온 작품이다. 4년간 행방불명이었다가 2024년 루마니아에서 소지자가 자진 반납하여 옥스포드로 귀환했다.</p>
+    <div class="kid-note">"이 그림은 4년 동안 사라졌다가 루마니아에서 돌아왔어. 도둑이 세 개를 훔쳤는데 이것만 찾았어."</div>
+  </div>
+
+  <div class="artwork">
+    <div class="art-header">
+      <h4>The Continence of Scipio (스키피오의 절제)</h4>
+    </div>
+    <div class="artist">안토니 반 다이크 Anthony van Dyck</div>
+    <div class="art-meta">c.1620-21 · 유화 · 183 × 232cm</div>
+    <p>로마 장군 스키피오가 전쟁 포로인 젊은 여성을 약혼자에게 돌려보내는 장면. 스키피오의 모델은 영국 버킹엄 공작 조지 빌리어스로 추정된다. 갑옷과 로마 군인, 드라마틱한 구도의 대형 역사화.</p>
+  </div>
+
+  <div class="artwork">
+    <div class="art-header">
+      <h4>The Wounded Centaur (상처 입은 켄타우로스)</h4>
+    </div>
+    <div class="artist">필리피노 리피 Filippino Lippi</div>
+    <div class="art-meta">15세기 후반 · Fox-Strangways 기증(1828)</div>
+    <p>반인반마 켄타우로스 키론이 큐피드의 화살통을 살펴보는 장면. 사랑의 위험을 경고하는 알레고리다. 뒷면에는 미완성 "Triumph of Love" 드로잉이 그려져 있다.</p>
+    <div class="kid-note">그리스 신화의 켄타우로스 — 사람 상체에 말 몸을 가진 생물.</div>
+  </div>
+
+  <div class="artwork exhibition">
+    <div class="art-header">
+      <h4>A Grotesque Head (그로테스크 두상)</h4>
+    </div>
+    <div class="artist">레오나르도 다빈치 Leonardo da Vinci</div>
+    <div class="art-meta">c.1502 · 목탄+검은 초크 · 39 × 28cm · 특별전 전시 중</div>
+    <p>과장된 코, 풍성한 입술, 깊은 주름의 남성 측면을 그린 드로잉. 다빈치는 밀라노 시절부터 길에서 특이한 얼굴을 보면 따라가서 스케치하는 습관이 있었다. "집시의 왕 스카라무치아"를 그린 것이라는 설과, 소실된 종교화의 밑그림이라는 설이 있다.</p>
+    <p>현재 "It's not just black and white" 특별전(~2026.3)에서 전시 중. 빛에 약한 종이 작품이라 상시 전시 불가 — 이번 방문에서만 볼 수 있는 기회.</p>
+    <div class="kid-note">"다빈치가 못생긴 얼굴 그리는 걸 좋아해서 일부러 이상하게 생긴 사람을 찾아다녔대."</div>
+  </div>
+
+  <div class="artwork exhibition">
+    <div class="art-header">
+      <h4>Self-Portrait (자화상)</h4>
+    </div>
+    <div class="artist">엘리자베타 시라니 Elisabetta Sirani</div>
+    <div class="art-meta">c.1660 · 검은·빨간·흰 초크 · 특별전 전시 중</div>
+    <p>17세기 볼로냐의 여성 화가. 관람자와 직접 눈을 마주치는 자신감 있는 시선이 특징적인 자화상. 27세에 요절했지만 생전에 200점 이상의 작품을 남겼다.</p>
   </div>
 </section>
 
