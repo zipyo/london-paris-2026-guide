@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>생 샤펠 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1e3a8a;
+    --accent-light: #eff3ff;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0f1d45 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 체험 & 인터랙티브 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>생 샤펠 <span class="en">Sainte-Chapelle</span></h1>
+  <p class="oneliner">프랑스 왕이 나라 수입의 절반을 들여 지은, 벽 대신 유리로 만든 800년 된 보석함</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/26(목) 10:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">성인 €22 · 아동 무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Bd du Palais 정문</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Cité (4호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">09:00–17:00</span>
+    </div>
+  </div>
+  <div class="info-warn">사전 예약 필수 (30분 슬롯) · 보안 검색 15~30분 대기 · Paris Museum Pass 적용 가능</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>나라 살림의 절반을 건 거래</h4>
+    <p>1239년, 프랑스 왕 루이 9세는 비잔티움 제국 황제에게서 예수가 십자가에 못 박힐 때 썼다는 가시면류관을 샀습니다. 가격은 135,000 리브르. 프랑스 왕국 1년 수입의 절반에 달하는 금액이었습니다.</p>
+    <p>2년간의 협상 끝에 거래가 성사되자, 루이 9세는 맨발에 회개하는 자의 옷을 입고 직접 파리까지 성물을 운반했습니다. 왕도 신앙 앞에서는 겸손해야 한다고 믿었기 때문입니다.</p>
+    <p>이후 진십자가 조각 등 총 22개의 성물을 추가로 구입한 루이 9세는 이 보물들을 담을 집을 짓기로 결심합니다. 그렇게 탄생한 것이 바로 생 샤펠입니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>벽 대신 유리를 세운 건축가들</h4>
+    <p>1248년, 불과 7년 만에 완공된 생 샤펠은 중세 건축의 상식을 뒤집었습니다. 보통 성당은 두꺼운 돌벽에 작은 창문을 뚫지만, 생 샤펠의 건축가들은 벽 자체를 유리로 대체했습니다. 높이 15m의 스테인드글라스 15개가 벽면의 거의 전부를 차지합니다.</p>
+    <p>건물이 무너지지 않는 비밀은 눈에 보이지 않는 내부 버트레스(지지대)입니다. 천장의 리브 볼트가 무게를 기둥으로 분산시켜, 벽은 오롯이 빛을 받아들이는 역할만 합니다. 이 기법은 '광선 고딕(Rayonnant Gothic)'이라 불리며, 생 샤펠이 그 정점입니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>혁명의 상처, 소설가의 구출</h4>
+    <p>프랑스 혁명 때 왕권과 종교의 상징이던 생 샤펠은 처참하게 훼손됩니다. 첨탑이 잘려 나가고, 왕실 문장이 부서졌으며, 건물은 곡물 창고로 전락했습니다. 스테인드글라스 일부는 떼어져 영국 미술 시장에 팔려 나갔습니다.</p>
+    <p>위기에서 구한 건 소설 《레미제라블》의 작가 빅토르 위고였습니다. 그의 여론 캠페인에 힘입어 1840년부터 23년에 걸친 대복원이 시작되었고, 13세기의 모습으로 되살아났습니다. 지금 우리가 보는 스테인드글라스의 약 70%는 800년 전 원본 그대로입니다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">① 하층 예배당 (Chapelle Basse)</div>
+      <div class="desc">왕궁 직원과 병사들이 사용하던 공간. 높이가 낮아 아늑한 분위기입니다. 올려다보면 짙은 파란 천장에 금색 백합 문양이 별처럼 빛납니다. 많은 사람이 서둘러 지나치지만, 사실 숨겨진 보석 같은 공간.</div>
+      <div class="highlight">10분 · 천장의 금색 백합 문양 꼭 올려다보기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:10</div>
+      <div class="name">② 나선 계단 → 상층 예배당</div>
+      <div class="desc">좁고 구불구불한 중세식 돌계단을 올라갑니다. 계단 끝에서 갑자기 터지는 빛의 폭발이 생 샤펠 최고의 순간입니다.</div>
+      <div class="highlight">5분 · 계단이 좁으니 한 줄로 천천히</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:15</div>
+      <div class="name">③ 상층 예배당 — 스테인드글라스</div>
+      <div class="desc">왕과 왕족만 들어올 수 있던 성소. 높이 15m 스테인드글라스 15개가 벽면 전체를 감싸, 들어서는 순간 빛의 상자 안에 선 느낌을 줍니다. 1,113개의 장면이 창세기부터 성물의 파리 도착까지를 담은 '중세의 거대한 만화책'입니다. 왼쪽에서 오른쪽, 아래에서 위로 읽어 나갑니다.</div>
+      <div class="highlight">30분 · 해가 비치면 바닥에 색색깔 그림자가 생깁니다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:45</div>
+      <div class="name">④ 장미창 (Rose Window)</div>
+      <div class="desc">서쪽 끝의 거대한 원형 창. 요한계시록의 장면들이 담겨 있습니다. 15세기에 제작된 것으로, 본당 창보다 나중에 만들어졌지만 정교한 방사형 패턴이 압권입니다.</div>
+      <div class="highlight">5분 · 입구 쪽을 돌아보면 정면으로 보입니다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:55</div>
+      <div class="name">퇴장 → 시테섬/라틴 쿼터 산책</div>
+      <div class="desc">정문으로 나와 시테섬을 거닐며 세느강변으로 이동. 라틴 쿼터 방향 도보 10분.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>스테인드글라스 읽기 도전</h4>
+    <p>1,113개 장면 중 몇 가지를 찾아보세요. 왼쪽 첫 번째 창이 창세기(천지창조~노아의 방주), 마지막 창이 성물의 파리 도착 장면입니다. 아래→위, 왼쪽→오른쪽 순서로 이야기가 진행됩니다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>빛의 변화 관찰</h4>
+    <p>오전 시간대에는 동쪽 창으로 햇빛이 들어오면서 빨강·파랑·보라색 빛이 바닥과 기둥 위를 천천히 이동합니다. 같은 자리에 잠시 서 있으면 색이 변하는 걸 볼 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 비수기라 여름보다 한결 여유롭지만, 목요일은 주중 가장 혼잡한 날입니다. 타임슬롯 예약이 있으므로 내부 인원은 제한적 — 쾌적하게 관람 가능합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">보안 검색</div>
+    팔레 드 쥐스티스(법원) 부지 내에 있어 공항 수준의 보안 검색이 있습니다. 대형 가방, 유리병, 날카로운 물건은 압수 후 반환되지 않으니 꼭 숙소에 두고 오세요. 예약 시간 15~30분 전 도착을 권장합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영</div>
+    카메라/스마트폰 촬영 가능. 플래시, 삼각대, 셀카봉은 금지입니다. 상층 예배당에서 스테인드글라스를 배경으로 찍으면 빛과 색이 인물 위에 내려앉는 사진을 얻을 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    건물 내부에는 없습니다. 팔레 드 쥐스티스 안뜰에 외부 화장실이 있으나, 한 번 나가면 재입장 불가이므로 입장 전에 미리 이용하세요. 노트르담 주변 공중화장실(sanisette)도 대안입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">노트르담에서 이동</div>
+    같은 시테섬 위에 있어 도보 5분 거리. 노트르담 정면 광장에서 왼쪽(서쪽)으로 걸어 Boulevard du Palais를 따라가면 정문이 보입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Paris Museum Pass</div>
+    Pass 소지 시 무료 입장이지만, 타임슬롯 예약은 별도로 필수입니다. 예약 시 'Museum Pass holder' 옵션을 선택하세요.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 타임슬롯 예약 완료 (30분 단위)</label>
+    <label><input type="checkbox"> 예약 확인서/QR코드 스크린샷</label>
+    <label><input type="checkbox"> 대형 가방·유리병·날카로운 물건 숙소에 두기</label>
+    <label><input type="checkbox"> 노트르담 관람 후 화장실 미리 이용</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 시테섬/라틴 쿼터 산책 (11:00)</strong><br>
+  생 샤펠 정문으로 나와 Pont Saint-Michel을 건너면 라틴 쿼터. 세느강변을 따라 걸으며 부키니스트(고서점)를 구경할 수 있습니다. 점심식사는 12:00 라틴 쿼터에서.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
