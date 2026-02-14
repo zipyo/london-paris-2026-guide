@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/27 점심 · 몽마르트</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-crepe { background: #fef3c7; color: #92400e; }
+  .cuisine-french { background: #ede9fe; color: #5b21b6; }
+  .cuisine-bistro { background: #ecfdf5; color: #065f46; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/27 점심식사 <span class="sub">몽마르트</span></h1>
+  <div class="context">
+    베르사유 궁전 관람 후 RER C로 이동(~13:30) → 점심 → 14:30 사크레쾨르/테르트르 광장 관광<br>
+    Abbesses역 주변 도보 1~10분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">13:30 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">Anvers / Abbesses역</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">14:30 사크레쾨르</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">베르사유→몽마르트 이동 중 지연 가능성 — 도착 시간에 따라 식당 유연하게 선택하세요</div>
+</div>
+
+<!-- ── 한눈 비교 ── -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Brocéliande</td>
+        <td>크레프리</td>
+        <td>~€47</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Le Basilic</td>
+        <td>비스트로</td>
+        <td>~€58</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Le Progrès</td>
+        <td>비스트로</td>
+        <td>~€72</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Le Poulbot</td>
+        <td>비스트로</td>
+        <td>~€95</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── 식당 상세 ── -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Crêperie Brocéliande -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 · 정통 크레프 체험</div>
+    <div class="rest-header">
+      <div class="rest-name">Crêperie Brocéliande</div>
+      <span class="rest-cuisine cuisine-crepe">브르타뉴 크레프리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~15:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">점심 포뮬 €15</span>
+      <span class="tag tag-good">Google 4.7 (2,293건)</span>
+      <span class="tag tag-info">글루텐프리 옵션</span>
+      <span class="tag tag-warn">소규모 매장 · 대기 가능</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule midi (갈레트+크레프+시드르) × 2</span><span class="price">€30</span></div>
+        <div class="menu-line"><span class="item">갈레트 Complète (햄+치즈+계란)</span><span class="price">€10</span></div>
+        <div class="menu-line"><span class="item">크레프 Chocolat (아이 디저트)</span><span class="price">€7</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€47</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://www.google.com/maps/place/Cr%C3%AAperie+Broc%C3%A9liande,+15+Rue+des+Trois+Fr%C3%A8res,+75018+Paris/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Le Basilic -->
+  <div class="restaurant pick">
+    <div class="pick-badge">TheFork 30% 할인 · 런치 포뮬</div>
+    <div class="rest-header">
+      <div class="rest-name">Le Basilic</div>
+      <span class="rest-cuisine cuisine-french">프렌치 비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">9분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:45~00:45</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Formule €16.90</span>
+      <span class="tag tag-good">TheFork 8.6 · 30%OFF</span>
+      <span class="tag tag-info">중세풍 인테리어</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule déjeuner (앙트레+플라) × 2</span><span class="price">€33.80</span></div>
+        <div class="menu-line"><span class="item">아이: 플라 뒤 주르 (메인 단품)</span><span class="price">~€15</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~€9</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€58</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.com/restaurant/le-basilic-r848360" class="btn btn-book" target="_blank">TheFork 예약</a>
+      <a href="https://www.google.com/maps/place/Le+Basilic,+33+Rue+Lepic,+75018+Paris/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Le Progrès -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Le Progrès</div>
+      <span class="rest-cuisine cuisine-bistro">카페-비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">7분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">09:00~15:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">TheFork 8.8 · 서비스 9.2</span>
+      <span class="tag tag-good">아이 동반 리뷰 좋음</span>
+      <span class="tag tag-info">테라스석 · 골목 분위기</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">타르타르 드 뵈프 + 감자튀김</span><span class="price">€16.50</span></div>
+        <div class="menu-line"><span class="item">링귀네 리코타</span><span class="price">€17.50</span></div>
+        <div class="menu-line"><span class="item">아이: 크로크무슈 + 감자튀김</span><span class="price">~€14</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~€12</span></div>
+        <div class="menu-line"><span class="item">디저트 × 1 공유</span><span class="price">~€9</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€72</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.com/restaurant/le-progres-r312031" class="btn btn-book" target="_blank">TheFork 예약</a>
+      <a href="https://www.google.com/maps/place/Le+Progr%C3%A8s,+7+Rue+des+Trois+Fr%C3%A8res,+75018+Paris/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Le Poulbot -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Le Poulbot</div>
+      <span class="rest-cuisine cuisine-french">프렌치 클래식</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">테르트르 광장 바로 옆</span>
+      <span class="tag tag-good">Google 4.7 (7,062건)</span>
+      <span class="tag tag-info">논스톱 서비스</span>
+      <span class="tag tag-warn">관광지 가격대</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">콩피 드 카나르 (오리 콩피)</span><span class="price">€27.50</span></div>
+        <div class="menu-line"><span class="item">뵈프 부르기뇽 (소고기 부르고뉴)</span><span class="price">€28.50</span></div>
+        <div class="menu-line"><span class="item">아이: 수프 알로뇽 + 크렘 브륄레</span><span class="price">€20</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~€15</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€95</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="mailto:lepoulbotmontmartre@gmail.com?subject=Réservation 27 février 13h30 - 3 personnes" class="btn btn-book">이메일 예약</a>
+      <a href="https://www.google.com/maps/place/Le+Poulbot,+3+Rue+Poulbot,+75018+Paris/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">도착 시간에 따른 선택 전략</div>
+    베르사유→몽마르트 이동이 90분으로 넉넉하지만 RER C 지연이 잦습니다.<br>
+    <strong>13:30 이전 도착:</strong> Brocéliande 또는 Le Basilic 추천<br>
+    <strong>14:00 가까이 도착:</strong> Le Poulbot (테르트르 광장 바로 옆, 이동 최소화)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    Brocéliande와 Le Progrès는 같은 거리(Rue des Trois Frères)에 위치합니다. 한 곳이 만석이면 바로 옆으로 이동 가능.<br>
+    Le Basilic은 Rue Lepic에 위치 — 식후 언덕을 올라가면 자연스럽게 사크레쾨르 방면으로 이동됩니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2026년 2월 기준이며, 방문 시점에 소폭 인상될 수 있습니다.<br>
+    프랑스 레스토랑은 봉사료(service compris)가 가격에 포함되어 있습니다. 별도 팁 불필요 (만족 시 소액 가능).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">크레프리 주문 팁</div>
+    <strong>갈레트</strong> = 메밀가루 반죽(짭짤한 식사용), <strong>크레프</strong> = 밀가루 반죽(달콤한 디저트).<br>
+    Formule midi는 갈레트 1개 + 크레프 1개 + 시드르(사과주)/주스 세트로 가장 합리적입니다.
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 몽마르트 관광 (14:30)</strong><br>
+  사크레쾨르 대성당 · 테르트르 광장 · 도보 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
