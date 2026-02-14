@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/23(월) 점심 · 옥스포드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+  .cuisine-japanese { background: #fce7f3; color: #831843; }
+  .cuisine-chicken { background: #f0fdf4; color: #166534; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/23(월) 점심식사 <span class="sub">옥스포드</span></h1>
+  <div class="context">
+    Christ Church · Picture Gallery(~11:45) 나온 뒤 → 점심 → 13:00 Westgate 주차장 출발<br>
+    Covered Market ~ Westgate 주변 도보 5~8분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">12:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">Christ Church 출구</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">13:00 Westgate 주차장</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2><span class="icon">&#9878;&#65039;</span> 한눈 비교</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Pieminister</td>
+        <td>영국 파이</td>
+        <td>~£33</td>
+        <td style="color:var(--muted)">불필요</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Franco Manca</td>
+        <td>피자</td>
+        <td>~£28</td>
+        <td style="color:var(--green)">TheFork</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Wagamama</td>
+        <td>아시안</td>
+        <td>~£46</td>
+        <td style="color:var(--green)">OpenTable</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Nando's</td>
+        <td>치킨</td>
+        <td>~£37</td>
+        <td style="color:var(--muted)">불필요</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">&#127869;</span> 식당 상세</h2>
+
+  <!-- ── Pieminister (추천) ── -->
+  <div class="restaurant pick">
+    <div class="pick-badge">Covered Market 명물 · 빠른 서빙</div>
+    <div class="rest-header">
+      <div class="rest-name">Pieminister</div>
+      <span class="rest-cuisine cuisine-british">영국 파이</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">4분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">10:00~17:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--muted)">불필요</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">영국 전통 파이 체험</span>
+      <span class="tag tag-good">카운터 주문 · 빠른 서빙</span>
+      <span class="tag tag-info">서비스차지 없음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Mothership (파이+매시+피+그레이비) × 1</span><span class="price">~£10</span></div>
+        <div class="menu-line"><span class="item">Fully Loaded (매시+피+치즈+어니언) × 1</span><span class="price">~£12</span></div>
+        <div class="menu-line"><span class="item">아이: Classic Pie + Chips</span><span class="price">~£9</span></div>
+        <div class="menu-line"><span class="item">소프트드링크 × 2</span><span class="price">~£6</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£37</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">Walk-in</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Pieminister+56+Covered+Market+Oxford" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Franco Manca ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Franco Manca</div>
+      <span class="rest-cuisine cuisine-italian">사워도우 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">TheFork</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">키즈밀 £5 (12세 미만)</span>
+      <span class="tag tag-good">런치딜 마르게리타+음료 £10</span>
+      <span class="tag tag-warn">서비스차지 12.5%</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인) — 런치딜 활용</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">런치딜 (마르게리타+음료) × 2</span><span class="price">£20.00</span></div>
+        <div class="menu-line"><span class="item">아이: 키즈 피자+음료</span><span class="price">£5.00</span></div>
+        <div class="menu-line"><span class="item">서비스차지 12.5%</span><span class="price">~£3.13</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£28</span></div>
+      </div>
+    </div>
+    <div style="padding:0 16px 4px;font-size:11px;color:var(--muted);">
+      런치딜: 월~금 12:00~16:00 · 마르게리타 외 피자 선택 시 £9~15/개
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.co.uk/restaurant/franco-manca-oxford-r802914" class="btn btn-book" target="_blank">TheFork 예약</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Franco+Manca+12+George+Street+Oxford" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Wagamama ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Wagamama</div>
+      <span class="rest-cuisine cuisine-japanese">아시안</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">OpenTable</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">키즈밀에 음료+아이스크림 포함</span>
+      <span class="tag tag-good">Covered Market 바로 옆</span>
+      <span class="tag tag-warn">서비스차지 10%</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Chicken Katsu Curry</span><span class="price">£15.00</span></div>
+        <div class="menu-line"><span class="item">Pad Thai / Yaki Soba</span><span class="price">~£14.00</span></div>
+        <div class="menu-line"><span class="item">아이: Mini Katsu (음료+아이스크림 포함)</span><span class="price">£6.00</span></div>
+        <div class="menu-line"><span class="item">소프트드링크 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-line"><span class="item">서비스차지 10%</span><span class="price">~£4.20</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£46</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.com/r/wagamama-oxford" class="btn btn-book" target="_blank">OpenTable 예약</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Wagamama+8+Market+Street+Oxford" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Nando's ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Nando's</div>
+      <span class="rest-cuisine cuisine-chicken">페리페리 치킨</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:00~21:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--muted)">불필요</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Westgate 내 · 출발 동선 최적</span>
+      <span class="tag tag-good">서비스차지 없음</span>
+      <span class="tag tag-warn">Nandinos 10세 미만만 가능</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">1/4 Chicken + 2 sides × 2</span><span class="price">£19.00</span></div>
+        <div class="menu-line"><span class="item">아이: 1/4 Chicken + 2 sides</span><span class="price">£9.50</span></div>
+        <div class="menu-line"><span class="item">Bottomless drinks × 3</span><span class="price">~£9.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£37</span></div>
+      </div>
+    </div>
+    <div style="padding:0 16px 4px;font-size:11px;color:var(--muted);">
+      Nandinos 키즈메뉴(£6.25)는 10세 미만 전용 · 10세는 일반 메뉴 주문
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">Walk-in</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Nandos+Westgate+Oxford" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  <h2><span class="icon">&#128161;</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 추천</div>
+    Christ Church → <strong>High Street 입구</strong>로 Covered Market 진입(도보 4분) → 식사 → Market Street 출구로 나와 <strong>Westgate 주차장</strong>까지 도보 3분.<br>
+    George Street(Franco Manca) 선택 시 왕복 +5분 소요.
+    Nando's는 Westgate 안에 있어 식사 후 바로 주차장 이동 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Ben's Cookies — 디저트 필수</div>
+    Covered Market 안의 <strong>Ben's Cookies 본점</strong>(1984년 창업)은 옥스포드 명물. 갓 구운 따뜻한 쿠키 ~£2.50/개. Pieminister나 Wagamama 선택 시 Covered Market에서 바로 들를 수 있음.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2/23(월)은 Half Term(2/16~20) 이후 평일이라 관광객이 적음. Covered Market 점심 피크(12:00~13:00)에도 큰 대기 없이 이용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025~2026년 초 기준이며, 방문 시점에 소폭 인상될 수 있습니다.<br>
+    Covered Market 내 카운터 서비스(Pieminister 등)는 서비스차지 없음.<br>
+    체인 레스토랑(Franco Manca, Wagamama)은 10~12.5% 서비스차지가 자동 추가됩니다.
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">&#8594;</div>
+  <strong>다음: Westgate 주차장 → 해리포터 스튜디오 (13:00)</strong><br>
+  식당에서 Westgate 주차장까지 도보 1~5분 · 렌터카로 해리포터 스튜디오까지 약 1시간
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
