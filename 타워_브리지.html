@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>타워 브리지 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #546e7a;
+    --accent-light: #eceff1;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #37474f 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 체험 & 인터랙티브 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     ① 헤더: 한눈에 파악
+     ══════════════════════════════════════════════ -->
+<div class="header">
+  <h1>타워 브리지 <span class="en">Tower Bridge</span></h1>
+  <p class="oneliner">950년 된 요새 옆에, 요새처럼 보이도록 지은 130년 된 다리. 1,200톤 다리가 60초 만에 들어올려지는 Victorian 시대 공학의 걸작.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/20(금) 13:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">성인 £15 / 아동 £9</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">North Tower</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Tower Hill</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">매일 09:30~18:00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ② 왜 유명한가: 스토리텔링
+     ══════════════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>배는 지나가야 하고, 사람도 건너야 하는 딜레마</h4>
+    <p>19세기 후반 런던 East End는 급성장하는 상업 지역이었지만, 런던 타워 동쪽에는 템스 강을 건널 다리가 없었다. 런던 브리지까지 우회하려면 엄청난 시간이 걸렸다.</p>
+    <p>동시에 템스 강은 런던의 주요 무역 항로였고, 큰 배들이 자유롭게 통행할 수 있어야 했다. 일반 다리를 놓으면 배가 지나갈 수 없고, 높은 다리를 놓으면 사람과 마차가 오르내리기 힘들었다.</p>
+    <p>1876년 런던 시는 아이디어 공모를 시작했고, <strong>8년간 50개 이상의 설계안</strong>을 검토한 끝에 1884년 Horace Jones 경의 'bascule bridge(도개교)' 설계안이 선정되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>8년 건설 드라마: 잠수부, 리벳공, 1,300만 개의 못</h4>
+    <p>1886년 4월 22일 공사가 시작되었다. 하지만 설계자 Horace Jones 경은 1887년 사망하면서 완공을 보지 못했고, 토목 엔지니어 John Wolfe Barry 경이 프로젝트를 이어받았다.</p>
+    <p>건설의 규모: 총 £1,184,000 (현재 £170 million), 일일 평균 432명 (최대 900명), 8년 기간.</p>
+    <p><strong>용감한 잠수부들</strong>: 타워 브리지 건설의 가장 위험한 작업은 강바닥에 기초를 놓는 일이었다. 6명의 잠수부 팀이 1886년부터 템스 강 밑으로 내려가 거대한 철제 케이지(caisson) 안에서 자갈과 점토를 파냈다. 파면 팔수록 케이스는 자체 무게로 점점 깊이 가라앉았다. 잠수부는 하루 15실링을 받았는데, 일반 노동자(7실링)의 두 배가 넘는 금액이었다.</p>
+    <p><strong>4인 리벳 팀</strong>: 타워를 세우는 과정에서 Cook(리벳 가열), Catcher(뜨거운 리벳 받기), Holder-upper(고정), Basher(망치질)로 구성된 팀들이 <strong>1,300만 개의 리벳</strong>을 박아 넣었다.</p>
+    <p>1894년 6월 30일, 웨일즈 공과 공비가 참석한 가운데 타워 브리지가 공식 개통되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>빅토리아 여왕의 반대를 극복한 Gothic 외관</h4>
+    <p>처음 다리 건설 계획이 나왔을 때, 빅토리아 여왕은 런던 타워 근처에 다리를 놓는 것을 반대했다. 역사적 랜드마크의 위엄을 해칠 수 있다는 우려였다.</p>
+    <p>이 문제를 해결하기 위해 건축가 George Stevenson이 화려한 <strong>Victorian Gothic 스타일</strong>로 재설계했다. 바로 옆 런던 타워(11세기 노르만 양식 + 중세 개축)와 시각적으로 조화를 이루도록 한 것이다.</p>
+    <p>결과적으로 타워 브리지는 겉모습은 중세 성처럼 보이지만, 속은 최첨단 빅토리아 시대 공학기술을 담은 독특한 건축물이 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>1,200톤 다리가 60초 만에 열리는 비밀</h4>
+    <p>타워 브리지의 가장 놀라운 점은 각각 <strong>1,200톤</strong>이나 되는 두 개의 다리 날개(bascule)가 단 <strong>60초</strong> 만에 <strong>86도까지 들어올려진다</strong>는 것이다.</p>
+    <p>'Bascule'은 프랑스어로 '시소'를 의미한다. 다리 날개의 뒷부분에는 거대한 평형추(counterweight)가 있어, 다리가 열릴 때 무게 균형을 맞춰준다. 이 덕분에 1,200톤의 거대한 철제 구조물을 비교적 적은 힘으로 들어올릴 수 있다.</p>
+    <p>원래는 증기 엔진으로 물을 펌핑해 유압 축적기에 압력을 저장하고, 이 압력으로 bascule을 작동시켰다. 1976년 전기-유압 복합 시스템으로 전환되었지만, 기본적인 bascule 메커니즘은 130년 전 그대로다.</p>
+    <p>현재 연간 약 <strong>800회</strong> 개폐(하루 평균 2~3회)되며, 개폐 일정은 공식 웹사이트에 약 1개월 전부터 게시된다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>전설의 버스 점프 사건 (1952)</h4>
+    <p>1952년 12월 30일, Albert Gunton이라는 버스 기사가 78번 2층 버스를 운전해 타워 브리지를 건너고 있었다. 신호등은 녹색이었고, 안전하게 건널 수 있을 것 같았다.</p>
+    <p>그런데 갑자기 다리가 열리기 시작했다! 휴먼 에러로 인해 버스가 다리 위에 있는데도 개폐 신호가 잘못 작동한 것이다.</p>
+    <p>Albert Gunton은 급정거하면 뒤쪽 bascule이 올라가면서 버스가 강으로 떨어질 것을 직감했다. 그는 <strong>브레이크 대신 액셀을 밟았다</strong>.</p>
+    <p>버스는 <strong>1.8m(6ft)의 틈</strong>을 뛰어넘어 아직 올라가지 않은 북쪽 bascule에 착지했고, 무사히 반대편에 도착했다. 탑승객 20명 모두 생존했다. Albert Gunton은 고용주로부터 £10, 런던 시로부터 £35 보상을 받았고, 가족에게 본머스 해변 1주일 무료 휴가를 받았다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>런던 브리지 vs 타워 브리지 혼동</h4>
+    <p>많은 사람들이 런던 브리지(London Bridge)와 타워 브리지(Tower Bridge)를 혼동한다. 런던 브리지는 타워 브리지에서 서쪽으로 약 1km 떨어진 평범한 현대식 콘크리트 교량이다.</p>
+    <p>1968년, 미국 사업가 Robert P. McCulloch는 낡은 '뉴 런던 브리지'를 <strong>$2,460,000</strong>에 구매해 애리조나주 Lake Havasu City로 옮겼다.</p>
+    <p>당시 "McCulloch이 타워 브리지인 줄 알고 런던 브리지를 샀다"는 루머가 퍼졌지만, 이는 사실이 아니다. 런던 당국은 40페이지 분량의 화려한 브로셔로 정확히 어떤 다리가 판매되는지 명시했고, McCulloch은 직접 런던을 방문해 다리 위에서 판매 계약서에 서명했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Glass Floor의 탄생 (2014)</h4>
+    <p>2014년, 타워 브리지는 개관 이래 가장 큰 변화를 맞이했다. 서쪽 Walkway는 2014년 11월 10일, 동쪽 Walkway는 12월 1일 개장했다. 각 Walkway 설치에 6주, 20명의 작업자가 투입되었으며, 총 투자 비용은 <strong>£1 million</strong>이었다.</p>
+    <p>Glass Floor는 길이 11.5m × 너비 1.8m, 각 패널 무게 530kg (총 6개 패널), 6개 레이어로 구성되어 있다. <strong>런던 택시 4대</strong> 또는 <strong>코끼리 6마리</strong>의 무게를 견딜 수 있다.</p>
+    <p>템스 강 수면(만조 기준) 위 43.5m, 도로면 위 42m 높이에서 발밑으로 템스 강과 다리 위를 지나가는 차량, 사람들을 내려다보는 스릴 넘치는 경험을 할 수 있다.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ③ 핵심 포인트 (Must-See 동선)
+     ══════════════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">13:00</div>
+      <div class="name">① 입장 → North Tower</div>
+      <div class="desc">티켓 확인, 입장 후 타워 내부로 이동. 건설 역사 영상 및 전시 관람.</div>
+      <div class="highlight">10분 · 8년 건설 드라마 영상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:10</div>
+      <div class="name">② West Walkway Glass Floor</div>
+      <div class="desc">유리 바닥 위를 걸으며 발밑 42m 아래 템스 강과 도로 조망. 서쪽 전망: Tower of London, St Paul's Cathedral, The Shard. 보통 East Walkway보다 한산함.</div>
+      <div class="highlight">15분 · 런던 택시 4대 무게 견디는 유리</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:25</div>
+      <div class="name">③ East Walkway</div>
+      <div class="desc">동쪽 전망: Canary Wharf, Shooter's Hill. 천장 거울에서 Glass Floor 위 독특한 앵글 셀카 촬영.</div>
+      <div class="highlight">10분 · 천장 거울 셀카 필수</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:35</div>
+      <div class="name">④ South Tower</div>
+      <div class="desc">간단히 통과. 전시는 North Tower와 유사.</div>
+      <div class="highlight">5분</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:40</div>
+      <div class="name">⑤ Engine Rooms</div>
+      <div class="desc">원본 Victorian 증기 엔진, 석탄 보일러, 유압 축적기 실물 전시. 19세기 증기 엔진이 작동하던 천둥 같은 소리 재현. 인터랙티브 모델로 유압 시스템 체험. 80개 청동 명판에 건설 노동자 이름 새겨져 있음.</div>
+      <div class="highlight">12분 · 1,200톤 들어올린 Victorian 공학</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:52</div>
+      <div class="name">⑥ Gift Shop</div>
+      <div class="desc">Engine Rooms 출구 근처 기념품샵 (선택).</div>
+      <div class="highlight">3분</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:00</div>
+      <div class="name">퇴장 → 리든홀 마켓</div>
+      <div class="desc">도보 15~20분. Tower Bridge Road 북쪽 → Eastcheap → Philpot Lane → Lime Street → Leadenhall Market (해리포터 다이애곤 앨리/리키 콜드런 촬영지).</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ④ 체험 & 인터랙티브
+     ══════════════════════════════════════════════ -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>Glass Floor Walkway 체험</h4>
+    <p>템스 강 위 42m 높이에서 5층 강화 유리 바닥 위를 걷는 스릴. 발밑으로 템스 강 물살과 배들, 다리 위를 걷는 차량과 보행자들을 수직으로 내려다봄. 높이가 무서운 경우 양옆 나무 바닥 + 핸드레일 이용 가능. 키 1.2m 이상 어린이만 입장.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Victorian Engine Rooms 인터랙티브</h4>
+    <p>인터랙티브 모델로 유압 시스템이 어떻게 1,200톤 다리를 60초 만에 들어올렸는지 직접 체험. 원본 Victorian 증기 엔진, 석탄 보일러, 유압 축적기 실물 관람. 19세기 산업 유산의 웅장한 분위기 속 사진 촬영.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Guy Fox Explore Kit (무료)</h4>
+    <p>어린이용 탐험 키트. 타워 브리지 곳곳을 탐험하며 완성하는 미션. 6~10세 어린이에게 특히 적합. 입장료에 포함.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ⑤ 꿀팁
+     ══════════════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    가장 붐비는 시간: 11:00~15:00. 우리 방문 시간대(13:00 금요일)는 중간 정도 혼잡 예상. West Walkway가 보통 덜 붐비니 여기서 먼저 Glass Floor 체험. 사전 예약 필수.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">다리 개폐 일정 확인</div>
+    공식 웹사이트 towerbridge.org.uk/bridge-lifts에서 약 1개월 전부터 일정 게시. 개폐 예정 시간 30분 전에 도착해 High-Level Walkways에서 대기하면 위에서 다리가 열리는 장면을 볼 수 있음. 연간 약 800회 개폐(하루 평균 2~3회).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    <strong>안에서:</strong> West Walkway(Tower of London, St Paul's, The Shard 뷰), East Walkway 천장 거울 셀카, Glass Floor 수직 촬영, Engine Rooms 거대 Victorian 엔진.<br>
+    <strong>밖에서:</strong> St. Katharine Docks(Girl with a Dolphin 동상과 함께), Alderman Stairs, Tower of London 강변, Butler's Wharf, Shad Thames, City Hall 근처(가장 아이코닉한 앵글).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">런던 타워 연결</div>
+    아침에 방문한 런던 타워(950년 역사)에서 도보 2분 거리. 런던 타워 출구 → 템스 강변 The Queen's Walk 따라 동쪽 5~10분 걸으며 타워 브리지 사진 촬영 → North Tower 입구 도착.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    North Tower, South Tower, Engine Rooms 각 위치에 있음 (장애인 화장실 포함).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">소지품 및 복장</div>
+    편한 신발 (계단 오르내림, 엘리베이터도 있음), 카메라/스마트폰, 가벼운 외투 (2월 날씨 대비, Walkways는 실내지만 Engine Rooms 가는 길은 야외).
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 온라인 티켓 사전 예약 (£15 성인 + £9 아동)</label>
+    <label><input type="checkbox"> 다리 개폐 일정 확인</label>
+    <label><input type="checkbox"> 카메라/스마트폰 충전</label>
+    <label><input type="checkbox"> 편한 신발 착용</label>
+    <label><input type="checkbox"> 가벼운 외투</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 리든홀 마켓</strong> (14:00)<br>
+  도보 15~20분 · 해리포터 촬영지(다이애곤 앨리/리키 콜드런) · Victorian 시대 시장 건물(1881년) · 15:00 Sky Garden 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
