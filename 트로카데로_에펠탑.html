@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>트로카데로 광장 & 에펠탑 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #7C5C3E;
+    --accent-light: #f5f0e6;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f5f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #4a3728 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 스토리 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── 타임라인 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── 체험 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 티켓 테이블 */
+  .ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .ticket-table th {
+    background: var(--accent-light);
+    padding: 8px 6px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent);
+  }
+  .ticket-table td {
+    padding: 7px 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ticket-table .recommend {
+    background: #fef9f0;
+    font-weight: 600;
+  }
+  .ticket-total {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    font-size: 13px;
+  }
+  .ticket-total strong { color: var(--accent); }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>트로카데로 광장 & 에펠탑 <span class="en">Trocadéro & Tour Eiffel</span></h1>
+  <p class="oneliner">철거 위기의 임시 구조물이 라디오 덕분에 살아남아 136년째 파리의 상징이 된, 세계에서 가장 유명한 철탑</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/25(수) 09:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">트로카데로 무료<br>에펠탑 2층 €53/3인</span>
+    </div>
+    <div class="info-item">
+      <span class="label">예약</span>
+      <span class="value"><a href="https://ticket.toureiffel.paris/en" style="color:var(--accent)">공식 예매</a></span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Trocadéro (6·9호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">에펠탑 개장</span>
+      <span class="value">09:30~23:00</span>
+    </div>
+  </div>
+  <div class="info-warn">에펠탑 개장 09:30 — 09:00~09:30은 트로카데로에서 사진 촬영 시간</div>
+</div>
+
+<!-- ── 왜 유명한가 ── -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>20년 뒤 철거될 뻔한 철탑</h4>
+    <p>1889년, 프랑스 혁명 100주년을 기념하는 만국박람회가 열렸다. 107개 설계안 중 엔지니어 구스타브 에펠의 팀이 제안한 300m 철탑이 채택되었다. 2년 2개월간 300명의 노동자가 18,038개 철제 부품과 250만 개 리벳을 조립했고, 에펠의 철저한 안전 대책 덕분에 사망자는 단 1명이었다.</p>
+    <p>하지만 이 탑은 처음부터 <strong>20년 한정 임시 구조물</strong>이었다. 1910년이면 파리시에 반환 후 철거될 운명이었다. 파리의 예술가와 지식인 300명은 "쇠로 된 흉물"이라며 반대 청원을 냈고, 소설가 모파상은 "탑이 안 보이는 유일한 장소"라며 에펠탑 레스토랑에서 식사했다는 유명한 일화를 남겼다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>라디오가 에펠탑을 구하다</h4>
+    <p>1898년 11월, 물리학자 외젠 뒤크레테가 에펠탑에서 4km 떨어진 팡테옹까지 최초의 무선 모스부호 전송에 성공했다. 에펠은 즉시 가능성을 알아보고 자비로 꼭대기에 안테나를 설치했다. 1908년에는 6,000km 거리까지 통신이 가능해졌고, 제1차 세계대전에서는 독일의 암호 통신을 가로채 마른 전투 승리에 기여했다.</p>
+    <p>이 <strong>군사적 가치</strong>가 에펠탑의 운명을 바꿨다. 1910년, 파리시는 철거 대신 70년 연장을 허가했고, 에펠탑은 영구 존속하게 되었다. 원래 박람회 전시물에 불과했던 철탑이, 전파 기술 덕분에 살아남은 것이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>인권 선언이 태어난 광장</h4>
+    <p>에펠탑 건너편 트로카데로 광장의 샤이요 궁(Palais de Chaillot)은 1937년 만국박람회를 위해 지어졌다. 두 날개가 벌어진 독특한 구조 덕분에, 건물 사이로 에펠탑이 정면으로 보이는 파리 최고의 전망 구도가 만들어졌다.</p>
+    <p>1948년 12월 10일, 바로 이 건물에서 제3차 UN 총회가 열려 <strong>세계인권선언</strong>이 채택되었다. 이를 기념하여 샤이요 궁 앞 광장은 "인권의 광장(Esplanade des Droits de l'Homme)"이라 불린다. 에펠탑을 배경으로 사진을 찍는 그 자리가, 인류 역사에서 가장 중요한 선언 중 하나가 탄생한 장소인 것이다.</p>
+  </div>
+</section>
+
+<!-- ── 핵심 포인트 ── -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:00</div>
+      <div class="name">① 트로카데로 에스플라나드</div>
+      <div class="desc">메트로 Trocadéro역 도착. 샤이요 궁 두 날개 사이에서 에펠탑 정면이 한눈에 들어오는 파리 최고의 포토스팟. 넓은 광장이라 여유롭게 가족사진 촬영 가능.</div>
+      <div class="highlight">15분 · 에펠탑 전체가 프레임에 담기는 클래식 구도</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:15</div>
+      <div class="name">② 트로카데로 정원 & 바르샤바 분수</div>
+      <div class="desc">에스플라나드에서 계단을 내려가며 다양한 각도에서 에펠탑 촬영. 바르샤바 분수(1937)는 20개의 물대포가 에펠탑을 향해 정렬된 구도. 2월에는 분수 미가동이지만, 수반과 에펠탑의 조합은 여전히 인상적.</div>
+      <div class="highlight">10분 · 계단 중간에서 원근감 있는 사진</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:25</div>
+      <div class="name">③ 이에나 다리 → 에펠탑 이동</div>
+      <div class="desc">Pont d'Iéna를 건너 센 강 위에서 에펠탑을 올려다보며 이동. 다리 위에서도 좋은 사진 포인트. 에펠탑 에스플라나드(기둥 아래 광장)까지 도보 약 10분.</div>
+      <div class="highlight">10분 · 센 강과 에펠탑 조합</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:35</div>
+      <div class="name">④ 에펠탑 에스플라나드(파르비)</div>
+      <div class="desc">125m 정사각형 바닥에서 에펠탑을 직접 올려다보기. 18,038개 철제 부품이 만들어내는 기하학적 대칭이 압도적. 4개의 거대한 기둥 아치 사이를 걸으며 구조의 스케일을 체감.</div>
+      <div class="highlight">15분 · 바로 아래에서 올려다보는 구도가 가장 극적</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:50</div>
+      <div class="name">⑤ 에펠탑 2층 전망대 (선택)</div>
+      <div class="desc">사전 예매 시 09:30 또는 10:00 슬롯으로 입장 가능. 115m 높이에서 노트르담, 개선문, 몽마르트르가 한눈에. 겨울 평일 오전은 연중 가장 한산하여 대기 최소.</div>
+      <div class="highlight">30분 · 사전 예매 필수 / 미예매 시 ④에서 샹드마르스 산책으로 대체</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:30</div>
+      <div class="name">카페 타임</div>
+      <div class="desc">에펠탑 주변 카페에서 따뜻한 음료로 휴식</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 체험 & 인터랙티브 ── -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>투명 유리 바닥 (1층, 57m)</h4>
+    <p>두께 4.7cm의 강화유리 바닥 위에 서면, 발 아래 57m 아래 에스플라나드가 보인다. 유리 바닥은 에펠탑 1층에만 있는 고유 체험. 2층 전망대 입장 시 1층을 경유하므로 추가 비용 없이 체험 가능.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>구스타브 에펠의 비밀 사무실 (꼭대기)</h4>
+    <p>276m 꼭대기에는 에펠이 실제 사용하던 사무실이 원래 가구와 밀랍 인형으로 복원되어 있다. 에디슨이 방문했을 때의 장면을 재현한 것. 90분 일정으로는 꼭대기 방문이 빠듯하지만, 시간 여유가 있다면 도전해볼 만하다.</p>
+  </div>
+</section>
+
+<!-- ── 티켓 정보 ── -->
+<section>
+  <h2><span class="icon">🎫</span> 티켓 & 예약</h2>
+
+  <table class="ticket-table">
+    <thead>
+      <tr><th>옵션</th><th>성인</th><th>아동(4-11)</th><th>3인 합계</th></tr>
+    </thead>
+    <tbody>
+      <tr class="recommend">
+        <td><strong>2층 엘리베이터</strong></td>
+        <td>€23.50</td>
+        <td>€6.00</td>
+        <td><strong>€53.00</strong></td>
+      </tr>
+      <tr>
+        <td>2층 계단</td>
+        <td>€14.80</td>
+        <td>€3.80</td>
+        <td>€33.40</td>
+      </tr>
+      <tr>
+        <td>정상 엘리베이터</td>
+        <td>€36.70</td>
+        <td>€9.20</td>
+        <td>€82.60</td>
+      </tr>
+      <tr>
+        <td>정상 계단+엘리</td>
+        <td>€28.00</td>
+        <td>€7.00</td>
+        <td>€63.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ticket-total">
+    <strong>예매 사이트:</strong> <a href="https://ticket.toureiffel.paris/en" style="color:var(--accent)">ticket.toureiffel.paris</a><br>
+    엘리베이터 <strong>60일 전</strong>, 계단 <strong>40일 전</strong>부터 예매 가능<br>
+    2/25 엘리베이터 → <strong>12/27부터</strong> 예매 오픈<br>
+    시간 지정제, 변경 불가. PDF 저장 후 스마트폰 제시.
+  </div>
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 수요일 오전 = 연중 가장 한산한 시간대. 여름 성수기 대기 2~3시간 vs 겨울 평일 오전 거의 없음. 오전 개장 직후(09:30)가 최적.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    <strong>1. 트로카데로 에스플라나드</strong> — 에펠탑 정면, 가장 클래식한 구도<br>
+    <strong>2. 에펠탑 바로 아래</strong> — 올려다보는 기하학적 대칭<br>
+    <strong>3. 이에나 다리 위</strong> — 센 강 + 에펠탑 조합
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">겨울 방문 복장</div>
+    2월 파리 평균 기온 2~8°C. 에펠탑 전망대는 바람이 강해 체감온도 더 낮음(2층에서도 지상보다 1~2°C↓). <strong>방풍 겉옷, 장갑, 목도리 필수.</strong> 핫팩 추천.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페 추천 (10:30)</div>
+    <strong>Carette</strong> — 4 Place du Trocadéro. 1927년부터 운영된 클래식 카페. 시그니처 핫초콜릿(€11.30, 진한 초콜릿+휘핑크림)이 유명. 1인당 €20~30. 평일 07:00 오픈.<br>
+    <strong>Café du Trocadéro</strong> — 8 Place du Trocadéro. 테라스에서 에펠탑 뷰. 가족 친화적 서비스. 07:00 오픈.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    <strong>에펠탑 내부:</strong> 파르비(기둥 아래), 1층, 2층, 정상 — 모든 층 무료. 기저귀 교환대도 있음(정상 제외).<br>
+    <strong>트로카데로:</strong> 광장 근처 Sanisette(자동 공중화장실) 이용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">에펠탑 보수공사 안내</div>
+    2024~2031 대규모 리노베이션 진행 중. 일부 구역에 비계가 있을 수 있으나, 2/25 기준 1~3층 모두 정상 개방. 원래의 "에펠 브라운" 금갈색으로 복원 중.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 에펠탑 티켓 사전 예매 (ticket.toureiffel.paris)</label>
+    <label><input type="checkbox"> e-티켓 PDF 스마트폰에 저장</label>
+    <label><input type="checkbox"> 방풍 겉옷 + 장갑 + 목도리 챙기기</label>
+    <label><input type="checkbox"> 카메라/스마트폰 충전 확인</label>
+    <label><input type="checkbox"> 메트로 9호선 Trocadéro역 하차 확인</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 오랑주리 미술관</strong> (12:00, 예약완료)<br>
+  에펠탑 → 알렉상드로 3세 다리 → 콩코드 광장 → 오랑주리<br>
+  도보 약 2.5km, 35~45분. 센 강변 산책로를 따라 파리에서 가장 화려한 다리(Pont Alexandre III)를 건너는 루트.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
