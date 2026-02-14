@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시테섬/라틴 쿼터 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #6b4423;
+    --accent-light: #f5efe8;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #3d2614 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 체험 & 인터랙티브 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>시테섬 / 라틴 쿼터 <span class="en">Île de la Cité / Quartier Latin</span></h1>
+  <p class="oneliner">2천 년 전 켈트족이 정착한 파리의 탄생지에서, 헤밍웨이가 드나들던 서점까지 — 센 강을 건너는 60분 시간여행</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/26(목) 11:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (야외 산책)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">생 샤펠 앞</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Cité (4호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">산책 거리</span>
+      <span class="value">약 1.5km</span>
+    </div>
+  </div>
+  <div class="info-warn">2월 말 평균 3~9°C · 센강변 바람 강함 — 방풍 재킷 + 머플러 필수</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>파리가 태어난 섬</h4>
+    <p>기원전 3세기, 켈트족의 한 부족인 파리시이(Parisii)가 센 강 한가운데 떠 있는 작은 섬에 정착했습니다. "파리"라는 이름은 바로 이 부족에서 왔습니다.</p>
+    <p>기원전 52년, 율리우스 카이사르가 갈리아를 정복하면서 이 섬은 로마 도시 "루테티아(Lutetia)"로 다시 태어났고, 508년에는 프랑크 왕국의 클로비스 1세가 이 섬에 왕궁을 세웠습니다. 이후 노트르담 대성당(1163~1345), 생 샤펠(1248), 콩시에르주리 감옥까지 — 프랑스 역사의 결정적 장면들이 모두 이 섬 위에서 벌어졌습니다.</p>
+    <p>오늘 우리는 2천 년의 역사가 겹겹이 쌓인 이 섬에서 출발해, 다리를 건너 라틴 쿼터로 향합니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"새 다리"가 가장 오래된 다리인 이유</h4>
+    <p>1578년, 앙리 3세가 센 강에 새 다리를 놓기 시작했습니다. 그런데 가톨릭과 개신교 사이의 종교전쟁이 터져 공사가 10년간 멈춰버렸습니다.</p>
+    <p>전쟁을 끝낸 앙리 4세는 "파리는 미사 한 번 드릴 가치가 있다"라는 유명한 말을 남기며 개신교에서 가톨릭으로 개종하고 왕이 되었습니다. 1607년 그가 완공한 이 다리의 이름은 "퐁 뇌프(Pont Neuf)", 즉 "새 다리". 하지만 430년이 지난 지금, 파리에서 가장 오래된 다리가 되었습니다.</p>
+    <p>당시 파리의 다리들은 위에 건물이 빽빽이 들어서 강이 보이지 않았는데, 퐁 뇌프는 건물 없이 강을 조망할 수 있는 최초의 다리였고, 보행자를 마차에서 보호하는 인도도 파리 최초였습니다. 난간에는 381개의 마스카롱(돌로 깎은 얼굴 조각)이 새겨져 있는데, 하나하나 표정이 다릅니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>헤밍웨이의 서점, 금서의 출판사</h4>
+    <p>1919년, 미국 뉴저지 출신의 실비아 비치(Sylvia Beach)가 파리에 영어 서점을 열었습니다. 서점 이름은 "셰익스피어 앤 컴퍼니". 이곳은 곧 헤밍웨이, 피츠제럴드, T.S. 엘리엇 등 "잃어버린 세대" 작가들의 아지트가 되었습니다.</p>
+    <p>가장 극적인 순간은 1922년. 아일랜드 작가 제임스 조이스의 소설 《율리시스》는 너무 외설적이라 어떤 출판사도 출간을 거부했는데, 실비아 비치가 자비로 이 책을 출판해 20세기 문학사를 바꿨습니다. 1941년 나치 점령으로 서점이 문을 닫았고, 비치는 수용소에 갇혔습니다.</p>
+    <p>현재의 서점은 1951년 조지 위트먼이 센 강변에 새로 열었습니다. 그는 잘 곳 없는 젊은 작가들에게 서점 2층에서 무료 숙박을 제공하는 전통을 만들었고, 이 "Tumbleweed" 프로그램은 지금도 이어지고 있습니다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">11:00</div>
+      <div class="name">① 꽃 시장 (Marché aux Fleurs)</div>
+      <div class="desc">생 샤펠 바로 북쪽. 1830년부터 운영된 파리에서 가장 오래된 꽃 시장입니다. 우아한 철제 파빌리온 아래 난초, 관엽식물, 절화가 가득합니다. 2014년 영국 엘리자베스 2세 여왕의 이름으로 개명되었습니다. 겨울에도 유리 온실 구조라 따뜻하게 둘러볼 수 있습니다.</div>
+      <div class="highlight">10분 · 리노베이션 중이지만 대부분 상가 정상영업</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:10</div>
+      <div class="name">② 콩시에르주리 외관 + 퐁 뇌프</div>
+      <div class="desc">꽃 시장 남쪽의 콩시에르주리는 14세기 감옥으로, 프랑스 혁명 때 마리 앙투아네트를 포함해 2,781명이 이곳에서 단두대로 보내졌습니다. 외관만 감상한 뒤 시테섬 서쪽 끝 퐁 뇌프로 이동. 430년 된 "파리에서 가장 오래된 다리" 위에서 센 강 양쪽과 루브르 방향 파노라마를 감상합니다.</div>
+      <div class="highlight">10분 · 난간의 381개 마스카롱(얼굴 조각) 찾아보기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:20</div>
+      <div class="name">③ 생 미셸 분수 (Fontaine Saint-Michel)</div>
+      <div class="desc">퐁 뇌프 좌안(남쪽)으로 건너서 동쪽으로 5분. 1860년 오스만 남작의 파리 대개조 때 세워진 높이 26m의 거대한 벽면 분수입니다. 대천사 미카엘이 악마를 쓰러뜨리는 청동상이 정면에 서 있고, 붉은 대리석과 녹색 대리석이 어우러져 화려합니다. 라틴 쿼터의 상징적 랜드마크.</div>
+      <div class="highlight">5분 · 라틴 쿼터 입구 — 여기서부터 좌안 탐험 시작</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:25</div>
+      <div class="name">④ 셰익스피어 앤 컴퍼니</div>
+      <div class="desc">센 강변을 동쪽으로 5분. 노트르담 맞은편에 자리한 전설적인 영어 서점입니다. 올리브그린 외관 안으로 들어서면 천장까지 빽빽한 책, 좁은 나무 계단, 오래된 타자기가 시간을 멈춘 듯한 공간을 만듭니다. 바로 옆 카페 테라스에서 노트르담이 보입니다.</div>
+      <div class="highlight">15분 · 2층 숨겨진 독서 공간 꼭 올라가보기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:40</div>
+      <div class="name">⑤ 라틴 쿼터 골목 산책</div>
+      <div class="desc">서점에서 남서쪽으로 걸으면 중세부터 이어진 좁은 골목들이 나타납니다. Rue de la Huchette는 그리스 식당, 크레프리, 재즈 클럽이 모인 활기찬 거리. 대학생들이 라틴어를 쓰던 시절부터 이어진 파리 지성의 거리를 걸으며 점심 장소로 이동합니다.</div>
+      <div class="highlight">20분 · 12:00 점심식사 장소 도착</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>퐁 뇌프 마스카롱 사냥</h4>
+    <p>다리 난간에 381개의 돌 얼굴이 조각되어 있습니다. 그리스-로마 신화의 숲의 신 실바누스, 반인반수 사티로스 등인데, 하나하나 표정이 다릅니다. 웃는 얼굴, 화난 얼굴, 혀를 내민 얼굴 — 가장 재미있는 표정을 찾아보세요.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>셰익스피어 앤 컴퍼니 탐험</h4>
+    <p>1층 서가 사이의 좁은 틈을 통과하면 숨겨진 2층 독서 공간이 나옵니다. 오래된 소파, 낡은 타자기, 벽에 걸린 작가들의 사진. 구석에 "Be not inhospitable to strangers, lest they be angels in disguise"라는 문구가 적혀 있습니다. 서점 창립자 조지 위트먼의 좌우명입니다.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월은 파리 최저 관광 시즌이지만, Zone C(파리) 겨울방학 기간(2/21~3/8)에 해당합니다. 다만 파리 거주 가족은 보통 방학에 지방/해외로 떠나므로 실제 혼잡도는 낮음~중간 수준입니다. 목요일 오전은 비교적 한적합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 Best 3</div>
+    <strong>1. 퐁 뇌프 중앙 반원형 테라스</strong> — 앙리 4세 기마상 + 센 강 + 루브르 방향 파노라마<br>
+    <strong>2. 셰익스피어 앤 컴퍼니 앞</strong> — 올리브그린 서점 외관, 또는 센 강 너머 노트르담을 배경으로<br>
+    <strong>3. 광장 르네 비비아니</strong> — 서점 옆 소공원에서 노트르담 정면 + 파리 최고령 나무(1602년 식수)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">부키니스트</div>
+    센 강변 난간에 초록색 상자를 열어 놓고 헌 책, 엽서, 포스터를 파는 노점상입니다. 16세기부터 이어진 전통으로 유네스코 무형문화유산에 등재되었습니다. 2월에도 일부 영업하지만, 추운 날은 쉬는 상인이 많습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">점심식사 주의</div>
+    Rue de la Huchette의 식당은 호객행위가 심하고 음식 질 대비 비쌉니다. 밖에서 메뉴를 들고 손님을 끄는 곳은 피하세요. Panthéon 뒤쪽 골목(Rue Thénard 등)이 관광객이 적고 로컬 분위기입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    시테섬: 팔레 드 쥐스티스 안뜰 외부 화장실 (생 샤펠 출구 근처). 라틴 쿼터: Sanisette(무료 자동세척 공중화장실)가 곳곳에 있습니다. 카페에서 에스프레소(€2 내외) 주문 시 화장실 이용 가능합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 대비</div>
+    2월 말 평균 기온 3~9°C. 센강변은 바람이 강해 체감온도가 2~3°C 더 낮습니다. 방풍 재킷 + 머플러 + 장갑 권장. 갑작스러운 소나기에 대비해 접이식 우산도 챙기세요.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 방풍 재킷 + 머플러 착용</label>
+    <label><input type="checkbox"> 접이식 우산 소지</label>
+    <label><input type="checkbox"> 생 샤펠 출구 앞 화장실 미리 이용</label>
+    <label><input type="checkbox"> 점심 식당 후보 확인 (호객 식당 주의)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 점심식사 — 라틴 쿼터 (12:00)</strong><br>
+  산책 종점에서 바로 식사. 이후 13:00~17:00 자유시간/휴식(숙소). 메트로 Saint-Michel (4호선) → Oberkampf (5호선) 환승, 약 20분.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
