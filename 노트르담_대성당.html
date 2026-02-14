@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>노트르담 대성당 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1e3a5f;
+    --accent-light: #e8eef5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0f1f35 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── 핵심 포인트 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── 체험 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>노트르담 대성당 <span class="en">Cathédrale Notre-Dame de Paris</span></h1>
+  <p class="oneliner">2019년 화재로 세계가 눈물 흘렸고, 5년 만에 부활한 고딕 건축의 걸작. 800년 된 장미창이 불길 속에서 기적처럼 살아남은 곳.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/26(목) 09:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (사전예약)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">서쪽 정면 메인 입구</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Cité (M4)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">07:45~22:00 (목)</span>
+    </div>
+  </div>
+  <div class="info-warn">사전 예약 필수 — 2/24(화) 자정에 예약 오픈, 인기 슬롯 20분 내 마감</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>100년에 걸쳐 세운 기도의 집</h4>
+    <p>1163년, 파리 주교 모리스 드 쉴리(Maurice de Sully)는 센 강 한가운데 시테 섬에 전례 없는 규모의 성당을 짓기 시작했습니다. 뾰족한 아치와 리브 볼트, 그리고 당시로서는 혁명적이었던 플라잉 버트레스 — 벽 바깥에서 건물을 떠받치는 날개 같은 구조물 — 덕분에 벽을 얇게 만들고 거대한 스테인드글라스 창을 낼 수 있었습니다.</p>
+    <p>모리스 드 쉴리는 완공을 보지 못한 채 세상을 떠났고, 여러 세대의 장인들이 약 100년에 걸쳐 대성당을 완성했습니다. 이름 모를 수천 명의 석공, 유리 장인, 목수가 평생을 바친 결과물이 바로 눈앞의 이 건물입니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>소설 한 권이 구한 대성당</h4>
+    <p>프랑스 혁명 이후, 노트르담은 방치되어 폐허로 변해가고 있었습니다. 조각상은 파괴되고, 건물은 거의 철거될 위기에 처했습니다. 1831년, 29세의 빅토르 위고가 소설 <em>노트르담 드 파리</em>(파리의 노트르담)를 출간합니다.</p>
+    <p>소설은 대성당을 단순한 건물이 아닌 파리의 영혼으로 그려내며 폭발적 인기를 끌었고, 전국적인 복원 운동이 일어났습니다. 정부는 건축가 비올레르뒤크(Viollet-le-Duc)에게 대대적 복원을 맡겼고, 그가 설계한 첨탑이 대성당의 상징이 되었습니다. 작가의 상상력이 800년 된 건물을 구한 셈입니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>불길 속의 부활 — 2019년 화재, 그리고 5년</h4>
+    <p>2019년 4월 15일, 지붕에서 화재가 발생해 15시간 동안 불길이 타올랐습니다. 전 세계가 생중계로 비올레르뒤크의 첨탑이 무너지는 장면을 지켜봤습니다. 13세기 참나무 지붕 구조 전체가 소실되고 460톤의 납이 녹아내렸습니다.</p>
+    <p>그러나 기적이 있었습니다. 800년 가까이 된 세 개의 장미창은 단 하나의 유리판도 깨지지 않고 온전히 살아남았습니다. 소방관들은 불길 속에서 예수의 가시관 등 성유물을 구출했습니다. 마크롱 대통령은 "5년 안에 재건하겠다"고 선언했고, 전 세계에서 8억 4,600만 유로가 모금되었습니다.</p>
+    <p>정확히 5년 뒤인 2024년 12월 7일, 노트르담은 다시 문을 열었습니다. 중세 기법으로 다시 세운 참나무 첨탑, 최첨단 조명 시스템, 현대 조각가 기욤 바르데가 디자인한 청동 제단이 800년 역사와 공존하고 있습니다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:00</div>
+      <div class="name">① 서쪽 파사드 & 입장</div>
+      <div class="desc">입장 전 잠시 뒤로 물러서 서쪽 정면을 올려다보세요. 왕들의 갤러리(28개 조각상), 세 개의 포털(문), 그리고 서쪽 장미창이 한눈에 들어옵니다. 중앙의 '최후의 심판 포털'로 입장합니다.</div>
+      <div class="highlight">5분 · 보안 검색 포함 (가방 미리 열어두기)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:05</div>
+      <div class="name">② 네이브(본당) — 빛의 숲</div>
+      <div class="desc">입장하면 130m 길이의 거대한 공간이 펼쳐집니다. 고개를 들어 리브 볼트 천장을 보세요 — 뼈대처럼 교차하는 아치가 하늘을 향해 솟아 있습니다. 2024년 복원 때 새로 설치된 조명 시스템이 석조 조각과 스테인드글라스를 드라마틱하게 비추고 있습니다.</div>
+      <div class="highlight">10분 · 천장 아치와 빛을 올려다보며 천천히 걷기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:15</div>
+      <div class="name">③ 남쪽 장미창 (직경 13m)</div>
+      <div class="desc">세 장미창 중 가장 큰 남쪽 장미창. 1250년경 제작된 원본 스테인드글라스가 800년 가까이 보존되어 있습니다. 2019년 화재에서도 유리 한 장 깨지지 않고 살아남은 기적의 창입니다. 신약성경 장면이 푸른색과 붉은색 유리로 빛나고 있습니다.</div>
+      <div class="highlight">5분 · 오전 빛이 장미창을 통과하는 순간이 가장 아름다움</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:20</div>
+      <div class="name">④ 예수의 가시관 & 새 제단</div>
+      <div class="desc">동쪽 끝 중심 예배당에 예수의 가시관(Crown of Thorns)이 새 성유물함에 공개 전시되어 있습니다. 이전에는 성물실 안에 감춰져 있었지만, 복원 후 누구나 볼 수 있게 되었습니다. 바로 앞의 새 제단은 조각가 기욤 바르데의 청동 작품으로, "고귀한 단순함"을 추구한 현대적 디자인입니다.</div>
+      <div class="highlight">10분 · 복원 후 가장 크게 달라진 공간</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:30</div>
+      <div class="name">⑤ 북쪽 장미창 & 대오르간</div>
+      <div class="desc">북쪽 장미창은 성모 마리아를 중심으로 구약성경의 왕과 예언자들이 둘러싼 구성입니다. 뒤를 돌아 서쪽 벽을 바라보면 7,952개 파이프로 이루어진 프랑스 최대급 오르간이 보입니다. 화재 때 납 먼지를 뒤집어썼지만 완전히 복원되었습니다.</div>
+      <div class="highlight">10분 · 오르간 연주가 들리면 멈춰서 감상하기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:40~09:50</div>
+      <div class="name">자유 관람 & 퇴장</div>
+      <div class="desc">측면 예배당들을 자유롭게 둘러보거나, 네이브 중앙에서 세 장미창을 다시 한번 감상하세요. 남은 시간에 맞춰 퇴장합니다.</div>
+      <div class="highlight">10~20분 · 시간 여유에 따라 조절</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">퇴장 → 생 샤펠</div>
+      <div class="desc">도보 5분. 같은 시테 섬 위에 있어 매우 가깝습니다.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>공식 앱 투어 "Compagnon de Visite"</h4>
+    <p>노트르담 공식 앱에서 3가지 맞춤형 투어를 제공합니다 — 일반 방문자, 가족(아이와 함께), 순례자 코스. 앱을 미리 다운로드하면 내부 주요 포인트마다 설명을 들을 수 있습니다. 무료.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>종탑 등반 (별도 예약)</h4>
+    <p>2025년 9월 재개방된 종탑. 참나무 나선 계단 424개를 올라가면 가고일과 키메라 조각을 코앞에서 보고, 파리 시내 파노라마를 감상할 수 있습니다. Paris Museum Pass 소지 시 무료(별도 예약 필요). 소요 1.5~2시간이므로 오늘 일정과는 별도 계획 필요.</p>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 목요일 오전 9시는 최적의 방문 시간대입니다. 비수기 + 이른 아침 = 가장 한산한 조합. 예약이 있으면 보안 검색 후 바로 입장 가능합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">보안 검색</div>
+    공항 스타일 보안 검색이 있습니다. 큰 배낭/캐리어는 반입 불가(보관소 없음). 작은 가방만 가져가세요. 가방을 미리 열고 금속 물건을 꺼내두면 빠르게 통과합니다. 예약 시간 15분 전(08:45) 도착 권장.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    <strong>외부:</strong> 서쪽 파사드 정면 (파르비 광장), 센 강 남쪽 강변에서 대성당 전경<br>
+    <strong>내부:</strong> 네이브 중앙에서 서쪽 장미창 방향, 남쪽 트랜셉트에서 남쪽 장미창. 사진 촬영 가능하지만 플래시는 금지.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">복장</div>
+    종교 시설이므로 어깨와 허벅지를 가리는 단정한 복장 권장. 실내에서 모자를 벗어주세요. 2월이니 겨울옷이면 자연스럽게 충족됩니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    대성당 내부에 화장실이 없습니다. 근처 Rue d'Arcole의 무료 공중화장실(Sanisette) 이용. 입장 전에 미리 다녀오세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">예약 사기 주의</div>
+    노트르담 입장은 무료입니다. 제3자 플랫폼에서 유료 티켓을 판매하면 100% 사기. 공식 예약은 <strong>resa.notredamedeparis.fr</strong> 또는 공식 앱에서만 가능합니다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 2/24(화) 23:50 예약 대기 → 자정에 2/26 09:00 슬롯 예약</label>
+    <label><input type="checkbox"> 공식 앱 "Compagnon de Visite" 다운로드</label>
+    <label><input type="checkbox"> 예약 확인 이메일/QR코드 저장</label>
+    <label><input type="checkbox"> 작은 가방만 준비 (큰 배낭 불가)</label>
+    <label><input type="checkbox"> 08:30 숙소 출발 → 도보 30분 → 08:45 도착 목표</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 생 샤펠(Sainte-Chapelle)</strong><br>
+  같은 시테 섬 내 도보 5분. 노트르담을 나와 서쪽으로 직진하면 팔레 드 쥐스티스(법원) 안에 있습니다.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
