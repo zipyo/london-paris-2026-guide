@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/19 저녁 · Lyceum Theatre 근처</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick { border: 2px solid var(--accent); }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name { font-size: 16px; font-weight: 700; }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-french { background: #ede9fe; color: #5b21b6; }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-burger { background: #fee2e2; color: #991b1b; }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label { display: block; font-size: 10px; color: var(--muted); }
+  .rest-meta .meta-value { font-weight: 600; font-size: 12px; }
+  .rest-menu { padding: 0 16px 12px; }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book { background: var(--accent); color: #fff; }
+  .btn-map { background: #f3f4f6; color: #374151; }
+  .btn-walkin { background: #f3f4f6; color: var(--muted); cursor: default; }
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="header">
+  <h1>2/19 저녁식사 <span class="sub">Lyceum Theatre 근처</span></h1>
+  <div class="context">
+    윔블던에서 이동(~17:30 도착) → 저녁식사 → 18:30 라이온킹 뮤지컬<br>
+    Lyceum Theatre 도보 5분 이내 식당 4곳
+  </div>
+</div>
+
+<!-- 실용 정보 -->
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">17:30 (~45분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">Embankment역</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">18:30 라이온킹</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 목요일 + 극장가 저녁 피크! 예약 필수. 18:15까지 식사 마치고 극장으로 이동하세요.</div>
+</div>
+
+<!-- 한눈 비교 -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Boulevard Brasserie</td>
+        <td>프렌치</td>
+        <td>~£51</td>
+        <td style="color:var(--green)">OpenTable</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Pizza Express</td>
+        <td>피자</td>
+        <td>~£37</td>
+        <td style="color:var(--green)">OpenTable</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Honest Burgers</td>
+        <td>버거</td>
+        <td>~£40</td>
+        <td style="color:var(--warn)">전화만</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Franco Manca</td>
+        <td>피자</td>
+        <td>~£40</td>
+        <td style="color:var(--green)">SevenRooms</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- 식당 상세 -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Boulevard Brasserie (추천) -->
+  <div class="restaurant pick">
+    <div class="pick-badge">극장 도보 1분 · 프리시어터 전문</div>
+    <div class="rest-header">
+      <div class="rest-name">Boulevard Brasserie</div>
+      <span class="rest-cuisine cuisine-french">프렌치</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">극장까지</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">OpenTable</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Lyceum Theatre 같은 거리</span>
+      <span class="tag tag-good">프리시어터 2코스 £21.95</span>
+      <span class="tag tag-info">키즈메뉴 넉넉한 포션</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Pre-Theatre 2코스 (스타터+메인)</span><span class="price">£21.95</span></div>
+        <div class="menu-line"><span class="item">Pre-Theatre 2코스 (스타터+메인)</span><span class="price">£21.95</span></div>
+        <div class="menu-line"><span class="item">Kids Cheeseburger & Fries</span><span class="price">£7.50</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£51</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.co.uk/r/boulevard-brasserie-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Boulevard+Brasserie,+40+Wellington+Street,+London+WC2E+7BD" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Pizza Express Bow Street (추천) -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 추천 · 서비스차지 없음</div>
+    <div class="rest-header">
+      <div class="rest-name">Pizza Express</div>
+      <span class="rest-cuisine cuisine-pizza">피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">극장까지</span>
+        <span class="meta-value">3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~22:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">OpenTable</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Piccolo 키즈 풀세트 £7.25</span>
+      <span class="tag tag-good">3인 서비스차지 없음</span>
+      <span class="tag tag-info">Royal Opera House 옆</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">American Hot 피자</span><span class="price">~£13.50</span></div>
+        <div class="menu-line"><span class="item">Margherita 피자</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">Piccolo 키즈세트 (도우볼+피자+디저트+음료)</span><span class="price">£7.25</span></div>
+        <div class="menu-line"><span class="item">음료 x 2</span><span class="price">~£6.00</span></div>
+        <div class="menu-total"><span>예상 합계 (서비스차지 없음)</span><span>~£37</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.com/r/pizzaexpress-bow-street-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Pizza+Express,+9-12+Bow+Street,+London+WC2E+7AH" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Honest Burgers -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Honest Burgers</div>
+      <span class="rest-cuisine cuisine-burger">수제 버거</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">극장까지</span>
+        <span class="meta-value">3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">전화만</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">로즈마리 칩스 포함</span>
+      <span class="tag tag-good">빠른 서비스</span>
+      <span class="tag tag-warn">온라인 예약 불가 · 전화 문의</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Honest Burger (베이컨+치즈+칩스)</span><span class="price">£11.50</span></div>
+        <div class="menu-line"><span class="item">Chicken Burger (칩스 포함)</span><span class="price">£12.00</span></div>
+        <div class="menu-line"><span class="item">Kids 세트 (버거+칩스+음료)</span><span class="price">£7.60</span></div>
+        <div class="menu-line"><span class="item">음료 x 2</span><span class="price">~£5.00</span></div>
+        <div class="menu-total"><span>예상 합계 (+10% 서비스차지)</span><span>~£40</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="tel:02030190959" class="btn btn-book">전화 예약 020 3019 0959</a>
+      <a href="https://maps.google.com/?q=Honest+Burgers,+33+Southampton+Street,+London+WC2E+7HE" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Franco Manca -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Franco Manca</div>
+      <span class="rest-cuisine cuisine-italian">사워도우 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">극장까지</span>
+        <span class="meta-value">4분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~22:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">SevenRooms</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">수제 사워도우 고품질</span>
+      <span class="tag tag-good">가성비 우수</span>
+      <span class="tag tag-warn">Kids Eat Free 비적용 지점</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">No.4 Prosciutto & Funghi</span><span class="price">£12.95</span></div>
+        <div class="menu-line"><span class="item">No.6 Chorizo</span><span class="price">£13.50</span></div>
+        <div class="menu-line"><span class="item">Margherita (아이)</span><span class="price">£9.95</span></div>
+        <div class="menu-total"><span>예상 합계 (+10% 서비스차지)</span><span>~£40</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://eu.sevenrooms.com/reservations/francomancacoventgarden" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Franco+Manca,+36-39+Maiden+Lane,+London+WC2E+7LJ" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">시간 관리가 핵심!</div>
+    18:30 라이온킹 커튼콜이므로 18:10~18:15에는 극장 도착 목표.
+    17:30 착석 → 18:10 계산 완료. 예약 시 "Pre-theatre, 18:30 curtain" 메모를 남기세요.
+    Boulevard Brasserie는 극장과 같은 거리(Wellington St)라 18:20에 나와도 충분합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Half Term 대응</div>
+    2/19는 Half Term 마지막 평일(목) + 극장가 저녁 피크라 매우 혼잡합니다.
+    Walk-in은 위험하니 반드시 사전 예약하세요.
+    Boulevard Brasserie·Pizza Express는 OpenTable, Franco Manca는 SevenRooms로 예약 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선</div>
+    윔블던에서 District Line → Embankment역 하차 → 도보 7분으로 Wellington Street 도착.
+    Boulevard Brasserie(40번지)는 Lyceum Theatre(21번지)와 같은 거리.
+    Pizza Express는 Bow Street(바로 옆 블록), Honest Burgers는 Southampton Street(1블록 남쪽).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025년 확인 기준이며, 2026년 2월에 소폭 인상될 수 있습니다.
+    Pizza Express는 3인 이하 서비스차지 없음! (7인 이상만 12.5% 자동 추가)
+    Honest Burgers·Franco Manca는 10% 서비스차지 자동 추가.
+    Boulevard Brasserie는 12.5% 서비스차지 예상.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 라이온킹 뮤지컬 (18:30)</strong><br>
+  Lyceum Theatre, 21 Wellington Street · 식사 후 도보 1~4분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
