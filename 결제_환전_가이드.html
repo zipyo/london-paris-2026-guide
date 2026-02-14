@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결제 · 환전 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #059669;
+    --accent-light: #ecfdf5;
+    --london: #1565c0;
+    --london-light: #e3f2fd;
+    --paris: #c62828;
+    --paris-light: #ffebee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .core-msg {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+  .core-msg .sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 4px; }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* 비교 카드 */
+  .compare-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .compare-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* 도시 태그 */
+  .city-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .city-tag.london { background: var(--london-light); color: var(--london); }
+  .city-tag.paris { background: var(--paris-light); color: var(--paris); }
+  .city-tag.both { background: var(--accent-light); color: var(--accent); }
+
+  /* 우선순위 뱃지 */
+  .priority-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+  .priority-badge.p1 { background: var(--accent-light); color: var(--accent); }
+  .priority-badge.p2 { background: #eff6ff; color: #2563eb; }
+  .priority-badge.p3 { background: #fef3c7; color: #92400e; }
+
+  /* 수수료 테이블 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  table th {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--accent-light);
+    font-weight: 700;
+  }
+  table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  table tr:last-child td { border-bottom: none; }
+
+  /* 경고 카드 */
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* 실용 팁 */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 결제 수단 카드 */
+  .method-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .method-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .method-card p {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 4px;
+  }
+  .method-card p:last-child { margin-bottom: 0; }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>결제 · 환전 가이드 <span class="en">Payment & Currency Guide</span></h1>
+  <p class="oneliner">런던·파리에서 카드와 현금을 똑똑하게 쓰는 법. 수수료를 줄이고 환전 고민 없이 여행하기.</p>
+</div>
+
+<div class="info-box">
+  <div class="core-msg">
+    카드 80~90% + 현금 10~20%<br>이 조합이 가장 유리합니다
+    <span class="sub">런던·파리 모두 카드 결제 인프라가 매우 잘 되어 있습니다</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 신용카드 해외 결제 수수료
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💳</span> 신용카드 해외 결제 수수료</h2>
+
+  <div class="compare-card">
+    <h4>수수료 구성</h4>
+    <table>
+      <tr>
+        <th>항목</th>
+        <th>비율</th>
+        <th>비고</th>
+      </tr>
+      <tr>
+        <td>국제 브랜드 수수료 (Visa/MC)</td>
+        <td>약 1%</td>
+        <td>Visa/Mastercard가 부과</td>
+      </tr>
+      <tr>
+        <td>해외 이용 수수료 (카드사)</td>
+        <td>0.2~0.5%</td>
+        <td>카드사별 상이</td>
+      </tr>
+      <tr style="font-weight:700;">
+        <td>합계</td>
+        <td>약 1.2~1.5%</td>
+        <td>대부분의 카드 기준</td>
+      </tr>
+    </table>
+    <p style="font-size:12px; color:var(--muted); margin-top:10px;">* 트래블로그, 트래블월렛 등 해외 수수료 면제 카드는 0%까지 가능</p>
+  </div>
+
+  <!-- DCC 경고 -->
+  <div class="warn-card">
+    <div class="warn-title">DCC(원화 결제) 절대 주의</div>
+    결제 시 단말기에서 <strong>"현지 통화(GBP/EUR)"</strong>를 반드시 선택하세요.<br><br>
+    • "Korean Won으로 결제하시겠습니까?" → <strong>No 선택</strong><br>
+    • 원화 결제(DCC) 선택 시 <strong>3~8% 추가 수수료</strong> 발생<br>
+    • 식당·상점 직원이 원화 결제를 권유해도 거절
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 환전 적정 금액
+     ═══════════════════════════════════════ -->
+<section style="background: var(--accent-light);">
+  <h2><span class="icon">💷</span> 환전 적정 금액</h2>
+
+  <div class="compare-card">
+    <h4>3인 가족 기준 추천 현금</h4>
+    <table>
+      <tr>
+        <th>통화</th>
+        <th>금액</th>
+        <th>용도</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">GBP (파운드)</td>
+        <td>£100~150</td>
+        <td>팁, 소규모 마켓, 비상용</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">EUR (유로)</td>
+        <td>€100~150</td>
+        <td>팁, 소규모 마켓, 비상용</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">환전 팁</div>
+    • <strong>한국 시중은행</strong>에서 미리 환전 (공항보다 우대율 좋음)<br>
+    • 온라인/앱 환전 후 공항 수령이 가장 편리<br>
+    • 환전 수수료 스프레드: 보통 1.5~2.5% (카드보다 불리)<br>
+    • 현지 환전소는 수수료가 높아 비추천
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 추천 결제 수단 조합
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🏆</span> 추천 결제 수단 조합</h2>
+
+  <div class="method-card">
+    <span class="priority-badge p1">1순위</span>
+    <h4>트래블 체크카드</h4>
+    <p>트래블로그 / 트래블월렛 등</p>
+    <p><strong>메인 결제</strong> — 해외 수수료 0%, 환율 우대</p>
+  </div>
+
+  <div class="method-card" style="border-left-color:#2563eb;">
+    <span class="priority-badge p2">2순위</span>
+    <h4>신용카드 (Visa/MC)</h4>
+    <p><strong>백업 결제, 고액 결제</strong></p>
+    <p>수수료 약 1.2~1.5% 발생하지만 안정적</p>
+  </div>
+
+  <div class="method-card" style="border-left-color:#92400e;">
+    <span class="priority-badge p3">보조</span>
+    <h4>현금 (GBP/EUR)</h4>
+    <p><strong>팁, 소액, 비상용</strong></p>
+    <p>£100~150 + €100~150 정도면 충분</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 현지 실용 팁
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 현지 실용 팁</h2>
+
+  <div class="tip-card">
+    <span class="city-tag london">LONDON</span>
+    <div class="tip-title">런던 결제</div>
+    • 대중교통은 <strong>컨택리스 카드 탭</strong> 결제 (오이스터카드보다 편리, 일일 캡 동일 적용)<br>
+    • 거의 모든 상점·식당에서 카드 결제 가능<br>
+    • 팁 문화: 레스토랑 10~12.5% (카드 결제 시 포함되는 경우 많음)
+  </div>
+
+  <div class="tip-card">
+    <span class="city-tag paris">PARIS</span>
+    <div class="tip-title">파리 결제</div>
+    • 파리 메트로도 <strong>컨택리스 결제</strong> 가능<br>
+    • 빵집·소규모 카페 등 일부 소액 결제 시 현금 필요할 수 있음<br>
+    • 팁 문화: 서비스료 포함이 기본, 추가 팁은 선택사항
+  </div>
+
+  <div class="tip-card">
+    <span class="city-tag both">LONDON + PARIS</span>
+    <div class="tip-title">공통 주의</div>
+    • ATM 현금 인출은 건당 수수료 + 비율 수수료 → <strong>가급적 피할 것</strong><br>
+    • 환전소(Bureau de Change)는 수수료 높음 → 비추천<br>
+    • 카드 분실 시 즉시 카드사 국제전화로 정지 (번호 미리 메모)
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ 출발 전 체크리스트
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">✅</span> 출발 전 체크리스트</h2>
+
+  <div class="checklist">
+    <h3>결제 준비</h3>
+    <label><input type="checkbox"> 해외 수수료 우대 카드 발급/확인 (트래블로그, 트래블월렛 등)</label>
+    <label><input type="checkbox"> 카드사에 해외 사용 등록 (자동 차단 방지)</label>
+    <label><input type="checkbox"> 카드 2장 이상 준비 (1장 분실/결제 거절 대비)</label>
+    <label><input type="checkbox"> Apple Pay에 Visa/MC 등록 (런던 대중교통 컨택리스 결제용)</label>
+    <label><input type="checkbox"> 은행에서 GBP·EUR 소액 환전</label>
+    <label><input type="checkbox"> 카드 해외 결제 한도 확인 및 상향</label>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>런던·파리 대중교통 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #0d7377;
+    --accent-light: #e6fffa;
+    --london: #1565c0;
+    --london-light: #e3f2fd;
+    --paris: #c62828;
+    --paris-light: #ffebee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #f0fdfa;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #0d7377 0%, #065f5f 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .core-msg {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+  .core-msg .sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 4px; }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* 도시 태그 */
+  .city-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .city-tag.london { background: var(--london-light); color: var(--london); }
+  .city-tag.paris { background: var(--paris-light); color: var(--paris); }
+  .city-tag.both { background: var(--accent-light); color: var(--accent); }
+
+  /* 비교 카드 */
+  .compare-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .compare-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .compare-item {
+    font-size: 12.5px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    line-height: 1.5;
+  }
+  .compare-item.london-bg { background: var(--london-light); }
+  .compare-item.paris-bg { background: var(--paris-light); }
+  .compare-item .flag { font-size: 11px; font-weight: 700; display: block; margin-bottom: 3px; }
+
+  /* DO/DON'T 카드 */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .do-item, .dont-item {
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    line-height: 1.5;
+  }
+  .do-item { background: var(--good-bg); color: #15803d; }
+  .dont-item { background: var(--warn-bg); color: var(--warn); }
+  .do-item::before { content: 'O '; font-weight: 700; }
+  .dont-item::before { content: 'X '; font-weight: 700; }
+
+  /* 스토리 영역 */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* 실용 팁 */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 경고 */
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* 정보 카드 */
+  .info-card {
+    background: var(--accent-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+  }
+  .info-card .info-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* 순서 리스트 */
+  .steps {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    font-size: 13px;
+    padding: 6px 0 6px 28px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 20px;
+    height: 20px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 테이블 */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .data-table th {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+    background: var(--accent-light);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .data-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .total td {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    padding-top: 10px;
+  }
+
+  /* 불릿 리스트 */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+  .bullet-list li {
+    font-size: 13px;
+    padding: 4px 0 4px 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .bullet-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 앱 카드 */
+  .app-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .app-icon.green { background: #d1fae5; }
+  .app-icon.blue { background: #dbeafe; }
+  .app-icon.purple { background: #ede9fe; }
+  .app-info { flex: 1; }
+  .app-info .app-name { font-size: 13px; font-weight: 700; }
+  .app-info .app-desc { font-size: 11.5px; color: var(--muted); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>대중교통 가이드 <span class="en">Public Transport Guide</span></h1>
+  <p class="oneliner">런던은 Apple Pay 탭 한 번, 파리는 iPhone Navigo. 아이는 런던 무료, 파리 성인 요금. 출발 전 설정만 해두면 현지에서 바로 탑승할 수 있습니다.</p>
+</div>
+
+<div class="info-box">
+  <div class="core-msg">
+    런던 = Apple Pay 탭으로 바로 탑승<br>
+    파리 = iPhone Navigo 사전 발급
+    <span class="sub">아이(만 10세): 런던 무료 · 파리 성인 요금 (Navigo Easy 물리카드)</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 런던 교통
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🇬🇧</span> 런던 교통 (2/16~2/24)</h2>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON</span>
+    <h4>Apple Pay (신용카드 컨택리스)</h4>
+    <p>런던 대중교통(Tube, Bus, Overground, DLR)은 <strong>Apple Pay 탭 한 번</strong>으로 탑승 가능. Oyster 카드 구매 불필요.</p>
+    <ul class="bullet-list">
+      <li>Visa/Mastercard가 Apple Pay에 등록되어 있으면 바로 사용</li>
+      <li>요금과 일일/주간 상한(cap)은 Oyster와 동일</li>
+      <li>데이터 로밍 없어도 Apple Pay 탭 결제 가능 (NFC 기반)</li>
+    </ul>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>Zone 1-2 요금 (성인)</h4>
+    <table class="data-table">
+      <tr>
+        <th>구분</th>
+        <th>요금</th>
+      </tr>
+      <tr>
+        <td>1회 (피크)</td>
+        <td><strong>£2.90</strong></td>
+      </tr>
+      <tr>
+        <td>1회 (오프피크)</td>
+        <td><strong>£2.80</strong></td>
+      </tr>
+      <tr>
+        <td>일일 상한</td>
+        <td><strong>£8.50</strong></td>
+      </tr>
+      <tr>
+        <td>주간 상한 (월~일)</td>
+        <td><strong>£44.70</strong></td>
+      </tr>
+      <tr>
+        <td>버스/트램 1회</td>
+        <td><strong>£1.75</strong></td>
+      </tr>
+      <tr>
+        <td>버스/트램 일일 상한</td>
+        <td><strong>£5.25</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>사전 준비</h4>
+    <ol class="steps">
+      <li>카드사 앱에서 <strong>해외 컨택리스 결제 활성화</strong> (하나/신한/국민/현대 등)</li>
+      <li>Apple Pay에 해외결제 가능한 Visa 또는 Mastercard 등록 확인</li>
+      <li>해외결제 수수료 확인 (카드사별 1~1.5%)</li>
+      <li><strong>부부 각각 다른 카드/기기로 탭</strong> — 같은 카드로 2회 탭하면 1인 출입으로 인식</li>
+    </ol>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>탑승 시 주의사항</h4>
+    <div class="do-dont">
+      <div class="do-item">탑승 시 탭한 것과 같은 카드/기기로 하차 탭 (Tube/Overground)</div>
+      <div class="dont-item">탑승·하차 시 다른 카드/기기 탭</div>
+      <div class="do-item">버스는 탑승 시에만 탭 (하차 탭 없음)</div>
+      <div class="dont-item">같은 카드로 2인 연속 탭</div>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON</span>
+    <h4>아이 (만 10세): 무료</h4>
+    <p><strong>11세 미만은 성인 동반 시 런던 대중교통 전 노선 무료</strong> (성인 1인당 최대 4명)</p>
+    <ul class="bullet-list">
+      <li>Tube, Overground, DLR, Elizabeth Line: 무료 (성인 동반 필수)</li>
+      <li>버스, 트램: 무료 (5~10세는 동반 없이도 무료)</li>
+      <li>별도 카드/티켓 불필요</li>
+    </ul>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>개찰구 통과 방법</h4>
+    <ol class="steps">
+      <li>성인이 Apple Pay로 탭하여 게이트 통과</li>
+      <li><strong>넓은 게이트(wheelchair gate)</strong>를 이용하여 아이와 함께 통과</li>
+      <li>아이가 못 들어왔으면 역무원에게 요청하면 열어줌</li>
+    </ol>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>유용한 앱</h4>
+    <div class="app-card">
+      <div class="app-icon green">🗺️</div>
+      <div class="app-info">
+        <div class="app-name">Citymapper</div>
+        <div class="app-desc">런던 교통 경로/시간 검색 최적 (한국어 지원)</div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon blue">🚇</div>
+      <div class="app-info">
+        <div class="app-name">TfL Go</div>
+        <div class="app-desc">TfL 공식 앱, 실시간 운행 정보</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 파리 교통
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🇫🇷</span> 파리 교통 (2/24~2/28)</h2>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>Navigo 카드</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리 메트로는 <strong>신용카드 직접 탭 탑승 불가</strong>. 별도 교통카드(Navigo)가 필요합니다.</p>
+    <div class="warn-card">
+      <div class="warn-title">2025년 11월부터 종이 티켓 판매 중단</div>
+      Navigo Easy 카드 또는 iPhone Navigo만 사용 가능합니다.
+    </div>
+  </div>
+
+  <div class="story-block" style="border-left-color: var(--paris);">
+    <span class="city-tag paris">PARIS</span>
+    <h4>방법 1: iPhone Navigo (부부용, 추천)</h4>
+    <p>iPhone에서 Navigo 카드를 바로 발급받아 메트로 개찰구에서 탭하여 탑승.</p>
+    <p style="font-weight:600; color:var(--accent); margin-top:8px;">설정 방법:</p>
+    <ol class="steps">
+      <li>iPhone 설정 → Wallet → 교통카드 추가 → <strong>Navigo</strong> 선택</li>
+      <li>또는 Île-de-France Mobilités 앱 다운로드 후 카드 발급</li>
+      <li>Apple Pay에 등록된 카드로 충전/구매</li>
+    </ol>
+    <div class="info-card" style="margin-top:12px;">
+      <div class="info-title">iPhone Navigo 장점</div>
+      • 물리 카드 구매하러 창구 줄 설 필요 없음<br>
+      • Express Mode 설정 시 잠금 해제 없이 탭 가능<br>
+      • 배터리 꺼져도 약 5시간 Power Reserve 지원<br>
+      • 한국 출발 전 미리 설정 가능
+    </div>
+    <p style="font-size:12px; color:var(--muted); margin-top:8px;">* 요구사항: iPhone XR/XS 이상, iOS 17.5 이상</p>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>구매 가능 상품</h4>
+    <table class="data-table">
+      <tr>
+        <th>상품</th>
+        <th>가격</th>
+        <th>비고</th>
+      </tr>
+      <tr>
+        <td>t+ 티켓 (1회)</td>
+        <td><strong>€2.15</strong></td>
+        <td>메트로/버스/트램/RER(Zone 1)</td>
+      </tr>
+      <tr>
+        <td>t+ 10매 카르네</td>
+        <td><strong>€17.35</strong></td>
+        <td>1매당 €1.74, 가장 경제적</td>
+      </tr>
+      <tr>
+        <td>Navigo Jour (1일권)</td>
+        <td><strong>€8.45</strong></td>
+        <td>Zone 1-5 전 구간 무제한</td>
+      </tr>
+      <tr>
+        <td>공항 패스</td>
+        <td>별도</td>
+        <td>CDG/오를리 공항 ↔ 시내</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="story-block" style="border-left-color: var(--paris);">
+    <span class="city-tag paris">PARIS</span>
+    <h4>방법 2: 물리 Navigo Easy (아이용)</h4>
+    <p><strong>13세 미만은 Apple Wallet에 Navigo 추가 불가</strong> (Apple 정책). 아이는 물리 카드 필요.</p>
+    <p style="font-weight:600; color:var(--accent); margin-top:8px;">구매 방법:</p>
+    <ol class="steps">
+      <li>파리 도착 후 메트로역 창구 또는 자동판매기에서 구매</li>
+      <li>Navigo Easy 카드: <strong>€2</strong> (카드 비용, 재사용 가능)</li>
+      <li>t+ 티켓 충전: 1회 €2.15 또는 10매 €17.35</li>
+    </ol>
+    <div class="info-card" style="margin-top:12px;">
+      <div class="info-title">추천 구매 장소</div>
+      Gare du Nord (유로스타 도착역) — 도착 직후 바로 구매
+    </div>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>아이 (만 10세): 성인 요금</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리는 런던과 달리 <strong>4~9세만 반액 할인</strong>. 만 10세는 성인 요금 적용.</p>
+    <ul class="bullet-list">
+      <li>t+ 1회: €2.15 (성인과 동일)</li>
+      <li>아이용 Navigo Easy 카드 별도 구매 필요</li>
+    </ul>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>파리 4박 교통비 예상</h4>
+    <table class="data-table">
+      <tr>
+        <th>구분</th>
+        <th>예상 이용</th>
+        <th>비용</th>
+      </tr>
+      <tr>
+        <td>부부 (iPhone Navigo x2)</td>
+        <td>각 10매 카르네</td>
+        <td>€17.35 x 2 = <strong>€34.70</strong></td>
+      </tr>
+      <tr>
+        <td>아이 (Navigo Easy)</td>
+        <td>10매 카르네</td>
+        <td>카드 €2 + 충전 €17.35 = <strong>€19.35</strong></td>
+      </tr>
+      <tr class="total">
+        <td colspan="2">합계</td>
+        <td><strong>약 €54</strong></td>
+      </tr>
+    </table>
+    <p style="font-size:12px; color:var(--muted); margin-top:8px;">* 하루 평균 2~3회 탑승 기준. 많이 이동하는 날은 Navigo Jour(€8.45) 1일권이 유리할 수 있음 (4회 이상이면 1일권이 이득).</p>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>주요 노선</h4>
+    <ul class="bullet-list">
+      <li><strong>메트로 4호선</strong>: Gare du Nord ↔ Saint-Michel ↔ Montparnasse</li>
+      <li><strong>RER B선</strong>: Gare du Nord ↔ Châtelet ↔ Saint-Michel</li>
+      <li><strong>RER C선</strong>: Saint-Michel → Versailles Château (직행, 약 40분~1시간)</li>
+      <li><strong>RER A선</strong>: 디즈니랜드 방면</li>
+    </ul>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>유용한 앱</h4>
+    <div class="app-card">
+      <div class="app-icon purple">🚆</div>
+      <div class="app-info">
+        <div class="app-name">Île-de-France Mobilités</div>
+        <div class="app-desc">파리 교통 공식 앱 (Navigo 관리, 경로 검색)</div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon green">🗺️</div>
+      <div class="app-info">
+        <div class="app-name">Citymapper</div>
+        <div class="app-desc">파리에서도 사용 가능</div>
+      </div>
+    </div>
+    <div class="app-card">
+      <div class="app-icon blue">📍</div>
+      <div class="app-info">
+        <div class="app-name">Google Maps</div>
+        <div class="app-desc">경로 검색용</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 비용 비교
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">💰</span> 비용 비교</h2>
+
+  <div class="compare-card">
+    <h4>런던 vs 파리 교통비</h4>
+    <div class="compare-row">
+      <div class="compare-item london-bg">
+        <span class="flag">런던 (8일)</span>
+        Apple Pay 탭<br>
+        일일 상한 £8.50/인<br>
+        주간 상한 £44.70/인<br>
+        <strong>아이: 무료</strong>
+      </div>
+      <div class="compare-item paris-bg">
+        <span class="flag">파리 (4일)</span>
+        Navigo 카드<br>
+        10매 카르네 €17.35/인<br>
+        1일권 €8.45/인<br>
+        <strong>아이: 성인 요금</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 핵심 비교표
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📊</span> 핵심 비교표</h2>
+
+  <div class="compare-card">
+    <h4>런던 vs 파리</h4>
+    <table class="data-table">
+      <tr>
+        <th>항목</th>
+        <th style="color:var(--london);">런던</th>
+        <th style="color:var(--paris);">파리</th>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">성인 결제</td>
+        <td>Apple Pay 탭 (한국 카드 OK)</td>
+        <td>iPhone Navigo (Wallet에서 발급)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">아이 결제</td>
+        <td><strong>무료</strong> (별도 준비 없음)</td>
+        <td>Navigo Easy 물리 카드 (€2)</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">카드 직접 탭</td>
+        <td>가능</td>
+        <td><strong>불가</strong></td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">아이 요금</td>
+        <td>11세 미만 무료</td>
+        <td>10세 이상 성인 요금</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ 출발 전 체크리스트
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">✅</span> 출발 전 체크리스트</h2>
+
+  <div class="checklist">
+    <h3>출국 전 준비 사항</h3>
+    <label><input type="checkbox"> 카드사 앱에서 해외 컨택리스 결제 활성화</label>
+    <label><input type="checkbox"> Apple Pay에 해외결제 가능 Visa/Mastercard 등록 확인</label>
+    <label><input type="checkbox"> iPhone Wallet에 Navigo 카드 추가 (부부 각각)</label>
+    <label><input type="checkbox"> Citymapper 앱 설치 (런던/파리 도시 데이터 다운로드)</label>
+    <label><input type="checkbox"> TfL Go 앱 설치</label>
+    <label><input type="checkbox"> Île-de-France Mobilités 앱 설치</label>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

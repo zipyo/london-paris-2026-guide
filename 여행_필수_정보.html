@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여행 필수 정보 · 런던-파리 2026</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #6b21a8;
+    --accent-light: #f3e8ff;
+    --london: #1565c0;
+    --london-light: #e3f2fd;
+    --paris: #c62828;
+    --paris-light: #ffebee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #4c1d95 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-box .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .info-box .info-item {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding: 6px 0;
+  }
+  .info-box .info-item .label {
+    font-size: 11px;
+    color: var(--muted);
+    display: block;
+  }
+  .info-box .info-item .value {
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .info-box .info-full {
+    font-size: 12.5px;
+    text-align: center;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .info-box .info-full strong { color: var(--accent); }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .city-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .city-tag.london { background: var(--london-light); color: var(--london); }
+  .city-tag.paris { background: var(--paris-light); color: var(--paris); }
+  .city-tag.both { background: var(--accent-light); color: var(--accent); }
+
+  .compare-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .compare-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .compare-item {
+    font-size: 12.5px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    line-height: 1.5;
+  }
+  .compare-item.kr { background: #fef3c7; }
+  .compare-item.eu { background: var(--accent-light); }
+  .compare-item .flag { font-size: 11px; font-weight: 700; display: block; margin-bottom: 3px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+  .story-block ul {
+    font-size: 13px;
+    color: #374151;
+    padding-left: 18px;
+    margin-bottom: 8px;
+  }
+  .story-block ul li { margin-bottom: 4px; }
+  .story-block ul li:last-child { margin-bottom: 0; }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 테이블 */
+  .compact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  .compact-table th {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--accent-light);
+    font-weight: 700;
+  }
+  .compact-table td {
+    padding: 7px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compact-table tr:last-child td { border-bottom: none; }
+  .compact-table .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .compact-table .note { color: var(--muted); font-size: 11px; }
+
+  .total-row {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+  .total-row .amount { color: var(--accent); font-size: 15px; }
+
+  /* Museum Pass 하이라이트 */
+  .pass-card {
+    background: linear-gradient(135deg, var(--accent-light) 0%, #ede9fe 100%);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    border: 1px solid #ddd6fe;
+  }
+  .pass-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .pass-card p {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+  .pass-card .savings {
+    background: var(--good-bg);
+    color: var(--good);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* 앱 리스트 */
+  .app-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .app-item {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .app-item .app-name {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .app-item .app-desc {
+    color: var(--muted);
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>여행 필수 정보 <span class="en">Trip Essentials</span></h1>
+  <p class="oneliner">12박 13일, 부부 + 10세 자녀 3인 가족의 런던-파리 여행에 필요한 모든 정보를 한 곳에.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">기간</span>
+      <span class="value">2/16(월) ~ 3/1(일)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">부부 + 10세 자녀</span>
+    </div>
+    <div class="info-item">
+      <span class="label">런던</span>
+      <span class="value">8박 9일 (2/16~2/24)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">파리</span>
+      <span class="value">4박 5일 (2/24~2/28)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">숙소</span>
+      <span class="value">3곳 (런던 2 + 파리 1)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">렌터카</span>
+      <span class="value">2/21~2/23 (3일)</span>
+    </div>
+  </div>
+  <div class="info-full">귀국: 2/28 21:00 파리 출발 → <strong>3/1 17:30 인천</strong></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 숙소
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🏨</span> 숙소</h2>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON · 2/16~2/20</span>
+    <h4>Club Quarters Hotel Trafalgar Square</h4>
+    <p>체크인 15:00 / 체크아웃 12:00<br><strong>1,745,920원 (예약완료)</strong></p>
+    <p>트라팔가 광장 바로 옆, 런던 중심부. 빅벤, 웨스트민스터, 코벤트 가든 도보권.</p>
+    <ul>
+      <li>Charing Cross역 도보 2분</li>
+      <li>템즈강변 도보 2~3분 (조깅 코스 가능)</li>
+      <li>트라팔가 광장, 피카딜리 서커스 도보 1~10분</li>
+      <li>24시간 게스트 라운지 (무료 커피)</li>
+      <li>각 층 무료 생수 리필</li>
+    </ul>
+  </div>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON · 2/20~2/24</span>
+    <h4>DoubleTree by Hilton London Kensington</h4>
+    <p>체크인 15:00 / 체크아웃 12:00<br><strong>£737.91 (예약완료)</strong></p>
+    <p>100 Cromwell Road, SW7 4ER. Gloucester Road역 (District, Circle, Piccadilly Line) 도보 3분.</p>
+    <ul>
+      <li>Cromwell Rd = A4, M4 고속도로 직결 (렌터카 활용 최적)</li>
+      <li>Earls Court역 도보 8분, South Kensington역 도보 7분</li>
+      <li>24시간 프론트 데스크 (늦은 체크인 가능)</li>
+    </ul>
+  </div>
+
+  <div class="story-block">
+    <span class="city-tag paris">PARIS · 2/24~2/28</span>
+    <h4>파리 마레 숙소</h4>
+    <p>체크인 15:00<br><strong>€1,119.50 (예약완료, 결제완료)</strong></p>
+    <p>3 Rue Commines, 75003 (마레 3구)</p>
+    <ul>
+      <li>Filles du Calvaire역 (8호선) 도보 2분</li>
+      <li>Oberkampf역 (5/9호선) 도보 5분</li>
+      <li>루브르 도보 15분</li>
+      <li>노트르담 도보 20분 또는 메트로 10분</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 교통
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🚆</span> 교통</h2>
+
+  <div class="compare-card">
+    <h4>항공</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:6px;"><strong>인천 → 런던</strong> (2/16, 예약완료): 10:30 KST 출발, 16:30 런던 도착</p>
+    <p style="font-size:13px; color:#374151;"><strong>파리 → 인천</strong> (2/28, 예약완료): 21:00 파리 출발, 3/1 17:30 인천 도착</p>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>런던 교통</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:8px;"><strong>Heathrow Express</strong> (예약완료, 20 GBP): 공항 → 패딩턴 15분</p>
+    <p style="font-size:13px; color:#374151; margin-bottom:8px;">패딩턴 → 채링크로스: Bakerloo Line, 2.9 GBP x 2명 (성인)</p>
+    <div class="tip-card" style="margin-bottom:10px;">
+      <div class="tip-title">Apple Pay 컨택리스 탭으로 탑승</div>
+      Oyster 카드 불필요. Daily Cap: £8.50 (Zone 1-2), Weekly Cap: £44.70<br>
+      <strong>10세 아이 무료</strong> (11세 미만 보호자 동반 시 전 노선 무료)
+    </div>
+    <details>
+      <summary>주요 노선 상세</summary>
+      <div style="font-size:13px; color:#374151;">
+        <p style="margin-bottom:6px;"><strong>Club Quarters 기간:</strong> Charing Cross역 도보 2분, 대부분 명소 도보 10~20분</p>
+        <p><strong>DoubleTree Kensington 기간:</strong> District Line 주력 (Victoria 15~20분, 타워힐 25분)</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>렌터카 (2/21~2/23)</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:8px;">SIXT Hammersmith (예약완료)<br>픽업 2/21 08:00 / 반납 2/23 20:30</p>
+    <div class="warn-card">
+      <div class="warn-title">필수 서류</div>
+      국제운전면허증 + 한국 운전면허증 반드시 지참
+    </div>
+    <details>
+      <summary>주차 계획</summary>
+      <div style="font-size:13px; color:#374151;">
+        <p style="margin-bottom:4px;">• 라콕: Abbey 주차장 £5</p>
+        <p style="margin-bottom:4px;">• 바스: 주차 확인 필요</p>
+        <p style="margin-bottom:4px;">• 옥스퍼드: Westgate Oxford 주차장 £8.50 + 혼잡통행료 £5</p>
+        <p style="font-size:12px; color:var(--muted);">* SIXT Hammersmith은 혼잡통행료(Congestion Charge) 구역 외</p>
+        <p style="font-size:12px; color:var(--muted);">* 옥스퍼드 혼잡통행료: Caura 앱으로 다음날 자정까지 결제</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag both">LONDON → PARIS</span>
+    <h4>유로스타 (2/24)</h4>
+    <p style="font-size:13px; color:#374151; margin-bottom:6px;">12:30 출발, 15:00 파리 Gare du Nord 도착 (예약완료)</p>
+    <p style="font-size:13px; color:#374151;">세인트 판크라스역에서 탑승. 체크인 및 출국심사: 11:30부터</p>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>파리 교통</h4>
+    <div class="compare-row">
+      <div class="compare-item kr">
+        <span class="flag">부부</span>
+        iPhone Wallet Navigo
+      </div>
+      <div class="compare-item eu">
+        <span class="flag">아이</span>
+        Navigo Easy 물리 카드
+      </div>
+    </div>
+    <div class="warn-card">
+      <div class="warn-title">신용카드 직접 탭 탑승 불가</div>
+      런던과 달리 Navigo 카드 필수. 10세 아이는 성인 요금 (4~9세만 반액)
+    </div>
+    <details>
+      <summary>주요 노선</summary>
+      <div style="font-size:13px; color:#374151;">
+        <p style="margin-bottom:4px;">• 메트로 4호선: 북역 ↔ 생미셸 ↔ 몽파르나스</p>
+        <p style="margin-bottom:4px;">• RER B선: 북역 ↔ 샤틀레 ↔ 생미셸</p>
+        <p style="margin-bottom:4px;">• RER C선: 생미셸 → 베르사유 (직행, 약 40분~1시간)</p>
+        <p style="margin-bottom:4px;">• RER A선: 디즈니랜드 방면</p>
+        <p>• 디즈니랜드 → CDG 공항: 택시 (A4→A104, ~31km, ~€65~95)</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 예약 현황
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">📋</span> 예약 현황</h2>
+
+  <div class="story-block">
+    <h4>예약 완료 항목</h4>
+    <table class="compact-table">
+      <tr>
+        <th>날짜</th>
+        <th>항목</th>
+        <th>가격</th>
+      </tr>
+      <tr>
+        <td>2/16</td>
+        <td>인천→런던 항공편</td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/16</td>
+        <td>공항 발렛 파킹</td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/16</td>
+        <td>Heathrow Express</td>
+        <td class="price">20 GBP</td>
+      </tr>
+      <tr>
+        <td>2/16~20</td>
+        <td>Club Quarters Hotel<br><span class="note">4박</span></td>
+        <td class="price">1,745,920원</td>
+      </tr>
+      <tr>
+        <td>2/17</td>
+        <td>자연사 박물관<br><span class="note">timed entry</span></td>
+        <td class="price">무료</td>
+      </tr>
+      <tr>
+        <td>2/17</td>
+        <td>과학 박물관<br><span class="note">11:15~11:45 입장</span></td>
+        <td class="price">무료</td>
+      </tr>
+      <tr>
+        <td>2/19</td>
+        <td>웨스트엔드 뮤지컬<br><span class="note">Lyceum Theatre</span></td>
+        <td class="price">206.85 GBP</td>
+      </tr>
+      <tr>
+        <td>2/20</td>
+        <td>대영박물관<br><span class="note">금요일 야간</span></td>
+        <td class="price">무료</td>
+      </tr>
+      <tr>
+        <td>2/20~24</td>
+        <td>DoubleTree Kensington<br><span class="note">4박</span></td>
+        <td class="price">£737.91</td>
+      </tr>
+      <tr>
+        <td>2/21~23</td>
+        <td>SIXT 렌터카<br><span class="note">Hammersmith</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/23</td>
+        <td>해리포터 스튜디오<br><span class="note">15:00 입장</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/24</td>
+        <td>유로스타 런던→파리<br><span class="note">12:30 출발</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/24~28</td>
+        <td>파리 마레 숙소<br><span class="note">4박</span></td>
+        <td class="price">€1,119.50</td>
+      </tr>
+      <tr>
+        <td>2/25</td>
+        <td>오랑주리 미술관<br><span class="note">12:00</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/25</td>
+        <td>개선문<br><span class="note">17:30, 석양 18:27</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/25</td>
+        <td>Aura Invalides<br><span class="note">20:00</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/26</td>
+        <td>오르세 미술관<br><span class="note">목 야간 21:45까지</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/27</td>
+        <td>루브르 박물관<br><span class="note">금 야간 21:00까지</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/28~3/1</td>
+        <td>파리→인천 항공편<br><span class="note">21:00 출발</span></td>
+        <td class="price">-</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="story-block">
+    <h4>예약 필요 항목</h4>
+    <table class="compact-table">
+      <tr>
+        <th>날짜</th>
+        <th>항목</th>
+        <th>예상</th>
+      </tr>
+      <tr>
+        <td>2/16</td>
+        <td>공항 라운지<br><span class="note">긴급도: 낮음</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/19</td>
+        <td>윔블던 박물관 투어<br><span class="note">긴급도: 중간 · 10일 전 환불 가능</span></td>
+        <td class="price">64 GBP</td>
+      </tr>
+      <tr>
+        <td>2/20</td>
+        <td>Sky Garden<br><span class="note">긴급도: 낮음 · 예약 또는 walk-in</span></td>
+        <td class="price">무료</td>
+      </tr>
+      <tr>
+        <td>2/21</td>
+        <td>스톤헨지<br><span class="note">긴급도: 중간 · 온라인 사전 예약 권장</span></td>
+        <td class="price">80~82 GBP</td>
+      </tr>
+      <tr>
+        <td>2/23</td>
+        <td>Bodleian Library<br><span class="note">긴급도: 중간 · HP 의무실 촬영지</span></td>
+        <td class="price">£9</td>
+      </tr>
+      <tr>
+        <td>2/23</td>
+        <td>Christ Church College<br><span class="note">긴급도: 중간 · HP 대식당, 12시 전 Great Hall</span></td>
+        <td class="price">£58.50</td>
+      </tr>
+      <tr>
+        <td>2/23</td>
+        <td>옥스퍼드 주차<br><span class="note">긴급도: 중간 · Westgate Oxford, Caura 앱</span></td>
+        <td class="price">£13.50</td>
+      </tr>
+      <tr>
+        <td>2/26</td>
+        <td>노트르담 대성당<br><span class="note">긴급도: 높음 · 72시간 전 사전 예약 필수</span></td>
+        <td class="price">무료</td>
+      </tr>
+      <tr>
+        <td>2/26</td>
+        <td>생 샤펠<br><span class="note">긴급도: 중간 · Museum Pass 사용 가능</span></td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>2/27</td>
+        <td>베르사유 궁전<br><span class="note">긴급도: 높음 · 온라인 필수, 오전 슬롯 인기</span></td>
+        <td class="price">50 EUR</td>
+      </tr>
+      <tr>
+        <td>2/28</td>
+        <td>디즈니랜드 파리<br><span class="note">긴급도: 중간 · 2월 비수기</span></td>
+        <td class="price">-</td>
+      </tr>
+    </table>
+    <div class="warn-card">
+      <div class="warn-title">우선 예약 필요</div>
+      노트르담 (72시간 전 필수) · 베르사유 (오전 슬롯 조기 마감) · 스톤헨지 (사전 예약 권장)
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 비용 요약
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💰</span> 비용 요약</h2>
+
+  <div class="compare-card">
+    <h4>확정 비용 (예약완료)</h4>
+    <table class="compact-table">
+      <tr>
+        <th>항목</th>
+        <th>금액</th>
+      </tr>
+      <tr>
+        <td>Club Quarters Hotel 4박</td>
+        <td class="price">1,745,920원</td>
+      </tr>
+      <tr>
+        <td>DoubleTree Kensington 4박</td>
+        <td class="price">£737.91</td>
+      </tr>
+      <tr>
+        <td>파리 마레 숙소 4박</td>
+        <td class="price">€1,119.50</td>
+      </tr>
+      <tr>
+        <td>Heathrow Express</td>
+        <td class="price">20 GBP</td>
+      </tr>
+      <tr>
+        <td>웨스트엔드 뮤지컬 (3인)</td>
+        <td class="price">206.85 GBP</td>
+      </tr>
+      <tr>
+        <td>인천-런던 항공편</td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>파리-인천 항공편</td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>유로스타 런던→파리</td>
+        <td class="price">-</td>
+      </tr>
+      <tr>
+        <td>SIXT 렌터카 3일</td>
+        <td class="price">-</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>예상 추가 비용 — 런던 입장료 (3인)</h4>
+    <table class="compact-table">
+      <tr>
+        <th>항목</th>
+        <th>예상 비용</th>
+      </tr>
+      <tr>
+        <td>윔블던 박물관 투어</td>
+        <td class="price">64 GBP</td>
+      </tr>
+      <tr>
+        <td>스톤헨지<br><span class="note">성인 27 GBP x 2 + 아이 16 GBP</span></td>
+        <td class="price">80~82 GBP</td>
+      </tr>
+      <tr>
+        <td>런던 교통 (Oyster)<br><span class="note">성인 2인분, 아이 무료</span></td>
+        <td class="price">50~70 GBP</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>예상 추가 비용 — 파리 입장료 (3인)</h4>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:8px;">* 18세 미만 무료인 명소가 많아 성인 2인분만 계산</p>
+    <table class="compact-table">
+      <tr>
+        <th>항목</th>
+        <th>예상 비용</th>
+      </tr>
+      <tr>
+        <td>루브르 (32 EUR x 2)</td>
+        <td class="price">64 EUR</td>
+      </tr>
+      <tr>
+        <td>오르세 (16 EUR x 2)</td>
+        <td class="price">32 EUR</td>
+      </tr>
+      <tr>
+        <td>베르사유 (25 EUR x 2)</td>
+        <td class="price">50 EUR</td>
+      </tr>
+      <tr>
+        <td>개선문 (16 EUR x 2)</td>
+        <td class="price">32 EUR</td>
+      </tr>
+      <tr>
+        <td>오랑주리 (12.50 EUR x 2)</td>
+        <td class="price">25 EUR</td>
+      </tr>
+      <tr>
+        <td>생 샤펠 (22 EUR x 2)<br><span class="note">비EEA 가격</span></td>
+        <td class="price">44 EUR</td>
+      </tr>
+    </table>
+    <div class="total-row">
+      <span>개별 구매 시 합계</span>
+      <span class="amount">약 247 EUR</span>
+    </div>
+  </div>
+
+  <div class="compare-card">
+    <h4>예상 식비 (전체 여행)</h4>
+    <table class="compact-table">
+      <tr>
+        <th>구간</th>
+        <th>예상 비용</th>
+      </tr>
+      <tr>
+        <td>런던 8일<br><span class="note">하루 100~150 GBP (3인)</span></td>
+        <td class="price">800~1,200 GBP</td>
+      </tr>
+      <tr>
+        <td>파리 4.5일<br><span class="note">하루 80~120 EUR (3인)</span></td>
+        <td class="price">360~540 EUR</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ Museum Pass
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🎫</span> Paris Museum Pass</h2>
+
+  <div class="pass-card">
+    <h4>4일권 — 강력 추천</h4>
+    <p><strong>70 EUR/인 x 2인 = 140 EUR</strong><br>10세 아이는 대부분 박물관 무료이므로 구매 불필요</p>
+    <p>포함 명소: 루브르, 오르세, 베르사유, 개선문, 오랑주리, 생 샤펠, 로댕 미술관 등 60개+</p>
+    <p>개별 구매 시: 루브르 32 + 오르세 16 + 베르사유 25 + 개선문 16 + 오랑주리 12.50 + 생 샤펠 22 = <strong>123.50 EUR/인</strong></p>
+    <div class="savings">인당 53.50 EUR, 2인 합계 107 EUR 절약 + 줄서기 면제</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑥ 준비물
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🧳</span> 준비물</h2>
+
+  <div class="compare-card">
+    <h4>필수 서류</h4>
+    <div class="checklist" style="padding:0; margin-top:0;">
+      <label><input type="checkbox"> 여권 (유효기간 6개월 이상 확인)</label>
+      <label><input type="checkbox"> 국제운전면허증 + 한국 운전면허증</label>
+      <label><input type="checkbox"> 여행자보험 증서 (인쇄본)</label>
+      <label><input type="checkbox"> 예약 확인서 모음 (숙소, 항공, 유로스타, 렌터카, 입장권)</label>
+    </div>
+  </div>
+
+  <div class="compare-card">
+    <h4>전자기기</h4>
+    <div class="warn-card">
+      <div class="warn-title">변환 플러그 2종 필요!</div>
+      영국: Type G (사각 3구) — 런던 8박<br>
+      프랑스: Type C/E (둥근 2구) — 파리 4박<br>
+      런던에서 쓰던 플러그는 파리에서 사용 불가
+    </div>
+    <div class="checklist" style="padding:0; margin-top:8px;">
+      <label><input type="checkbox"> 영국용 변환 플러그 (Type G)</label>
+      <label><input type="checkbox"> 프랑스용 변환 플러그 (Type C/E)</label>
+      <label><input type="checkbox"> 보조배터리 (추위에 배터리 빨리 소모)</label>
+      <label><input type="checkbox"> 유심/로밍 (3인, 영국+프랑스 커버)</label>
+      <label><input type="checkbox"> 방수 폰 케이스 (눈/비 대비)</label>
+    </div>
+  </div>
+
+  <details>
+    <summary>겨울 의류 (2월 평균 3~9도)</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 방풍 재킷 (최우선! 바람이 핵심)</label>
+      <label><input type="checkbox"> 장갑 (터치 가능 추천, 아이 장갑 2개 — 분실 대비)</label>
+      <label><input type="checkbox"> 목도리/스카프 (두툼한 것)</label>
+      <label><input type="checkbox"> 모자 (귀 덮는 비니 또는 귀마개)</label>
+      <label><input type="checkbox"> 편한 운동화 (방수/발수 처리, 하루 1~2만보)</label>
+      <label><input type="checkbox"> 등산화 (세븐시스터즈 트레킹용)</label>
+      <label><input type="checkbox"> 두꺼운 양말 여러 켤레</label>
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">레이어링 전략</div>
+      얇은 옷 여러 겹이 두꺼운 옷 1장보다 유리 (실내 난방 대비)
+    </div>
+  </details>
+
+  <details>
+    <summary>기타 준비물</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 접이식 우산 또는 레인코트 (비 확률 40%)</label>
+      <label><input type="checkbox"> 핫팩 (한국에서 준비, 현지 구매 어려움)</label>
+      <label><input type="checkbox"> 핸드크림/립밤 (겨울 건조함)</label>
+      <label><input type="checkbox"> 상비약 (감기약, 소화제, 진통제)</label>
+      <label><input type="checkbox"> 크로스백/백팩 (소매치기 대비, 앞으로 메기)</label>
+      <label><input type="checkbox"> 에코백 (마켓, 빵집 쇼핑용)</label>
+      <label><input type="checkbox"> 현금: GBP 약간 + EUR 50~100</label>
+      <label><input type="checkbox"> 물티슈/손소독제</label>
+      <label><input type="checkbox"> 아이 전용 백팩 (간식, 장난감, 책)</label>
+      <label><input type="checkbox"> 간식 (한국 과자 등, 넉넉히)</label>
+      <label><input type="checkbox"> 텀블러 (Club Quarters 무료 생수 활용)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑦ 겨울 여행 팁
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">❄️</span> 겨울 여행 팁</h2>
+
+  <div class="compare-card" style="background:var(--card);">
+    <h4>2월 런던/파리 날씨</h4>
+    <div class="compare-row">
+      <div class="compare-item kr">
+        <span class="flag">런던</span>
+        평균 4~9도<br>습해서 체감 더 추움<br>일몰 17:15~17:45
+      </div>
+      <div class="compare-item eu">
+        <span class="flag">파리</span>
+        평균 3~8도<br>바람 강함, 체감 0도 이하<br>일몰 18:00~18:30
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--muted);">비 확률 약 40%, 눈 가능성 10~20%</p>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">실내 위주 전략</div>
+    야외 10~15분 → 실내 1~2시간 패턴 유지. 일몰 이후 야외 활동 최소화 (야경 촬영 10~15분만). 백화점 = 무료 난방소, 메트로 = 지하라 따뜻함. 정원/공원은 2월에 삭막하므로 최소화.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페 휴식 — 체력 관리 핵심</div>
+    1일 2~3회 카페 휴식 권장. 카페에서 화장실 이용 가능 (공중화장실 찾기 어려움).
+    <details>
+      <summary>추천 카페 목록</summary>
+      <div style="font-size:12.5px; color:#374151; margin-top:4px;">
+        <p style="margin-bottom:4px;"><strong>런던:</strong> Club Quarters 게스트 라운지 (무료 커피), 포트넘 앤 메이슨</p>
+        <p style="margin-bottom:4px;"><strong>파리:</strong></p>
+        <p style="margin-bottom:3px;">• Angelina (리볼리 거리) — 핫초콜릿 최고</p>
+        <p style="margin-bottom:3px;">• Cafe de Flore / Les Deux Magots (생제르맹)</p>
+        <p style="margin-bottom:3px;">• Carette (트로카데로, 에펠탑 뷰)</p>
+        <p style="margin-bottom:3px;">• Cafe Marly (루브르 뷰)</p>
+        <p>• Laduree (샹젤리제, 마카롱)</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="warn-card">
+    <div class="warn-title">Half-term (영국 학교 방학) 영향</div>
+    2026년 2월 셋째 주(2/16~2/20)가 Half-term과 겹칠 가능성 높음. 자연사/과학 박물관, 해리포터 스튜디오 등 아이 친화 명소 매우 혼잡 예상. 교통량 증가 (특히 옥스퍼드 방면 M40). 가능하면 일찍 출발하여 대응.
+  </div>
+
+  <div class="warn-card">
+    <div class="warn-title">소매치기 주의</div>
+    <strong>런던:</strong> 지하철, 관광 명소 주변<br>
+    <strong>파리:</strong> 에펠탑, 루브르, 메트로, 몽마르트르 (사크레쾨르 앞 팔찌 강매 무시)<br>
+    가방은 앞으로, 귀중품은 호텔 금고에. 겨울 재킷이 두꺼워 소매치기 감지 어려움 — 주의.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">아프면</div>
+    <strong>런던:</strong> 약국(Pharmacy) 방문, 처방전 없이 감기약/진통제 구매 가능<br>
+    <strong>파리:</strong> 약국(Pharmacie, 초록 십자가 표시), 영어 가능, SOS Medecins (응급 왕진)<br>
+    여행자보험 증서 항시 소지
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑧ 유용한 앱
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📱</span> 유용한 앱</h2>
+
+  <div class="app-list">
+    <div class="app-item">
+      <span class="app-name">Google Maps</span>
+      <span class="app-desc">필수, 내비게이션</span>
+    </div>
+    <div class="app-item">
+      <span class="app-name">Citymapper</span>
+      <span class="app-desc">런던 교통 최적</span>
+    </div>
+    <div class="app-item">
+      <span class="app-name">TfL Go</span>
+      <span class="app-desc">런던 지하철</span>
+    </div>
+    <div class="app-item">
+      <span class="app-name">Trainline</span>
+      <span class="app-desc">기차 예약</span>
+    </div>
+    <div class="app-item">
+      <span class="app-name">Uber</span>
+      <span class="app-desc">파리 택시</span>
+    </div>
+    <div class="app-item">
+      <span class="app-name">Bolt</span>
+      <span class="app-desc">파리 택시 (대안)</span>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

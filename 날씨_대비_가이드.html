@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>날씨 대비 가이드 · 런던-파리 2026</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --london: #1565c0;
+    --london-light: #e3f2fd;
+    --paris: #c62828;
+    --paris-light: #ffebee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .core-msg {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+  .core-msg .sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 4px; }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* 도시 태그 */
+  .city-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .city-tag.london { background: var(--london-light); color: var(--london); }
+  .city-tag.paris { background: var(--paris-light); color: var(--paris); }
+  .city-tag.both { background: var(--accent-light); color: var(--accent); }
+
+  /* 스토리 영역 */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+  .story-block ul { font-size: 13px; color: #374151; padding-left: 18px; margin-bottom: 8px; }
+  .story-block li { margin-bottom: 4px; }
+
+  /* 경고 */
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 팁 */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* compact table */
+  .compact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin-bottom: 12px;
+  }
+  .compact-table th {
+    padding: 7px 5px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+    font-weight: 700;
+    background: var(--accent-light);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .compact-table td {
+    padding: 6px 5px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compact-table tr:last-child td { border-bottom: none; }
+  .compact-table .highlight { background: #fffbeb; }
+
+  /* 리스크 배지 */
+  .risk-badge { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .risk-badge.green { background: #16a34a; }
+  .risk-badge.yellow { background: #eab308; }
+  .risk-badge.red { background: #dc2626; }
+  .risk-badge.critical { background: #7f1d1d; }
+
+  /* 리스크 텍스트 */
+  .risk-low { color: #16a34a; font-weight: 600; }
+  .risk-medium { color: #ca8a04; font-weight: 600; }
+  .risk-high { color: #dc2626; font-weight: 600; }
+  .risk-critical { color: #7f1d1d; font-weight: 700; }
+
+  /* 비교 카드 */
+  .compare-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .compare-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* 플로차트 */
+  .flowchart {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .flow-step {
+    position: relative;
+    padding: 10px 14px;
+    margin-bottom: 0;
+    font-size: 13px;
+    border-left: 3px solid var(--accent);
+    margin-left: 8px;
+  }
+  .flow-step:last-child { border-left-color: transparent; }
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 12px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .flow-step .flow-label {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .flow-branch {
+    margin-left: 20px;
+    padding: 4px 0 4px 12px;
+    border-left: 2px dashed var(--border);
+    font-size: 12.5px;
+    color: #374151;
+  }
+  .flow-branch .fb-item {
+    padding: 3px 0;
+  }
+
+  /* 타임라인 */
+  .timeline {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .timeline h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .tl-item {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    font-size: 12.5px;
+    border-left: 2px solid var(--accent);
+    margin-left: 6px;
+  }
+  .tl-item:last-child { border-left-color: transparent; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .tl-item .tl-time {
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  /* 경보 등급 */
+  .alert-grid {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .alert-item {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .alert-item .alert-level {
+    font-weight: 700;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .alert-yellow { background: #fef9c3; color: #854d0e; border-left: 3px solid #eab308; }
+  .alert-amber { background: #fff7ed; color: #9a3412; border-left: 3px solid #f97316; }
+  .alert-red { background: #fef2f2; color: #991b1b; border-left: 3px solid #dc2626; }
+  .alert-green { background: #f0fdf4; color: #166534; border-left: 3px solid #16a34a; }
+  .alert-orange { background: #fff7ed; color: #9a3412; border-left: 3px solid #f97316; }
+  .alert-rouge { background: #fef2f2; color: #991b1b; border-left: 3px solid #dc2626; }
+
+  /* 레이어링 */
+  .layer-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    border-left: 3px solid var(--accent);
+  }
+  .layer-card .layer-name {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  /* 시나리오 바 */
+  .scenario-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--card);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .scenario-bar .bar {
+    height: 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .scenario-bar .bar-label {
+    font-weight: 600;
+    min-width: 36px;
+    text-align: right;
+  }
+  .scenario-bar .bar-desc {
+    flex: 1;
+    color: #374151;
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 캘린더 그리드 */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .cal-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    background: var(--card);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .cal-item .cal-date {
+    font-weight: 700;
+    min-width: 75px;
+    font-size: 12px;
+  }
+  .cal-item .cal-desc { flex: 1; color: #374151; }
+
+  /* 코드 블록 대체 */
+  .code-block {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    font-family: 'SF Mono', Monaco, monospace;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+    color: #334155;
+  }
+
+  /* 앱 카드 */
+  .app-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .app-card .app-name {
+    font-weight: 700;
+    min-width: 90px;
+    color: var(--accent);
+    font-size: 12.5px;
+  }
+  .app-card .app-desc { flex: 1; color: #374151; font-size: 12.5px; }
+
+  /* good 카드 */
+  .good-card {
+    background: var(--good-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #166534;
+    border-left: 3px solid var(--good);
+  }
+  .good-card .good-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  /* 방수 등급 바 */
+  .waterproof-bar {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .wp-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>날씨 대비 가이드 <span class="en">Weather Preparedness Guide</span></h1>
+  <p class="oneliner">2월 런던-파리의 변덕스러운 겨울 날씨에 대비하는 종합 전략. 일별 리스크 분석, 대안 플랜, 경보 대응까지.</p>
+</div>
+
+<div class="info-box">
+  <div class="core-msg">
+    가장 가능성 높은 시나리오 (45%):<br>"흐림 + 가벼운 비"
+    <span class="sub">방수 장비만 잘 갖추면 일정 대부분 수행 가능 · 25% 맑음 · 20% 지속 비 · 10% 강풍/한파</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 기후 개요
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🌍</span> 기후 개요</h2>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>런던 2월 기후 (2/16~2/24)</h4>
+    <table class="compact-table">
+      <tr><th>항목</th><th>수치</th><th>비고</th></tr>
+      <tr><td>평균 기온</td><td>5~6°C</td><td>체감 1~4°C (바람 시 영하)</td></tr>
+      <tr><td>최저/최고</td><td>2~3°C / 8~9°C</td><td>새벽·야간 영하 가능</td></tr>
+      <tr><td>강수 확률</td><td>21~27%</td><td>월 10~12일 강수</td></tr>
+      <tr><td>월 강수량</td><td>30~37mm</td><td>가랑비~보통비</td></tr>
+      <tr><td>풍속</td><td>평균 12.6 mph (서풍)</td><td><strong>연중 가장 바람 많은 시기</strong></td></tr>
+      <tr><td>돌풍</td><td>20~30 mph</td><td>폭풍 시 40+ mph</td></tr>
+      <tr><td>일조</td><td>하루 3.6시간</td><td>구름 비율 66%</td></tr>
+      <tr><td>적설</td><td>월 평균 2.5일</td><td>2월이 최대 적설 월</td></tr>
+      <tr><td>습도</td><td>84%</td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>파리 2월 기후 (2/24~2/28)</h4>
+    <table class="compact-table">
+      <tr><th>항목</th><th>수치</th><th>비고</th></tr>
+      <tr><td>평균 기온</td><td>5~6°C</td><td>체감 0~3°C</td></tr>
+      <tr><td>최저/최고</td><td>2°C / 9°C</td><td></td></tr>
+      <tr><td>강수 확률</td><td>~21%</td><td>월 12~14일 강수</td></tr>
+      <tr><td>월 강수량</td><td>41~52mm</td><td></td></tr>
+      <tr><td>풍속</td><td>15.4 km/h (4.3 m/s)</td><td><strong>연중 가장 바람 많은 달</strong></td></tr>
+      <tr><td>일조</td><td>하루 3~5시간</td><td>흐린 날 60%+</td></tr>
+      <tr><td>적설</td><td>월 평균 2.8일</td><td></td></tr>
+      <tr><td>습도</td><td>78~84%</td><td></td></tr>
+    </table>
+  </div>
+
+  <details>
+    <summary>교외 지역 기온차 (런던 시내 대비)</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>지역</th><th>기온차</th><th>체감 차이</th><th>특성</th></tr>
+        <tr class="highlight"><td><strong>스톤헨지</strong></td><td>-1~2°C</td><td class="risk-high">-3~5°C</td><td>평원 완전 노출, 바람막이 없음</td></tr>
+        <tr class="highlight"><td><strong>세븐시스터즈</strong></td><td>-1~2°C</td><td class="risk-critical">-4~6°C</td><td>해안 절벽 강풍, 체감 -5°C 이하</td></tr>
+        <tr><td>옥스포드</td><td>-0.5~1°C</td><td>-1~2°C</td><td>도심 관광이라 큰 차이 없음</td></tr>
+        <tr><td>바스</td><td>-0.5~1°C</td><td>-1~2°C</td><td>계곡 지형으로 바람 덜함</td></tr>
+        <tr><td>브라이튼</td><td>비슷~-1°C</td><td>-2~3°C</td><td>해변가에서 바람 영향</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>Beast from the East 위험도</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <p style="font-size:13px; color:#374151; margin-bottom:8px;">"Beast from the East" — 시베리아 한파가 동풍을 타고 유입되는 현상. 2018년 런던 -10°C, 교통 마비 사례.</p>
+      <div class="good-card">
+        <div class="good-title">2026년 2월 발생 확률: ~5~10% (낮음)</div>
+        기후변화로 겨울 온난화 추세, Met Office 전망에도 해당 패턴 미감지
+      </div>
+      <p style="font-size:12.5px; color:#374151; margin-bottom:4px;"><strong>만약 발생 시:</strong> 교외 일정 전면 취소, 런던/파리 시내 실내 관광 전환</p>
+      <p style="font-size:12.5px; color:var(--muted);"><strong>D-7부터 Met Office 장기예보 모니터링으로 조기 감지 가능</strong></p>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 일출/일몰 시각표
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🌅</span> 일출/일몰 시각표</h2>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON</span>
+    <h4>런던 일출/일몰</h4>
+    <table class="compact-table">
+      <tr><th>날짜</th><th>일출</th><th>일몰</th><th>일조</th></tr>
+      <tr><td>2/16(월)</td><td>07:12</td><td>17:17</td><td>10h 05m</td></tr>
+      <tr><td>2/17(화)</td><td>07:10</td><td>17:19</td><td>10h 09m</td></tr>
+      <tr><td>2/18(수)</td><td>07:08</td><td>17:20</td><td>10h 12m</td></tr>
+      <tr><td>2/19(목)</td><td>07:06</td><td>17:22</td><td>10h 16m</td></tr>
+      <tr><td>2/20(금)</td><td>07:04</td><td>17:24</td><td>10h 20m</td></tr>
+      <tr><td>2/21(토)</td><td>07:02</td><td>17:26</td><td>10h 24m</td></tr>
+      <tr><td>2/22(일)</td><td>07:00</td><td>17:28</td><td>10h 28m</td></tr>
+      <tr><td>2/23(월)</td><td>06:58</td><td>17:30</td><td>10h 32m</td></tr>
+      <tr><td>2/24(화)</td><td>06:56</td><td>17:31</td><td>10h 35m</td></tr>
+    </table>
+  </div>
+
+  <div class="story-block">
+    <span class="city-tag paris">PARIS</span>
+    <h4>파리 일출/일몰</h4>
+    <table class="compact-table">
+      <tr><th>날짜</th><th>일출</th><th>일몰</th><th>일조</th></tr>
+      <tr><td>2/24(화)</td><td>07:42</td><td>18:25</td><td>10h 43m</td></tr>
+      <tr><td>2/25(수)</td><td>07:40</td><td>18:27</td><td>10h 47m</td></tr>
+      <tr><td>2/26(목)</td><td>07:38</td><td>18:29</td><td>10h 51m</td></tr>
+      <tr><td>2/27(금)</td><td>07:36</td><td>18:30</td><td>10h 54m</td></tr>
+      <tr><td>2/28(토)</td><td>07:34</td><td>18:32</td><td>10h 58m</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 체감온도 참고표
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🌡️</span> 체감온도 참고표</h2>
+
+  <div class="compare-card">
+    <table class="compact-table">
+      <tr><th>기온</th><th>10 mph</th><th>15 mph</th><th>20 mph</th><th>25 mph</th></tr>
+      <tr><td><strong>8°C</strong></td><td>~5°C</td><td>~4°C</td><td>~3°C</td><td>~2°C</td></tr>
+      <tr><td><strong>5°C</strong></td><td>~2°C</td><td class="risk-medium">~0°C</td><td class="risk-medium">~-1°C</td><td class="risk-high">~-2°C</td></tr>
+      <tr><td><strong>3°C</strong></td><td class="risk-medium">~-1°C</td><td class="risk-high">~-2°C</td><td class="risk-high">~-4°C</td><td class="risk-critical">~-5°C</td></tr>
+      <tr><td><strong>0°C</strong></td><td class="risk-high">~-4°C</td><td class="risk-critical">~-6°C</td><td class="risk-critical">~-8°C</td><td class="risk-critical">~-10°C</td></tr>
+    </table>
+    <p style="font-size:11.5px; color:var(--muted); margin-top:6px;">* 세븐시스터즈(해안 절벽)·스톤헨지(평원) 방문 시 풍속 20~25 mph 체감온도 참고</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 일별 날씨 리스크 캘린더
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">📅</span> 일별 리스크 캘린더</h2>
+
+  <div class="cal-grid">
+    <div class="cal-item">
+      <span class="cal-date">2/16 (월)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">도착일, 실외 최소</span>
+    </div>
+    <div class="cal-item">
+      <span class="cal-date">2/17 (화)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">박물관 위주 + 가벼운 산책</span>
+    </div>
+    <div class="cal-item" style="background:#fffbeb;">
+      <span class="cal-date">2/18 (수)</span>
+      <span class="risk-badge yellow"></span>
+      <span class="cal-desc">근위병 교대식 (악천후 취소 가능)</span>
+    </div>
+    <div class="cal-item">
+      <span class="cal-date">2/19 (목)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">실내 위주 (윔블던 + 뮤지컬)</span>
+    </div>
+    <div class="cal-item">
+      <span class="cal-date">2/20 (금)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">런던 타워~대영박물관 (대부분 실내)</span>
+    </div>
+    <div class="cal-item" style="background:#fef2f2;">
+      <span class="cal-date">2/21 (토)</span>
+      <span class="risk-badge red"></span>
+      <span class="cal-desc">스톤헨지 (2시간 완전 실외) + 라콕/바스</span>
+    </div>
+    <div class="cal-item" style="background:#fef2f2; border-left:3px solid #7f1d1d;">
+      <span class="cal-date">2/22 (일)</span>
+      <span class="risk-badge critical"></span><span class="risk-badge critical"></span>
+      <span class="cal-desc"><strong>세븐시스터즈 절벽 (최고 위험)</strong></span>
+    </div>
+    <div class="cal-item" style="background:#fffbeb;">
+      <span class="cal-date">2/23 (월)</span>
+      <span class="risk-badge yellow"></span>
+      <span class="cal-desc">옥스포드 도보 + 해리포터 스튜디오</span>
+    </div>
+    <div class="cal-item">
+      <span class="cal-date">2/24 (화)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">유로스타 이동일 + 가벼운 산책</span>
+    </div>
+    <div class="cal-item" style="background:#fef2f2;">
+      <span class="cal-date">2/25 (수)</span>
+      <span class="risk-badge red"></span>
+      <span class="cal-desc">에펠탑/오랑주리/샹젤리제/개선문 (실외 비중 높음)</span>
+    </div>
+    <div class="cal-item">
+      <span class="cal-date">2/26 (목)</span>
+      <span class="risk-badge green"></span>
+      <span class="cal-desc">실내 위주 + 오르세 야간</span>
+    </div>
+    <div class="cal-item" style="background:#fffbeb;">
+      <span class="cal-date">2/27 (금)</span>
+      <span class="risk-badge yellow"></span>
+      <span class="cal-desc">베르사유 정원 / 몽마르트</span>
+    </div>
+    <div class="cal-item" style="background:#fffbeb;">
+      <span class="cal-date">2/28 (토)</span>
+      <span class="risk-badge yellow"></span>
+      <span class="cal-desc">디즈니랜드 파리</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ 일별 상세 위험도 매트릭스
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📊</span> 일별 상세 위험도</h2>
+
+  <details open>
+    <summary>런던 (2/16~2/24)</summary>
+    <div class="compare-card" style="margin-top:4px; overflow-x:auto;">
+      <table class="compact-table">
+        <tr><th>날짜</th><th>활동</th><th>위험도</th><th>취소/변경 기준</th></tr>
+        <tr>
+          <td>2/16</td><td>템즈강변 산책 (20:00)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>폭우/강풍 시 생략. 호텔 1분 거리</td>
+        </tr>
+        <tr>
+          <td>2/17</td><td>Brompton Oratory·Sloane St</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>없음. 건물 사이 이동, 우산 충분</td>
+        </tr>
+        <tr>
+          <td>2/17</td><td>킹스로드 (16:30)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>없음. 상점 출입으로 비 회피 가능</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/18</strong></td><td><strong>근위병 교대식 (10:30)</strong></td>
+          <td><span class="risk-badge red"></span></td>
+          <td>폭우/폭설 시 취소 (10:45 결정). 2월 취소율 ~15~25%</td>
+        </tr>
+        <tr>
+          <td>2/18</td><td>세인트 제임스 파크 (09:30)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>이동 경로, 빠르게 통과</td>
+        </tr>
+        <tr>
+          <td>2/18</td><td>빅벤~피카디리 (14:00~18:00)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>짧은 노출, 실내 대피 가능</td>
+        </tr>
+        <tr>
+          <td>2/20</td><td>런던 타워 (09:30)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>폭우 시 실내 전시 위주. 일부 실외 (성벽, 마당)</td>
+        </tr>
+        <tr>
+          <td>2/20</td><td>타워 브리지·리든홀 (13:00~)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>유리 워크웨이·지붕 아케이드</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/21</strong></td><td><strong>스톤헨지 (10:00, 2시간)</strong></td>
+          <td><span class="risk-badge red"></span></td>
+          <td>폭풍/폭설 시 English Heritage 폐쇄. 평원 완전 노출, 체감 0°C 이하</td>
+        </tr>
+        <tr>
+          <td>2/21</td><td>라콕 Abbey (13:00)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>Abbey 내부(HP 촬영지)는 실내</td>
+        </tr>
+        <tr>
+          <td>2/21</td><td>바스 (15:30)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>Roman Baths 실내</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/22</strong></td><td><strong>세븐시스터즈 절벽 (10:00, 2시간)</strong></td>
+          <td><span class="risk-badge critical"></span><span class="risk-badge critical"></span></td>
+          <td>풍속 30mph+/돌풍 40mph+ <strong>절대 금지</strong>. 여행 전체 최고 위험</td>
+        </tr>
+        <tr>
+          <td>2/22</td><td>브라이튼 (13:00~15:00)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>로열 파빌리언 실내 가능</td>
+        </tr>
+        <tr>
+          <td>2/23</td><td>옥스포드 도보 (09:30~13:30)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>대부분 실내/반실내 명소</td>
+        </tr>
+      </table>
+    </div>
+  </details>
+
+  <details open>
+    <summary>파리 (2/24~2/28)</summary>
+    <div class="compare-card" style="margin-top:4px; overflow-x:auto;">
+      <table class="compact-table">
+        <tr><th>날짜</th><th>활동</th><th>위험도</th><th>취소/변경 기준</th></tr>
+        <tr>
+          <td>2/24</td><td>센강변·노트르담 외관 (16:00)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>센강 범람 경보 시. 1시간 짧은 산책</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/25</strong></td><td><strong>에펠탑 (09:00)</strong></td>
+          <td><span class="risk-badge red"></span></td>
+          <td>지상 풍속 50km/h+ 시 정상 폐쇄. 2층 대체 가능</td>
+        </tr>
+        <tr>
+          <td>2/25</td><td>샹젤리제 산책 (14:30, 2.5시간)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>장시간 폭우/강풍 시. 실내 쇼핑 전환 가능</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/25</strong></td><td><strong>개선문 전망대 (17:30, 석양)</strong></td>
+          <td><span class="risk-badge red"></span></td>
+          <td>강풍/악천후 시 폐쇄 가능. 석양 18:27</td>
+        </tr>
+        <tr>
+          <td>2/26</td><td>시테섬/라틴 쿼터 산책 (11:00)</td>
+          <td><span class="risk-badge green"></span></td>
+          <td>1시간, 실내 대안 풍부</td>
+        </tr>
+        <tr>
+          <td>2/27</td><td>베르사유 정원 (09:00)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>폭설/강풍 시 정원 폐쇄 가능. 분수 미운영, 궁전 집중 권장</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>2/27</strong></td><td><strong>몽마르트 (14:00, 1.5시간)</strong></td>
+          <td><span class="risk-badge red"></span></td>
+          <td>비/눈 시 222개 계단 미끄러움. 퓌니큘레르 필수</td>
+        </tr>
+        <tr>
+          <td>2/28</td><td>디즈니랜드 파리 (10:00~16:30)</td>
+          <td><span class="risk-badge yellow"></span></td>
+          <td>Alice's Labyrinth 비 시 폐쇄. 실외 코스터 강풍 중단. 실내 대부분 정상</td>
+        </tr>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑥ 핵심 활동별 취소/폐쇄 조건
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">⚠️</span> 핵심 활동 취소/폐쇄 조건</h2>
+
+  <div class="story-block">
+    <h4>근위병 교대식 (2/18)</h4>
+    <table class="compact-table">
+      <tr><th>기상 조건</th><th>결과</th></tr>
+      <tr><td>가벼운 비</td><td class="risk-low">정상 진행</td></tr>
+      <tr><td>지속적 비</td><td class="risk-medium">취소 또는 Wet Mount (궁전 안쪽, 관람 불가)</td></tr>
+      <tr><td>폭우/폭설</td><td class="risk-high">완전 취소</td></tr>
+      <tr><td>강풍 (gale)</td><td class="risk-high">취소 가능</td></tr>
+    </table>
+    <p style="font-size:12.5px; color:#374151; margin-top:8px;">당일 10:45까지 결정. <a href="https://www.householddivision.org.uk/changing-the-guard-calendar" style="color:var(--accent);">Household Division 캘린더</a> + @ArmyInLondon 트위터 확인</p>
+    <p style="font-size:12.5px; color:#374151;">2/18 취소 시 → <strong>2/20(금)에도 교대식 예정</strong> (시간 조정 검토)</p>
+    <p style="font-size:12.5px; color:#374151;">대안: <strong>Horse Guards 기마 교대식</strong> (호텔 도보 5분, 취소 빈도 낮음)</p>
+  </div>
+
+  <div class="story-block">
+    <h4>세븐시스터즈 절벽 (2/22)</h4>
+    <table class="compact-table">
+      <tr><th>조건</th><th>임계값</th><th>조치</th></tr>
+      <tr><td>풍속</td><td>지속 30 mph+ / 돌풍 40 mph+</td><td class="risk-critical">절대 금지</td></tr>
+      <tr><td>풍속</td><td>20~30 mph</td><td class="risk-high">매우 주의, 절벽에서 멀리</td></tr>
+      <tr><td>비</td><td>지속 강우</td><td class="risk-high">초크 지면 극도 미끄러움</td></tr>
+      <tr><td>안개</td><td>시정 200m 이하</td><td class="risk-critical">금지 (절벽 가장자리 불분명)</td></tr>
+      <tr><td>경보</td><td>Yellow/Amber/Red</td><td class="risk-critical">금지</td></tr>
+    </table>
+    <div class="warn-card" style="margin-top:10px;">
+      <div class="warn-title">공식 폐쇄 기준 없음 — 자체 판단 필수</div>
+      절벽 가장자리에서 최소 5m 거리 유지
+    </div>
+
+    <div class="checklist" style="margin-top:12px;">
+      <h3>Go/No-Go 체크리스트</h3>
+      <label><input type="checkbox"> Met Office Eastbourne 지역 예보 확인</label>
+      <label><input type="checkbox"> 풍속 20 mph 이하</label>
+      <label><input type="checkbox"> Met Office 경보 없음</label>
+      <label><input type="checkbox"> 비 예보 없거나 가벼운 소나기 정도</label>
+      <label><input type="checkbox"> 안개 없음 (시정 1km+)</label>
+      <label><input type="checkbox"> 방풍 재킷, 미끄럼 방지 등산화 착용</label>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <h4>에펠탑 / 개선문 (2/25)</h4>
+    <table class="compact-table">
+      <tr><th>시설</th><th>폐쇄 기준</th></tr>
+      <tr><td>에펠탑 정상(3층)</td><td>정상부 풍속 80 km/h+ (지상 ~50 km/h+)</td></tr>
+      <tr><td>에펠탑 전체</td><td>폭풍, 낙뢰, 결빙</td></tr>
+      <tr><td>개선문 전망대</td><td>악천후 시 현장 판단 (기준 미공개)</td></tr>
+    </table>
+    <p style="font-size:12.5px; color:#374151; margin-top:8px;">정상 폐쇄 시 2층 전망대(115m)도 훌륭한 전망</p>
+    <p style="font-size:12.5px; color:#374151;">개선문: 284개 계단 (엘리베이터 없음), 옥상 바람 매우 강함</p>
+  </div>
+
+  <details>
+    <summary>디즈니랜드 파리 날씨 영향 (2/28)</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <h4>날씨별 영향받는 어트랙션</h4>
+      <table class="compact-table">
+        <tr><th>어트랙션</th><th>비</th><th>강풍</th><th>낙뢰</th></tr>
+        <tr><td>Big Thunder Mountain</td><td>보통 운영</td><td class="risk-medium">강풍 시 중단</td><td class="risk-high">중단</td></tr>
+        <tr><td>Indiana Jones</td><td>보통 운영</td><td class="risk-medium">강풍 시 중단</td><td class="risk-high">중단</td></tr>
+        <tr><td>Alice's Labyrinth</td><td class="risk-high">비 시 폐쇄</td><td>-</td><td>-</td></tr>
+        <tr><td>Orbitron/Dumbo</td><td>보통 운영</td><td class="risk-medium">강풍 시 중단</td><td class="risk-high">중단</td></tr>
+      </table>
+      <div class="warn-card" style="margin-top:8px;">
+        <div class="warn-title">Ratatouille 이용 불가</div>
+        리뉴얼 공사 중 (~2026.3.27)
+      </div>
+      <div class="good-card" style="margin-top:8px;">
+        <div class="good-title">비 오면 오히려 대기시간 감소</div>
+        전략적으로 활용 가능
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑦ 우천/악천후 대안 플랜
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🔄</span> 우천/악천후 대안 플랜</h2>
+
+  <details>
+    <summary>2/16 (월) 도착일</summary>
+    <div class="story-block" style="margin-top:4px;">
+      <h4>템즈강변 산책 (20:00)</h4>
+      <p><strong>Plan B:</strong> 호텔 라운지 휴식 + 트라팔가 광장 야경만 잠깐 (도보 1분)</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/17 (화) 박물관 & 첼시</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>원래 활동</th><th>Plan B</th></tr>
+        <tr><td>Brompton Oratory 외관</td><td>내부 관람 (무료, 바로크 인테리어)</td></tr>
+        <tr><td>Sloane St/킹스로드</td><td>사치갤러리 확대 + V&A Museum 추가 (무료)</td></tr>
+        <tr><td>해러즈 (18:30)</td><td>17:00부터 확대 (실내 쇼핑/푸드홀)</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/18 (수) 왕실 & 웨스트민스터 ★</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <h4>근위병 교대식 취소 시 대안</h4>
+      <table class="compact-table">
+        <tr><th>대안</th><th>위치</th><th>비용</th><th>아이 적합도</th></tr>
+        <tr><td><strong>Horse Guards 기마 교대식</strong></td><td>Whitehall (호텔 도보 5분)</td><td>무료</td><td>★★★★★</td></tr>
+        <tr><td>Household Cavalry Museum</td><td>Horse Guards 내</td><td>£10/£7</td><td>★★★★☆</td></tr>
+        <tr><td>Churchill War Rooms</td><td>Westminster</td><td>£28/£14</td><td>★★★☆☆</td></tr>
+      </table>
+    </div>
+    <div class="story-block">
+      <h4>전체 우천 시 동선</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">09:30</span> 내셔널 갤러리 (무료, 호텔 도보 3분)</div>
+        <div class="tl-item"><span class="tl-time">11:30</span> 점심식사</div>
+        <div class="tl-item"><span class="tl-time">12:30</span> 웨스트민스터 사원 (수요일 18시 연장개장)</div>
+        <div class="tl-item"><span class="tl-time">14:30</span> 코벤트 가든 실내 마켓</div>
+        <div class="tl-item"><span class="tl-time">16:00</span> 카페 휴식</div>
+        <div class="tl-item"><span class="tl-time">17:00</span> 저녁식사</div>
+        <div class="tl-item"><span class="tl-time">18:00</span> 피카디리 서커스 야경 (잠깐)</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/19 (목) 윔블던 & 뮤지컬</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <h4>오전 자유시간 활용</h4>
+      <table class="compact-table">
+        <tr><th>대안</th><th>위치</th><th>비용 (3인)</th><th>아이</th></tr>
+        <tr><td><strong>SEA LIFE London Aquarium</strong></td><td>South Bank</td><td>~£69</td><td>★★★★★</td></tr>
+        <tr><td><strong>London Transport Museum</strong></td><td>Covent Garden</td><td>£43 (17세↓ 무료)</td><td>★★★★★</td></tr>
+        <tr><td>London Eye</td><td>South Bank</td><td>~£71</td><td>★★★★☆</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/20 (금) 런던탑 & 시티 & 대영박물관</summary>
+    <div class="good-card">
+      <div class="good-title">큰 조정 불필요</div>
+      원래 일정이 대부분 실내/반실내 → 이동 시 우산만 준비
+    </div>
+  </details>
+
+  <details>
+    <summary>2/21 (토) 스톤헨지/라콕/바스 ★★</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>날씨</th><th>대응</th></tr>
+        <tr><td>맑음/흐림</td><td class="risk-low">원래 일정 (스톤헨지→라콕→바스)</td></tr>
+        <tr><td>가벼운 비 (바람 약)</td><td class="risk-medium">스톤 서클 시간 단축, 비지터 센터 확대</td></tr>
+        <tr><td>보통 비 + 바람</td><td class="risk-medium">스톤헨지 단축 → 솔즈베리 대성당 추가 → 바스 집중</td></tr>
+        <tr><td><strong>폭우/강풍/Amber 경보</strong></td><td class="risk-high"><strong>대안 플랜 발동</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="story-block">
+      <h4>대안 A: 솔즈베리 + 바스 집중 (렌터카 유지)</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">10:00</span> 솔즈베리 대성당 (실내, 마그나 카르타 원본)</div>
+        <div class="tl-item"><span class="tl-time">11:30</span> 솔즈베리 박물관 (무료, 스톤헨지 유물)</div>
+        <div class="tl-item"><span class="tl-time">12:30</span> 점심 (솔즈베리)</div>
+        <div class="tl-item"><span class="tl-time">13:30</span> 이동 → 바스 (40분)</div>
+        <div class="tl-item"><span class="tl-time">14:15</span> Roman Baths (실내, 2시간)</div>
+        <div class="tl-item"><span class="tl-time">16:15</span> 바스 시내 / 카페</div>
+        <div class="tl-item"><span class="tl-time">17:00</span> 귀환</div>
+      </div>
+    </div>
+
+    <div class="story-block">
+      <h4>대안 B: 윈저 성 (장거리 운전 위험 시)</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">09:00</span> 출발 (Gloucester Road → Windsor, 50분)</div>
+        <div class="tl-item"><span class="tl-time">09:45</span> 윈저 성 (실내, 2.5시간, 3인 ~£55)</div>
+        <div class="tl-item"><span class="tl-time">12:15</span> 윈저 마을 점심</div>
+        <div class="tl-item"><span class="tl-time">13:30</span> 이튼 칼리지 외관 또는 LEGOLAND</div>
+        <div class="tl-item"><span class="tl-time">15:00</span> 귀환</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/22 (일) 세븐시스터즈/브라이튼 ★★★ (최고 위험)</summary>
+    <div class="warn-card">
+      <div class="warn-title">여행 전체 날씨 영향 최대</div>
+      D-2에 2/21·2/22 순서 변경 검토
+    </div>
+
+    <div class="compare-card" style="margin-top:8px;">
+      <table class="compact-table">
+        <tr><th>날씨</th><th>플랜</th></tr>
+        <tr><td>맑음/흐림 + 약한 바람</td><td class="risk-low">원래 계획: 세븐시스터즈 → 브라이튼</td></tr>
+        <tr><td>가벼운 비 + 약한 바람</td><td class="risk-medium">방수 장비 착용, Easy Access Trail</td></tr>
+        <tr><td>보통 비 + 바람</td><td class="risk-high"><strong>대안 A</strong>: 세븐시스터즈 생략 → 브라이튼 확대</td></tr>
+        <tr><td>폭우/강풍</td><td class="risk-critical"><strong>대안 B</strong>: 윈저 성 + 햄프턴 코트 궁전</td></tr>
+      </table>
+    </div>
+
+    <div class="story-block">
+      <h4>대안 A: 브라이튼 확대 (~£135)</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">08:30</span> 출발 → 브라이튼 직행 (1h20m)</div>
+        <div class="tl-item"><span class="tl-time">10:00</span> SEA LIFE Brighton 수족관 (2시간, ~£54)</div>
+        <div class="tl-item"><span class="tl-time">12:00</span> The Lanes에서 점심</div>
+        <div class="tl-item"><span class="tl-time">13:00</span> Royal Pavilion (1.5시간, 3인 ~£47)</div>
+        <div class="tl-item"><span class="tl-time">14:30</span> Brighton Museum 또는 GLOBALLS 야광 미니골프</div>
+        <div class="tl-item"><span class="tl-time">15:30</span> Brighton i360 (날씨 허용 시)</div>
+        <div class="tl-item"><span class="tl-time">16:00</span> 출발 → 17:30 숙소</div>
+      </div>
+    </div>
+
+    <div class="story-block">
+      <h4>대안 B: 윈저 + 햄프턴 코트 (~£125~145)</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">09:00</span> 출발 → 윈저 (50분)</div>
+        <div class="tl-item"><span class="tl-time">09:30</span> 윈저 성 (2.5시간, 3인 ~£55)</div>
+        <div class="tl-item"><span class="tl-time">12:00</span> 윈저 점심</div>
+        <div class="tl-item"><span class="tl-time">13:00</span> 햄프턴 코트 궁전 이동 (30분)</div>
+        <div class="tl-item"><span class="tl-time">13:30</span> 햄프턴 코트 (3시간, 3인 ~£70) — 미로 정원, 튜더 부엌 체험</div>
+        <div class="tl-item"><span class="tl-time">16:30</span> 숙소 복귀 (30분)</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/23 (월) 옥스포드 & 해리포터 스튜디오</summary>
+    <div class="story-block" style="margin-top:4px;">
+      <h4>옥스포드 우천 시 — 대부분 실내/반실내</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">09:30</span> Covered Market 카페 (실내, 비 피하기)</div>
+        <div class="tl-item"><span class="tl-time">10:00</span> Christ Church College (실내: Great Hall, 회랑)</div>
+        <div class="tl-item"><span class="tl-time">11:15</span> Christ Church Picture Gallery (실내)</div>
+        <div class="tl-item"><span class="tl-time">11:45</span> Bodleian Divinity School (실내)</div>
+        <div class="tl-item"><span class="tl-time">12:15</span> Bridge of Sighs + Radcliffe Camera (외관 사진만 빠르게)</div>
+        <div class="tl-item"><span class="tl-time">12:30</span> Covered Market 점심 (실내 시장)</div>
+        <div class="tl-item"><span class="tl-time">13:30</span> 출발 → 해리포터 스튜디오 (15:00, 대부분 실내)</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/24 (화) 런던→파리 이동일</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>원래 활동</th><th>Plan B</th></tr>
+        <tr><td>센강변 산책 + 노트르담 외관 (16:00)</td><td>Shakespeare & Company 서점 + 라틴 쿼터 카페</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/25 (수) 에펠탑/샹젤리제/개선문 ★★</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <p style="font-size:12.5px; color:var(--muted); margin-bottom:8px;"><strong>예약 고정:</strong> 오랑주리(12:00), 개선문(17:30), Aura(20:00)</p>
+      <h4>우천 시 동선</h4>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-time">09:00</span> Aquarium de Paris (트로카데로 바로 아래, 실내, 3인 ~€75)<br>→ 비 그치면 에펠탑 포토</div>
+        <div class="tl-item"><span class="tl-time">11:00</span> 이동 → 오랑주리 미술관</div>
+        <div class="tl-item"><span class="tl-time">12:00</span> 오랑주리 미술관 (예약완료)</div>
+        <div class="tl-item"><span class="tl-time">13:30</span> 점심식사</div>
+        <div class="tl-item"><span class="tl-time">14:30</span> Passage Jouffroy / Passage des Panoramas (19세기 유리 아케이드)<br>→ Musee Grevin (밀랍인형, 3인 ~€75.50)</div>
+        <div class="tl-item"><span class="tl-time">16:00</span> 비 그치면 → 개선문 (예약완료)<br>계속 비 → 갤러리 라파예트 쇼핑</div>
+        <div class="tl-item"><span class="tl-time">17:30</span> 개선문 (석양 18:27)</div>
+        <div class="tl-item"><span class="tl-time">19:00</span> 저녁식사</div>
+        <div class="tl-item"><span class="tl-time">20:00</span> Aura Invalides (예약완료)</div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/26 (목) 시테섬 & 오르세 야간</summary>
+    <div class="story-block" style="margin-top:4px;">
+      <p>대부분 실내 일정 → 조정 최소</p>
+      <ul>
+        <li>시테섬/라틴 쿼터 산책 단축 → <strong>콩시에르주리</strong> (Museum Pass) 또는 <strong>Musee de Cluny</strong> (중세 박물관) 추가</li>
+        <li>오후 자유시간 (13:00~17:00): 숙소 휴식 유지</li>
+        <li>오르세 미술관 야간 (18:00~): 실내</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/27 (금) 베르사유/몽마르트/루브르 야간 ★</summary>
+    <div class="story-block" style="margin-top:4px;">
+      <h4>베르사유 정원 우천 시</h4>
+      <p>2월 정원: 분수 미운영, 꽃 없음, 조각 커버 상태</p>
+      <p><strong>비 오면 정원 스킵 → 궁전 내부 집중</strong> (거울의 방, 왕실 아파트먼트)</p>
+      <p>Grand Trianon / Petit Trianon 실내 관람 추가</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>몽마르트 우천 시</h4>
+      <table class="compact-table">
+        <tr><th>날씨</th><th>대응</th></tr>
+        <tr><td>맑음</td><td>원래 계획: 사크레쾨르 + 테르트르 광장</td></tr>
+        <tr><td>가벼운 비</td><td><strong>퓌니큘레르</strong> 이용 → 사크레쾨르 내부만</td></tr>
+        <tr><td>폭우/강풍</td><td><strong>몽마르트 스킵</strong> → 갤러리 라파예트 확대 또는 오페라 가르니에 내부 투어 (€50)</td></tr>
+      </table>
+      <div class="warn-card" style="margin-top:8px;">
+        <div class="warn-title">222개 코블스톤 계단 주의</div>
+        비/눈 시 매우 미끄러움. 반드시 퓌니큘레르 이용 (메트로 1회 요금, 2분)
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>2/28 (토) 디즈니랜드 파리 ★</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <h4>비 오는 날 실내 어트랙션 우선순위</h4>
+      <table class="compact-table">
+        <tr><th>#</th><th>어트랙션</th><th>특징</th><th>대기</th></tr>
+        <tr><td>1</td><td>Pirates of the Caribbean</td><td>보트 라이드</td><td>15~25분</td></tr>
+        <tr><td>2</td><td>Phantom Manor</td><td>다크 라이드</td><td>15~20분</td></tr>
+        <tr><td>3</td><td>Buzz Lightyear Laser Blast</td><td>슈팅 라이드, 아이 최고</td><td>20~30분</td></tr>
+        <tr><td>4</td><td>It's a Small World</td><td>보트 라이드</td><td>10~15분</td></tr>
+        <tr><td>5</td><td>Star Wars Hyperspace Mountain</td><td>실내 코스터</td><td>30~45분</td></tr>
+        <tr><td>6</td><td>Tower of Terror (Studios)</td><td>드롭 타워</td><td>25~35분</td></tr>
+        <tr><td>7</td><td>Spider-Man W.E.B. Adventure</td><td>인터랙티브</td><td>30~45분</td></tr>
+      </table>
+    </div>
+
+    <div class="story-block">
+      <h4>우천 전략</h4>
+      <ul>
+        <li><strong>판초 필수</strong> (우산보다 실용적, 놀이기구 탑승 편리) — 미리 준비</li>
+        <li>비 시작 직후 야외 어트랙션 탑승 (대기줄 대폭 감소)</li>
+        <li>식사는 비 심한 타이밍에 실내 레스토랑에서</li>
+        <li>여벌 양말, 마른 수건 차에 비치</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑧ 일정 유연성 분석
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🔀</span> 일정 유연성 분석</h2>
+
+  <details open>
+    <summary>예약 확정 일정 (변경 불가)</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>날짜</th><th>일정</th><th>시간</th><th>타입</th></tr>
+        <tr><td>2/17</td><td>자연사/과학 박물관</td><td>timed entry</td><td>실내</td></tr>
+        <tr><td>2/19</td><td>뮤지컬</td><td>19:00</td><td>실내</td></tr>
+        <tr><td>2/20</td><td>대영박물관 야간</td><td>18:00~</td><td>실내</td></tr>
+        <tr><td>2/23</td><td>해리포터 스튜디오</td><td>15:00</td><td>실내</td></tr>
+        <tr><td>2/24</td><td>유로스타</td><td>12:30</td><td>이동</td></tr>
+        <tr><td>2/25</td><td>오랑주리/개선문/Aura</td><td>고정 시간</td><td>혼합</td></tr>
+        <tr><td>2/26</td><td>오르세 야간</td><td>18:00~</td><td>실내</td></tr>
+        <tr><td>2/27</td><td>루브르 야간</td><td>18:00~</td><td>실내</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>교환 가능 날짜 조합</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>교환 쌍</th><th>전략</th><th>조건</th></tr>
+        <tr class="highlight"><td><strong>2/21 ↔ 2/22</strong></td><td>날씨 좋은 날에 세븐시스터즈, 나쁜 날에 스톤헨지+바스(실내 비중 높음)</td><td>스톤헨지/라콕 사전 예약 재예약 필요</td></tr>
+        <tr><td>2/18 오전 ↔ 2/19 오전</td><td>교대식 대신 SEA LIFE 수족관</td><td>근위병 교대식은 수요일만</td></tr>
+        <tr><td>2/27 오후 몽마르트 → 2/26 오후</td><td>2/26 자유시간에 몽마르트 배치</td><td>루브르 전 저녁 시간 확보</td></tr>
+      </table>
+      <div class="warn-card" style="margin-top:8px;">
+        <div class="warn-title">핵심</div>
+        D-2에 2/21·2/22 날씨 비교 → 날씨 좋은 날에 세븐시스터즈 배치
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>"우천 버퍼" 시간대</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>날짜</th><th>버퍼 시간대</th><th>활용</th></tr>
+        <tr class="highlight"><td><strong>2/19</strong></td><td><strong>09:30~11:30 (자유시간)</strong></td><td>SEA LIFE 수족관, Transport Museum</td></tr>
+        <tr><td>2/18</td><td>14:30~15:30</td><td>내셔널 갤러리, 카페</td></tr>
+        <tr><td>2/20</td><td>16:30~17:00</td><td>카페, 서점</td></tr>
+        <tr><td>2/24</td><td>16:00~18:00</td><td>라틴 쿼터 카페/서점</td></tr>
+        <tr class="highlight"><td><strong>2/26</strong></td><td><strong>13:00~17:00 (자유시간)</strong></td><td>숙소 휴식, 근처 박물관</td></tr>
+        <tr><td>2/27</td><td>14:00~15:30</td><td>갤러리 라파예트, 카페</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details>
+    <summary>추가 실내 명소 (기존 일정 외)</summary>
+
+    <div class="compare-card" style="margin-top:4px;">
+      <span class="city-tag london">LONDON</span>
+      <h4>런던 — 아이 친화적</h4>
+      <table class="compact-table">
+        <tr><th>명소</th><th>위치</th><th>비용 (3인)</th><th>아이</th></tr>
+        <tr><td><strong>SEA LIFE Aquarium</strong></td><td>South Bank</td><td>~£69</td><td>★★★★★</td></tr>
+        <tr><td><strong>London Transport Museum</strong></td><td>Covent Garden</td><td>£43 (17세↓ 무료)</td><td>★★★★★</td></tr>
+        <tr><td>Imperial War Museum</td><td>Lambeth</td><td>무료</td><td>★★★★☆</td></tr>
+        <tr><td>London Eye</td><td>South Bank</td><td>~£71</td><td>★★★★☆</td></tr>
+        <tr><td>Madame Tussauds</td><td>Baker Street</td><td>~£94</td><td>★★★★☆</td></tr>
+        <tr><td>내셔널 갤러리</td><td>Trafalgar Square</td><td>무료</td><td>★★★☆☆</td></tr>
+        <tr><td>V&A Museum</td><td>South Kensington</td><td>무료</td><td>★★★☆☆</td></tr>
+        <tr><td>Tate Modern</td><td>Bankside</td><td>무료</td><td>★★★☆☆</td></tr>
+      </table>
+    </div>
+
+    <div class="compare-card">
+      <span class="city-tag paris">PARIS</span>
+      <h4>파리 — Museum Pass 활용 표시</h4>
+      <table class="compact-table">
+        <tr><th>명소</th><th>위치</th><th>비용 (3인)</th><th>Pass</th><th>아이</th></tr>
+        <tr style="text-decoration:line-through; color:var(--muted);"><td>Galerie de Paleontologie</td><td>Jardin des Plantes</td><td>-</td><td>-</td><td>2026.1~2027 말 폐관</td></tr>
+        <tr><td><strong>Grande Galerie de l'Evolution</strong></td><td>Jardin des Plantes</td><td>€26</td><td>X</td><td>★★★★★</td></tr>
+        <tr><td><strong>Aquarium de Paris</strong></td><td>트로카데로</td><td>~€75</td><td>X</td><td>★★★★★</td></tr>
+        <tr><td>Musee Grevin (밀랍인형)</td><td>Grands Boulevards</td><td>~€54.50</td><td>X</td><td>★★★★☆</td></tr>
+        <tr><td>Musee de l'Armee</td><td>Invalides</td><td>€30</td><td><strong>O</strong></td><td>★★★★☆</td></tr>
+        <tr><td>Opera Garnier 내부 투어</td><td>Opera</td><td>€50</td><td>X</td><td>★★★★☆</td></tr>
+        <tr><td>Musee Rodin</td><td>Invalides 근처</td><td>€28</td><td><strong>O</strong></td><td>★★★☆☆</td></tr>
+        <tr><td>Pantheon</td><td>라틴 쿼터</td><td>€26</td><td><strong>O</strong></td><td>★★★☆☆</td></tr>
+        <tr><td>Musee de Cluny (중세)</td><td>라틴 쿼터</td><td>€24</td><td><strong>O</strong></td><td>★★★☆☆</td></tr>
+      </table>
+      <div class="warn-card" style="margin-top:8px;">
+        <div class="warn-title">Palais de la Decouverte (과학관)</div>
+        리노베이션 폐관 중 (2026년 말 재개장) → 방문 불가
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑨ 일기예보 모니터링 가이드
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📱</span> 일기예보 모니터링</h2>
+
+  <div class="compare-card">
+    <span class="city-tag london">LONDON</span>
+    <h4>영국 (2/16~2/24)</h4>
+    <div class="app-card">
+      <span class="app-name">Met Office (필수)</span>
+      <span class="app-desc">종합 예보 + 경보. 단기 예보 1위, 온도 최고 정확</span>
+    </div>
+    <div class="app-card">
+      <span class="app-name">AccuWeather</span>
+      <span class="app-desc">MinuteCast (분 단위 강수), 외출 직전 확인</span>
+    </div>
+    <div class="app-card">
+      <span class="app-name">Windy</span>
+      <span class="app-desc">세븐시스터즈/스톤헨지 풍속 시각화</span>
+    </div>
+    <div class="app-card">
+      <span class="app-name">BBC Weather</span>
+      <span class="app-desc">직관적 UI, 강수 예보 강점</span>
+    </div>
+  </div>
+
+  <div class="compare-card">
+    <span class="city-tag paris">PARIS</span>
+    <h4>프랑스 (2/24~2/28)</h4>
+    <div class="app-card">
+      <span class="app-name">Meteo France (필수)</span>
+      <span class="app-desc">종합 예보 + 경보. 프랑스 내 가장 정확</span>
+    </div>
+    <div class="app-card">
+      <span class="app-name">AccuWeather</span>
+      <span class="app-desc">영국에서 쓰던 앱 그대로</span>
+    </div>
+    <div class="app-card">
+      <span class="app-name">Windy</span>
+      <span class="app-desc">에펠탑/개선문 방문 전 풍속 필수 확인</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>특수 목적 사이트</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <div class="app-card">
+        <span class="app-name" style="min-width:110px;"><a href="https://www.householddivision.org.uk/changing-the-guard-calendar" style="color:var(--accent); text-decoration:none;">Household Division</a></span>
+        <span class="app-desc">근위병 교대식 취소 확인</span>
+      </div>
+      <div class="app-card">
+        <span class="app-name" style="min-width:110px;"><a href="https://www.english-heritage.org.uk/visit/places/stonehenge/" style="color:var(--accent); text-decoration:none;">English Heritage</a></span>
+        <span class="app-desc">스톤헨지 운영 상태</span>
+      </div>
+      <div class="app-card">
+        <span class="app-name" style="min-width:110px;"><a href="https://www.vigicrues.gouv.fr/" style="color:var(--accent); text-decoration:none;">Vigicrues</a></span>
+        <span class="app-desc">센강 수위 실시간</span>
+      </div>
+      <div class="app-card">
+        <span class="app-name" style="min-width:110px;"><a href="https://www.toureiffel.paris" style="color:var(--accent); text-decoration:none;">toureiffel.paris</a></span>
+        <span class="app-desc">에펠탑 운영 상태</span>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>예보 정확도 참고</summary>
+    <div class="compare-card" style="margin-top:4px;">
+      <table class="compact-table">
+        <tr><th>기간</th><th>온도 정확도</th><th>강수 정확도</th><th>활용</th></tr>
+        <tr><td><strong>당일~1일</strong></td><td class="risk-low">93%</td><td>높음</td><td>최종 일정 확정</td></tr>
+        <tr><td>2~3일</td><td>85~90%</td><td>중간~높음</td><td>예약 변경 의사결정</td></tr>
+        <tr><td>4~5일</td><td>73~84%</td><td>중간</td><td>대략적 경향, 준비 시작</td></tr>
+        <tr><td>6~7일</td><td class="risk-medium">65~70%</td><td>낮음</td><td>참고 수준</td></tr>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑩ 의사결정 플로차트
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🧭</span> 의사결정 플로차트</h2>
+
+  <div class="flowchart">
+    <h4 style="font-size:14px; font-weight:700; margin-bottom:14px; color:var(--accent);">당일 아침 날씨 확인</h4>
+
+    <div class="flow-step">
+      <span class="flow-label"><span class="risk-badge green"></span> 맑음 / 흐림</span>
+      Plan A 진행
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-label"><span class="risk-badge green"></span> 가벼운 비 (바람 약)</span>
+      Plan A 진행 (방수 장비 착용)
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-label"><span class="risk-badge yellow"></span> 보통 비 + 바람</span>
+      <div class="flow-branch">
+        <div class="fb-item">도심 일정 → 실외 단축 + 실내 대안 보충</div>
+        <div class="fb-item">절벽/평원 → 대안 활동으로 교체</div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-label"><span class="risk-badge red"></span> 폭우 / 강풍</span>
+      <div class="flow-branch">
+        <div class="fb-item" style="color:#854d0e;"><strong>Yellow 경보</strong> → 실외 일정 전면 변경 (Plan B)</div>
+        <div class="fb-item" style="color:#9a3412;"><strong>Amber 경보</strong> → 렌터카 운전 자제, 실내만</div>
+        <div class="fb-item" style="color:#991b1b;"><strong>Red 경보</strong> → 숙소 대기, 모든 실외 취소</div>
+      </div>
+    </div>
+
+    <div class="flow-step" style="border-left-color:transparent;">
+      <span class="flow-label"><span class="risk-badge yellow"></span> 눈</span>
+      <div class="flow-branch">
+        <div class="fb-item">가벼운 눈 → Plan A (방한 강화)</div>
+        <div class="fb-item" style="color:#991b1b;">폭설/결빙 → 렌터카 금지, 실내만</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑪ 체크 타임라인
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">⏰</span> 체크 타임라인</h2>
+
+  <div class="flowchart">
+    <div class="flow-step">
+      <span class="flow-label">D-7 (출발 1주 전)</span>
+      <div style="font-size:12.5px; color:#374151; line-height:1.7;">
+        Met Office 장기예보로 전체 기간 경향 확인<br>
+        Beast from the East 패턴 감지 여부 확인<br>
+        방수 장비 점검 및 보충 구매<br>
+        세븐시스터즈(2/22), 스톤헨지(2/21) 풍속 경향 파악
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-label">D-3 (해당 활동 3일 전)</span>
+      <div style="font-size:12.5px; color:#374151; line-height:1.7;">
+        예보 신뢰도 85%+ → 대안 플랜 필요 여부 판단<br>
+        Amber/Red 경보 시 → 대안 확정<br>
+        예약 필요 대안 명소 사전 예매 (윈저 성, 수족관 등)<br>
+        <strong>2/21↔2/22 순서 변경 결정</strong>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="flow-label">D-1 (전날 저녁)</span>
+      <div style="font-size:12.5px; color:#374151; line-height:1.7;">
+        예보 정확도 90%+ → 최종 일정 확정 (Plan A or B)<br>
+        Windy로 풍속 확인 (세븐시스터즈, 에펠탑)<br>
+        필요 시 예약 변경/취소<br>
+        방수 장비, 여벌 옷 준비
+      </div>
+    </div>
+
+    <div class="flow-step" style="border-left-color:transparent;">
+      <span class="flow-label">당일 아침 (06:00~07:00)</span>
+      <div style="font-size:12.5px; color:#374151; line-height:1.7;">
+        Met Office / Meteo France 최종 확인<br>
+        AccuWeather MinuteCast 시간대별 강수 확인<br>
+        경보 상태 최종 확인<br>
+        근위병(2/18): Household Division 캘린더 확인<br>
+        <strong>최종 Go/No-Go 결정</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑫ 악천후 경보 대응
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🚨</span> 악천후 경보 대응</h2>
+
+  <div class="story-block">
+    <span class="city-tag london">LONDON</span>
+    <h4>영국 Met Office Warning</h4>
+    <div class="alert-grid">
+      <div class="alert-item alert-yellow">
+        <span class="alert-level">Yellow</span>
+        실외 주의. 세븐시스터즈 재고. 방수 필수
+      </div>
+      <div class="alert-item alert-amber">
+        <span class="alert-level">Amber</span>
+        <strong>실외 일정 변경.</strong> 렌터카 주의. Plan B 발동
+      </div>
+      <div class="alert-item alert-red">
+        <span class="alert-level">Red</span>
+        <strong>모든 실외 중단.</strong> 숙소 대기. 렌터카 금지
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--muted);">확인: <a href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings" style="color:var(--accent);">Met Office Warnings</a> · 앱 Push 알림 설정 가능, 최대 7일 전 발령</p>
+  </div>
+
+  <div class="story-block">
+    <span class="city-tag paris">PARIS</span>
+    <h4>프랑스 Meteo France Vigilance</h4>
+    <div class="alert-grid">
+      <div class="alert-item alert-green">
+        <span class="alert-level">Vert (녹색)</span>
+        정상 진행
+      </div>
+      <div class="alert-item alert-yellow">
+        <span class="alert-level">Jaune (노란색)</span>
+        야외 주의, 기상 변화 수시 확인
+      </div>
+      <div class="alert-item alert-orange">
+        <span class="alert-level">Orange (주황색)</span>
+        <strong>에펠탑/개선문 폐쇄 가능.</strong> 실외 변경
+      </div>
+      <div class="alert-item alert-rouge">
+        <span class="alert-level">Rouge (빨간색)</span>
+        <strong>모든 외출 자제</strong>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--muted);">확인: <a href="https://vigilance.meteofrance.fr/fr" style="color:var(--accent);">Meteo France Vigilance</a> · 1일 2회 업데이트 (06:00, 16:00)</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑬ 준비물 체크리스트
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🎒</span> 준비물 체크리스트</h2>
+
+  <div class="compare-card">
+    <h4>방수 성능 기준</h4>
+    <div style="margin-bottom:12px;">
+      <div class="waterproof-bar">
+        <div class="wp-seg" style="width:30%; background:#94a3b8;">발수 ~1,000mm</div>
+        <div class="wp-seg" style="width:35%; background:#2563eb;">기본 방수 1,500~3,000mm</div>
+        <div class="wp-seg" style="width:35%; background:#1e3a5f;">완전 방수 3,000~5,000mm</div>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-top:4px;">
+        <span>이슬비만 방어</span>
+        <span>도시 관광</span>
+        <span>스톤헨지/세븐시스터즈</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h3>필수 (높음)</h3>
+    <label><input type="checkbox"> 방수 오버 팬츠 (성인) — 세븐시스터즈 트레킹, 진흙/비 방지</label>
+    <label><input type="checkbox"> 방수 스프레이 — 출발 전 운동화/재킷 처리</label>
+    <label><input type="checkbox"> 여벌 양말 2~3켤레 — 비에 젖을 때 교체</label>
+    <label><input type="checkbox"> 아이용 레인코트/판초 — 우산보다 편리 (디즈니 포함)</label>
+    <label><input type="checkbox"> 빈 비닐봉투 3~4장 — 진흙 신발 보관 (렌터카 트렁크)</label>
+    <label><input type="checkbox"> 대형 지퍼백 — 젖은 옷, 전자기기 방수</label>
+  </div>
+
+  <div class="checklist">
+    <h3>권장 (중간)</h3>
+    <label><input type="checkbox"> 접이식 우산 x2 — 바람 강하면 레인코트가 우선</label>
+    <label><input type="checkbox"> 마른 수건 1장 — 차에 비치</label>
+    <label><input type="checkbox"> 게이터/각반 (선택) — 세븐시스터즈 진흙 방지</label>
+  </div>
+
+  <div class="checklist">
+    <h3>아이 전용 추가</h3>
+    <label><input type="checkbox"> 방수 장갑 (또는 여분 장갑 2~3켤레)</label>
+    <label><input type="checkbox"> 방수 재킷 (3,000mm HH+, 후드)</label>
+    <label><input type="checkbox"> 보온 내의 + 플리스 + 방수 외투 3단 레이어</label>
+    <label><input type="checkbox"> 여벌 옷 한 벌 (가방/차에 비치)</label>
+    <label><input type="checkbox"> 핫팩 5~10개 (한국 준비, 현지 구매 어려움)</label>
+    <label><input type="checkbox"> 간식 넉넉히 (비 오면 카페 찾기 어려울 때)</label>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑭ 레이어링 시스템
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🧥</span> 레이어링 3단 시스템</h2>
+
+  <div class="layer-card" style="border-left-color:#60a5fa;">
+    <div class="layer-name">1단 Base (보온)</div>
+    보온 내의 / 기능성 속옷 (면 X → 땀 흡수 시 체온 급락)<br>
+    <span style="color:var(--muted); font-size:12px;">아이: 히트텍 류 보온 내의</span>
+  </div>
+
+  <div class="layer-card" style="border-left-color:#3b82f6;">
+    <div class="layer-name">2단 Mid (단열)</div>
+    플리스 또는 경량 다운 (실내 진입 시 탈의 가능)<br>
+    <span style="color:var(--muted); font-size:12px;">아이: 지퍼형 플리스 (벗기기 쉽게)</span>
+  </div>
+
+  <div class="layer-card" style="border-left-color:#1d4ed8;">
+    <div class="layer-name">3단 Outer (방풍 + 방수)</div>
+    방풍+방수 재킷 (3,000mm HH+)<br>
+    <span style="color:var(--muted); font-size:12px;">아이: 후드 달린 방수 재킷</span>
+  </div>
+
+  <div class="layer-card" style="border-left-color:#1e3a5f;">
+    <div class="layer-name">보조 아이템</div>
+    목도리 (바람 차단 핵심) · 비니 (체열 30% 머리 손실) · 방수 장갑
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑮ 아이 체력 관리 팁
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">👶</span> 아이 체력 관리 팁</h2>
+
+  <div class="compare-card">
+    <h4>추위 + 장시간 도보</h4>
+    <table class="compact-table">
+      <tr><th>전략</th><th>상세</th></tr>
+      <tr><td><strong>10-15 법칙</strong></td><td>야외 10~15분 → 실내 10분 휴식 반복</td></tr>
+      <tr><td>카페 전략</td><td>1일 2~3회 카페. 핫초콜릿으로 체온+기분 회복</td></tr>
+      <tr><td>핫팩</td><td>주머니 + 장갑 안. 아이는 손이 빨리 시림</td></tr>
+      <tr><td>간식 타이밍</td><td>2시간마다 에너지 보충 (초콜릿바, 견과류, 한국 과자)</td></tr>
+      <tr><td>아침 식사</td><td>따뜻하고 든든하게. 에너지 기반 확보</td></tr>
+      <tr><td>휴식 보장</td><td>2/26 오후 4시간 자유시간 같은 버퍼 적극 활용</td></tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>우천 시 이동 팁</h4>
+    <div class="tip-card">
+      <div class="tip-title">지하철 극대화</div>
+      한 정거장도 지하철로. 비 맞는 시간 최소화
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">버스 2층 앞자리</div>
+      런던 이층버스 앞자리 = 아이에게 어트랙션
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">택시 / Uber</div>
+      비+짐+아이 → 대중교통보다 택시. 비용보다 체력
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">여벌 옷 항시 소지</div>
+      젖으면 즉시 교체. 젖은 채로 다니면 체온 급락
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">신발 관리</div>
+      젖은 신발은 밤에 신문지 넣어 건조
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑯ 출발 전 체크리스트
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">✅</span> 출발 전 체크리스트</h2>
+
+  <div class="checklist">
+    <h3>앱 설치 (D-14)</h3>
+    <label><input type="checkbox"> Met Office — 런던/Eastbourne/Stonehenge/Oxford 즐겨찾기</label>
+    <label><input type="checkbox"> Meteo France — Paris/Versailles 즐겨찾기</label>
+    <label><input type="checkbox"> AccuWeather</label>
+    <label><input type="checkbox"> Windy</label>
+  </div>
+
+  <div class="checklist">
+    <h3>장비 점검 (D-7)</h3>
+    <label><input type="checkbox"> 재킷 방수 수치 확인, 방수 스프레이 처리</label>
+    <label><input type="checkbox"> 등산화 방수 상태 확인</label>
+    <label><input type="checkbox"> 핫팩, 여벌 양말, 비닐봉투, 지퍼백 준비</label>
+  </div>
+
+  <div class="checklist">
+    <h3>날씨 경향 확인 (D-7)</h3>
+    <label><input type="checkbox"> Met Office 7일 예보 → 전체 기간 경향</label>
+    <label><input type="checkbox"> 세븐시스터즈(2/22) 풍속 경향 (Windy)</label>
+    <label><input type="checkbox"> Beast from the East 패턴 감지 여부</label>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑰ 시나리오별 확률 요약
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🎲</span> 시나리오별 확률 요약</h2>
+
+  <div class="scenario-bar">
+    <span class="bar-label" style="color:#16a34a;">25%</span>
+    <span class="bar" style="width:100px; background:linear-gradient(90deg,#86efac,#16a34a);"></span>
+    <span class="bar-desc">맑음/구름 약간 — 최적. Plan A 진행</span>
+  </div>
+
+  <div class="scenario-bar" style="border-left:3px solid #2563eb;">
+    <span class="bar-label" style="color:#2563eb;"><strong>45%</strong></span>
+    <span class="bar" style="width:180px; background:linear-gradient(90deg,#93c5fd,#2563eb);"></span>
+    <span class="bar-desc"><strong>흐림/가벼운 비 — 가장 가능성 높음. 방수 장비로 대부분 수행</strong></span>
+  </div>
+
+  <div class="scenario-bar">
+    <span class="bar-label" style="color:#ca8a04;">20%</span>
+    <span class="bar" style="width:80px; background:linear-gradient(90deg,#fde68a,#ca8a04);"></span>
+    <span class="bar-desc">지속적 비 — 근위병 취소 가능. 세븐시스터즈 주의. 실내 비중 확대</span>
+  </div>
+
+  <div class="scenario-bar">
+    <span class="bar-label" style="color:#dc2626;">7%</span>
+    <span class="bar" style="width:28px; background:linear-gradient(90deg,#fca5a5,#dc2626);"></span>
+    <span class="bar-desc">강풍+비 — 세븐시스터즈 취소. 스톤헨지 단축. 교외 운전 주의</span>
+  </div>
+
+  <div class="scenario-bar">
+    <span class="bar-label" style="color:#7f1d1d;">3%</span>
+    <span class="bar" style="width:12px; background:linear-gradient(90deg,#f87171,#7f1d1d);"></span>
+    <span class="bar-desc">한파/폭설 — 교외 전면 취소. 시내 실내 전환</span>
+  </div>
+
+  <p style="font-size:11.5px; color:var(--muted); margin-top:12px; text-align:center;">* 기후 데이터는 30년 평년값 기준. 실제 예보는 <a href="https://weather.metoffice.gov.uk/" style="color:var(--accent);">Met Office</a>, <a href="https://meteofrance.com/" style="color:var(--accent);">Meteo France</a>에서 확인.</p>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

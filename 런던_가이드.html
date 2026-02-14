@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>런던 가이드 · London Travel Guide</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1565c0;
+    --accent-light: #e3f2fd;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .core-msg {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+  .core-msg .sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 4px; }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .compare-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .compare-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접이식 날짜 블록 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 상태 뱃지 */
+  .status-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+  .status-badge.reserved { background: #dcfce7; color: #16a34a; }
+  .status-badge.needed { background: #fef3c7; color: #b45309; }
+  .day-summary { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* 테이블 */
+  .compact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .compact-table th {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--accent-light);
+    font-weight: 700;
+  }
+  .compact-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .compact-table tr:last-child td {
+    border-bottom: none;
+  }
+  .compact-table .total-row td {
+    font-weight: 700;
+    background: var(--accent-light);
+    border-top: 2px solid var(--accent);
+  }
+
+  /* 시간 표시 */
+  .time-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  /* 대안 명소 테이블 */
+  .alt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .alt-table th {
+    padding: 6px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--accent-light);
+    font-weight: 700;
+  }
+  .alt-table td {
+    padding: 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>런던 가이드 <span class="en">London Travel Guide</span></h1>
+  <p class="oneliner">2026년 2월 16일~24일, 8박. 가족 3인(부부 + 10세 아이)과 함께하는 런던 완전 가이드. 왕실부터 해리포터까지, 박물관부터 세븐시스터즈 절벽까지.</p>
+</div>
+
+<div class="info-box">
+  <div class="core-msg">
+    런던 8박 · 3인 가족 · 하이라이트
+    <span class="sub">도착일(2/16) → 박물관·첼시(2/17) → 왕실·웨스트민스터(2/18) → 윔블던·뮤지컬(2/19)<br>런던탑·대영박물관(2/20) → 렌터카 3일(2/21~23) → 유로스타 파리행(2/24)</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 일자별 명소 가이드
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📅</span> 일자별 명소 가이드</h2>
+
+  <!-- 2/16 (월) 도착일 — 기본 열림 -->
+  <details open>
+    <summary>2/16 (월) 도착일</summary>
+    <p class="day-summary">인천 → 히드로 → 트라팔가 광장 호텔 · 템즈강변 야경 산책</p>
+
+    <div class="story-block">
+      <span class="time-badge">16:30 도착</span>
+      <h4>✈️ 항공편 &amp; 공항 이동</h4>
+      <p>인천 10:30 출발 (KST) → 런던 히드로 16:30 도착</p>
+      <p><strong>Heathrow Express</strong>: 히드로 → 패딩턴 (15분) <span class="status-badge reserved">예약완료</span></p>
+      <p style="font-size:12px; color:var(--muted);">요금: 사전 예약 시 성인 £10~26, 15세 이하 무료 · 당일 구매 시 Standard £25, Business First £32</p>
+      <p><strong>패딩턴 → 채링크로스</strong>: Bakerloo Line (성인 £2.90 x 2, 10세 아이 무료)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏨 Club Quarters Hotel Trafalgar Square <span class="status-badge reserved">예약완료</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 트라팔가 광장 바로 옆 · 체크인 15:00 · 1,745,920원
+      </div>
+      <p style="font-size:13px;">템즈강변 도보 2~3분. 24시간 게스트 라운지 (무료 커피). 2/16~20 숙박.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">19:00~</span>
+      <h4>저녁 일정</h4>
+      <p>19:00 저녁식사</p>
+      <p>20:00 템즈강변 산책 (빅벤, 런던 아이 야경)</p>
+    </div>
+  </details>
+
+  <!-- 2/17 (화) 박물관 & 첼시 -->
+  <details>
+    <summary>2/17 (화) 박물관 &amp; 첼시</summary>
+    <p class="day-summary">자연사 박물관 → 과학 박물관 → 사치 갤러리 → 킹스 로드 → 해러즈</p>
+
+    <div class="compare-card">
+      <h4>🦕 자연사 박물관 <span style="font-size:12px;color:var(--muted);">Natural History Museum</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Cromwell Road, South Kensington, SW7 5BD · ⏰ 10:00~17:50 (마지막 입장 17:20) · 💰 무료 (특별전 유료)
+      </div>
+      <span class="time-badge">10:00~11:30</span>
+      <p style="font-size:13px;">Hope 대왕고래(메인홀), 다윈 센터, 시조새 화석, 다윈 동상. 2월 Half-term (2/16~20)과 겹칠 가능성이 높아 매우 혼잡 예상.</p>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+
+    <div class="compare-card">
+      <h4>🔬 과학 박물관 <span style="font-size:12px;color:var(--muted);">Science Museum</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Exhibition Road, South Kensington, SW7 2DD · ⏰ 10:00~18:00 (Half-term 09:00~) · 💰 무료
+      </div>
+      <span class="time-badge">11:30~13:00</span>
+      <p style="font-size:13px;">제임스 와트 증기기관(1788년 원본), 아폴로 10호 사령선, 스티븐슨 로켓. 11:15~11:45 입장 슬롯.</p>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">13:00~14:00</span>
+      <h4>점심식사</h4>
+      <p>사우스 켄싱턴 주변</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">14:00~15:00</span>
+      <h4>이동 &amp; 산책</h4>
+      <p>Brompton Oratory(외관) + Sloane Street 명품 거리 산책</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🎨 사치 갤러리 <span style="font-size:12px;color:var(--muted);">Saatchi Gallery</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Duke of York's HQ, King's Road, Chelsea, SW3 4RY · ⏰ 10:00~18:00 · 💰 전시에 따라 다름 (£10~)
+      </div>
+      <span class="time-badge">15:00~16:30</span>
+      <p style="font-size:13px;">"The Long Now" 전시 (2025.11.5~2026.4.26). 킹스 로드에 위치, 갤러리 관람 후 킹스 로드 산책과 자연스럽게 연결.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">16:30~17:30</span>
+      <h4>킹스 로드 산책</h4>
+      <p>첼시 지역의 대표 쇼핑거리. 부티크 숍, 카페 구경.</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🛍️ 해러즈 백화점 <span style="font-size:12px;color:var(--muted);">Harrods</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 87-135 Brompton Road, Knightsbridge, SW1X 7XL · ⏰ 월~토 10:00~21:00 / 일 11:30~18:00 · 💰 무료
+      </div>
+      <span class="time-badge">18:30~19:30</span>
+      <p style="font-size:13px;">푸드 홀은 반드시 방문. 건물 인테리어 자체가 볼거리. 화요일 저녁이라 21시까지 여유있게 관람 가능.</p>
+    </div>
+  </details>
+
+  <!-- 2/18 (수) 왕실 & 웨스트민스터 -->
+  <details>
+    <summary>2/18 (수) 왕실 &amp; 웨스트민스터</summary>
+    <p class="day-summary">세인트 제임스 파크 → 근위병 교대식 → 웨스트민스터 사원 → 빅벤 → 트라팔가 → 코벤트 가든 → 피카딜리</p>
+
+    <div class="story-block">
+      <span class="time-badge">09:00~09:30</span>
+      <h4>이동</h4>
+      <p>호텔 → 세인트 제임스 파크</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🌳 세인트 제임스 파크 <span style="font-size:12px;color:var(--muted);">St James's Park</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        ⏰ 매일 05:00~자정 · 💰 무료
+      </div>
+      <span class="time-badge">09:30~10:00</span>
+      <p style="font-size:13px;">9시경 펠리칸 관찰 가능. 버킹엄 궁전까지 도보 연결.</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>💂 근위병 교대식 <span style="font-size:12px;color:var(--muted);">Changing the Guard</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Wellington Barracks → The Mall · ⏰ 11:00 시작 (30~45분) · 💰 무료, 예약 불필요
+      </div>
+      <span class="time-badge">10:30~11:30</span>
+      <p style="font-size:13px;">최소 30분 전 도착 권장. 악천후 시 취소 가능. Victoria Memorial 주변이 가장 잘 보임.</p>
+      <div class="warn-card">
+        <div class="warn-title">2/18(수) 일정 확인 필요</div>
+        2026년 2월 교대식 일정: 2, 3, 5, 7, 9, 10, 12, 14, 16, 17, 19, 21, 23, 24, 26, 28일. <strong>2/18(수)은 현재 공식 일정에 포함되지 않음</strong> — 출발 전 반드시 재확인 필요. (changing-guard.com 또는 Household Division 공식 사이트)
+      </div>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">11:30~12:30</span>
+      <h4>점심식사</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>⛪ 웨스트민스터 사원 <span style="font-size:12px;color:var(--muted);">Westminster Abbey</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 20 Deans Yard, Westminster, SW1P 3PA · ⏰ 수요일 09:30~18:00 (연장 개장) · 💰 성인 £31, 아동(6~17) £14
+      </div>
+      <span class="time-badge">12:30~14:00</span>
+      <p style="font-size:13px;">수요일 방문이 최적 — 18시까지 연장 개장하며 단체 관광이 없어 훨씬 여유로움. 멀티미디어 가이드 포함. 3인 합계 약 £76 (성인 £31 x 2 + 아동 £14).</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="compare-card">
+      <h4>🕰️ 빅벤 / 국회의사당 <span style="font-size:12px;color:var(--muted);">Big Ben / Houses of Parliament</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        💰 외관 무료
+      </div>
+      <span class="time-badge">14:00~14:30</span>
+      <p style="font-size:13px;">웨스트민스터 브리지에서 촬영이 가장 좋음. 야경도 추천 (Blue Hour 17:30~18:30).</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🦁 트라팔가 광장 <span style="font-size:12px;color:var(--muted);">Trafalgar Square</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        💰 무료
+      </div>
+      <span class="time-badge">14:30~15:30</span>
+      <p style="font-size:13px;">Club Quarters에서 도보 1분. 넬슨 기념비, 사자 동상. 아침 7~8시에는 관광객 없이 사진 촬영 가능.</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🎭 코벤트 가든 <span style="font-size:12px;color:var(--muted);">Covent Garden</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        ⏰ 매일 (매장별 상이, 대체로 10:00~20:00) · 💰 무료
+      </div>
+      <span class="time-badge">15:30~17:00</span>
+      <p style="font-size:13px;">거리 공연이 볼거리. Apple Market(수공예품)은 매일 운영.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">17:00~18:00</span>
+      <h4>저녁식사</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>💡 피카딜리 서커스 <span style="font-size:12px;color:var(--muted);">Piccadilly Circus</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        💰 무료
+      </div>
+      <span class="time-badge">18:00~19:00</span>
+      <p style="font-size:13px;">네온사인은 밤에 가장 화려함. Club Quarters에서 도보 10분.</p>
+    </div>
+  </details>
+
+  <!-- 2/19 (목) 윔블던 & 뮤지컬 -->
+  <details>
+    <summary>2/19 (목) 윔블던 &amp; 뮤지컬</summary>
+    <p class="day-summary">오전 자유시간/휴식 → 윔블던 박물관 투어 → 웨스트엔드 뮤지컬 (라이온 킹)</p>
+
+    <div class="story-block">
+      <span class="time-badge">오전</span>
+      <h4>자유시간 / 휴식</h4>
+      <p>시차 적응 및 체력 회복</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🎾 윔블던 박물관 투어 <span style="font-size:12px;color:var(--muted);">Wimbledon Lawn Tennis Museum &amp; Tour</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Church Road, Wimbledon, SW19 5AE · ⏰ 투어 1일 4~7회 운영 · 💰 박물관+가이드 투어: 성인 £32, 아동 £22
+      </div>
+      <span class="time-badge">13:30~16:30</span>
+      <p style="font-size:13px;">투어 약 2.5시간 (90분 가이드 투어 + 1시간 박물관). 비시즌(2월)이므로 센터 코트 투어 포함 가능. Blue Badge 가이드가 영어로 진행.</p>
+      <p style="font-size:12px; color:var(--muted);">Family Offer: 정가 성인 1인당 아동 1인 무료 → 3인 합계 약 £64. itinerary 메모: "10일전 환불 가능, 당일 예매도 어렵지 않은듯"</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">16:30~17:30</span>
+      <h4>이동</h4>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">17:30~18:30</span>
+      <h4>저녁식사</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>🎵 웨스트엔드 뮤지컬 <span style="font-size:12px;color:var(--muted);">The Lion King, Lyceum Theatre</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Lyceum Theatre (코벤트 가든 인근) · ⏰ 19:00~22:00 · 💰 £68.95 x 3 = £206.85
+      </div>
+      <span class="time-badge">19:00~22:00</span>
+      <p style="font-size:13px;">Lyceum Theatre는 코벤트 가든 인근. 지하철 이동 후 도보 접근.</p>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+  </details>
+
+  <!-- 2/20 (금) 런던탑 & 시티 & 대영박물관 -->
+  <details>
+    <summary>2/20 (금) 런던탑 &amp; 시티 &amp; 대영박물관 + 숙소 이동</summary>
+    <p class="day-summary">체크아웃 → 런던 타워 → 타워 브리지 → 리든홀 마켓 → Sky Garden → 대영박물관 야간개장 → DoubleTree 이동</p>
+
+    <div class="story-block">
+      <span class="time-badge">08:30~09:30</span>
+      <h4>호텔 체크아웃 + 이동</h4>
+      <p>짐 보관 후 Embankment → Tower Hill (District Line ~15분)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏰 런던 타워 <span style="font-size:12px;color:var(--muted);">Tower of London</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Tower Hill, EC3N 4AB · ⏰ 화~토 09:00~16:30, 일~월 10:00~16:30 · 💰 성인 £29.90~35.80, 아동 £14.90~18.50
+      </div>
+      <span class="time-badge">09:30~12:00</span>
+      <p style="font-size:13px;">왕관 보석(Crown Jewels) 필수 관람. Yeoman Warder(Beefeater) 가이드 투어 추천. 까마귀 관찰. 3인 합계 약 £75~90.</p>
+      <div class="warn-card">
+        <div class="warn-title">공사 안내</div>
+        Middle Tower가 2026.4.26까지 보수 공사 중 — Middle Drawbridge가 메인 입구. Chapel Royal of St Peter ad Vincula는 2026.3월 말까지 폐쇄.
+      </div>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">12:00~13:00</span>
+      <h4>점심식사</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>🌉 타워 브리지 <span style="font-size:12px;color:var(--muted);">Tower Bridge</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Tower Bridge Road, SE1 2UP · ⏰ 매일 09:30~18:00 · 💰 성인 £12.30, 아동(5~15) £6.20
+      </div>
+      <span class="time-badge">13:00~14:00</span>
+      <p style="font-size:13px;">유리 바닥 워크웨이 체험. 대형 가방 반입 불가 (45x35x20cm 초과). 3인 합계 약 £31.</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏛️ 리든홀 마켓 <span style="font-size:12px;color:var(--muted);">Leadenhall Market</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Gracechurch Street, EC3V 1LT · ⏰ 건물 24시간 개방, 상점 월~금 11:00~16:00 · 💰 무료
+      </div>
+      <span class="time-badge">14:00~15:00</span>
+      <p style="font-size:13px;">해리포터 촬영지 (다이애곤 앨리 입구). 42 Bull's Head Passage = 리키콜드런 파란문. 빅토리안 아케이드 건축이 인상적. 금요일 방문이므로 상점 운영 확인 가능.</p>
+      <p style="font-size:12px; color:var(--muted);">주의: 토/일 휴무</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🌿 Sky Garden</h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 20 Fenchurch Street, EC3M 3BY · 💰 무료 · walk-in 가능 (평일 14:00~16:30)
+      </div>
+      <span class="time-badge">15:00~16:00</span>
+      <p style="font-size:13px;">런던 시내 무료 전망대. 사전 예약이 기본이나 평일 오후 walk-in도 가능. 실패 시 카페 휴식으로 대체.</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">16:00~17:00</span>
+      <h4>이동 &amp; 산책</h4>
+      <p>Bank → Holborn (Central Line ~10분) → 대영박물관 근처 산책</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">17:00~18:00</span>
+      <h4>저녁식사</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏛️ 대영박물관 <span style="font-size:12px;color:var(--muted);">British Museum</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Great Russell Street, WC1B 3DG · ⏰ 금요일 야간 개장 20:30까지 (마지막 입장 19:00) · 💰 무료
+      </div>
+      <span class="time-badge">18:00~20:30</span>
+      <p style="font-size:13px;">로제타 스톤, 엘긴 마블, 이집트관, 그리스관. 금요일 야간 개장 적극 활용 — 일반 시간보다 훨씬 한적. Court Cafe는 20:00까지 운영.</p>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">20:30~21:30</span>
+      <h4>숙소 이동</h4>
+      <p>20:30 짐 회수 (대영박물관 → Club Quarters)</p>
+      <p>21:00 택시 (Club Quarters → DoubleTree Kensington), ~£12~18</p>
+      <p>21:30 <strong>DoubleTree by Hilton London Kensington</strong> 체크인 (2/20~24) <span class="status-badge reserved">예약완료</span></p>
+    </div>
+  </details>
+
+  <!-- 2/21 (토) 스톤헨지 & 라콕 & 바스 -->
+  <details>
+    <summary>2/21 (토) 스톤헨지 &amp; 라콕 &amp; 바스 [렌터카 Day 1]</summary>
+    <p class="day-summary">SIXT 픽업 → 스톤헨지 → 라콕 Abbey(HP 촬영지) → 바스 로마 목욕탕 → 복귀</p>
+
+    <div class="story-block">
+      <h4>렌터카 픽업</h4>
+      <p><strong>SIXT Hammersmith</strong>: 144-146 Hammersmith Road, London W6 7PJ <span class="status-badge reserved">예약완료</span></p>
+      <p style="font-size:12px; color:var(--muted);">숙소(Gloucester Road)에서 이동: District Line Hammersmith행 약 15분</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🪨 스톤헨지 <span style="font-size:12px;color:var(--muted);">Stonehenge</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Amesbury, Wiltshire SP4 7DE · ⏰ 2월 09:30~17:00 (마지막 입장 15:00) · 💰 주말 성인 £22.70~28.50, 아동(5~17) £11~15
+      </div>
+      <span class="time-badge">10:00~12:00</span>
+      <p style="font-size:13px;">약 2시간 소요 (비지터 센터 + 셔틀버스 + 스톤 서클). 오디오 가이드 포함. 비지터 센터(실내)에서 전시 관람 가능. 주차 무료. 3인 합계 약 £55~70.</p>
+      <p style="font-size:12px; color:var(--muted);">토요일 주말 요금 적용. 바람이 강하므로 방풍 재킷 필수.</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">12:00~13:00</span>
+      <h4>이동</h4>
+      <p>스톤헨지 → 라콕 (약 1시간)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🧙 라콕 Abbey + 마을 <span style="font-size:12px;color:var(--muted);">Lacock</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Wiltshire (스톤헨지~1시간, 바스~30분) · ⏰ 겨울 10:00~17:00 · 💰 3인 £33.50 · 주차 £5
+      </div>
+      <span class="time-badge">13:00~15:00</span>
+      <p style="font-size:13px;">겨울에는 Cloister, 정원, Fox Talbot Museum, 전시만 관람 가능 (Abbey 내부 비공개). 해리포터 촬영지: Cloisters(호그와트 복도), Chapter House(Mirror of Erised), Warming Room(DADA교실). 마을: Leaky Cauldron 외관.</p>
+      <p style="font-size:12px; color:var(--muted);">점심: Stables Cafe 또는 마을 카페</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">15:00~15:30</span>
+      <h4>이동</h4>
+      <p>라콕 → 바스 (약 30분)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏛️ 로마 목욕탕 <span style="font-size:12px;color:var(--muted);">Roman Baths, Bath</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Abbey Churchyard, Bath BA1 1LT · ⏰ 매일 09:00~18:00 · 💰 주말 성인 £27.50 (온라인 £2 할인)
+      </div>
+      <span class="time-badge">15:30~18:30</span>
+      <p style="font-size:13px;">13개 언어 오디오 가이드 포함 (한국어 포함 확인 필요). 실내 위주라 겨울 방문에 적합. 3인 합계 약 £60~75 (토요일 주말 요금).</p>
+      <p style="font-size:13px; margin-top:8px;"><strong>추가 산책 (시간 여유 시)</strong>: 로열 크레센트 (조지안 건축의 대표작, 도보 15분), 펄트니 브리지 (다리 위 상점, 사진 명소)</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">18:30~21:00</span>
+      <h4>복귀</h4>
+      <p>바스 → 숙소 (약 2.5시간)</p>
+    </div>
+  </details>
+
+  <!-- 2/22 (일) 세븐시스터즈 & 브라이튼 -->
+  <details>
+    <summary>2/22 (일) 세븐시스터즈 &amp; 브라이튼 [렌터카 Day 2]</summary>
+    <p class="day-summary">세븐시스터즈 절벽 트레킹 → 브라이튼 로열 파빌리언</p>
+
+    <div class="story-block">
+      <span class="time-badge">07:30~10:00</span>
+      <h4>이동</h4>
+      <p>숙소 → 세븐시스터즈 (약 2.5시간)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏖️ 세븐시스터즈 절벽 트레킹 <span style="font-size:12px;color:var(--muted);">Seven Sisters Country Park</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Exceat, Seaford, East Sussex BN25 4AD · ⏰ 공원 상시 개방, 주차장 07:00~18:00 · 💰 무료 (주차 2시간 £3, 종일 £4)
+      </div>
+      <span class="time-badge">10:00~12:00</span>
+      <p style="font-size:13px;">Cuckmere Haven → 절벽 전망대 왕복 약 3~4km (1.5~2시간).</p>
+      <div class="warn-card">
+        <div class="warn-title">안전 주의</div>
+        Birling Gap 전망대 및 해변 접근이 현재 폐쇄 상태 (안전 공사). 메인 NT 주차장도 공사중. <strong>Exceat 주차장 이용 권장.</strong> 절벽 가장자리 접근 금지.
+      </div>
+      <p style="font-size:12px; color:var(--muted);">준비물: 방풍 재킷(필수), 등산화, 물/간식, 우산. 2월 바람이 매우 강함.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">12:00~13:00</span>
+      <h4>이동</h4>
+      <p>세븐시스터즈 → 브라이튼 (약 1시간)</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">13:00~14:00</span>
+      <h4>점심식사 (브라이튼)</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>👑 브라이튼 로열 파빌리언 <span style="font-size:12px;color:var(--muted);">Royal Pavilion</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 4/5 Pavilion Buildings, Brighton BN1 1EE · ⏰ 10월~3월 10:00~17:15 (마지막 입장 16:30) · 💰 성인 £18, 아동(5세+) £11
+      </div>
+      <span class="time-badge">14:00~15:00</span>
+      <p style="font-size:13px;">인도/중국풍의 독특한 왕실 별궁. 조지 4세가 건축. 실내 관람이므로 날씨 무관. 일요일도 정상 운영. 3인 합계 £47.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">15:00~17:30</span>
+      <h4>복귀</h4>
+      <p>브라이튼 → 숙소 (약 2.5시간)</p>
+    </div>
+  </details>
+
+  <!-- 2/23 (월) 옥스퍼드 & 해리포터 -->
+  <details>
+    <summary>2/23 (월) 옥스퍼드 &amp; 해리포터 스튜디오 [렌터카 Day 3]</summary>
+    <p class="day-summary">옥스퍼드(Bodleian·크라이스트 처치·Covered Market) → 해리포터 스튜디오 → 렌터카 반납</p>
+
+    <div class="story-block">
+      <span class="time-badge">08:00~09:30</span>
+      <h4>이동 + 주차</h4>
+      <p>주차: Westgate Oxford, £8.50 + 혼잡통행료 £5</p>
+      <p style="font-size:12px; color:var(--muted);">혼잡통행료: Caura앱으로 다음날 자정까지 결제</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>📚 Bodleian Library - Divinity School</h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        💰 £3/인
+      </div>
+      <span class="time-badge">09:30~10:00</span>
+      <p style="font-size:13px;">HP 의무실 촬영지.</p>
+      <p style="font-size:12px; color:var(--muted);">주의: 보들리언 도서관 가이드 투어는 11세 이상만 참가 가능. Weston Library(무료)는 나이 제한 없음.</p>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="compare-card">
+      <h4>🏫 크라이스트 처치 <span style="font-size:12px;color:var(--muted);">Christ Church College</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 St Aldate's, Oxford OX1 1DP · ⏰ 월~토 10:00~ (퇴장 17:00) · 💰 성인 £20.50, 아동 £17.50
+      </div>
+      <span class="time-badge">10:00~11:15</span>
+      <p style="font-size:13px;">Great Hall(HP 대식당) + Tom Quad + 회랑. 호그와트 대강당 촬영지.</p>
+      <div class="warn-card">
+        <div class="warn-title">월요일 주의</div>
+        Great Hall 점심시간 폐쇄: 월~금 12:00~14:00. <strong>12:00 전 Great Hall 관람 필수.</strong>
+      </div>
+      <span class="status-badge needed">예약필요</span>
+    </div>
+
+    <div class="compare-card">
+      <h4>🖼️ Christ Church Picture Gallery</h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        💰 £3/인 (Christ Church 티켓 소지 시 할인)
+      </div>
+      <span class="time-badge">11:15~11:45</span>
+      <p style="font-size:13px;">다빈치·라파엘로 드로잉 소장.</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">11:45~12:00</span>
+      <h4>Bridge of Sighs + Radcliffe Camera</h4>
+      <p>외관 사진촬영 (도보 5분)</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">12:00~13:30</span>
+      <h4>Covered Market 점심</h4>
+      <p>Ben's Cookies 추천</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">13:30~15:00</span>
+      <h4>이동</h4>
+      <p>Westgate 주차장 → 해리포터 스튜디오 (약 1시간)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>⚡ 해리포터 스튜디오 <span style="font-size:12px;color:var(--muted);">Warner Bros. Studio Tour</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 Studio Tour Drive, Leavesden, WD25 7LR · ⏰ 시간대별 입장 · 💰 성인 £56~, 아동(5~15) £46~
+      </div>
+      <span class="time-badge">15:00~19:30</span>
+      <p style="font-size:13px;">약 4~4.5시간 소요. 버터비어, 대강당, 다이애곤 앨리 등이 하이라이트. 실내+야외 백롯 모두 있으므로 따뜻한 옷 준비. 주차 무료. 3인 합계 약 £155~170.</p>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">19:30~21:30</span>
+      <h4>렌터카 반납 &amp; 복귀</h4>
+      <p>스튜디오 → SIXT Hammersmith 반납 (19:30~20:30)</p>
+      <p>SIXT → 숙소 이동 (21:00~21:30)</p>
+    </div>
+  </details>
+
+  <!-- 2/24 (화) 킹스크로스 & 파리 이동 -->
+  <details>
+    <summary>2/24 (화) 킹스크로스 &amp; 파리 이동</summary>
+    <p class="day-summary">호텔 체크아웃 → Platform 9 3/4 → 유로스타 → 파리</p>
+
+    <div class="story-block">
+      <span class="time-badge">09:00</span>
+      <h4>호텔 체크아웃</h4>
+    </div>
+
+    <div class="compare-card">
+      <h4>⚡ Platform 9 3/4 &amp; Harry Potter Shop <span style="font-size:12px;color:var(--muted);">King's Cross Station</span></h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        📍 King's Cross Station, Euston Road, N1 9AL · ⏰ 월~토 08:00~22:00, 일 09:00~20:00 · 💰 무료
+      </div>
+      <span class="time-badge">10:00~11:30</span>
+      <p style="font-size:13px;">플랫폼 9 3/4 사진 촬영 포인트. 항상 줄이 있으며, 바쁜 시간에는 사진 촬영 1시간 전 마감. 해리포터 기념품 매장이 바로 옆.</p>
+      <p style="font-size:12px; color:var(--muted);">해리포터 3대 명소 완성: 옥스퍼드 크라이스트 처치(2/23) + 스튜디오(2/23) + 킹스크로스 9 3/4(2/24)</p>
+    </div>
+
+    <div class="story-block">
+      <span class="time-badge">11:30~12:30</span>
+      <h4>유로스타 체크인 및 출국심사</h4>
+      <p>St Pancras International (킹스크로스에서 도보 2분)</p>
+    </div>
+
+    <div class="compare-card">
+      <h4>🚄 유로스타 런던 → 파리</h4>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">
+        ⏰ 12:30 출발 → 15:00 파리 Gare du Nord 도착 (현지시간, 시차 +1시간)
+      </div>
+      <span class="status-badge reserved">예약완료</span>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 교통
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">🚇</span> 교통</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">공항 → 시내: Heathrow Express</div>
+    히드로 공항 → 패딩턴역 15분. Advance(30일 전 예약) £10 / Standard(당일) £25~26 / Business First £32. 15세 이하 무료. <span class="status-badge reserved">예약완료</span>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">시내: Oyster Card / Contactless</div>
+    비접촉 결제(Contactless) 카드가 가장 편리. Daily Cap Zone 1-2 약 £8.10, Weekly Cap(월~일) Zone 1-2 약 £40.70.
+    <p style="margin-top:6px;"><strong>10세 아이 무료</strong>: 11세 미만은 요금을 내는 보호자 동반 시 무료. 넓은 개찰구(wheelchair/luggage gate)로 함께 통과. 별도 Oyster 카드 불필요.</p>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">렌터카 (2/21~23, 3일)</div>
+    <strong>SIXT Hammersmith</strong>: 144-146 Hammersmith Road, London W6 7PJ <span class="status-badge reserved">예약완료</span>
+    <p style="margin-top:6px;">Hammersmith 역에서 도보 수 분. <strong>혼잡통행료(Congestion Charge) 구역 외</strong> — 통행료 절감. 국제운전면허증 + 한국 운전면허증 필수. ULEZ 면제 차량 확인.</p>
+    <div style="margin-top:8px;">
+      <table class="compact-table">
+        <tr><th>날짜</th><th>구간</th><th>비고</th></tr>
+        <tr><td>2/21(토)</td><td>런던→스톤헨지→라콕→바스→런던</td><td>종일 사용</td></tr>
+        <tr><td>2/22(일)</td><td>런던→세븐시스터즈→브라이튼→런던</td><td>종일 사용</td></tr>
+        <tr><td>2/23(월)</td><td>런던→옥스퍼드→HP스튜디오→런던</td><td>저녁 반납</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 실용 정보
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💡</span> 실용 정보</h2>
+
+  <div class="compare-card">
+    <h4>🌧️ 2월 날씨</h4>
+    <p style="font-size:13px;">
+      평균 기온: 최저 2~3°C / 최고 7~9°C<br>
+      강수: 월 평균 37~57mm, 12~19일 비 (가벼운 비가 자주)<br>
+      일조: 일출 ~07:20, 일몰 ~17:20 (하순 ~17:45)<br>
+      바람: 강한 편 (특히 해안가 세븐시스터즈)<br>
+      눈: 평균 3일 정도 눈 관측
+    </p>
+  </div>
+
+  <div class="compare-card">
+    <h4>겨울 여행 준비물</h4>
+    <p style="font-size:13px;">
+      ・방풍 재킷 필수 (바람이 체감 온도를 크게 낮춤)<br>
+      ・우산보다 레인코트/방수 재킷 추천 (바람이 강해 우산 무용지물일 수 있음)<br>
+      ・편한 운동화 (하루 1~2만보 예상)<br>
+      ・등산화 (세븐시스터즈 필수)<br>
+      ・장갑, 목도리, 모자<br>
+      ・보조배터리 (추위에 배터리 소모 빨라짐)
+    </p>
+  </div>
+
+  <div class="compare-card">
+    <h4>Half-term 주의 (2월 셋째 주)</h4>
+    <p style="font-size:13px;">2026년 영국 February Half-term은 지역에 따라 <strong>2/9~13</strong> 또는 <strong>2/16~20</strong>. 후자에 해당할 경우 여행 초반과 정확히 겹침.</p>
+    <p style="font-size:13px; margin-top:6px;">
+      ・자연사/과학 박물관 등 아이 친화 시설이 매우 혼잡<br>
+      ・해리포터 스튜디오 매진 가능성 (이미 예약완료)<br>
+      ・도로 교통량 증가 (특히 근교 이동 시)<br>
+      ・일부 박물관 조기 개장 (과학 박물관 09:00~)
+    </p>
+  </div>
+
+  <div class="compare-card">
+    <h4>추천 식당/카페</h4>
+    <p style="font-size:13px;">
+      <strong>사우스 켄싱턴 (2/17)</strong>: 박물관 카페(자연사/과학 박물관 내부), V&amp;A Cafe(빅토리안 인테리어)<br><br>
+      <strong>웨스트민스터/코벤트 가든 (2/18)</strong>: 코벤트 가든 주변 레스토랑, 세실 코트(Cecil Court — 골동품 서점 골목, HP 다이애곤 앨리 영감지)<br><br>
+      <strong>시티 (2/20)</strong>: 리든홀 마켓 내 레스토랑/카페, Borough Market (타워 브리지에서 도보, 금요일 운영)
+    </p>
+  </div>
+
+  <div class="compare-card">
+    <h4>아침/저녁 루틴 (Club Quarters 기간 2/16~20)</h4>
+    <p style="font-size:13px;">
+      <strong>아침 조깅 추천 코스</strong>: 호텔 → Victoria Embankment(도보 2~3분) → 빅벤 → 웨스트민스터 브리지 → 런던 아이 (왕복 5~10km)
+    </p>
+    <p style="font-size:13px; margin-top:8px;">
+      <strong>야경 추천</strong><br>
+      ・웨스트민스터 브리지: 빅벤 + 런던 아이 (Blue Hour 17:30~18:30 최적)<br>
+      ・트라팔가 광장: 분수 조명 (호텔 바로 앞)<br>
+      ・피카딜리 서커스: 네온사인 (도보 10분)<br>
+      ・템즈강변 Victoria Embankment: 강 반사 야경
+    </p>
+  </div>
+
+  <div class="compare-card">
+    <h4>주의사항</h4>
+    <div class="warn-card">
+      <div class="warn-title">알아둘 것</div>
+      ・영국 전원 플러그: Type G (3핀 사각) — 변환 어댑터 필수<br>
+      ・팁 문화: 레스토랑 10~15% (서비스 차지 포함 여부 확인), 카페/펍은 불필요<br>
+      ・박물관 대형 가방 반입 불가 (백팩 크기 제한 있는 곳 다수)<br>
+      ・런던탑, 타워 브리지 등은 시간대 예약(timed entry) 필수<br>
+      ・근위병 교대식은 악천후 시 취소 가능 — 당일 아침 확인
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 예약 현황 테이블
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">📋</span> 예약 현황</h2>
+
+  <div class="compare-card">
+    <table class="compact-table">
+      <tr><th>항목</th><th>날짜</th><th>상태</th><th>비고</th></tr>
+      <tr><td>Heathrow Express</td><td>2/16</td><td><span class="status-badge reserved">예약완료</span></td><td>£20</td></tr>
+      <tr><td>Club Quarters Hotel</td><td>2/16~20</td><td><span class="status-badge reserved">예약완료</span></td><td>1,745,920원</td></tr>
+      <tr><td>자연사 박물관</td><td>2/17</td><td><span class="status-badge reserved">예약완료</span></td><td>무료</td></tr>
+      <tr><td>과학 박물관</td><td>2/17</td><td><span class="status-badge reserved">예약완료</span></td><td>무료, 11:15~11:45</td></tr>
+      <tr><td>웨스트민스터 사원</td><td>2/18</td><td><span class="status-badge needed">예약필요</span></td><td>3인 약 £76</td></tr>
+      <tr><td>윔블던 투어</td><td>2/19</td><td><span class="status-badge needed">예약필요</span></td><td>3인 약 £64~86</td></tr>
+      <tr><td>뮤지컬 (Lyceum)</td><td>2/19</td><td><span class="status-badge reserved">예약완료</span></td><td>£68.95 x 3</td></tr>
+      <tr><td>런던 타워</td><td>2/20</td><td><span class="status-badge needed">예약필요</span></td><td>3인 약 £75~90</td></tr>
+      <tr><td>타워 브리지</td><td>2/20</td><td><span class="status-badge needed">예약필요</span></td><td>3인 약 £31</td></tr>
+      <tr><td>Sky Garden</td><td>2/20</td><td><span class="status-badge needed">예약필요</span></td><td>무료 (walk-in)</td></tr>
+      <tr><td>대영박물관</td><td>2/20</td><td><span class="status-badge reserved">예약완료</span></td><td>무료</td></tr>
+      <tr><td>DoubleTree Kensington</td><td>2/20~24</td><td><span class="status-badge reserved">예약완료</span></td><td>-</td></tr>
+      <tr><td>렌터카 SIXT</td><td>2/21~23</td><td><span class="status-badge reserved">예약완료</span></td><td>-</td></tr>
+      <tr><td>스톤헨지</td><td>2/21</td><td><span class="status-badge needed">예약필요</span></td><td>3인 약 £55~70</td></tr>
+      <tr><td>Bodleian Divinity School</td><td>2/23</td><td><span class="status-badge needed">예약필요</span></td><td>£3/인</td></tr>
+      <tr><td>Christ Church</td><td>2/23</td><td><span class="status-badge needed">예약필요</span></td><td>성인 £20.50, 아동 £17.50</td></tr>
+      <tr><td>해리포터 스튜디오</td><td>2/23</td><td><span class="status-badge reserved">예약완료</span></td><td>3인 약 £155~170</td></tr>
+      <tr><td>유로스타</td><td>2/24</td><td><span class="status-badge reserved">예약완료</span></td><td>-</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ 입장료 합산 테이블
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💰</span> 입장료 합산 (3인 기준)</h2>
+
+  <div class="compare-card">
+    <table class="compact-table">
+      <tr><th>명소</th><th>예상 비용</th><th>비고</th></tr>
+      <tr><td>자연사 박물관</td><td>무료</td><td></td></tr>
+      <tr><td>과학 박물관</td><td>무료</td><td></td></tr>
+      <tr><td>사치 갤러리</td><td>£20~30</td><td>전시에 따라 변동</td></tr>
+      <tr><td>해러즈</td><td>무료</td><td></td></tr>
+      <tr><td>웨스트민스터 사원</td><td>~£76</td><td>성인 £31x2 + 아동 £14</td></tr>
+      <tr><td>윔블던 투어</td><td>~£64~86</td><td>Family Offer 시 £64</td></tr>
+      <tr><td>뮤지컬</td><td>£206.85</td><td>£68.95 x 3</td></tr>
+      <tr><td>런던 타워</td><td>~£75~90</td><td>온라인 할인</td></tr>
+      <tr><td>타워 브리지</td><td>~£31</td><td></td></tr>
+      <tr><td>리든홀 마켓</td><td>무료</td><td></td></tr>
+      <tr><td>Sky Garden</td><td>무료</td><td>예약필요</td></tr>
+      <tr><td>대영박물관</td><td>무료</td><td></td></tr>
+      <tr><td>스톤헨지</td><td>~£55~70</td><td>주말 요금</td></tr>
+      <tr><td>라콕 Abbey</td><td>£33.50</td><td>+주차 £5</td></tr>
+      <tr><td>로마 목욕탕</td><td>~£60~75</td><td>주말 요금</td></tr>
+      <tr><td>세븐시스터즈</td><td>£4</td><td>주차료만</td></tr>
+      <tr><td>로열 파빌리언</td><td>~£47</td><td></td></tr>
+      <tr><td>크라이스트 처치</td><td>~£58.50</td><td>성인 £20.50x2 + 아동 £17.50</td></tr>
+      <tr><td>해리포터 스튜디오</td><td>~£155~170</td><td></td></tr>
+      <tr class="total-row"><td><strong>합계</strong></td><td><strong>약 £850~1,000</strong></td><td><strong>약 142~167만원</strong> (£1≒1,670원)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑥ 미방문 대안 명소
+     ═══════════════════════════════════════ -->
+<section class="story">
+  <h2><span class="icon">🗺️</span> 미방문 대안 명소</h2>
+  <p style="font-size:13px; color:#374151; margin-bottom:16px;">일정에 포함되지 않았지만 시간 여유가 생기거나 날씨/컨디션에 따라 대체 가능한 명소들.</p>
+
+  <div class="compare-card">
+    <h4>무료 박물관/미술관</h4>
+    <table class="alt-table">
+      <tr><th>명소</th><th>소요</th><th>특징</th></tr>
+      <tr><td>내셔널 갤러리</td><td>2~3h</td><td>Club Quarters 도보 5분, 서양 회화</td></tr>
+      <tr><td>테이트 모던</td><td>2~3h</td><td>현대미술, 템즈강변</td></tr>
+      <tr><td>V&amp;A 박물관</td><td>반나절</td><td>디자인/장식예술, 사우스 켄싱턴</td></tr>
+      <tr><td>내셔널 포트레이트 갤러리</td><td>2h</td><td>트라팔가 광장 옆</td></tr>
+      <tr><td>테이트 브리튼</td><td>2h</td><td>영국 미술 컬렉션</td></tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>유료 명소</h4>
+    <table class="alt-table">
+      <tr><th>명소</th><th>소요</th><th>특징</th></tr>
+      <tr><td>윈저 성</td><td>반나절</td><td>렌터카 1시간, 왕실 거주지</td></tr>
+      <tr><td>햄프턴 코트 궁전</td><td>반나절</td><td>헨리 8세 궁전, 미로 정원</td></tr>
+      <tr><td>마담 투소</td><td>1~2h</td><td>밀랍인형, 아이 흥미</td></tr>
+      <tr><td>런던 교통 박물관</td><td>2h</td><td>코벤트 가든, 아이 적합</td></tr>
+      <tr><td>더 샤드 전망대</td><td>1~2h</td><td>런던 최고 전망</td></tr>
+      <tr><td>런던 수족관 (SEA LIFE)</td><td>2h</td><td>실내, 아이 좋아함</td></tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>쇼핑/마켓</h4>
+    <table class="alt-table">
+      <tr><th>명소</th><th>소요</th><th>특징</th></tr>
+      <tr><td>보로 마켓</td><td>1~2h</td><td>음식 시장 (목~토), 런던 브리지 근처</td></tr>
+      <tr><td>캠든 마켓</td><td>2~3h</td><td>스트리트 푸드, 빈티지</td></tr>
+      <tr><td>포토벨로 마켓</td><td>2~3h</td><td>토요일 메인, 노팅힐</td></tr>
+      <tr><td>옥스퍼드 스트리트</td><td>2h</td><td>대형 쇼핑거리</td></tr>
+      <tr><td>리버티 백화점</td><td>1h</td><td>튜더 양식 건물 자체가 명소</td></tr>
+    </table>
+  </div>
+
+  <div class="compare-card">
+    <h4>날씨 안좋을 때 대안</h4>
+    <p style="font-size:13px;">
+      ・런던탑/대영박물관 일정이 비 오면 그대로 진행 (실내 위주)<br>
+      ・세븐시스터즈(야외)가 악천후면 → 윈저 성 또는 햄프턴 코트(실내) 대체 검토<br>
+      ・스톤헨지는 비 와도 방문 가능 (비지터 센터 실내 + 야외 유적은 짧게)
+    </p>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

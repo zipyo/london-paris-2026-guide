@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>준비물 체크리스트 · 런던-파리 2026</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --good: #16a34a;
+    --good-bg: #f0fdf4;
+    --tip-bg: #fff7ed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .core-msg {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: center;
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+  .core-msg .sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 4px; }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #f9fafb;
+  }
+  .checklist label:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .checklist .note {
+    display: block;
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  .warn-card {
+    background: var(--warn-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--warn);
+    border-left: 3px solid var(--warn);
+  }
+  .warn-card .warn-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .warn-card .warn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+  .warn-card .warn-num {
+    font-weight: 700;
+    flex-shrink: 0;
+    min-width: 18px;
+  }
+
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+
+  .dcc-box {
+    background: var(--tip-bg);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 10px;
+    font-size: 12.5px;
+    border-left: 3px solid var(--accent);
+    line-height: 1.6;
+  }
+  .dcc-box strong { color: var(--accent); }
+
+  /* 날짜별 테이블 */
+  .date-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .date-table th {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+    background: var(--accent-light);
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .date-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .date-table tr:last-child td { border-bottom: none; }
+  .date-table .date-col {
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--accent);
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>준비물 체크리스트 <span class="en">Packing Checklist</span></h1>
+  <p class="oneliner">12박 13일 런던-파리 가족여행, 빠짐없이 챙기는 완벽 체크리스트. 체크하면서 하나씩 가방에 넣으세요.</p>
+</div>
+
+<div class="info-box">
+  <div class="core-msg">
+    "여권, 변환 플러그, 등산화, 핫팩"<br>이 4가지만 잊지 않으면 나머지는 현지 구매 가능
+    <span class="sub">2026.02.16(월) ~ 03.01(일) · 부부 + 10세 자녀 · 런던 8박 + 파리 4박</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ① 필수 서류
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📄</span> 필수 서류</h2>
+  <details open>
+    <summary>서류 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 여권 3인 (유효기간 6개월 이상 확인 — 2026.09.01 이후 만료)</label>
+      <label><input type="checkbox"> 여권 사본 (별도 보관, 분실 대비)</label>
+      <label><input type="checkbox"> 영문운전면허증 (발급완료, 렌터카 2/21~23 필수)</label>
+      <label><input type="checkbox"> 국제운전면허증<span class="note">영문면허만으로 영국 법적 문제없으나, SIXT 카운터 거절 대비 권장 — 8,500원 즉시 발급</span></label>
+      <label><input type="checkbox"> 여행자보험 증서 (인쇄본 + 스마트폰 저장)</label>
+      <label><input type="checkbox"> 예약 확인서 모음 (아래 별도 정리)</label>
+      <label><input type="checkbox"> 신용카드 2장 이상 (1장 분실/결제 거절 대비)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ② 예약 확인서
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🎫</span> 예약 확인서 출력/저장</h2>
+  <details open>
+    <summary>예약 확인서 목록</summary>
+    <div class="checklist">
+      <h3>교통</h3>
+      <label><input type="checkbox"> 항공편 (인천→런던 2/16, 파리→인천 2/28)</label>
+      <label><input type="checkbox"> Heathrow Express 티켓</label>
+      <label><input type="checkbox"> 유로스타 티켓 3인 (2/24, 12:30)</label>
+      <label><input type="checkbox"> 렌터카 SIXT 예약서</label>
+      <label><input type="checkbox"> 공항 발렛 파킹 확인서</label>
+      <label><input type="checkbox"> 공항 라운지 (프레스티지 서편가든 218번gate)</label>
+    </div>
+    <div class="checklist">
+      <h3>숙소</h3>
+      <label><input type="checkbox"> 숙소 3곳 (Club Quarters, DoubleTree Kensington, 파리 마레)</label>
+    </div>
+    <div class="checklist">
+      <h3>관광·공연</h3>
+      <label><input type="checkbox"> 자연사 박물관 (2/17)</label>
+      <label><input type="checkbox"> 과학 박물관 (2/17, 11:15~11:45 슬롯)</label>
+      <label><input type="checkbox"> 웨스트민스터 사원 (2/18)</label>
+      <label><input type="checkbox"> 윔블던 박물관 투어 (2/19, 13:00)</label>
+      <label><input type="checkbox"> 뮤지컬 라이온킹 티켓 3인 (2/19, Lyceum Theatre)</label>
+      <label><input type="checkbox"> 대영박물관 (2/20)</label>
+      <label><input type="checkbox"> 해리포터 스튜디오 (2/23, 15:00)</label>
+      <label><input type="checkbox"> 오랑주리 미술관 (2/25)</label>
+      <label><input type="checkbox"> 개선문 (2/25)</label>
+      <label><input type="checkbox"> Aura Invalides (2/25)</label>
+      <label><input type="checkbox"> 오르세 미술관 (2/26)</label>
+      <label><input type="checkbox"> 루브르 박물관 (2/27)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ③ 전자기기
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🔌</span> 전자기기</h2>
+  <details open>
+    <summary>변환 플러그 (2종 필수!)</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>영국 Type G</strong> (사각 3핀) — 런던 8박, 최소 2개 권장</label>
+      <label><input type="checkbox"> <strong>프랑스 Type C/E</strong> (둥근 2핀) — 파리 4박, 최소 2개 권장</label>
+      <label><input type="checkbox"> 멀티탭 1개 (플러그 1개로 기기 여러 개 충전)</label>
+    </div>
+  </details>
+  <details open>
+    <summary>충전/기기</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 보조배터리 (20,000mAh 이상 권장, 추위에 배터리 소모 빠름)</label>
+      <label><input type="checkbox"> 보조배터리 충전 케이블</label>
+      <label><input type="checkbox"> 스마트폰 충전기 + 케이블 (부부 + 아이용)</label>
+      <label><input type="checkbox"> 카메라 + 충전기 + 여분 배터리</label>
+      <label><input type="checkbox"> SD카드 / 저장공간 확인 (13일간 사진·영상 다량)</label>
+    </div>
+  </details>
+  <details open>
+    <summary>통신</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 유심 또는 eSIM / 로밍 (3인, 영국 + 프랑스 모두 커버 확인)<span class="note">영국은 EU가 아니므로 EU 전용 유심으로 안 될 수 있음 — 반드시 UK 포함 확인</span></label>
+      <label><input type="checkbox"> 방수 폰 케이스 또는 방수 파우치 (비/눈 대비)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ④ 의류
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🧥</span> 의류 (2월 겨울, 평균 3~9°C)</h2>
+  <details open>
+    <summary>아우터</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>방풍·방수 재킷</strong> (최우선! 런던·파리 모두 바람이 핵심)</label>
+      <label><input type="checkbox"> 패딩/다운 재킷 (레이어링용 미드레이어 또는 메인 아우터)</label>
+      <label><input type="checkbox"> 접이식 우산 또는 레인코트<span class="note">비 확률 40%, 바람 강할 땐 레인코트가 나음</span></label>
+      <label><input type="checkbox"> 아이 방풍·방수 재킷</label>
+    </div>
+  </details>
+  <details open>
+    <summary>상의·하의</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 긴팔 티셔츠/셔츠 (얇은 것 여러 장 — 레이어링 전략)</label>
+      <label><input type="checkbox"> 니트/플리스 (실내외 온도차 큰 편, 벗기 쉬운 겹옷)</label>
+      <label><input type="checkbox"> 기모 바지 또는 두꺼운 바지</label>
+      <label><input type="checkbox"> 내복/히트텍 (상·하의, 세븐시스터즈·바스·스톤헨지 등 야외 필수)</label>
+      <label><input type="checkbox"> 아이 의류 동일 구성</label>
+    </div>
+  </details>
+  <details open>
+    <summary>방한 소품</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>장갑</strong> (터치스크린 가능 추천)</label>
+      <label><input type="checkbox"> <strong>아이 장갑 2세트</strong> (분실 대비)</label>
+      <label><input type="checkbox"> 목도리/스카프 (두툼한 것)</label>
+      <label><input type="checkbox"> 모자 (귀 덮는 비니 또는 귀마개)</label>
+      <label><input type="checkbox"> 두꺼운 양말 여러 켤레</label>
+    </div>
+  </details>
+  <details open>
+    <summary>신발</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>편한 운동화</strong> (방수/발수 처리, 하루 1~2만보)</label>
+      <label><input type="checkbox"> <strong>등산화/워킹부츠</strong><span class="note">세븐시스터즈 트레킹 2/22 필수, 진흙 대비 방수</span></label>
+      <label><input type="checkbox"> 여벌 깔창 또는 두꺼운 양말 (장시간 도보 발 피로 완화)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑤ 세면·위생용품
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🧴</span> 세면·위생용품</h2>
+  <details open>
+    <summary>위생용품 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 물티슈 (넉넉히)</label>
+      <label><input type="checkbox"> 손소독제</label>
+      <label><input type="checkbox"> 핸드크림 (겨울 건조함)</label>
+      <label><input type="checkbox"> 립밤 (겨울 건조함)</label>
+      <label><input type="checkbox"> 선크림 (겨울에도 야외 활동 많음)</label>
+      <label><input type="checkbox"> 기초 화장품 / 세면도구</label>
+      <label><input type="checkbox"> 칫솔·치약</label>
+      <label><input type="checkbox"> 면도기</label>
+      <label><input type="checkbox"> 수건 (빠른 건조용 소형)</label>
+      <label><input type="checkbox"> 비닐봉투 여분 (진흙 묻은 신발용, 세탁물 분리용)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑥ 상비약
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💊</span> 상비약</h2>
+  <details open>
+    <summary>상비약 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 감기약 (어른용 + 아이용)</label>
+      <label><input type="checkbox"> 소화제</label>
+      <label><input type="checkbox"> 진통제/해열제 (타이레놀 등)</label>
+      <label><input type="checkbox"> 지사제 (설사약)</label>
+      <label><input type="checkbox"> 반창고/밴드</label>
+      <label><input type="checkbox"> 멀미약<span class="note">렌터카 장거리 이동 2/21~23, 아이 대비</span></label>
+      <label><input type="checkbox"> 종합비타민 (13일 장기 여행)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑦ 가방·수납
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🎒</span> 가방·수납</h2>
+  <details open>
+    <summary>가방 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 캐리어 (3인분)<span class="note">디즈니 날 Marne-la-Vallée 역 락커 보관 가능 크기 확인</span></label>
+      <label><input type="checkbox"> <strong>크로스백 또는 슬링백</strong> (소매치기 대비, 앞으로 메기)</label>
+      <label><input type="checkbox"> 아이 전용 백팩 (간식, 장난감, 책, 물)</label>
+      <label><input type="checkbox"> 에코백 1~2개 (마켓·빵집 쇼핑용)</label>
+      <label><input type="checkbox"> 세탁 분리 파우치/지퍼백</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑧ 현금·결제 준비
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">💳</span> 현금·결제 준비</h2>
+  <details open>
+    <summary>결제 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>GBP (파운드) £100~150</strong> — 팁, 소규모 마켓, 비상용</label>
+      <label><input type="checkbox"> <strong>EUR (유로) €100~150</strong> — 팁, 소규모 마켓, 비상용</label>
+      <label><input type="checkbox"> EUR 동전 별도 준비 (1유로, 2유로)<span class="note">디즈니 역 보관소 동전 전용!</span></label>
+      <label><input type="checkbox"> 트래블 체크카드 (트래블로그/트래블월렛 등, 해외 수수료 0%)</label>
+      <label><input type="checkbox"> 신용카드 Visa/Mastercard (백업용, 고액 결제)</label>
+      <label><input type="checkbox"> 카드사 <strong>해외 사용 등록</strong> 완료 (자동 차단 방지)</label>
+      <label><input type="checkbox"> 카드 <strong>해외 결제 한도</strong> 확인 및 상향</label>
+      <label><input type="checkbox"> 카드사 긴급 연락처 메모 (분실 시 국제전화 정지용)</label>
+    </div>
+    <div class="dcc-box">
+      <strong>DCC 주의:</strong> 결제 시 단말기에서 "Korean Won" 선택 절대 금지 → <strong>현지 통화(GBP/EUR)</strong> 선택
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑨ 앱 설치
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📱</span> 앱 설치 (출발 전)</h2>
+  <details open>
+    <summary>교통 앱</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>Citymapper</strong> — 런던/파리 교통 경로 최적 (도시 데이터 오프라인 다운로드)</label>
+      <label><input type="checkbox"> <strong>TfL Go</strong> — 런던 지하철 공식 앱</label>
+      <label><input type="checkbox"> <strong>Île-de-France Mobilités</strong> — 파리 교통 공식 앱 (Navigo 관리)</label>
+      <label><input type="checkbox"> <strong>Google Maps</strong> — 경로 검색, 오프라인 지도 다운로드 (런던 + 파리)</label>
+      <label><input type="checkbox"> <strong>Uber</strong> — 파리 택시 (디즈니→CDG 등)</label>
+      <label><input type="checkbox"> <strong>Bolt</strong> — 파리 택시 백업</label>
+    </div>
+  </details>
+  <details open>
+    <summary>교통카드 설정</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>Apple Pay에 Visa/Mastercard 등록</strong> (런던 대중교통 컨택리스 탭)</label>
+      <label><input type="checkbox"> 카드사 앱에서 <strong>해외 컨택리스 결제 활성화</strong></label>
+      <label><input type="checkbox"> <strong>iPhone Wallet에 Navigo 카드 추가</strong> (부부 각각, 파리 메트로용)<span class="note">iPhone 설정 → Wallet → 교통카드 추가 → Navigo 선택 → t+ 10매 카르네(€17.35) 충전 추천</span></label>
+    </div>
+  </details>
+  <details open>
+    <summary>기상·안전</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>Met Office</strong> 앱 — 영국 기상 (세븐시스터즈 풍속 확인 필수)</label>
+      <label><input type="checkbox"> <strong>Windy</strong> 앱 — 풍속/돌풍 시각화</label>
+    </div>
+  </details>
+  <details open>
+    <summary>관광·예약</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>Notre-Dame de Paris</strong> 공식 앱 — 노트르담 예약 (2/24 자정에 2/26 슬롯 예약)</label>
+      <label><input type="checkbox"> <strong>SNCF Connect</strong> — 프랑스 기차 (TGV 디즈니→CDG 백업용)</label>
+      <label><input type="checkbox"> <strong>Trainline</strong> — 기차 예약</label>
+      <label><input type="checkbox"> <strong>Disneyland Paris</strong> 앱 — 대기시간 확인, 파크 지도</label>
+    </div>
+  </details>
+  <details open>
+    <summary>결제·주차</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>Caura</strong> 앱 — 옥스퍼드 혼잡통행료 결제<span class="note">2/23, 다음날 자정까지</span></label>
+      <label><input type="checkbox"> <strong>RingGo</strong> 앱 — 세븐시스터즈 주차 결제 (location 40750)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑩ 아이 전용
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">👦</span> 아이 전용</h2>
+  <details open>
+    <summary>아이 준비물</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 간식 (한국 과자, 젤리 등 넉넉히 — 현지 구매 어려움)</label>
+      <label><input type="checkbox"> 물병/텀블러 (Club Quarters 무료 생수 활용)</label>
+      <label><input type="checkbox"> 아이 백팩 (간식, 장난감, 스케치북 등)</label>
+      <label><input type="checkbox"> 책/만화/태블릿<span class="note">장거리 이동용 — 인천→런던 15시간, 유로스타 2.5시간 등</span></label>
+      <label><input type="checkbox"> 이어폰/헤드폰 (박물관 오디오 가이드, 이동 시 영상)</label>
+      <label><input type="checkbox"> 장갑 2세트 (분실 대비)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑪ 방한·날씨 대비
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🌬️</span> 방한·날씨 대비</h2>
+  <details open>
+    <summary>방한용품 체크리스트</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> <strong>핫팩</strong> (넉넉히, 한국에서 준비 — 현지 구매 어려움)<span class="note">손난로용 + 발바닥 붙이는 핫팩 · 세븐시스터즈(2/22), 스톤헨지(2/21), 개선문 옥상(2/25) 등 야외 필수</span></label>
+      <label><input type="checkbox"> 여벌 옷 (렌터카 차에 비치, 2/21~23)</label>
+      <label><input type="checkbox"> 넥워머/버프 (바람 차단, 스카프 대용)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑫ 기타
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📦</span> 기타</h2>
+  <details open>
+    <summary>기타 준비물</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 텀블러 (Club Quarters 각 층 무료 생수 리필 활용)</label>
+      <label><input type="checkbox"> 지퍼백 대·중·소 (정리, 방수, 간식 보관)</label>
+      <label><input type="checkbox"> 세탁 세제 소분 (12박 장기 여행, 숙소 세탁 시)</label>
+      <label><input type="checkbox"> 안대/목베개/귀마개 (장거리 비행 15시간+)</label>
+      <label><input type="checkbox"> 기내용 슬리퍼</label>
+      <label><input type="checkbox"> 접이식 장바구니 (마켓 쇼핑)</label>
+      <label><input type="checkbox"> 볼펜 (입국신고서 작성)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑬ 출발 전 할 일
+     ═══════════════════════════════════════ -->
+<section style="background: var(--tip-bg);">
+  <h2><span class="icon">✅</span> 출발 전 할 일 (D-day 체크)</h2>
+  <details open>
+    <summary>예약 관련</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 스톤헨지 (2/21) — 온라인 시간대 예약</label>
+      <label><input type="checkbox"> Christ Church College (2/23) — 온라인 예약</label>
+      <label><input type="checkbox"> 디즈니랜드 파리 (2/28) — 온라인 티켓 구매</label>
+      <label><input type="checkbox"> 생 샤펠 (2/26) — 시간대 예약</label>
+      <label><input type="checkbox"> 베르사유 궁전 (2/27) — 시간대 예약</label>
+      <label><input type="checkbox"> 노트르담 (2/26) — 2/24 자정에 앱으로 예약</label>
+      <label><input type="checkbox"> Paris Museum Pass 4일권 온라인 구매 (2인, parismuseumpass.fr)</label>
+      <label><input type="checkbox"> 근위병 교대식 (2/18) 실시 여부 최종 확인 (changing-guard.com)</label>
+    </div>
+  </details>
+  <details open>
+    <summary>기기·앱</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 스마트폰 오프라인 지도 다운로드 (Google Maps: 런던, 파리)</label>
+      <label><input type="checkbox"> 보조배터리 완충</label>
+      <label><input type="checkbox"> 카메라 배터리 완충 + SD카드 포맷</label>
+    </div>
+  </details>
+  <details open>
+    <summary>집·기타</summary>
+    <div class="checklist">
+      <label><input type="checkbox"> 집 정리 (가스 밸브, 전기, 수도 확인)</label>
+      <label><input type="checkbox"> 공항 발렛 파킹 예약 재확인</label>
+      <label><input type="checkbox"> 여행자보험 보장 내용 확인 (영국·프랑스 모두 적용)</label>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑭ 날짜별 특수 준비물 요약
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📅</span> 날짜별 특수 준비물</h2>
+  <details open>
+    <summary>날짜별 요약 테이블</summary>
+    <div class="checklist" style="padding: 12px;">
+      <table class="date-table">
+        <tr>
+          <th>날짜</th>
+          <th>활동</th>
+          <th>특수 준비물</th>
+        </tr>
+        <tr>
+          <td class="date-col">2/16</td>
+          <td>인천→런던<br>(장거리 비행)</td>
+          <td>안대, 목베개, 귀마개, 기내 슬리퍼, 아이 태블릿/이어폰</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/19</td>
+          <td>뮤지컬<br>라이온킹</td>
+          <td>약간 갖춘 복장 (극장 예의)</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/21</td>
+          <td>스톤헨지 + 바스<br>(렌터카)</td>
+          <td>국제면허증, 방풍재킷, 핫팩</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/22</td>
+          <td>세븐시스터즈<br>(렌터카)</td>
+          <td><strong>등산화(방수)</strong>, 방풍재킷, 핫팩, 장갑, 여벌옷(차에), 빈 비닐봉투, 물/간식</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/23</td>
+          <td>옥스퍼드 +<br>해리포터 (렌터카)</td>
+          <td>Caura 앱 (혼잡통행료), 따뜻한 옷 (스튜디오 야외 백롯)</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/24</td>
+          <td>유로스타<br>런던→파리</td>
+          <td>여권!, 프랑스 변환 플러그, Navigo 설정 확인</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/25</td>
+          <td>개선문<br>옥상 석양</td>
+          <td>방한 (계단 284개 + 옥상 바람), 핫팩</td>
+        </tr>
+        <tr>
+          <td class="date-col">2/28</td>
+          <td>디즈니랜드<br>→ CDG 귀국</td>
+          <td>EUR 동전 (락커), 편한 복장, 여권!, 항공사 터미널 확인</td>
+        </tr>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ⑮ 절대 잊으면 안 되는 TOP 10
+     ═══════════════════════════════════════ -->
+<section style="background: var(--warn-bg); padding-bottom: 32px;">
+  <h2><span class="icon">🚨</span> 절대 잊으면 안 되는 TOP 10</h2>
+  <div class="warn-card" style="background: #fff; color: var(--text); border-left: 4px solid var(--warn);">
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">1.</span> <strong>여권</strong> 3인</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">2.</span> <strong>국제운전면허증</strong> + 한국 운전면허증</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">3.</span> <strong>변환 플러그 2종</strong> (영국 Type G + 프랑스 Type C/E)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">4.</span> <strong>보조배터리</strong> (추위 = 배터리 급속 소모)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">5.</span> <strong>방풍·방수 재킷</strong> (런던·파리 겨울 바람이 핵심)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">6.</span> <strong>등산화</strong> (세븐시스터즈 진흙 대비)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">7.</span> <strong>핫팩</strong> (한국에서 준비, 현지 구매 어려움)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">8.</span> <strong>유심/eSIM</strong> (영국 + 프랑스 모두 커버 확인)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">9.</span> <strong>현금</strong> (GBP £100~150 + EUR €100~150 + EUR 동전)</div>
+    <div class="warn-item"><span class="warn-num" style="color:var(--warn);">10.</span> <strong>앱 사전 설치</strong> (Navigo, Citymapper, Met Office, Caura, Notre-Dame)</div>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
