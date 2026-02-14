@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>루브르 박물관 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #2d3a6e;
+    --accent-light: #eaecf5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #1a2550 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 스토리 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── 작품 해설 ── */
+  .artwork-section { background: #f0efe8; }
+  .artwork-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    border-left: 3px solid var(--accent);
+  }
+  .artwork-card .aw-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .artwork-card h4 { font-size: 15px; font-weight: 700; }
+  .artwork-card .aw-en {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .artwork-card .aw-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .room-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .artwork-card .aw-intro {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 4px;
+  }
+  .artwork-card details { margin-bottom: 0; }
+  .artwork-card details summary {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    padding: 6px 0 0;
+    cursor: pointer;
+  }
+  .artwork-card details[open] summary { margin-bottom: 6px; }
+  .artwork-card .aw-story {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.7;
+  }
+  .artwork-card .aw-story p { margin-bottom: 8px; }
+  .artwork-card .aw-story p:last-child { margin-bottom: 0; }
+
+  /* ── 핵심 포인트 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .dinner-warn {
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .dinner-warn .dw-title {
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+  }
+  .dinner-warn p { color: #78350f; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>루브르 박물관 <span class="en">Musée du Louvre</span></h1>
+  <p class="oneliner">800년 전 요새로 시작해 세계에서 가장 많은 사람이 찾는 박물관. 금요일 밤, 38만 점의 소장품 중 엄선된 10대 걸작을 만난다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/27(금) 18:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">180분 (3시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">예약완료 (성인 €22, 아이 무료)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Pyramid 또는 Carrousel</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Palais Royal–Musée du Louvre</span>
+    </div>
+    <div class="info-item">
+      <span class="label">폐관</span>
+      <span class="value">금 21:45 (퇴장 21:15~)</span>
+    </div>
+  </div>
+  <div class="info-warn">파리 학교방학 중(2/21~3/9) — 주간은 혼잡하나 금요일 야간(18시 이후)은 한산</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 루브르의 역사</h2>
+
+  <div class="story-block">
+    <h4>800년 — 요새에서 박물관으로</h4>
+    <p>1190년, 필리프 2세는 잉글랜드의 침공을 막기 위해 센강변에 요새를 세웠다. 이것이 루브르의 시작이다. 170년 뒤 샤를 5세가 요새를 왕궁으로 개조했고, 1527년에는 이탈리아 예술에 심취한 프랑수아 1세가 중세 성을 허물고 르네상스 궁전을 새로 지었다. 그가 레오나르도 다 빈치를 프랑스로 초대한 장본인이다.</p>
+    <p>1793년 혁명 정부가 왕궁을 박물관으로 바꿨다. 개관 당시 537점이던 소장품은 나폴레옹의 유럽 정복과 함께 폭발적으로 늘었고, 지금은 38만 점. 전시 면적 7만 3천㎡, 전부 보려면 200일이 걸린다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>27개월의 빈 벽 — 모나리자 도난 사건</h4>
+    <p>1911년 8월 21일 월요일 아침. 루브르 도장공 빈첸초 페루자는 폐관 후 빗자루 옷장에 숨었다가 모나리자를 액자에서 떼어내 작업복 안에 넣고 유유히 정문을 걸어 나갔다. 다음 날 한 화가가 빈 벽을 발견하고 경비원에게 물었더니 "사진 촬영 중일 겁니다"라는 답이 돌아왔다.</p>
+    <p>프랑스 경찰은 국경을 폐쇄하고, 피카소까지 용의자로 소환했다. 27개월간 전 세계 언론이 대서특필했고, 이 사건 전까지 대중에게 잘 알려지지 않았던 모나리자는 단숨에 세계에서 가장 유명한 그림이 되었다. 페루자는 결국 피렌체의 미술상에게 그림을 팔려다 체포됐다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>에펠탑을 잇는 대논쟁 — 유리 피라미드</h4>
+    <p>1981년 미테랑 대통령은 루브르 현대화를 위해 중국계 미국인 건축가 I.M. 페이를 지명했다. 그의 설계안 — 나폴레옹 광장 한복판에 유리 피라미드 — 이 공개되자 파리가 뒤집어졌다. "프랑스 르네상스 건축에 대한 모독", "이집트 무덤을 파리 한복판에?" 시민 90%가 반대했다.</p>
+    <p>1989년 프랑스 혁명 200주년에 맞춰 완공. 에펠탑이 그랬듯이, 처음엔 조롱받던 피라미드는 이제 루브르의 상징이 되었다. 673장의 유리 패널과 강철 프레임으로 만든 피라미드는 지하 입구 공간에 자연광을 끌어들이며, 3개 전시동으로 향하는 출발점 역할을 한다.</p>
+  </div>
+</section>
+
+<!-- 작품 해설 -->
+<section class="artwork-section">
+  <h2><span class="icon">🎨</span> 10대 걸작 해설</h2>
+  <p style="font-size:13px;color:#6b7280;margin-top:-8px;margin-bottom:16px;">작품 앞에서 '스토리 읽기'를 펼쳐 보세요. 동선 순서대로 배치했습니다.</p>
+
+  <!-- ① 니케 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>① 사모트라케의 니케</h4>
+      <span class="room-tag">Denon · Daru 계단</span>
+    </div>
+    <div class="aw-en">Winged Victory of Samothrace · 작자 미상 · BC 190년경</div>
+    <p class="aw-intro">머리와 팔이 없지만 날개를 펼치고 바람을 맞으며 전진하는 모습이 압도적이다. 계단 위에 우뚝 서서 방문자를 맞이한다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1863년 프랑스 부영사 샤를 샹푸아조가 에게해의 사모트라케 섬에서 발굴했다. 그리스 노동자가 "선생님, 여자를 찾았습니다!" 하고 외쳤다. 여성 몸체와 날개 파편이 산산이 나뉜 상태로 발견됐고, 파리로 보내져 복원됐다.</p>
+        <p>12년 뒤 오스트리아 학자들이 현장에 남겨진 거대한 회색 대리석 블록이 배의 뱃머리라는 것을 알아냈다. 이 여신은 원래 절벽 위에 놓인 배의 뱃머리 위에 서서 바다를 내려다보고 있었다. 로도스 섬 주민들이 에게해 해전 승리를 기념하기 위해 세운 것으로 추정된다.</p>
+        <p>옷자락이 바람에 몸에 달라붙는 표현, 활짝 펼친 날개의 역동성은 2,200년 전 작품이라고 믿기 어렵다. 참고로 나이키(Nike) 브랜드 이름이 바로 이 여신에서 유래했다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ② 모나리자 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>② 모나리자</h4>
+      <span class="room-tag">Denon · Room 711</span>
+    </div>
+    <div class="aw-en">La Joconde / Mona Lisa · 레오나르도 다 빈치 · 1503~1519</div>
+    <p class="aw-intro">방탄유리 안에 단독 전시된 세계에서 가장 유명한 그림. 실물은 생각보다 작다(77×53cm).</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>레오나르도 다 빈치가 1503년경 피렌체 상인의 아내 리자 게라르디니를 모델로 그리기 시작했다. 완벽주의자 다 빈치는 이 그림을 16년 동안 손질하며, 죽기 직전까지 곁에 두었다. 1516년 프랑수아 1세의 초청으로 프랑스에 건너올 때도 모나리자를 가져왔고, 1519년 사망 후 프랑스 왕실 소장품이 됐다.</p>
+        <p>하지만 이 그림을 세계적 명작으로 만든 것은 다 빈치가 아니라 1911년의 도둑이다. 루브르 도장공 페루자가 그림을 훔쳐 27개월간 자기 아파트 트렁크 안에 숨겨두었고, 전 세계가 그림을 찾는 동안 모나리자의 이름은 인류 역사상 가장 유명해졌다.</p>
+        <p>다 빈치의 '스푸마토(sfumato)' 기법 — 눈가와 입가의 경계를 연기처럼 흐리게 처리하는 기술 — 때문에 보는 각도에 따라 미소가 다르게 보인다. 정면으로 보면 웃는 것 같고, 눈을 바라보면 미소가 사라진다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ③ 카나의 혼인잔치 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>③ 카나의 혼인잔치</h4>
+      <span class="room-tag">Denon · Room 711</span>
+    </div>
+    <div class="aw-en">Les Noces de Cana · 파올로 베로네세 · 1563</div>
+    <p class="aw-intro">루브르에서 가장 큰 그림(6.77×9.94m). 모나리자 정면 벽 전체를 차지하지만 아무도 안 본다 — "루브르 최대의 피해자".</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1562년 베네치아 화가 베로네세가 산 조르조 수도원 식당을 위해 그린 초대형 작품이다. 성경 속 예수의 첫 번째 기적 — 갈릴리 카나의 결혼식에서 물을 포도주로 바꾼 장면이다. 130명이 넘는 인물이 등장하는 화려한 연회 장면으로, 베로네세는 당대 유명 인사들의 얼굴을 그림 속에 몰래 넣었다.</p>
+        <p>235년 동안 베네치아에 있었던 이 그림은 1797년 나폴레옹의 이탈리아 원정 때 전리품으로 약탈됐다. 운반을 위해 캔버스를 가로로 잘라 말아서 프랑스로 보냈고, 이후 재봉합했다. 모나리자 바로 맞은편에 걸려 있으니, 모나리자를 보고 돌아설 때 이 거대한 걸작도 놓치지 말 것.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ④ 나폴레옹 대관식 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>④ 나폴레옹 대관식</h4>
+      <span class="room-tag">Denon · Room 702</span>
+    </div>
+    <div class="aw-en">Le Sacre de Napoléon · 자크 루이 다비드 · 1807</div>
+    <p class="aw-intro">6.21×9.79m 초대형 역사화. 나폴레옹이 직접 감수한 역사상 가장 거대한 정치 프로파간다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1804년 12월 2일, 파리 노트르담 대성당에서 나폴레옹의 황제 대관식이 열렸다. 교황 비오 7세가 로마에서 초대받아 참석했다. 관례대로라면 교황이 황제에게 관을 씌워야 하지만, 나폴레옹은 교황 손에서 관을 빼앗아 직접 자기 머리에 올렸다 — "내 권위는 신이 아니라 나 자신에게서 온다"는 선언이었다.</p>
+        <p>궁정화가 다비드는 원래 이 장면을 그리려 했으나, 너무 오만해 보인다는 의견으로 수정했다. 완성본에는 나폴레옹이 조세핀 황후에게 관을 씌워주는 장면이 담겼다 — 자비로운 황제 이미지를 위한 정치적 계산이었다. 당시 40대였던 조세핀은 그림에서 20대 성녀처럼 미화됐다.</p>
+        <p>나폴레옹은 완성 전 여러 번 화실을 방문해 수정을 지시했다. 마지막으로 1시간 넘게 묵묵히 그림을 바라보더니 다비드에게 "당신을 존경한다"고 말했다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑤ 메두사의 뗏목 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑤ 메두사의 뗏목</h4>
+      <span class="room-tag">Denon · Room 700</span>
+    </div>
+    <div class="aw-en">Le Radeau de la Méduse · 테오도르 제리코 · 1819</div>
+    <p class="aw-intro">실제 해난 사건을 그린 충격작. 7m 넘는 화면에 절망과 희망이 교차한다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1816년 프랑스 군함 메두사호가 아프리카 해안에서 좌초했다. 함장은 귀족 출신으로 20년간 배를 탄 적이 없는 무능한 인물이었다. 구명정은 장교와 귀족이 차지했고, 나머지 147명은 급조한 뗏목에 버려졌다. 구명정이 뗏목을 끌어주겠다는 약속은 곧 깨졌고, 줄이 끊어졌다.</p>
+        <p>13일간의 표류. 반란, 굶주림, 식인까지 벌어졌다. 구조된 생존자는 15명뿐이었다. 먼저 탈출한 자들은 귀족과 부자, 버려진 자들은 하급 선원과 노동자 — 프랑스 혁명 이후에도 변한 것이 없었다.</p>
+        <p>27세의 화가 제리코는 이 사건에 분노해 생존자를 직접 인터뷰하고, 영안실에서 시체를 관찰하며 1년 반 동안 이 그림을 그렸다. 멀리 수평선에 아주 작게 보이는 구조선을 향해 필사적으로 천을 흔드는 장면 — 그 절박함이 그림 앞에 서면 전해진다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑥ 민중을 이끄는 자유의 여신 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑥ 민중을 이끄는 자유의 여신</h4>
+      <span class="room-tag">Denon · Room 700</span>
+    </div>
+    <div class="aw-en">La Liberté guidant le peuple · 외젠 들라크루아 · 1830</div>
+    <p class="aw-intro">프랑스 공화국의 상징. 프랑스 대혁명(1789)이 아니라 1830년 7월 혁명을 그렸다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1830년 7월, 절대왕정을 부활시키려던 샤를 10세가 언론 자유를 탄압하고 선거를 무효화하자 파리 시민이 봉기했다. 단 3일 만에(7/27~29) 시민들이 바리케이드를 쌓고 왕의 군대를 몰아냈다 — '영광의 3일'이라 불린다.</p>
+        <p>들라크루아는 동생에게 편지를 썼다: "조국을 위해 싸우지 못했으니, 최소한 조국을 위해 그림을 그려야지." 그림 중앙의 자유의 여신은 프리기아 모자를 쓰고 삼색기를 든 채 바리케이드를 넘는다. 그 뒤를 따르는 사람들은 각각 다른 계층이다 — 실크햇의 부르주아, 이각모의 학생, 권총을 든 소년.</p>
+        <p>이 그림은 뉴욕 자유의 여신상 디자인에도 영감을 줬다. 프랑스 100프랑 지폐와 우표에도 실렸다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑦ 서기상 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑦ 서기상</h4>
+      <span class="room-tag">Sully · 1층 Room 635</span>
+    </div>
+    <div class="aw-en">Le Scribe accroupi · 작자 미상 · BC 2600~2350</div>
+    <p class="aw-intro">4,500년 전 이집트 서기의 모습. 암석 수정으로 만든 눈이 살아있는 듯 빛난다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>이집트 사카라 유적에서 발견된 기원전 2600~2350년경 작품이다. 다리를 꼬고 앉아 파피루스를 무릎 위에 펼치고 글을 쓰는 자세가 놀라울 정도로 사실적이다.</p>
+        <p>특히 눈이 압도적이다. 암석 수정(rock crystal)을 상감 기법으로 박아 넣어서 4,500년이 지난 지금도 마치 살아있는 사람처럼 빛난다. 조명이 바뀌면 눈빛도 달라 보인다.</p>
+        <p>고대 이집트에서 글을 읽고 쓸 줄 아는 서기는 전체 인구의 1%도 안 되는 엘리트였다. 파라오의 칙령, 세금 기록, 신전 의식을 기록하는 핵심 관료. 서기가 될 수 있다는 것은 곧 권력을 의미했다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑧ 대스핑크스 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑧ 타니스의 대스핑크스</h4>
+      <span class="room-tag">Sully · GF Crypt</span>
+    </div>
+    <div class="aw-en">Grand Sphinx de Tanis · BC 2600년경</div>
+    <p class="aw-intro">분홍색 화강암으로 만든 거대한 스핑크스. 이집트관 입구에서 방문자를 맞이한다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>이집트 나일강 삼각주의 고대 도시 타니스에서 발견된 분홍색 화강암 스핑크스다. 사자의 몸에 파라오의 얼굴 — 파라오가 태양신 라의 아들로서 권력을 받았음을 상징한다.</p>
+        <p>1826년 프랑스가 구입했는데, 구매를 주도한 사람은 상형문자를 해독한 장프랑수아 샹폴리옹이다. 로제타 스톤의 비밀을 풀어 이집트 문명을 세계에 열어준 바로 그 인물이 루브르의 이집트 컬렉션을 구축했다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑨ 밀로의 비너스 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑨ 밀로의 비너스</h4>
+      <span class="room-tag">Sully · GF Room 345</span>
+    </div>
+    <div class="aw-en">Vénus de Milo · 알렉산드로스(추정) · BC 130~100</div>
+    <p class="aw-intro">고대 그리스 조각의 걸작. 팔이 없는 이유는 여전히 미스터리다.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>1820년 4월 8일, 그리스 밀로스 섬에서 농부가 밭을 갈다가 고대 극장 유적 근처 벽 안에서 조각상 파편을 발견했다. 마침 근처에 있던 프랑스 해군 장교 올리비에 부티에가 가치를 알아보고 발굴을 독려했다.</p>
+        <p>상반신과 하반신이 분리된 채 발견됐고, 근처에서 사과를 든 손 파편도 나왔다. 여러 나라가 구매를 시도했지만 프랑스 외교관이 중재하여 프랑스가 획득, 루이 18세에게 헌정된 뒤 루브르에 자리잡았다.</p>
+        <p>팔이 원래 무엇을 하고 있었는지 — 사과를 들고 있었다, 거울을 보고 있었다, 기둥에 기대고 있었다 — 여러 설이 있지만 답은 없다. 복원안도 여럿 나왔지만 결국 "팔이 없는 것도 충분히 아름답다"는 결론에 도달했다.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ⑩ 함무라비 법전 -->
+  <div class="artwork-card">
+    <div class="aw-top">
+      <h4>⑩ 함무라비 법전</h4>
+      <span class="room-tag">Richelieu · GF Room 227</span>
+    </div>
+    <div class="aw-en">Code de Hammurabi · BC 1750년경</div>
+    <p class="aw-intro">3,800년 전 바빌로니아의 법률이 새겨진 2.25m 검은 돌기둥. "눈에는 눈, 이에는 이"의 원조.</p>
+    <details>
+      <summary>스토리 읽기</summary>
+      <div class="aw-story">
+        <p>기원전 1750년경 바빌로니아의 함무라비 왕이 제정한 282개 법 조항이 설형문자로 빼곡히 새겨져 있다. 돌기둥 꼭대기에는 함무라비 왕이 태양신 샤마쉬 앞에 서 있는 장면이 조각되어 있다 — 왕의 권위가 신으로부터 온다는 선언이다.</p>
+        <p>법 내용은 놀라울 정도로 구체적이다. 196조: "평민이 귀족의 눈을 빼면 그의 눈을 뺀다." 건축업자가 지은 집이 무너져 주인이 죽으면 건축업자를 사형. 주인의 아들이 죽으면 건축업자의 아들을 사형. 가혹하지만, 그 이전에는 법 자체가 없었다.</p>
+        <p>1901년 프랑스 고고학팀이 이란의 수사(Susa)에서 발견했다. 원래 바빌론에 있었으나, 기원전 12세기에 엘람 왕이 전리품으로 수사로 가져간 것이다. 3,800년 전 인류 최초의 '법치주의' 시도를 직접 눈앞에서 볼 수 있다.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ③ 3시간 야간 동선 -->
+<section>
+  <h2><span class="icon">🗺️</span> 3시간 야간 동선</h2>
+
+  <div class="dinner-warn">
+    <div class="dw-title">저녁식사 안내</div>
+    <p>루브르 내부 카페(Mollien, Angelina 등)는 금요일에도 18:30에 마감합니다. 야간개장 중에는 이용 불가. 갤러리 라파예트 방문 시 가볍게 먹거나, 관람 후 마레 지구에서 저녁 추천.</p>
+  </div>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">18:00</div>
+      <div class="name">입장</div>
+      <div class="desc">오페라에서 도보 15분. Pyramid 입구(야경 감상) 또는 Carrousel 입구(빠른 입장). 보안검색 통과 후 Napoleon Hall로.</div>
+      <div class="highlight">15분 · 보안검색 + 오리엔테이션</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:15</div>
+      <div class="name">① 사모트라케의 니케</div>
+      <div class="desc">Denon Wing 방향으로 이동 → Daru 계단을 오르면 정면에 니케가 서 있다. 계단 아래에서 올려다보는 앵글이 가장 극적이다. 바람에 날리는 옷자락의 사실감에 주목.</div>
+      <div class="highlight">10분 · 계단 아래+위 양쪽에서 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:25</div>
+      <div class="name">② 모나리자 + ③ 카나의 혼인잔치</div>
+      <div class="desc">니케에서 직진 → Room 711(Salle des États). 정면 방탄유리 안에 모나리자, 뒤돌아서면 벽 전체를 채운 카나의 혼인잔치. 야간에는 인파가 적어 정면 가까이 갈 수 있다. 모나리자 실물은 77×53cm로 의외로 작다.</div>
+      <div class="highlight">25분 · 야간 최대 장점 — 여유로운 모나리자 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:50</div>
+      <div class="name">④ 나폴레옹 대관식</div>
+      <div class="desc">Room 702(Daru Gallery)로 이동. 벽 한 면을 차지하는 10m급 초대형 역사화. 나폴레옹, 조세핀, 교황 비오 7세를 그림 속에서 찾아보기.</div>
+      <div class="highlight">10분 · 그림 속 인물 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:00</div>
+      <div class="name">⑤ 메두사의 뗏목 + ⑥ 자유의 여신</div>
+      <div class="desc">Room 700(Mollien Gallery). 메두사의 뗏목은 실화 기반 — 뗏목 위 절망적인 사람들과 수평선의 작은 구조선 대비. 바로 옆 자유의 여신은 삼색기를 든 여성과 바리케이드의 역동적 구도.</div>
+      <div class="highlight">15분 · 프랑스 대형 역사화의 하이라이트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:15</div>
+      <div class="name">Denon → Sully 이동</div>
+      <div class="desc">Denon Wing을 나와 Sully Wing 1층으로 이동. 이집트 유물 구역 방향.</div>
+      <div class="highlight">10분 · 이동 겸 휴식</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:25</div>
+      <div class="name">⑦ 서기상</div>
+      <div class="desc">Sully Wing 1층 Room 635. 4,500년 전 조각인데 암석 수정 눈이 살아있는 듯 빛난다. 조명이 바뀌면 눈빛도 달라 보이니 각도를 바꿔가며 감상.</div>
+      <div class="highlight">10분 · 눈의 수정 상감에 주목</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:35</div>
+      <div class="name">⑧ 이집트 유물 + 대스핑크스</div>
+      <div class="desc">1층에서 지하 Crypt으로 내려가며 이집트 유물 탐험. 미라, 석관, 상형문자 벽화. Crypt에 분홍색 화강암 스핑크스가 기다린다. 상형문자 속 동물(새, 뱀, 고양이) 찾기.</div>
+      <div class="highlight">20분 · 이집트 상형문자 동물 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:55</div>
+      <div class="name">⑨ 밀로의 비너스</div>
+      <div class="desc">Sully Wing GF Room 345. 팔 없는 미의 여신. 사과를 들고 있었을까, 거울을 보고 있었을까? 옷이 미끄러지는 듯한 허리 라인의 사실적 표현에 주목.</div>
+      <div class="highlight">15분 · 사라진 팔의 미스터리</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:10</div>
+      <div class="name">⑩ 함무라비 법전</div>
+      <div class="desc">Sully에서 Richelieu Wing GF Room 227로 이동. 2.25m 검은 돌기둥에 빼곡한 설형문자. 꼭대기의 함무라비 왕과 태양신 부조를 올려다보기.</div>
+      <div class="highlight">10분 · "눈에는 눈, 이에는 이"</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:20</div>
+      <div class="name">보너스: 나폴레옹 3세 아파트</div>
+      <div class="desc">Richelieu Wing 1층. 금박 천장, 크리스탈 샹들리에(무게 소형차 1대분, 500개 이상 수정 조각), 벨벳 커튼. 야간에 방문객이 거의 없어 마치 시간이 멈춘 궁전에 들어온 느낌.</div>
+      <div class="highlight">15분 · 야간 한적한 분위기 최고</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:35</div>
+      <div class="name">여유 시간 + 기념품</div>
+      <div class="desc">Napoleon Hall 기념품샵 → Pyramid 출구로 나오면 밤하늘 아래 빛나는 유리 피라미드. 야경 사진 포인트.</div>
+      <div class="highlight">25분 · 피라미드 야경 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">21:00</div>
+      <div class="name">퇴장 → 숙소</div>
+      <div class="desc">Palais Royal–Musée du Louvre역(Line 1) → Châtelet 환승 → Saint-Paul역 하차, 도보 7분</div>
+      <div class="highlight">코스 종료 · 메트로 약 15분</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">입장 팁</div>
+    오페라 가르니에에서 도보 15분(Avenue de l'Opéra 직진). <strong>Pyramid 입구</strong>는 처음 방문이면 상징적 경험, <strong>Carrousel 입구</strong>는 99 Rue de Rivoli 지하 쇼핑몰을 통해 접근하며 대기줄이 짧다. 야간에는 어느 입구든 5~10분이면 통과.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2/27은 파리 학교방학(2/21~3/9) 기간이라 주간은 평소보다 혼잡. 그러나 <strong>금요일 야간(18시 이후)</strong>은 단체 관광객이 없고, <strong>19시 이후</strong>에는 인파가 급감한다. 모나리자도 야간에는 정면 가까이 접근 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">저녁식사 대안</div>
+    내부 카페 이용 불가 시 대안:<br>
+    <strong>1.</strong> 갤러리 라파예트 방문(16:30) 중 푸드홀에서 가볍게<br>
+    <strong>2.</strong> 관람 후 마레 지구(숙소 근처)에서 저녁<br>
+    <strong>3.</strong> 간식(빵, 물) 가방에 준비 — 전시실 밖 복도에서 섭취 가능
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오디오 가이드</div>
+    한국어 포함 9개 언어 · €6/인 · 피라미드 하부 카운터에서 수령. 온라인 티켓 구매 시 사전 예약 가능(현장 대기 단축). 참고: Nintendo 3DS 가이드는 2025년 9월 서비스 종료.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    <strong>1.</strong> Daru 계단 — 니케를 아래에서 올려다보는 앵글<br>
+    <strong>2.</strong> Room 711 — 야간 한산할 때 모나리자 정면 근접 촬영<br>
+    <strong>3.</strong> 피라미드 야경 — 퇴장 후 나폴레옹 광장에서 조명 켜진 유리 피라미드
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">촬영 규정</div>
+    상설 전시 사진/동영상 촬영 <strong>허용</strong>. 단, <strong>플래시·삼각대·셀카봉 금지</strong>. 핸드헬드 촬영만 가능. 모나리자 앞은 특히 엄격 — 플래시 켜지면 경비원이 즉시 제지한다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실 & 짐보관</div>
+    <strong>화장실:</strong> 피라미드 하부, 각 전시동 입구 근처<br>
+    <strong>짐보관:</strong> 피라미드 하부 무료 클로크룸 (55×35×20cm 이하). 대형 가방/여행 가방은 전시실 반입 금지이므로 반드시 맡길 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">건물 구조 간단 정리</div>
+    3개 동(Wing)으로 구성:<br>
+    <strong>Denon</strong> — 이탈리아 회화(모나리자), 프랑스 대형 역사화, 그리스 조각<br>
+    <strong>Sully</strong> — 이집트 유물, 밀로의 비너스, 중세 루브르 요새 유적<br>
+    <strong>Richelieu</strong> — 근동 유물(함무라비), 나폴레옹 3세 아파트, 북유럽 회화
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> e-ticket 스마트폰에 저장 (오프라인 접근 가능하게)</label>
+    <label><input type="checkbox"> 아이 여권/신분증 (18세 미만 무료 입장 확인용)</label>
+    <label><input type="checkbox"> 스마트폰 충전 완료 (티켓 + 사진)</label>
+    <label><input type="checkbox"> 간식 & 물 (내부 카페 미운영)</label>
+    <label><input type="checkbox"> 편한 신발 (3시간 도보 관람)</label>
+    <label><input type="checkbox"> 가방 크기 확인 (55×35×20cm 이하, 아니면 맡겨야 함)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 숙소 복귀 (21:00)</strong><br>
+  Pyramid 출구 → Palais Royal–Musée du Louvre역(Line 1) → Châtelet 환승 → Saint-Paul역 하차 → 도보 7분. 총 이동 약 20분. 또는 Louvre-Rivoli역(Line 1)에서 바로 탑승.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
