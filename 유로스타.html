@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유로스타 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a5276;
+    --accent-dark: #0e3651;
+    --accent-light: #e8f0f7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f0f4f8;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --sea: #1a5276;
+    --sea-light: #d6eaf8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Sections */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block:last-child { margin-bottom: 0; }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Timeline */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop.tunnel { background: #1a3a5c; color: #fff; }
+  .route-stop.tunnel .time { color: #7db8e0; }
+  .route-stop.tunnel .desc { color: #c8dced; }
+  .route-stop.tunnel .highlight { color: #7db8e0; }
+  .route-stop.tunnel::before { background: #f39c12; }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card:last-child { margin-bottom: 0; }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card:last-child { margin-bottom: 0; }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Fun facts */
+  .fun-facts { background: var(--sea-light); }
+  .fact-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid #f39c12;
+  }
+  .fact-card:last-child { margin-bottom: 0; }
+  .fact-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #b7791f;
+  }
+  .fact-card p { font-size: 13px; color: #374151; }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* 숫자 강조 */
+  .num { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>유로스타 <span class="en">Eurostar</span></h1>
+  <p class="oneliner">바다 밑을 달리는 기차 — 나폴레옹이 꿈꾸고, 200년 뒤에 이뤄진 해저 여행</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">탑승일</span>
+      <span class="value">2/24(화) 12:31</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">2시간 28분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">열차</span>
+      <span class="value">9024 · Coach 13</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발역</span>
+      <span class="value">St Pancras</span>
+    </div>
+    <div class="info-item">
+      <span class="label">도착역</span>
+      <span class="value">Gare du Nord</span>
+    </div>
+    <div class="info-item">
+      <span class="label">좌석</span>
+      <span class="value">준석 82 · 라은 86 · 수겸 81</span>
+    </div>
+  </div>
+  <div class="info-warn">11:16까지 St Pancras 도착 필수 · EES(출입국 시스템) 시행 중 — 여유있게 도착</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 바다 밑 터널 이야기</h2>
+
+  <div class="story-block">
+    <h4>200년간의 꿈 — 나폴레옹에서 대처까지</h4>
+    <p>1802년, 프랑스 광산 기술자 알베르 마티외가 영불 해협 아래에 터널을 뚫자는 황당한 계획을 내놓았다. 바다 한가운데 인공 섬을 만들고, 거대한 철제 굴뚝으로 환기하겠다는 것. 나폴레옹 본인도 이 계획을 보았고, 영국 정치인에게 보여주며 열정적인 반응을 이끌어냈다. 하지만 전쟁이 재개되면서 꿈은 사라졌다.</p>
+    <p>1880년대에는 진짜로 파기 시작했다. 그런데 영국 군부가 격렬히 반대했다. "프랑스군이 터널로 쳐들어오면 어쩌나!" 초기 설계에는 적이 침입하면 터널을 폭파하거나 바닷물로 채우는 장치까지 넣었다. 결국 1883년, 공사는 중단됐다.</p>
+    <p>그로부터 100년 뒤인 1986년, 마거릿 대처 영국 총리와 프랑수아 미테랑 프랑스 대통령이 마침내 합의했다. 1987년 착공, 1994년 개통. 200년간의 꿈이 현실이 됐다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>양쪽에서 파서 만나다 — 자 한 뼘의 오차</h4>
+    <p>영국 포크스턴과 프랑스 칼레에서 동시에 터널을 파기 시작했다. 11대의 거대한 터널 굴착기(TBM)가 하루 76미터씩 바위를 뚫었고, 1만 3천 명의 엔지니어가 투입됐다.</p>
+    <p>1990년 12월 1일, 역사적인 순간이 찾아왔다. 영국 측 광부 그레이엄 패그와 프랑스 측 광부 필리프 코제트가 해저 100미터 지점에서 마지막 벽을 뚫고 악수를 나눴다. 50킬로미터가 넘는 거리를 양쪽에서 파 들어왔는데, 어긋난 거리는 수평 <span class="num">35cm</span>, 수직 <span class="num">6cm</span>에 불과했다. 양 팔을 벌린 것보다 짧은 오차!</p>
+    <p>패그는 동료들의 추첨으로 선발된 평범한 켄트 출신 광부였지만, 그 한 번의 악수로 역사 속 인물이 됐다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>8,000년 만의 재연결</h4>
+    <p>영국은 원래 섬이 아니었다. 빙하기에는 '도거랜드'라는 광대한 땅이 영국과 유럽을 연결하고 있었다. 기원전 6500년경 해수면이 올라가면서 길이 사라졌고, 거대한 해저 산사태(스토레가 슬라이드)로 인한 쓰나미가 남은 해안을 덮쳐 영국은 완전히 섬이 되었다.</p>
+    <p>채널 터널의 개통은 <span class="num">8,000년</span> 만에 처음으로 영국과 유럽 대륙이 육로로 다시 이어진 사건이다. 우리가 타는 유로스타는 그 연결 위를 달린다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>시인이 역을 구하다 — 세인트 판크라스의 기적</h4>
+    <p>유로스타 출발역인 세인트 판크라스는 1868년 완공된 빅토리아 시대의 걸작이다. 폭 73미터, 높이 30미터의 유리 아치형 지붕은 당시 세계 최대 단일 지붕 구조물이었다.</p>
+    <p>그런데 1960년대 후반, 이 역을 완전히 부수고 스포츠홀을 짓겠다는 계획이 수립됐다. 철거 예정일 단 <span class="num">10일 전</span>, 계관시인 존 베처먼과 보존운동가들의 캠페인 덕분에 Grade I 문화재로 지정되며 구사일생으로 살아남았다.</p>
+    <p>2007년, 8억 파운드의 리노베이션을 거쳐 유로스타 터미널로 재탄생. 지금 역에는 구겨진 양복 차림으로 지붕을 올려다보는 베처먼의 동상이 서 있다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트: 여정 타임라인 -->
+<section>
+  <h2><span class="icon">🗺️</span> 여정 타임라인</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">12:31 출발</div>
+      <div class="name">① St Pancras 출발</div>
+      <div class="desc">거대한 아치형 지붕 아래에서 유로스타가 부드럽게 미끄러져 나간다. 오른쪽으로 꺾이면서 거대한 강철 가스탱크(gasometer) 옆을 지나고, 동부 런던 지하 터널로 들어간다.</div>
+      <div class="highlight">창밖 주시 · 런던 빠져나가는 풍경</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">~12:45 (출발 후 약 15분)</div>
+      <div class="name">② 켄트 전원 지대</div>
+      <div class="desc">런던 교외를 벗어나면 영국 남동부의 초록빛 전원이 펼쳐진다. 과수원, 홉 건조탑(oast house), 구릉진 하얀 언덕. HS1 고속 전용선을 타고 시속 300km로 질주한다.</div>
+      <div class="highlight">15분 · "영국의 정원" 켄트의 전형적인 시골 풍경</div>
+    </div>
+
+    <div class="route-stop tunnel">
+      <div class="time">~13:05 (출발 후 약 35분)</div>
+      <div class="name">③ 채널 터널 진입!</div>
+      <div class="desc">포크스턴 근처에서 갑자기 창밖이 캄캄해진다. 지금 해수면 아래 75m, 해저 아래 45m를 달리고 있다. 총 길이 50.5km, 해저 구간만 37.9km — 세계 최장 해저 터널. 터널 안에서는 안전을 위해 시속 160km로 감속한다.</div>
+      <div class="highlight">약 20분간 바다 밑 · 의외로 기압 변화를 거의 못 느낀다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">~13:25 (출발 후 약 55분)</div>
+      <div class="name">④ 프랑스 출현!</div>
+      <div class="desc">칼레 근처에서 터널을 빠져나오면 갑자기 프랑스 북부의 넓고 평탄한 농경지가 펼쳐진다. LGV Nord 고속선을 타고 다시 시속 300km. 도로 표지판이 프랑스어로 바뀌었다!</div>
+      <div class="highlight">나라가 바뀌었다 · 시계를 1시간 앞으로 (+1h)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">~14:30 (도착 30분 전)</div>
+      <div class="name">⑤ 파리 근교 진입</div>
+      <div class="desc">속도가 줄면서 도시 풍경으로 전환된다. 파리 북쪽 교외의 건물들이 보이기 시작한다.</div>
+      <div class="highlight">도착 준비 · 짐 챙기기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:59 도착 (파리 시간)</div>
+      <div class="name">⑥ Gare du Nord 도착</div>
+      <div class="desc">파리 북역 3~6번 플랫폼에 도착. 런던에서 이미 프랑스 입국 심사를 마쳤으므로 별도 심사 없이 바로 나갈 수 있다. 앞쪽으로 걸어가면 concourse로 나온다.</div>
+      <div class="highlight">입국 심사 없음 · 바로 메트로 이동 가능</div>
+    </div>
+  </div>
+</section>
+
+<!-- 재미있는 사실들 -->
+<section class="fun-facts">
+  <h2><span class="icon">🎲</span> 알면 재미있는 사실</h2>
+
+  <div class="fact-card">
+    <h4>바위 속에 잠든 거대 기계</h4>
+    <p>터널을 뚫은 거대 굴착기(TBM) 11대 중 2대는 후진이 불가능해서, 공사가 끝나자 바위 속으로 방향을 틀어 그대로 묻어버렸다. 지금도 해저 어딘가에 잠들어 있다. 다른 하나는 이베이(eBay)에서 중고로 팔렸다!</p>
+  </div>
+
+  <div class="fact-card">
+    <h4>자전거로 터널을 달린 사람</h4>
+    <p>2014년, 투르 드 프랑스 챔피언 크리스 프룸이 채널 터널을 자전거로 주파한 최초의 인물이 됐다. 50km 서비스 터널을 55분에 완주, 해수면 100m 아래에서 최고 시속 65km를 기록했다.</p>
+  </div>
+
+  <div class="fact-card">
+    <h4>눈표범의 해저 여행</h4>
+    <p>2000년 이후 400만 마리 이상의 개와 고양이가 터널을 통과했다. 더 놀라운 건, 레서판다, 해파리, 나무늘보, 오랑우탄, 비단뱀, 곰, 늑대, 눈표범까지 이 터널을 지나갔다는 것!</p>
+  </div>
+
+  <div class="fact-card">
+    <h4>홍차 온도 전쟁</h4>
+    <p>유로스타 초기 설계 시 영불 간 진지한 논쟁이 벌어졌다. 프랑스 규정은 열차 안에서 85도 이상 액체를 허용하지 않았는데, 영국인들이 "그 온도로는 영국식 홍차를 제대로 우릴 수 없다"고 항의한 것.</p>
+  </div>
+
+  <div class="fact-card">
+    <h4>숫자로 보는 채널 터널</h4>
+    <p>총 길이 <strong>50.5km</strong> · 해저 구간 <strong>37.9km</strong>(세계 최장) · 최대 깊이 해수면 아래 <strong>75m</strong> · 투입 인원 <strong>13,000명</strong> · 총 비용 <strong>46.5억 파운드</strong>(예산 80% 초과) · 건설 기간 <strong>7년</strong></p>
+  </div>
+</section>
+
+<!-- ④ 탑승 전 St Pancras에서 볼 것 -->
+<section class="experience">
+  <h2><span class="icon">🏛️</span> 출발 전, St Pancras 볼거리</h2>
+
+  <div class="exp-card">
+    <h4>발로 트레인 셰드 (Barlow Train Shed)</h4>
+    <p>1868년 완공된 거대한 아치형 유리 천장. 폭 73m, 높이 30m로 당시 세계 최대 실내 공간이었다. 기둥 하나 없이 전체 플랫폼을 가로지르는 25개의 아치형 트러스가 각각 55톤. 천장 아래 Tracey Emin의 네온 작품 "I Want My Time With You"도 찾아볼 것.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>만남의 장소 동상 (The Meeting Place)</h4>
+    <p>역 시계 바로 아래, 높이 9m의 청동 연인 포옹 조각상. 조각가 Paul Day의 작품으로, 유로스타 도착 후 가장 먼저 눈에 들어오는 랜드마크. "Kissing Statue"라고도 부른다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>존 베처먼 동상</h4>
+    <p>이 역을 철거에서 구한 시인의 동상. 구겨진 양복에 풀린 신발끈, 흐트러진 셔츠 칼라 — 실제 베처먼의 허름한 모습 그대로 재현되어 있다. 역의 아치형 지붕을 올려다보는 모습. 코트 꼬리 부분은 발로의 지붕 아치 형태를 본떠 만들었다.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">체크인 프로세스</div>
+    티켓 스캔 → 보안 검색 → 영국 출국 심사 → 프랑스 입국 심사(런던에서 한번에). <strong>액체류 제한 없음</strong> — 물병, 음료 반입 가능. EES 시행 중이므로 여유있게 도착할 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">좌석 & 전원</div>
+    모든 좌석에 전원 소켓 제공. UK 3핀과 유럽 2핀이 교대로 배치되어 있으니 어댑터 챙길 것. 소켓은 좌석 아래쪽에 있으므로 앉기 전에 플러그를 꽂아두면 편하다. 무료 WiFi 사용 가능 (터널 구간에서 불안정).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">음식 준비</div>
+    Standard 클래스에는 무료 식사 없음. 역 안 M&S Simply Food에서 미리 사서 탑승하는 게 경제적. 보안에서 액체류 제한이 없으므로 음료도 자유롭게 반입 가능. 열차 내 Cafe Metropole에서도 유료 구매 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">시간대 변경</div>
+    프랑스가 영국보다 1시간 빠르다. 터널을 빠져나오면 시계를 +1시간 맞출 것. 12:31 출발 → 15:59 도착이 맞다 (실제 소요시간 2시간 28분).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Gare du Nord 도착 후</div>
+    별도 입국 심사 없이 바로 나갈 수 있다. 앞쪽으로 걸어나가면 concourse. 소지품 관리 유의 (항상 혼잡한 역). 화장실은 유료(~1유로).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">짐</div>
+    성인 1인당 대형 짐 2개 + 소형 1개. 좌석 위 선반 또는 칸 끝 짐 보관 구역 이용. 바퀴 달린 캐리어는 칸 끝 구역이 편하다.
+  </div>
+
+  <div class="checklist">
+    <h3>탑승 전 체크리스트</h3>
+    <label><input type="checkbox"> 여권 3인분 확인</label>
+    <label><input type="checkbox"> 유로스타 티켓(모바일) 확인 — 예약번호 YNKHKD</label>
+    <label><input type="checkbox"> 11:16까지 St Pancras 도착 (여유있게 더 일찍)</label>
+    <label><input type="checkbox"> 음식·음료 구입 (M&S Simply Food)</label>
+    <label><input type="checkbox"> 충전기 + 어댑터 꺼내두기 (소켓이 좌석 아래)</label>
+    <label><input type="checkbox"> 시계를 +1시간 (터널 통과 후 프랑스 시간)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 파리 마레 숙소 체크인</strong><br>
+  Gare du Nord → 메트로 5호선 Oberkampf → 3 Rue Commines (약 30분)
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
