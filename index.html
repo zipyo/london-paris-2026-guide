@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 런던-파리 여행 가이드</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="여행 가이드">
+<meta name="theme-color" content="#1b4332">
 <style>
   :root {
     --bg: #fafaf8;
@@ -438,9 +443,31 @@
   </a>
 </div>
 
+<div id="offline-status" class="footer" style="display:none;">
+  오프라인 사용 준비 완료
+</div>
+
 <div class="footer">
   가이드 추가 시 자동 업데이트됩니다
 </div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').then(function(reg) {
+    reg.addEventListener('updatefound', function() {
+      var worker = reg.installing;
+      worker.addEventListener('statechange', function() {
+        if (worker.state === 'activated') {
+          document.getElementById('offline-status').style.display = '';
+        }
+      });
+    });
+    if (reg.active) {
+      document.getElementById('offline-status').style.display = '';
+    }
+  });
+}
+</script>
 
 </body>
 </html>

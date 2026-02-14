@@ -1,0 +1,16 @@
+{
+  "name": "2026 런던-파리 여행 가이드",
+  "short_name": "여행 가이드",
+  "description": "런던-파리 12박 13일 여행 가이드 (오프라인 지원)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fafaf8",
+  "theme_color": "#1b4332",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231b4332' width='100' height='100' rx='20'/><text y='68' x='50' text-anchor='middle' font-size='52'>🗺️</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
