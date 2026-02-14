@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/21(토) 저녁 · 바스</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+  .info-good {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--green-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 500;
+  }
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick { border: 2px solid var(--accent); }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name { font-size: 16px; font-weight: 700; }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-pub { background: #f0fdf4; color: #166534; }
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label { display: block; font-size: 10px; color: var(--muted); }
+  .rest-meta .meta-value { font-weight: 600; font-size: 12px; }
+  .rest-menu { padding: 0 16px 12px; }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book { background: var(--accent); color: #fff; }
+  .btn-map { background: #f3f4f6; color: #374151; }
+  .btn-walkin { background: #f3f4f6; color: var(--muted); cursor: default; }
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/21(토) 저녁식사 <span class="sub">바스 시내</span></h1>
+  <div class="context">
+    바스 관광(~17:30) 마친 뒤 → 저녁식사 → 18:30 렌터카로 런던 복귀<br>
+    바스 시내 도보 5분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">17:30 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">바스 시내(Abbey 부근)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">18:30 런던 복귀</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-good">PizzaExpress Kids Eat Free 프로모션 기간 (2/16~22) — 성인 메인 1개당 키즈 Piccolo 1개 무료!</div>
+  <div class="info-warn">토요일 저녁 + Half Term 직후 주말 → 예약 권장. 식사 후 2.5시간 운전이므로 빠른 서비스 필요</div>
+</div>
+
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">PizzaExpress</td>
+        <td>피자</td>
+        <td>~£28</td>
+        <td style="color:var(--green)">온라인</td>
+      </tr>
+      <tr>
+        <td class="name-cell">The Architect</td>
+        <td>영국 펍</td>
+        <td>~£63</td>
+        <td style="color:var(--green)">온라인</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Crystal Palace</td>
+        <td>영국 펍</td>
+        <td>~£54</td>
+        <td style="color:var(--green)">웹/전화</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Dough Pizza</td>
+        <td>수제 피자</td>
+        <td>~£50</td>
+        <td style="color:var(--green)">온라인</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- PizzaExpress -->
+  <div class="restaurant pick">
+    <div class="pick-badge">Kids Eat Free 프로모션!</div>
+    <div class="rest-header">
+      <div class="rest-name">PizzaExpress</div>
+      <span class="rest-cuisine cuisine-pizza">피자/파스타</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">온라인</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Kids Eat Free (2/16~22)</span>
+      <span class="tag tag-good">Piccolo 키즈 3코스 세트</span>
+      <span class="tag tag-info">Southgate Centre 내</span>
+      <span class="tag tag-info">서비스 차지 없음 (3인)</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인) — Kids Eat Free 적용</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · American 피자</span><span class="price">£13.65</span></div>
+        <div class="menu-line"><span class="item">성인2 · Margherita 피자</span><span class="price">£11.50</span></div>
+        <div class="menu-line"><span class="item">아이 · Piccolo 3코스 (무료)</span><span class="price">£0</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~£8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£33</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">Piccolo 키즈 세트 (£8.50 → 무료)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">스타터: Dough Balls</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">메인: 피자/파스타/샐러드 중 택1</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">디저트 + Bambinoccino 음료</span><span class="price">포함</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.pizzaexpress.com/bath-southgate-shopping-centre/book/book-a-table" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=PizzaExpress+Southgate+Bath+BA1+1AP" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- The Architect -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">The Architect</div>
+      <span class="rest-cuisine cuisine-british">모던 영국 펍</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">10:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">온라인</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Abbey 뷰 테라스</span>
+      <span class="tag tag-good">키즈 메뉴 4종</span>
+      <span class="tag tag-info">Brunning &amp; Price</span>
+      <span class="tag tag-warn">서비스 차지 12.5%</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · Chicken, Ham &amp; Leek Pie</span><span class="price">£20.00</span></div>
+        <div class="menu-line"><span class="item">성인2 · Fish and Chips</span><span class="price">£19.00</span></div>
+        <div class="menu-line"><span class="item">아이 · Fish Goujons, Chips, Peas</span><span class="price">£11.00</span></div>
+        <div class="menu-line"><span class="item">아이 · Chocolate Brownie</span><span class="price">£5.95</span></div>
+        <div class="menu-total"><span>예상 합계 (서비스 차지 포함)</span><span>~£63</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">키즈 메뉴 옵션</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Beef Burger, Cheese, Chips</span><span class="price">£8.95</span></div>
+        <div class="menu-line"><span class="item">Fish Goujons, Chips, Peas</span><span class="price">£11.00</span></div>
+        <div class="menu-line"><span class="item">Mac 'n' Cheese</span><span class="price">£7.50</span></div>
+        <div class="menu-line"><span class="item">Pizza Ciabatta, Fries</span><span class="price">£8.00</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.sevenrooms.com/reservations/architectbath" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=The+Architect+Orange+Grove+Bath+BA1+1LP" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- Crystal Palace -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">The Crystal Palace</div>
+      <span class="rest-cuisine cuisine-pub">전통 영국 펍</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~21:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">전화/웹</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Abbey 바로 옆 (Abbey Green)</span>
+      <span class="tag tag-good">키즈 메뉴 6종 (균일 £9.95)</span>
+      <span class="tag tag-info">1654년 건물 · Fuller's</span>
+      <span class="tag tag-info">서비스 차지 없음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · Venison Cottage Pie</span><span class="price">£17.95</span></div>
+        <div class="menu-line"><span class="item">성인2 · Fish &amp; Chips</span><span class="price">£19.50</span></div>
+        <div class="menu-line"><span class="item">아이 · Kids Fish and Chips</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">아이 · Sticky Toffee Pudding</span><span class="price">£5.95</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£53</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">키즈 메뉴 옵션 (모두 £9.95)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Chicken Fillet Burger</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">Fish and Chips</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">Sausage and Mash</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">Flatbread Margherita Pizza</span><span class="price">£9.95</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.crystalpalacepub.co.uk/" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Crystal+Palace+Abbey+Green+Bath+BA1+1NW" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- Dough Pizza -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Dough Pizza</div>
+      <span class="rest-cuisine cuisine-pizza">수제 우드파이어 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">온라인</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">TripAdvisor 4.8 · Bath 피자 1위</span>
+      <span class="tag tag-good">13종 수제 도우</span>
+      <span class="tag tag-info">글루텐프리 5종 도우</span>
+      <span class="tag tag-warn">서비스 차지 10% 자동</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · 시그니처 피자</span><span class="price">~£14</span></div>
+        <div class="menu-line"><span class="item">성인2 · 시그니처 피자</span><span class="price">~£14</span></div>
+        <div class="menu-line"><span class="item">아이 · Margherita 피자</span><span class="price">~£10</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~£8</span></div>
+        <div class="menu-total"><span>예상 합계 (서비스 차지 포함)</span><span>~£50</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://app.hospres.com/E1DUBW/reserve" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Dough+Pizza+Kingsmead+Square+Bath+BA1+2AB" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">Kids Eat Free 확인 전화</div>
+    PizzaExpress Bath Southgate (01225 442111)에 전화하여 2/21 토요일 Kids Eat Free 프로모션 참여 여부를 확인하세요. 프로모션 기간(2/16~22)에 해당하나, 지점별 참여 여부가 다를 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">주차</div>
+    바스 관광 중 주차한 곳에서 식당까지 동선을 미리 확인하세요. 식사 후 바로 차로 돌아가 18:30에 출발해야 합니다. Southgate Car Park(£3.50/2h)이 PizzaExpress와 같은 건물입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">서비스 차지 안내</div>
+    PizzaExpress: 3인은 서비스 차지 없음 (7인 이상만 12.5%).<br>
+    The Architect: 12.5% discretionary — 요청 시 제거 가능.<br>
+    Crystal Palace: 서비스 차지 없음 (일반 Fuller's 펍 기준).<br>
+    Dough Pizza: 10% 자동 부과 — 요청 시 제거 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025년 기준이며, 방문 시점에 소폭 인상될 수 있습니다.
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 런던 복귀 (18:30)</strong><br>
+  렌터카 · 바스→DoubleTree Kensington · 약 2시간 30분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
