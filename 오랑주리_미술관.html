@@ -127,30 +127,105 @@
   .route-stop .desc { font-size: 13px; color: #4b5563; }
   .route-stop .highlight { font-size: 12px; color: var(--accent); font-weight: 500; margin-top: 6px; }
 
-  /* ── 작품 카드 ── */
+  /* ── 작품 카드 (아코디언) ── */
   .artwork-list { background: var(--accent-light); }
   .artwork {
+    margin-bottom: 8px;
+    border-radius: 10px;
+    overflow: hidden;
     background: var(--card);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 14px;
-    border-left: 3px solid var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
-  .artwork h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-  .artwork .artist { font-size: 12px; color: var(--accent); font-weight: 600; }
-  .artwork .art-meta { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-  .artwork p { font-size: 13px; color: #374151; margin-bottom: 6px; }
-  .artwork p:last-child { margin-bottom: 0; }
-  .artwork .kid-note {
-    font-size: 12px;
+  .artwork summary {
+    padding: 10px 14px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .artwork summary::-webkit-details-marker { display: none; }
+  .aw-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .aw-head::before {
+    content: '▸';
     color: var(--accent);
-    font-weight: 500;
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    transition: transform 0.2s;
   }
-  .artwork.nympheas { border-left-color: #6b8fa3; }
-  .artwork.nympheas h4 { color: #4a7185; }
+  .artwork[open] .aw-head::before { content: '▾'; }
+  .aw-text { flex: 1; }
+  .aw-name {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .aw-orig {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .aw-info {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .aw-detail {
+    padding: 0 14px 14px;
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.65;
+  }
+  .aw-detail p { margin-bottom: 8px; }
+  .aw-detail p:last-child { margin-bottom: 0; }
+  .aw-look {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    background: #f0f9ff;
+    border-left: 2px solid #3b82f6;
+    line-height: 1.55;
+  }
+  .aw-art {
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    background: #faf5ff;
+    border-left: 2px solid #8b5cf6;
+    line-height: 1.55;
+  }
+  .aw-look strong, .aw-art strong {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .aw-look strong { color: #2563eb; }
+  .aw-art strong { color: #7c3aed; }
+  .also-see {
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: #f9fafb;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+  .also-see .as-title {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .also-see .item { padding: 2px 0; }
+  .also-see .item b { color: var(--text); }
   .art-section-title {
     font-size: 15px;
     font-weight: 700;
@@ -229,11 +304,11 @@
   <div class="info-grid">
     <div class="info-item">
       <span class="label">방문일</span>
-      <span class="value">2/25(수) 12:00</span>
+      <span class="value">2/26(목) 12:00</span>
     </div>
     <div class="info-item">
       <span class="label">소요 시간</span>
-      <span class="value">90분</span>
+      <span class="value">120분 (점심 포함)</span>
     </div>
     <div class="info-item">
       <span class="label">입장료</span>
@@ -304,114 +379,242 @@
 
     <div class="route-stop">
       <div class="time">13:10</div>
-      <div class="name">④ 카페-서점 + 퇴장</div>
-      <div class="desc">중간층(Level -1)의 Cafe-Librairie에서 음료/간식 가능. 기프트숍에서 수련 엽서·포스터 구매. 이후 튈르리 정원 방향으로 퇴장.</div>
-      <div class="highlight">20분 · 13:30 점심식사 목표</div>
+      <div class="name">④ Café-Librairie 점심 + 퇴장</div>
+      <div class="desc">중간층(Level -1)의 Café-Librairie에서 점심. 시그니처 크로크무슈(채식 버전 있음) 또는 퀴노아-렌틸 샐러드. 모네 수련 영감의 Latte Nymphéas도 추천. 기프트숍에서 수련 엽서·포스터 구매 후 튈르리 정원 방향으로 퇴장.</div>
+      <div class="highlight">50분 · 14:00 샹젤리제 출발</div>
     </div>
   </div>
 </section>
 
 <section class="artwork-list">
   <h2><span class="icon">🖼️</span> 주요 작품</h2>
+  <p style="font-size:13px;color:#4b5563;margin-bottom:16px;">작품을 탭하면 스토리와 감상 포인트가 펼쳐집니다.</p>
 
   <div class="art-section-title">수련 Les Nymphéas — 8개 패널, 2개 타원형 방</div>
 
-  <div class="artwork nympheas">
-    <h4>Soleil couchant (일몰)</h4>
-    <div class="artist">클로드 모네 Claude Monet</div>
-    <div class="art-meta">c.1914-26 · 유화 · 2 × 6m · 제1전시실</div>
-    <p>8개 패널 중 가장 극적인 색채. 수면 위로 퍼지는 주황-붉은 석양빛이 수련과 물을 함께 물들인다. 다른 패널들의 녹색·파랑과 강렬한 대비를 이루는 제1전시실의 하이라이트.</p>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">일몰 <span class="aw-orig">Soleil couchant</span></div>
+          <div class="aw-info">클로드 모네 · c.1914-26 · 2×6m · 제1전시실</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>8개 패널 중 가장 극적인 색채. 수면 위로 퍼지는 주황-붉은 석양빛이 수련과 물을 함께 물들인다. 다른 패널들의 녹색·파랑과 강렬한 대비를 이루는 제1전시실의 하이라이트.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>석양의 주황-빨강이 물 위에 번지는 방식에 주목. 가까이 가면 거친 붓터치가 보이고, 벤치에 앉으면 물감 덩어리가 하나의 수면으로 합쳐진다. 이것이 인상주의의 핵심 — 거리에 따라 그림이 완전히 달라진다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>난색(주황, 빨강)과 한색(파랑, 초록)의 보색 대비가 화면 전체를 지배한다. 물감을 두껍게 쌓은 임파스토 기법으로 빛의 진동을 표현. 수면 반사를 가로 붓터치, 수련 잎을 둥근 터치로 구별하는 방향성에 주목.</div>
+    </div>
+  </details>
+
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">두 그루의 버드나무 <span class="aw-orig">Les Deux Saules</span></div>
+          <div class="aw-info">클로드 모네 · c.1914-26 · 2×17m (4개 캔버스) · 제2전시실</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>8개 패널 중 가장 큰 작품으로 폭이 17미터 — 학교 교실 길이와 비슷하다. 두 그루의 수양버들이 양쪽 끝에서 수면 위로 늘어지며 파노라마 전체를 감싸는 압도적 규모. 방 한가운데 서면 수련 연못 한복판에 들어온 듯한 몰입감.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>방 중앙에 서서 천천히 360도 회전. 버드나무 가지가 수면 위로 드리우는 "커튼 효과"가 관람자를 연못 안으로 끌어들인다. 4개 캔버스의 이음새를 찾아보기 — 거의 보이지 않을 만큼 자연스럽다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>버드나무 가지는 위에서 아래로 긴 수직 터치, 수면은 가로 터치 — 붓의 방향만으로 나무와 물을 구분한다. 2m 높이의 거대한 캔버스에서 붓터치의 방향성이 공간감을 만드는 원리를 실물로 확인.</div>
+    </div>
+  </details>
+
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">맑은 아침의 버드나무 <span class="aw-orig">Le Matin clair aux saules</span></div>
+          <div class="aw-info">클로드 모네 · c.1914-26 · 2×12.75m (3개 캔버스) · 제2전시실</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>맑은 아침 빛 아래 수양버들 가지가 양쪽에서 커튼처럼 드리우는 장면. 제2전시실에서 가장 밝고 서정적인 패널. 제1전시실의 《일몰》과 비교하면 같은 연못이 시간대에 따라 완전히 다른 분위기임을 느낄 수 있다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>제1전시실(일몰의 강렬한 난색)과 제2전시실(아침의 맑은 한색)의 분위기 차이를 의식적으로 비교. 모네는 동쪽에 아침, 서쪽에 일몰을 배치해 실제 태양의 움직임을 공간으로 재현했다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>같은 장소, 다른 시간대의 색 변화 — 모네 《루앙 대성당》 연작(오르세에서 볼 예정)과 같은 원리. "고정된 색은 없다, 빛에 따라 모든 것이 변한다"를 2m×91m 스케일로 체현한 작품.</div>
+    </div>
+  </details>
+
+  <div class="also-see">
+    <div class="as-title">수련 전시실 감상 팁</div>
+    <div class="item"><b>8개 패널 배치</b> — 제1전시실: 일몰, 구름, 녹색 반사, 아침. 제2전시실: 아침(버드나무), 나무 반영, 두 그루 버드나무, 맑은 아침(버드나무)</div>
+    <div class="item"><b>자연광</b> — 2006년 리노베이션으로 복원된 천장 자연 채광. 날씨에 따라 그림의 느낌이 달라진다</div>
+    <div class="item"><b>벤치</b> — 방 중앙 벤치에 앉아 눈높이를 수면과 맞추면 몰입감 극대화</div>
   </div>
 
-  <div class="artwork nympheas">
-    <h4>Les Deux Saules (두 그루의 버드나무)</h4>
-    <div class="artist">클로드 모네 Claude Monet</div>
-    <div class="art-meta">c.1914-26 · 유화 · 2 × 17m (4개 캔버스) · 제2전시실</div>
-    <p>8개 패널 중 가장 큰 작품. 두 그루의 수양버들이 양쪽 끝에서 수면 위로 늘어지며 파노라마 전체를 감싸는 압도적 규모. 방 한가운데 서면 수련 연못 한복판에 들어온 듯한 몰입감.</p>
-    <div class="kid-note">이 그림의 폭은 17미터 — 학교 교실 길이와 비슷하다.</div>
-  </div>
-
-  <div class="artwork nympheas">
-    <h4>Le Matin clair aux saules (맑은 아침의 버드나무)</h4>
-    <div class="artist">클로드 모네 Claude Monet</div>
-    <div class="art-meta">c.1914-26 · 유화 · 2 × 12.75m (3개 캔버스) · 제2전시실</div>
-    <p>맑은 아침 빛 아래 수양버들 가지가 양쪽에서 커튼처럼 드리우는 장면. 제2전시실에서 가장 밝고 서정적인 패널.</p>
-  </div>
 
   <div class="art-section-title">발터-기욤 컬렉션 — 지하층 하이라이트</div>
 
-  <div class="artwork">
-    <h4>La Carriole du père Junier (쥐니에 아저씨의 마차)</h4>
-    <div class="artist">앙리 루소 Henri Rousseau "Le Douanier"</div>
-    <div class="art-meta">1908 · 유화</div>
-    <p>채소 장수 쥐니에 아저씨가 자랑스러운 새 말과 가족을 태운 마차. 루소가 빚진 돈 대신 그려준 그림이다. 사진을 참고했지만 나무를 생략하고 개 3마리의 크기와 위치를 의도적으로 바꿨다.</p>
-    <div class="kid-note">마차 위 사람들과 개 3마리를 하나씩 찾아보자. 루소는 세관원이었다가 49세에 화가가 된 독학 천재.</div>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">쥐니에 아저씨의 마차 <span class="aw-orig">La Carriole du père Junier</span></div>
+          <div class="aw-info">앙리 루소 · 1908</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>채소 장수 쥐니에 아저씨가 자랑스러운 새 말과 가족을 태운 마차. 루소가 빚진 돈 대신 그려준 그림이다. 사진을 참고했지만 나무를 생략하고 개 3마리의 크기와 위치를 의도적으로 바꿨다. 마차 위 사람들과 개 3마리를 하나씩 찾아보자.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>루소는 세관원이었다가 49세에 화가가 된 독학 천재. 원근법을 배운 적이 없어 인물과 말의 비례가 "틀려" 보이지만, 이 순수한 시선이 피카소와 아폴리네르를 매료시켰다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>아카데미 원근법을 무시한 "평면적 구성"의 교과서. 인물·동물·배경이 모두 같은 평면에 놓여 있다. 전문 교육 없이도 독자적 화풍을 만들 수 있다는 증거 — 입시에서 "개성 있는 화면 구성"이 무엇인지 생각해볼 작품.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>La Noce (결혼식)</h4>
-    <div class="artist">앙리 루소 Henri Rousseau</div>
-    <div class="art-meta">c.1905 · 유화</div>
-    <p>결혼식 단체 사진처럼 보이지만, 자세히 보면 하얀 드레스의 신부가 공중에 떠 있다. 언뜻 실수 같지만 루소의 의도적 선택 — 유령처럼 부유하는 초현실적 장면.</p>
-    <div class="kid-note">"신부가 어디 있는지" 찾아보자. 발이 땅에 닿지 않는다!</div>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">결혼식 <span class="aw-orig">La Noce</span></div>
+          <div class="aw-info">앙리 루소 · c.1905</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>결혼식 단체 사진처럼 보이지만, 자세히 보면 하얀 드레스의 신부가 공중에 떠 있다. 언뜻 실수 같지만 루소의 의도적 선택 — 유령처럼 부유하는 초현실적 장면. "신부가 어디 있는지" 찾아보자. 발이 땅에 닿지 않는다!</p>
+      <div class="aw-look"><strong>감상 포인트</strong>인물들의 경직된 정면 포즈, 나무 한 그루의 과장된 크기, 땅에 닿지 않는 신부. 이 모든 "실수"가 꿈속 풍경 같은 독특한 분위기를 만든다. 초현실주의 화가들(달리, 마그리트)이 루소를 선구자로 존경한 이유.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Claude Renoir en clown (광대 의상의 클로드)</h4>
-    <div class="artist">오귀스트 르누아르 Auguste Renoir</div>
-    <div class="art-meta">1909 · 유화 · 77 × 120cm</div>
-    <p>르누아르의 8살 아들 클로드가 빨간 광대 의상을 입고 포즈를 취한 초상화. 클로드는 간지러운 스타킹이 싫어서 마지막 세션 때 유화 물감 세트와 기차 장난감을 받는 조건으로 겨우 입었다고 한다.</p>
-    <div class="kid-note">10살 또래 아이가 모델 — 뾰로통한 표정이 포인트.</div>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">광대 의상의 클로드 <span class="aw-orig">Claude Renoir en clown</span></div>
+          <div class="aw-info">오귀스트 르누아르 · 1909 · 77×120cm</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>르누아르의 8살 아들 클로드가 빨간 광대 의상을 입고 포즈를 취한 초상화. 10살 또래 아이가 모델 — 뾰로통한 표정이 포인트. 클로드는 간지러운 스타킹이 싫어서 마지막 세션 때 유화 물감 세트와 기차 장난감을 받는 조건으로 겨우 입었다고 한다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>빨간 의상과 배경의 따뜻한 색조가 어우러지는 르누아르 후기 특유의 색감. 아이의 불만스러운 표정이 그대로 담겨 있어 인물의 감정이 살아있다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>르누아르 후기의 "진주빛" 색채 — 빨강 의상에도 노랑, 주황, 분홍이 섞여 있어 단색이 아니다. 피부 표현에서 따뜻한 색의 미묘한 변화를 관찰. 인물화 실기에서 "단색 옷도 여러 색으로 표현"하는 연습의 참고.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Jeunes filles au piano (피아노 앞의 소녀들)</h4>
-    <div class="artist">오귀스트 르누아르 Auguste Renoir</div>
-    <div class="art-meta">c.1892 · 유화 · 116 × 81cm</div>
-    <p>흰 드레스를 입은 두 소녀가 피아노 앞에 앉아 악보를 보고 있다. 부드럽고 따뜻한 색조의 인상파 대표작. 르누아르는 이 구도를 여러 버전으로 그렸는데, 프랑스 정부가 공식 의뢰한 버전은 오르세에 있고 이 작품은 그 변주.</p>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">피아노 앞의 소녀들 <span class="aw-orig">Jeunes filles au piano</span></div>
+          <div class="aw-info">오귀스트 르누아르 · c.1892 · 116×81cm</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>흰 드레스를 입은 두 소녀가 피아노 앞에 앉아 악보를 보고 있다. 부드럽고 따뜻한 색조의 인상파 대표작. 르누아르는 이 구도를 여러 버전으로 그렸는데, 프랑스 정부가 공식 의뢰한 버전은 오르세에 있고 이 작품은 그 변주.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>두 소녀의 머리카락 색(금발과 갈색)이 화면에 부드러운 대비를 만든다. 커튼, 드레스, 피아노 덮개의 직물 표현이 각각 다른 질감으로 구별된다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>2인 구도에서 인물의 시선이 같은 방향(악보)을 향하며 자연스러운 관계를 만드는 구성법. 입시 인물화에서 "시선 유도"와 "복수 인물 배치"의 좋은 참고작.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Pommes et biscuits (사과와 비스킷)</h4>
-    <div class="artist">폴 세잔 Paul Cézanne</div>
-    <div class="art-meta">c.1880 · 유화</div>
-    <p>접시 위 사과와 비스킷의 정물화. 단순한 과일 그림이 아니라, 세잔이 "사물의 진짜 모양"을 찾기 위해 여러 시점을 하나의 캔버스에 합친 실험작. 이 아이디어가 훗날 피카소의 입체파로 이어졌다.</p>
-    <div class="kid-note">"왜 사과가 떨어지지 않고 기울어진 접시 위에 있을까?" — 세잔은 보이는 대로가 아니라 '알고 있는 대로' 그렸다.</div>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">사과와 비스킷 <span class="aw-orig">Pommes et biscuits</span></div>
+          <div class="aw-info">폴 세잔 · c.1880</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>접시 위 사과와 비스킷의 정물화. 단순한 과일 그림이 아니라, 세잔이 "사물의 진짜 모양"을 찾기 위해 여러 시점을 하나의 캔버스에 합친 실험작. 이 아이디어가 훗날 피카소의 입체파로 이어졌다. "왜 사과가 떨어지지 않고 기울어진 접시 위에 있을까?" — 세잔은 보이는 대로가 아니라 '알고 있는 대로' 그렸다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>접시의 타원형이 미세하게 찌그러져 있고, 테이블 높이가 좌우에서 다르다. 이것은 실수가 아니라 여러 시점을 한 화면에 담으려는 의도적 실험이다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>정물화 실기의 혁명적 참고작. 세잔은 "자연을 원통, 구, 원뿔로 다루라"고 선언했다. 사과 하나를 그려도 색면을 모자이크처럼 쌓아올려 입체감을 만든다 — 명암이 아닌 색의 온도(난색=앞, 한색=뒤)로 공간을 표현하는 방법을 관찰.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Paul Guillaume, Novo Pilota</h4>
-    <div class="artist">아메데오 모딜리아니 Amedeo Modigliani</div>
-    <div class="art-meta">1915 · 유화 · 판지+합판</div>
-    <p>이 미술관의 컬렉션을 만든 미술상 폴 기욤의 초상화. 모딜리아니 특유의 길쭉한 얼굴과 아몬드 눈. "Novo Pilota(새로운 조종사)"라는 문구가 적혀 있다 — 기욤이 모딜리아니를 세상에 이끌어준 조종사라는 의미. 돈이 없어 캔버스 대신 판지 위에 그렸다.</p>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">폴 기욤 초상 <span class="aw-orig">Paul Guillaume, Novo Pilota</span></div>
+          <div class="aw-info">아메데오 모딜리아니 · 1915 · 판지+합판</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>이 미술관의 컬렉션을 만든 미술상 폴 기욤의 초상화. 모딜리아니 특유의 길쭉한 얼굴과 아몬드 눈. "Novo Pilota(새로운 조종사)"라는 문구가 적혀 있다 — 기욤이 모딜리아니를 세상에 이끌어준 조종사라는 의미. 돈이 없어 캔버스 대신 판지 위에 그렸다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>모딜리아니의 초상화를 연속으로 보면 모든 인물이 "같은 얼굴"처럼 보인다 — 길쭉한 목, 아몬드 눈, 비어있는 눈동자. 그런데 각 인물의 성격은 분명히 다르게 느껴진다. 어디서 그 차이가 오는지 관찰.</div>
+      <div class="aw-art"><strong>기법 노트</strong>인물의 특징을 극단적으로 단순화·양식화하면서도 개성을 살리는 방법의 교과서. 윤곽선의 곡률, 목의 기울기, 어깨 각도 같은 미세한 변주가 핵심. 캐리커처가 아닌 "양식화된 초상"의 차이를 이해하는 참고작.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Grande baigneuse (대형 목욕하는 여인)</h4>
-    <div class="artist">파블로 피카소 Pablo Picasso</div>
-    <div class="art-meta">1921 · 유화</div>
-    <p>피카소의 신고전주의 시기 대표작. 거대하고 조각적인 비율의 좌상 누드로, 그리스 조각과 앵그르의 영향이 보인다. 입체파로 유명한 피카소가 이런 고전적 그림도 그렸다는 것이 의외.</p>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">대형 목욕하는 여인 <span class="aw-orig">Grande baigneuse</span></div>
+          <div class="aw-info">파블로 피카소 · 1921</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>피카소의 신고전주의 시기 대표작. 거대하고 조각적인 비율의 좌상 누드로, 그리스 조각과 앵그르의 영향이 보인다. 입체파로 유명한 피카소가 이런 고전적 그림도 그렸다는 것이 의외.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>손과 발이 실제 비율보다 크게 과장되어 있다. 피카소는 고전 양식을 따르면서도 비례를 의도적으로 왜곡해 고전과 현대 사이에 긴장감을 만들었다.</div>
+      <div class="aw-art"><strong>기법 노트</strong>인체를 기하학적 볼륨으로 단순화하는 방법. 팔의 원통형, 무릎의 구체. 세잔의 "원통, 구, 원뿔" 철학을 피카소가 인체에 적용한 사례. 입시 인체 소묘에서 "단순화→구체화" 단계의 참고.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Arlequin et Pierrot (아를르캥과 피에로)</h4>
-    <div class="artist">앙드레 드랭 André Derain</div>
-    <div class="art-meta">c.1924 · 유화 · 175 × 175cm</div>
-    <p>폴 기욤이 직접 주문한 작품. 기타를 든 아를르캥과 흰 옷의 피에로 — 피에로의 모델은 폴 기욤 자신이라고 알려져 있다. 이탈리아 코메디아 델라르테의 두 캐릭터를 통해 예술과 후원의 관계를 상징.</p>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">아를르캥과 피에로 <span class="aw-orig">Arlequin et Pierrot</span></div>
+          <div class="aw-info">앙드레 드랭 · c.1924 · 175×175cm</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>폴 기욤이 직접 주문한 작품. 기타를 든 아를르캥과 흰 옷의 피에로 — 피에로의 모델은 폴 기욤 자신이라고 알려져 있다. 이탈리아 코메디아 델라르테의 두 캐릭터를 통해 예술과 후원의 관계를 상징.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>아를르캥의 화려한 다이아몬드 패턴 의상과 피에로의 순백 의상이 극적 대비를 이룬다. 두 인물의 시선 방향과 자세에서 역할(공연자 vs 관찰자)의 차이를 읽기.</div>
+      <div class="aw-art"><strong>기법 노트</strong>정사각형(175×175cm) 캔버스에 2인을 배치하는 구도. 드랭은 야수파를 거쳐 신고전주의로 회귀한 화가 — 강렬한 색채 없이 형태와 구도만으로 긴장감을 만드는 방법을 관찰.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Le Petit Pâtissier (어린 제과사)</h4>
-    <div class="artist">하임 수틴 Chaïm Soutine</div>
-    <div class="art-meta">c.1922-23 · 유화</div>
-    <p>밝은 색채와 격렬한 붓놀림으로 그린 제과사 소년 초상. 수틴은 이 주제로 6가지 버전을 제작했다. 리투아니아에서 파리로 온 극빈 이민자였던 수틴의 거친 에너지가 물감 위에 생생하게 남아 있다.</p>
-  </div>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">어린 제과사 <span class="aw-orig">Le Petit Pâtissier</span></div>
+          <div class="aw-info">하임 수틴 · c.1922-23</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>밝은 색채와 격렬한 붓놀림으로 그린 제과사 소년 초상. 수틴은 이 주제로 6가지 버전을 제작했다. 리투아니아에서 파리로 온 극빈 이민자였던 수틴의 거친 에너지가 물감 위에 생생하게 남아 있다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>소년의 얼굴, 손, 앞치마를 표현하는 붓터치의 격렬함에 주목. 피부색에 빨강, 초록, 노랑이 뒤섞여 마치 열기가 피어오르는 듯하다. 단정한 유니폼과 거친 물감의 모순이 수틴 특유의 긴장감.</div>
+      <div class="aw-art"><strong>기법 노트</strong>표현주의적 인물화의 참고. 붓터치 자체가 감정을 전달한다 — 제과사 소년의 피로와 자존심이 물감의 방향과 두께에 담겨 있다. "붓터치로 감정 표현하기"를 실물에서 관찰하기 좋은 작품.</div>
+    </div>
+  </details>
 
-  <div class="artwork">
-    <h4>Portrait de Mademoiselle Chanel (코코 샤넬 초상)</h4>
-    <div class="artist">마리 로랑생 Marie Laurencin</div>
-    <div class="art-meta">1923 · 유화</div>
-    <p>코코 샤넬이 작은 개와 함께 기대어 있는 초상. 부드럽고 시원한 파스텔 톤이 특징. 샤넬 본인은 이 초상화가 마음에 들지 않아 돌려보냈다는 일화가 있다.</p>
+  <details class="artwork">
+    <summary>
+      <div class="aw-head">
+        <div class="aw-text">
+          <div class="aw-name">코코 샤넬 초상 <span class="aw-orig">Portrait de Mademoiselle Chanel</span></div>
+          <div class="aw-info">마리 로랑생 · 1923</div>
+        </div>
+      </div>
+    </summary>
+    <div class="aw-detail">
+      <p>코코 샤넬이 작은 개와 함께 기대어 있는 초상. 부드럽고 시원한 파스텔 톤이 특징. 샤넬 본인은 이 초상화가 마음에 들지 않아 돌려보냈다는 일화가 있다.</p>
+      <div class="aw-look"><strong>감상 포인트</strong>로랑생 특유의 파스텔 분홍·하늘색·연보라 팔레트. "강한 여성" 샤넬을 "몽환적 소녀"처럼 그린 것이 샤넬이 반감을 산 이유. 화가와 모델의 시선 차이가 만드는 긴장.</div>
+      <div class="aw-art"><strong>기법 노트</strong>제한된 파스텔 팔레트(분홍, 연보라, 하늘색, 흰색)만으로 분위기를 만드는 방법. 화려한 색 없이 색의 "온도"와 "채도"만으로 공간과 감정을 표현하는 기법의 참고.</div>
+    </div>
+  </details>
+
+  <div class="also-see">
+    <div class="as-title">함께 볼 작품</div>
+    <div class="item"><b>르누아르</b> — 총 25점. 이 미술관에서 가장 많은 수를 차지. 초기 인상주의부터 후기 '진주빛' 시기까지 화풍 변화를 추적</div>
+    <div class="item"><b>세잔</b> — 15점. 풍경화와 정물화에서 "색면으로 형태 쌓기" 기법의 다양한 사례를 비교</div>
+    <div class="item"><b>수틴</b> — 22점. 붓터치의 격렬함이 작품마다 다르게 나타나는 표현주의의 스펙트럼</div>
+    <div class="item"><b>드랭</b> — 28점(최다 소장). 야수파→신고전주의 전환기의 다양한 화풍</div>
   </div>
 </section>
 
@@ -459,8 +662,8 @@
 
 <div class="next-stop">
   <div class="arrow">→</div>
-  <strong>다음: 점심식사</strong> (13:30)<br>
-  오랑주리 퇴장 후 튈르리 정원~리볼리가 방면. 이후 14:30부터 샹젤리제 산책 + Ladurée 마카롱.
+  <strong>다음: 샹젤리제</strong> (14:00)<br>
+  오랑주리 퇴장 후 튈르리 정원~콩코드광장 방향. 14:00부터 샹젤리제 산책 + Ladurée 마카롱(75 Ave des Champs-Élysées).
 </div>
 
 <div class="footer">
