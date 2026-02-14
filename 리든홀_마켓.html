@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리든홀 마켓 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #7c3238;
+    --accent-light: #f5eeef;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #4a1c20 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>리든홀 마켓 <span class="en">Leadenhall Market</span></h1>
+  <p class="oneliner">로마 시대 포럼 위에 세워진 빅토리아 시대의 유리 궁전. 700년간 상인들이 모여든 런던에서 가장 오래된 시장 중 하나로, 자갈길과 철골 아치 아래에 2,000년의 역사가 층층이 쌓여 있다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/20(금) 14:00~15:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">40분 + 이동</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Gracechurch St (메인)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Monument (4분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">공공 공간 24시간</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 금요일 — 관광객 + 금융가 직장인으로 평소보다 혼잡 예상</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>발밑에 잠든 로마의 심장</h4>
+    <p>지금 걷고 있는 자갈길 아래 약 3미터 지점에, 서기 100년경 로마인들이 세운 거대한 포럼-바실리카가 잠들어 있다. 로마 런디니움(Londinium)의 중심부였던 이 건물은 트라팔가 광장보다 넓었고, 알프스 이북에서 가장 큰 바실리카였다.</p>
+    <p>1803년, 이 일대를 파다가 바닥에서 아름다운 바쿠스(술의 신) 모자이크가 발견되었다. 거리 표면 아래 약 2.9m 깊이에서. 이 모자이크는 지금 대영박물관에 전시되어 있다 — 오늘 저녁 대영박물관 방문 때 찾아볼 수 있다!</p>
+  </div>
+
+  <div class="story-block">
+    <h4>딕 위팅턴 — 고양이와 소년의 전설</h4>
+    <p>1408년, 리처드 "딕" 위팅턴이라는 사람이 이 부지의 임대권을 샀다. 그는 런던 시장(Lord Mayor)을 무려 4번이나 지낸 실존 인물이다.</p>
+    <p>전설에 따르면, 시골 소년 딕은 고양이 한 마리만 가지고 런던에 왔다. 가난했지만 그 고양이를 상선에 태워 보냈더니, 쥐 떼에 시달리던 먼 나라의 왕이 고양이를 엄청난 값에 사들였다. 이 돈으로 부자가 된 딕은 결국 런던 시장이 되었다.</p>
+    <p>위팅턴은 1411년 이 시장을 런던시(City of London Corporation)에 기부했고, 615년이 지난 지금도 같은 기관이 이 마켓을 관리하고 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>타워 브리지를 만든 건축가의 또 다른 걸작</h4>
+    <p>19세기 중반, 런던의 금융가는 빠르게 성장했지만 리든홀은 여전히 시끄러운 고기·가금류 시장이었다. 런던시는 "격조 있는 아케이드"가 필요했고, 시 건축가(City Architect) 호레이스 존스에게 설계를 맡겼다.</p>
+    <p>존스는 밀라노의 비토리오 에마누엘레 2세 갤러리아에서 영감을 받아, 철골과 유리로 된 화려한 지붕을 설계했다. 1881년 완공된 이 건물은 99,000파운드가 들었다. 존스는 중세 골목길의 꼬불꼬불한 동선을 그대로 살리면서, 교차점 위에 팔각형 돔을 얹었다.</p>
+    <p>그가 설계한 또 다른 작품? 바로 오늘 오전에 걸어온 타워 브리지다. 같은 사람이 만들었다는 걸 알면 두 건물의 공통점이 보인다 — 빅토리아 시대의 웅장한 철골 구조와 섬세한 장식.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:00</div>
+      <div class="name">① Gracechurch Street 입구</div>
+      <div class="desc">메인 입구를 올려다보면 17세기 네덜란드풍 석조 파사드가 보인다. 문장(紋章), 용 조각, 방패 장식이 새겨진 정교한 석재 페디먼트 — 시티 오브 런던의 권위를 상징. 입구마다 크기가 다른데, 중요한 입구일수록 장식이 크다.</div>
+      <div class="highlight">5분 · 입구 위 석조 장식 사진 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:05</div>
+      <div class="name">② 메인 교차점 — 팔각형 돔</div>
+      <div class="desc">마켓의 하이라이트. 네 갈래 통로가 만나는 중심에 팔각형 돔과 유리 천장이 올려져 있다. 마룬, 보틀그린, 크림색으로 칠해진 주철 아이오닉 기둥이 천장을 받치고, 기둥 꼭대기에는 용(dragon) 조각이 앉아 있다. 하늘을 올려다보면 철골 격자 사이로 빛이 쏟아진다.</div>
+      <div class="highlight">10분 · 최고의 사진 스팟 — 교차점 중앙에서 네 방향 모두 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:15</div>
+      <div class="name">③ Bull's Head Passage</div>
+      <div class="desc">중세 시절부터 이어진 좁은 골목. 자갈 바닥과 옛 골목의 분위기가 살아 있다. 골목 이름은 한때 이 근처에 있던 소머리 간판(Bull's Head) 선술집에서 유래했다. 마켓 바깥의 현대 금융가 고층 빌딩과 대비되는 타임슬립 포인트.</div>
+      <div class="highlight">10분 · 좁은 골목 + 유리 천장의 대비가 매력적</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:25</div>
+      <div class="name">④ The Lamb Tavern & 마켓 산책</div>
+      <div class="desc">18세기부터 이어진 역사적 펍 The Lamb Tavern의 외관을 구경하고, 마켓을 한 바퀴 돌며 부티크 상점들을 구경. 치즈 가게, 꽃집, 서점(Waterstones) 등이 있다. 천장에 매달린 "날아다니는 책" 설치물도 찾아보자.</div>
+      <div class="highlight">15분 · 빅토리아 아이언워크 디테일에 주목</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:40</div>
+      <div class="name">퇴장 → Sky Garden</div>
+      <div class="desc">마켓 남쪽 출구 → Lime Street → Fenchurch Street 방향 도보 5~7분 → 20 Fenchurch Street (Walkie Talkie 빌딩) Sky Garden 도착</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    금요일 14:00 = 점심 피크(12~13시) 지난 직후, 중간 수준<br>
+    금융가 직장인들이 많지만 극심한 혼잡은 아님<br>
+    Half Term + 관광객 겹침 — 평소 금요일보다 약간 더 붐빌 수 있음<br>
+    사진 찍기에는 충분히 여유 있는 시간대
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① 교차점 중앙: 네 방향 통로가 뻗어나가는 대칭 구도<br>
+    ② 돔 올려다보기: 팔각형 유리 천장 + 철골 격자<br>
+    ③ Bull's Head Passage: 좁은 골목 + 빅토리아 아치<br>
+    ④ 마켓 밖에서 안으로: Lloyds Building(현대 첨단 건축)과 빅토리아 마켓의 대비
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    마켓 내 공공 화장실 없음<br>
+    대안: 마켓 내 레스토랑/펍 이용 시 화장실 사용 가능<br>
+    또는 Sky Garden(무료, 15:00 이후) 화장실 이용 추천
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">볼거리 — 현대 건축과의 대비</div>
+    마켓 바로 옆에 Richard Rogers가 설계한 Lloyd's Building(배관과 엘리베이터가 건물 바깥에 노출된 하이테크 건축)과 Leadenhall Building("치즈그레이터") 초고층이 있다. 140년 된 빅토리아 마켓 옆에 선 미래지향적 건축 — 두 시대의 극적인 대비가 런던 시티의 매력.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 타워 브리지에서 도보 15~20분 이동 (Eastcheap 경유)</label>
+    <label><input type="checkbox"> 스마트폰 충전 확인 (사진 촬영)</label>
+    <label><input type="checkbox"> 천장 올려다볼 수 있게 목 스트레칭</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: Sky Garden (15:00)</strong><br>
+  마켓 남쪽 출구 → Lime Street 직진 → Fenchurch Street 우회전 → 20 Fenchurch Street "Walkie Talkie" 빌딩 (도보 5~7분). Walk-in 가능(평일 14:00~16:30). 무료 입장이지만 보안 검색 있음.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
