@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>트라팔가 광장 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a3a5c;
+    --accent-light: #e8eef5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f5f3ee;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0d1f33 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-note {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>트라팔가 광장 <span class="en">Trafalgar Square</span></h1>
+  <p class="oneliner">나폴레옹을 무찌른 해전의 영웅을 기리는 광장. 52m 높이의 기둥 위에 넬슨 제독이 서 있고, 발 아래에는 썩어가는 사자 사체로 만든 청동 사자 네 마리가 앉아 있다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 14:30~15:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (야외 광장)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Charing Cross</span>
+    </div>
+    <div class="info-item">
+      <span class="label">숙소</span>
+      <span class="value">광장 바로 옆!</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개방</span>
+      <span class="value">24시간</span>
+    </div>
+  </div>
+  <div class="info-note">숙소(Club Quarters Hotel)가 광장 바로 옆 — 체크인 후에도 언제든 다시 올 수 있다</div>
+</div>
+
+<!-- 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>넬슨 제독 — "Kiss me, Hardy"</h4>
+    <p>1805년 10월 21일, 스페인 남서쪽 트라팔가 곶(Cape Trafalgar) 앞바다. 영국 해군 제독 호레이쇼 넬슨은 프랑스-스페인 연합 함대 33척을 상대로 전통적인 종대 전열(일렬 횡대) 대신, 두 줄로 함대를 나누어 적 대형을 직각으로 관통하는 파격적인 전술을 펼쳤다.</p>
+    <p>오후 1시 15분, 적 저격수의 머스킷 총탄이 넬슨의 왼쪽 어깨를 관통해 척추에 박혔다. 기함 HMS Victory의 갑판 아래로 옮겨진 넬슨은 3시간을 더 버텼다. 마지막 순간 부관 토머스 하디에게 "Kiss me, Hardy"라고 말했다 — 세 명의 목격자가 동일하게 기록한 말이다.</p>
+    <p>넬슨은 죽었지만 영국 함대는 적함 22척을 나포하거나 파괴하면서 단 한 척도 잃지 않았다. 이 승리로 영국은 이후 100년간 바다를 지배했고, 나폴레옹의 영국 침공 계획은 완전히 좌절되었다.</p>
+    <p>시신을 본국으로 운송해야 했지만 냉장고가 없던 시대. 군의관 비티는 가장 도수가 높은 브랜디 통에 넬슨의 시신을 넣었다. 5주 후 영국에 도착했을 때 시신은 완벽하게 보존되어 있었다. 이 일화에서 유래한 해군 은어가 "Tapping the Admiral" — 술통에서 몰래 술을 빨아먹는 행위를 뜻한다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>사자상의 비밀 — 고양이 발을 가진 사자</h4>
+    <p>넬슨 기둥 아래 네 마리의 청동 사자. 기둥이 1843년에 완성되었는데, 사자는 무려 24년 뒤인 1867년에야 설치되었다. 도대체 왜 이렇게 오래 걸렸을까?</p>
+    <p>원래 조각가 토머스 밀즈가 석조 사자를 만들었지만 "위엄이 부족하다"며 탈락. 정부는 동물 화가로 유명한 에드윈 랜드시어 경에게 맡겼다. 문제는, 랜드시어가 평생 끌 한 번 잡아본 적 없는 화가였다는 것. 타임스 신문은 "칼을 잡아본 적 없는 사람에게 조각을 맡기다니"라고 비꼬았다.</p>
+    <p>랜드시어는 실제 사자를 관찰하기 위해 런던 동물원에서 스케치했지만, 결정적 참고 자료는 동물원에서 죽은 늙은 사자의 사체였다. 사체가 작업 도중 썩기 시작하면서 발 부분을 제대로 관찰할 수 없었고, 결국 고양이 발을 참고해 만들었다. 그래서 트라팔가 사자의 발은 실제 사자가 아니라 고양이 발이다. 등도 실제 사자와 달리 오목하게 파여 있다.</p>
+    <p>무게 7톤, 길이 6m, 높이 3.4m. 설치 당시 "스핑크스처럼 생겼다"며 누군가 돌을 던지기도 했다. 하지만 160년이 지난 지금, 이 사자들은 런던에서 가장 유명한 조각상이 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>제4 좌대 — 비어 있는 것이 작품</h4>
+    <p>광장 네 귀퉁이에는 좌대(Plinth)가 하나씩 있다. 세 개에는 조지 4세, 헨리 해블록 장군, 찰스 네이피어 장군의 동상이 올라가 있다. 그런데 북서쪽 하나만 170년 넘게 비어 있었다.</p>
+    <p>원래 윌리엄 4세의 기마상을 올릴 계획이었지만, 예산이 부족해 영원히 비게 되었다. 1999년부터 이 빈 좌대가 세계에서 가장 유명한 야외 현대미술 전시 공간이 되었다. 18~24개월마다 새로운 작품이 올라간다.</p>
+    <p>지금(2024.9~2026) 올라가 있는 작품은 멕시코 작가 테레사 마르골레스의 "Mil Veces un Instante"(천 번의 순간). 726명의 트랜스젠더·논바이너리 사람들의 얼굴을 석고로 직접 본뜬 3.3톤짜리 큐브다. 비바람에 노출되면서 얼굴들이 서서히 지워지도록 설계되었다 — 기억의 소멸을 상징한다.</p>
+  </div>
+</section>
+
+<!-- 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">① 넬슨 기둥 + 사자상</div>
+      <div class="desc">광장 중앙에서 52m 높이의 넬슨 기둥을 올려다본다. 기둥 아래 네 마리 사자의 발을 관찰해보자 — 고양이 발인지 사자 발인지. 사자 등에 올라탈 수 있다(공식 금지는 아니지만 주의).</div>
+      <div class="highlight">15분 · 기둥 기단의 청동 부조에 트라팔가 해전 장면이 새겨져 있다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:45</div>
+      <div class="name">② 기단 청동 부조 4면</div>
+      <div class="desc">넬슨 기둥 기단 4면에는 넬슨의 주요 해전이 청동 부조로 새겨져 있다. 남쪽 면이 트라팔가 해전 — 넬슨이 쓰러지는 순간이 묘사되어 있다. 이 청동은 적국 프랑스 대포를 녹여 만든 것이다.</div>
+      <div class="highlight">10분 · 적의 대포로 자국 영웅을 기리는 아이러니</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:55</div>
+      <div class="name">③ 제4 좌대 (Fourth Plinth)</div>
+      <div class="desc">광장 북서쪽 모서리. 170년간 비어 있던 좌대 위에 현재 테레사 마르골레스의 "Mil Veces un Instante"가 올라가 있다. 726명의 얼굴이 새겨진 석고 큐브 — 비바람에 서서히 지워지는 중이다.</div>
+      <div class="highlight">10분 · 세계에서 가장 유명한 야외 현대미술 전시</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:05</div>
+      <div class="name">④ 분수 + 광장 전경 사진</div>
+      <div class="desc">광장 양쪽의 분수대 앞에서 넬슨 기둥을 배경으로 사진 촬영. 내셔널 갤러리 계단 위에서 광장 전체를 내려다보는 사진도 좋다. 분수는 1845년 설치 — 원래 목적은 시위대가 모이는 것을 방지하기 위한 것이었다.</div>
+      <div class="highlight">15분 · 내셔널 갤러리 계단 위 = 베스트 포토스팟</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:20</div>
+      <div class="name">⑤ 광장 주변 둘러보기</div>
+      <div class="desc">남쪽 끝 찰스 1세 기마상 — 런던의 모든 거리 거리 표지판의 기준점(Charing Cross). 이 지점이 런던의 정중앙이다. 광장 북쪽 내셔널 갤러리 파사드 감상.</div>
+      <div class="highlight">10분 · 런던의 정중앙에 서는 순간</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:30</div>
+      <div class="name">출발 → 코벤트 가든</div>
+      <div class="desc">광장 북동쪽으로 나와 도보 10분. St Martin's Lane → Long Acre → Covent Garden Piazza.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① 내셔널 갤러리 계단 위 — 광장 전체 + 넬슨 기둥 + 빅벤 방향 조망<br>
+    ② 분수대 앞 — 물줄기와 기둥을 함께<br>
+    ③ 사자상 옆 — 아이와 함께 사자 앞에서 (등에 올라타는 것도 가능)<br>
+    ④ 광장 남쪽에서 북쪽으로 — 내셔널 갤러리를 배경으로
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">비둘기 이야기</div>
+    한때 트라팔가 광장에는 수만 마리의 비둘기가 살았다. 빅토리아 시대부터 관광객이 모이를 사서 비둘기에게 먹이를 주는 것이 인기 관광 코스였다. 2003년 런던 시장 켄 리빙스턴이 모이 판매를 금지하고, 2007년 광장 전역에서 비둘기 먹이 주기를 불법화했다 (벌금 500파운드). 매일 아침 해리스 매(Harris Hawk)를 날려 비둘기를 쫓는다. 지금은 비둘기가 거의 없다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">내셔널 갤러리</div>
+    광장 북쪽의 내셔널 갤러리(무료)는 별도 일정이 필요할 정도로 방대하다. 이번에는 외관만 감상하고, 관심 있으면 숙소가 바로 옆이므로 저녁 시간이나 다른 날 자유 시간에 방문 가능. 금요일은 21:00까지 야간 개관.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    광장 내 공용 화장실 있음 (광장 동쪽 지하). 내셔널 갤러리 내부 화장실이 더 쾌적하다 (무료 입장).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">방한</div>
+    2월 오후 14:30은 기온 6~8°C 전후. 야외 1시간 — 따뜻한 외투와 장갑 필수. 바람이 세면 체감온도 더 낮다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 카메라/핸드폰 충전 확인 (사진 스팟 다수)</label>
+    <label><input type="checkbox"> 방한 외투, 장갑 (야외 60분)</label>
+    <label><input type="checkbox"> 비둘기 먹이 주기 금지 — 벌금 500파운드</label>
+  </div>
+</section>
+
+<!-- 트라팔가 광장의 또 다른 이야기 -->
+<section>
+  <details>
+    <summary>📐 넬슨 기둥 — 숫자로 보기</summary>
+    <div class="story-block">
+      <h4>170년간 아무도 몰랐던 높이 오류</h4>
+      <p>넬슨 기둥의 공식 높이는 오랫동안 56.4m로 알려져 있었다. 2006년 보수 공사를 하면서 정밀 측량을 했더니, 실제로는 51.6m — 공식 기록보다 4.4m나 짧았다. 170년 가까이 아무도 정확한 높이를 재지 않았던 것이다.</p>
+      <p>기둥 꼭대기의 넬슨 동상은 높이 5.5m. 다트무어 화강암으로 만든 기둥 자체는 코린트식 양식이다. 전체 건설비 47,000파운드 — 현재 가치로 약 580만 파운드(약 100억 원).</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>🗳️ 시위의 광장</summary>
+    <div class="story-block">
+      <h4>1840년부터 이어진 저항의 역사</h4>
+      <p>트라팔가 광장은 1840년 개방 이래 런던 최대의 시위·집회 장소다. 1887년 "피의 일요일" — 실업과 아일랜드 탄압에 항의하는 시위대에 경찰 2,000명과 군대 400명이 투입되어 유혈 충돌이 벌어졌다.</p>
+      <p>1961년에는 핵무기 반대 시위가, 2003년에는 이라크 전쟁 반대 시위가 광장을 가득 채웠다. 매년 새해 카운트다운이 여기서 열리고, VE Day(유럽 전승 기념일)에는 처칠이 이 광장에서 승전을 선포했다.</p>
+      <p>분수가 1845년에 추가된 진짜 이유? 광장에 사람이 너무 많이 모이는 것을 막기 위해서였다. 물로 공간을 채우면 군중이 줄어들 것이라는 계산이었다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 코벤트 가든</strong> (15:30~)<br>
+  광장 북동쪽 → 도보 10분 → Covent Garden Piazza
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

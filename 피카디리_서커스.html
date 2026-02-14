@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>피카디리 서커스 가이드</title>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --accent: #e040fb;
+    --accent-light: #1a0a2e;
+    --text: #e8e8f0;
+    --muted: #9ca3af;
+    --border: #2a2a3e;
+    --story-bg: #12121f;
+    --neon-blue: #00b4d8;
+    --neon-pink: #e040fb;
+    --neon-warm: #ff6b6b;
+    --tip-bg: #1a1520;
+    --warn: #ff6b6b;
+    --card-text: #d1d5db;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a0a3e 0%, #0a0a2e 50%, #1a0a2e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 70% 80%, rgba(224,64,251,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 30% 20%, rgba(0,180,216,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; position: relative; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+    position: relative;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
+    border: 1px solid var(--border);
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; color: var(--text); }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: var(--card-text);
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Screen Section */
+  .screen { background: #0a0a18; }
+  .screen h2 { color: #fff; }
+  .screen-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .screen-card .title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .screen-card .year { color: var(--muted); font-weight: 400; }
+  .screen-card p { font-size: 13px; color: #d1d5db; margin-bottom: 6px; }
+  .screen-card p:last-child { margin-bottom: 0; }
+  .screen-card .where {
+    font-size: 12px;
+    color: var(--neon-blue);
+    margin-top: 8px;
+  }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: var(--card-text);
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--neon-blue);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Nearby Section */
+  .nearby { background: var(--accent-light); }
+  .nearby-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+  }
+  .nearby-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--neon-blue);
+  }
+  .nearby-card p { font-size: 13px; color: var(--card-text); }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--card-text);
+    border: 1px solid var(--border);
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .tip-card a { color: var(--neon-blue); }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+    border: 1px solid var(--border);
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+    color: var(--card-text);
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    font-size: 13px;
+    border: 1px solid var(--border);
+    color: var(--card-text);
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>피카디리 서커스 <span class="en">Piccadilly Circus</span></h1>
+  <p class="oneliner">1908년부터 밤을 밝혀온 런던의 네온 심장. 옷깃 장식을 팔아 큰돈을 번 재봉사의 이름이 세계에서 가장 유명한 광장이 되었다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 18:00~19:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">비용</span>
+      <span class="value">무료 (야외 광장)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Piccadilly Circus</span>
+    </div>
+    <div class="info-item">
+      <span class="label">관람 시간</span>
+      <span class="value">24시간 (야외)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">야경 시작</span>
+      <span class="value">~17:00 (2월 일몰)</span>
+    </div>
+  </div>
+</div>
+
+<!-- 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>옷깃 장식으로 시작된 이름 — "Piccadilly"의 유래</h4>
+    <p>1600년대 초, 런던에 로버트 베이커(Robert Baker)라는 재봉사가 살았다. 그는 '피카딜(piccadill)'이라 불리는 당시 유행하던 뻣뻣한 레이스 칼라 장식을 만들어 팔았고, 이것으로 큰 부를 쌓았다.</p>
+    <p>1611년, 베이커는 번 돈으로 이 일대에 넓은 땅을 사들이고 저택을 지었다. 주변 사람들은 그의 집을 놀리듯 "피카딜리 홀(Piccadilly Hall)"이라고 불렀다. "옷깃 장식 팔아서 지은 집"이라는 뜻이었다.</p>
+    <p>그런데 이 별명이 동네 이름 자체가 되어버렸다. 1673년에는 공식 도로명이 되었고, 400년이 지난 지금 전 세계 사람들이 이 재봉사의 상품 이름을 말하고 있다.</p>
+    <p>"서커스(Circus)"는 서커스 공연이 아니다. 라틴어로 "원형"이라는 뜻이다. 1819년, 리젠트 스트리트를 설계한 건축가 존 내쉬(John Nash)가 이곳에 원형 교차로를 만들면서 "피카디리 서커스"가 완성되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>에로스? 안테로스! — 동상에 얽힌 오해</h4>
+    <p>광장 중앙의 날개 달린 동상. 모든 사람이 "에로스(Eros) 동상"이라 부른다. 하지만 이건 에로스가 아니다.</p>
+    <p>1893년, 빅토리아 시대의 위대한 자선가 샤프츠베리 백작(7th Earl of Shaftesbury)을 기리기 위해 동상이 세워졌다. 아동 노동 착취에 맞서 싸운 인물이다. 조각가 알프레드 길버트(Alfred Gilbert)에게 의뢰가 들어왔다.</p>
+    <p>길버트는 "코트와 바지 차림의 평범한 동상"을 거부했다. 대신 그리스 신화에서 "이타적 사랑"의 신인 안테로스(Anteros)를 선택했다. 에로스의 쌍둥이 형제이자, 조건 없는 헌신적 사랑을 상징하는 신. 남을 위해 평생을 바친 백작에게 딱 맞는 상징이었다.</p>
+    <p>그런데 사람들이 "그냥 에로스 아니야?"라고 부르기 시작했고, 교회에서는 "사랑의 신 동상이 극장가에 있다니!"라며 불편해했다. 길버트는 평생 "그건 안테로스라니까요"라고 정정했지만, 결국 세상은 에로스라 부른다. 130년째.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>1908년부터 꺼지지 않는 불빛</h4>
+    <p>1908년, 피카디리 서커스 건물 벽에 프랑스 생수 브랜드 페리에(Perrier)의 전구 광고판이 처음 설치되었다. 백열등 수백 개로 글자를 만든 것이었다.</p>
+    <p>이후 보브릴(Bovril), 고든스 진(Gordon's Gin), 기네스(Guinness) 등이 연이어 광고를 내걸었고, 1923년에는 네온 조명이 등장했다. 런던의 밤이 바뀌는 순간이었다.</p>
+    <p>117년 역사 동안 이 불빛이 꺼진 건 딱 세 번뿐이다. 두 차례 세계대전 중 독일 폭격기에게 위치를 노출하지 않기 위해 소등했고, 1997년 다이애나 왕세자비의 장례식 때 추모의 뜻으로 불을 껐다.</p>
+    <p>2017년, 오래된 개별 광고판들이 하나의 거대한 4K LED 곡면 스크린으로 교체되었다. 780제곱미터 크기에 1,160만 개의 LED 전구. 유럽 최대의 단일 디스플레이다. 이 스크린은 날씨, 온도, 지나가는 차량 종류까지 감지해서 실시간으로 광고를 바꿀 수 있다.</p>
+    <p>뉴욕 타임스퀘어와 자주 비교되지만, 차이가 있다. 타임스퀘어는 사방이 전광판인 '상업의 바다'라면, 피카디리 서커스는 단 한 면의 스크린과 빅토리아 시대 건축물이 공존하는 곳이다. 네온과 돌의 대비 — 그것이 이 광장만의 분위기다.</p>
+  </div>
+</section>
+
+<!-- 스크린 속 이곳 -->
+<section class="screen">
+  <h2><span class="icon">🎬</span> 스크린 속 이곳</h2>
+
+  <div class="screen-card">
+    <div class="title">해리 포터와 죽음의 성물 1편 <span class="year">(2010)</span></div>
+    <p>빌과 플뢰르의 결혼식에 죽음을 먹는 자들이 습격한다. 해리, 론, 헤르미온느는 급히 순간이동(Apparition)을 시전하고 — 눈을 떠보니 피카디리 서커스 한복판이다.</p>
+    <p>네온 불빛 아래로 19번 버스가 돌진해 오고, 세 사람은 간신히 몸을 피한다. 마법 세계에서 머글 세계로 던져진 충격이 피카디리의 현란한 전광판으로 극대화된 장면. 촬영 장소는 바로 GAP 매장 앞, 샤프츠베리 애비뉴 입구다.</p>
+    <div class="where">📍 샤프츠베리 애비뉴 입구 — 해리 일행이 순간이동으로 나타난 곳</div>
+  </div>
+
+  <div class="screen-card">
+    <div class="title">28일 후 <span class="year">(2002)</span></div>
+    <p>킬리언 머피가 텅 빈 런던을 걷는 장면. 피카디리 서커스의 전광판이 꺼진 채 적막한 광장을 비추는 장면은 영화 역사상 가장 유명한 '빈 도시' 이미지 중 하나다. 실제로 일요일 새벽에 경찰 도움을 받아 도로를 통제하고 촬영했다.</p>
+    <div class="where">📍 피카디리 서커스 — 전광판이 꺼진 종말 후의 런던</div>
+  </div>
+
+  <div class="screen-card">
+    <div class="title">런던의 상징으로서</div>
+    <p>영화에서 "여기는 런던입니다"를 한 컷으로 보여줘야 할 때 감독들이 택하는 장소 3곳이 있다. 빅 벤, 타워 브리지, 그리고 피카디리 서커스. 특히 야간 장면에서는 피카디리가 압도적 선택이다.</p>
+  </div>
+</section>
+
+<!-- 핵심 포인트 (60분 동선) -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">18:00</div>
+      <div class="name">① 전광판 광장</div>
+      <div class="desc">지하철역에서 나오면 바로 눈앞에 780제곱미터의 4K LED 곡면 스크린이 펼쳐진다. 1908년부터 이어져 온 네온의 역사가 이 한 면에 압축되어 있다. 광장 계단에 앉아 전광판을 배경으로 사진 촬영.</div>
+      <div class="highlight">15분 · 계단 위에서 전광판 정면 촬영이 최적</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:15</div>
+      <div class="name">② 안테로스 동상 (에로스 분수)</div>
+      <div class="desc">광장 중앙의 샤프츠베리 기념 분수. "모든 사람이 에로스라 부르지만 실은 안테로스" — 이타적 사랑의 신. 1893년에 세워진 이래 런던의 만남의 장소. 분수 주변에서 전광판을 배경으로 야경 사진.</div>
+      <div class="highlight">10분 · 분수 뒤에서 전광판을 배경으로 인물 사진 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:25</div>
+      <div class="name">③ 리젠트 스트리트 야경</div>
+      <div class="desc">광장 북쪽으로 이어지는 리젠트 스트리트. 존 내쉬가 설계한 우아한 곡선 건물들이 양쪽으로 늘어선다. 2월 저녁이면 상점 조명과 가로등이 만드는 황금빛 터널이 장관. 100m 정도 걸어 올라가며 뒤돌아보는 야경.</div>
+      <div class="highlight">10분 · 뒤돌아보면 전광판과 거리 조명의 조합</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:35</div>
+      <div class="name">④ 샤프츠베리 애비뉴 산책</div>
+      <div class="desc">광장에서 동쪽으로 뻗는 극장가(Theatreland). 런던 웨스트엔드 극장들의 네온사인이 줄지어 빛나는 거리. 해리포터 촬영지이기도 한 이 거리를 걸으며 레스터 스퀘어 방면으로 이동.</div>
+      <div class="highlight">10분 · 해리포터 순간이동 장면의 실제 촬영 장소</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:45</div>
+      <div class="name">⑤ 레스터 스퀘어 ~ 차이나타운</div>
+      <div class="desc">레스터 스퀘어에는 영화 프리미어가 열리는 대형 극장들과 패딩턴, 메리 포핀스 동상이 있다. 바로 옆 제라드 스트리트(Gerrard Street)가 런던 차이나타운의 중심. 붉은 등불과 패루(牌楼) 아래를 지나며 피카디리 서커스로 복귀.</div>
+      <div class="highlight">15분 · 차이나타운 패루 아래 사진 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:00</div>
+      <div class="name">코스 종료 → 호텔 귀환</div>
+      <div class="desc">피카디리 서커스역에서 지하철 탑승하여 호텔로 이동. 이날의 마지막 일정.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 주변 볼거리 -->
+<section class="nearby">
+  <h2><span class="icon">🔭</span> 주변 볼거리</h2>
+
+  <div class="nearby-card">
+    <h4>크라이테리온 극장 (Criterion Theatre)</h4>
+    <p>광장 남쪽에 있는 1874년 개관 극장. 특이하게 건물 전체가 지하에 있다. 지상에서 보이는 것은 프랑스 르네상스 양식의 포틀랜드 석재 파사드뿐. 런던에서 가장 독특한 극장 구조.</p>
+  </div>
+
+  <div class="nearby-card">
+    <h4>런던 파빌리온 (London Pavilion)</h4>
+    <p>전광판이 설치된 건물 자체가 역사. 1885년에 런던 최초의 고급 뮤직홀로 지어졌다. 당시 객석에 대리석 테이블을 놓고 식사하면서 공연을 관람하는 혁신적 방식이었다.</p>
+  </div>
+
+  <div class="nearby-card">
+    <h4>포트넘 앤 메이슨 (Fortnum & Mason)</h4>
+    <p>피카디리 스트리트를 따라 도보 5분. 1707년 창업한 왕실 식품 백화점. 건물 외관 자체가 포토스팟. 지하 식품관의 차와 비스킷 선물용으로 인기.</p>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">야경 사진 촬영</div>
+    ① 전광판 정면 — 광장 계단 위에서 촬영 (전광판 + 인물)<br>
+    ② 안테로스 분수 뒤 — 분수 실루엣 + 전광판 배경<br>
+    ③ 리젠트 스트리트 — 100m 북쪽에서 뒤돌아보면 전광판과 건물 조명<br>
+    ④ 비 온 뒤 — 젖은 바닥에 반사된 네온이 최고의 사진을 만든다
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    18:00 저녁 시간대는 퇴근 인파와 관광객이 겹치는 시간. 하지만 야외 광장이므로 실내처럼 답답하지 않다. 광장 계단은 사람이 많으니 가장자리 쪽을 공략.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">소매치기 주의</div>
+    전광판에 시선을 빼앗기는 관광객이 많아 소매치기 활동 지역. 크로스백 앞으로 메기, 핸드폰은 목걸이 스트랩 착용. 사진 찍어달라는 요청에 핸드폰을 건네면 들고 도주하는 수법도 있으니 주의.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    피카디리 서커스 지하철역 내 유료 화장실 이용 가능. 또는 레스터 스퀘어 주변 맥도날드, 프레타망제 등 체인점 이용.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">방한</div>
+    2월 저녁 18시면 이미 해가 진 뒤. 체감 온도 0~5°C. 야외에서 1시간 걷는 코스이므로 방한 외투, 장갑, 목도리 필수.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 방한 장비 (장갑, 목도리 — 야외 1시간)</label>
+    <label><input type="checkbox"> 핸드폰 충전 확인 (야경 사진 많이 찍음)</label>
+    <label><input type="checkbox"> 크로스백 앞으로 메기 (소매치기 대비)</label>
+    <label><input type="checkbox"> 핸드폰 목걸이 스트랩 착용</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 호텔 귀환</strong> (이날 마지막 일정)<br>
+  피카디리 서커스역에서 지하철 탑승
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

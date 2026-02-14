@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코벤트 가든 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #9b4d3a;
+    --accent-light: #fdf0ec;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f5f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #9b4d3a 0%, #5c2d2d 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience Section */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>코벤트 가든 <span class="en">Covent Garden</span></h1>
+  <p class="oneliner">수도원의 채소밭에서 런던의 무대로. 400년 전 이니고 존스가 설계한 영국 최초의 광장에서, 오디션을 통과한 버스커들이 매일 공연을 펼친다. 일라이자 둘리틀이 꽃을 팔던 바로 그 자리.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 15:30~17:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">비용</span>
+      <span class="value">무료 (마켓 구경)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Piazza 남쪽 (James St)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Covent Garden (Piccadilly)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">마켓 운영</span>
+      <span class="value">10:00~18:00 (매일)</span>
+    </div>
+  </div>
+  <div class="info-warn">수요일 Apple Market은 핸드메이드 공예품 위주. 화장실은 마켓 내 2theloo(유료 1파운드) 또는 St Paul's Church 옆(50p)</div>
+</div>
+
+<!-- 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>수도원의 채소밭 — 영국 최초의 광장이 되다</h4>
+    <p>코벤트 가든이라는 이름은 "Convent Garden", 즉 수도원의 정원에서 왔다. 13세기부터 웨스트민스터 수도원의 수사들이 이곳에서 채소와 과일을 길렀다.</p>
+    <p>1536년, 헨리 8세가 수도원을 해산하면서 이 땅은 베드퍼드 백작가에 넘어갔다. 그리고 1630년, 4대 백작이 당대 최고의 건축가 이니고 존스에게 주문한다. "이탈리아에서 본 그 광장을 런던에 만들어달라."</p>
+    <p>존스는 이탈리아 리보르노의 광장과 파리의 보주 광장을 모델로 삼아 영국 최초의 공공 광장을 설계했다. 아케이드로 둘러싸인 우아한 주거지. 이것이 런던 광장 문화의 시작이었다. 오늘날 런던 곳곳에 있는 수십 개의 광장(스퀘어)은 전부 코벤트 가든에서 시작된 전통이다.</p>
+    <p>광장 서쪽에 세운 세인트 폴 교회도 존스의 작품인데, 비용을 아끼려는 백작이 "헛간 같은 교회면 된다"고 했다. 존스는 "그러면 유럽에서 가장 아름다운 헛간을 만들겠다"고 답했다. 그 교회가 390년째 서 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>일라이자의 꽃바구니 — My Fair Lady의 무대</h4>
+    <p>1913년, 극작가 버나드 쇼가 희곡 <em>피그말리온</em>을 발표한다. 코벤트 가든에서 꽃을 파는 코크니 사투리 소녀 일라이자 둘리틀이 음성학 교수 히긴스를 만나, 말투를 바꿔 상류 사회에 진입하는 이야기.</p>
+    <p>쇼가 일라이자의 모델로 삼은 인물은 스트랜드 노퍽 거리의 실제 꽃 노점상 키티 윌슨이었다. 당시 코벤트 가든은 런던 최대의 청과 시장이었고, 시장 주변에는 수십 명의 꽃 파는 소녀(flower girl)들이 있었다.</p>
+    <p>1964년, 오드리 헵번 주연의 영화 <em>My Fair Lady</em>로 전 세계에 알려졌다. "Wouldn't It Be Loverly" — 일라이자가 코벤트 가든 시장 기둥에 기대어 부르는 그 노래의 배경이 바로 지금 걷고 있는 이 광장이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>펀치 아저씨의 탄생 — 364년 된 길거리 공연</h4>
+    <p>1662년 5월 9일, 새뮤얼 피프스가 일기에 적었다. "코벤트 가든에서 이탈리아 인형극을 보았는데, 매우 훌륭했다." 볼로냐에서 온 인형극사 피에트로 기몬데가 세인트 폴 교회 현관 아래에서 공연한 것이다. 이것이 영국의 상징적 인형극 <em>펀치 앤 주디</em>의 시작이었다.</p>
+    <p>그로부터 300년 뒤인 1975년, 시장이 템스강 남쪽 나인 엘름스로 이전하면서 텅 빈 건물에 버스커(거리 공연자)들이 모여들었다. 오늘날 코벤트 가든에서 공연하려면 1년에 4번 열리는 공식 오디션을 통과해야 한다. 심사위원이 기량, 안전성, 관객 소통 능력을 평가하고, 합격자에게만 퍼밋을 발급한다.</p>
+    <p>코미디언 에디 이자드, 마술사 다이나모, 퍼포먼스 그룹 스톰프가 모두 코벤트 가든 버스킹으로 경력을 시작했다. 364년 전 피에트로가 인형극을 펼친 바로 그 광장에서, 지금도 매일 오디션을 통과한 퍼포머들이 공연을 올린다.</p>
+  </div>
+</section>
+
+<!-- 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">15:30</div>
+      <div class="name">① Piazza + 버스킹 관람</div>
+      <div class="desc">트라팔가 광장에서 도보 약 10분. 피아자 중앙에 도착하면 버스커들의 라이브 공연이 한창이다. 마술, 아크로바틱, 음악 — 퍼포머마다 30분 세트로 공연하며, 관객 참여를 유도한다. 공연이 끝나면 모자에 팁을 넣는 것이 매너.</div>
+      <div class="highlight">20분 · 서쪽 Lower Piazza가 메인 공연 무대</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:50</div>
+      <div class="name">② Apple Market 구경</div>
+      <div class="desc">마켓 건물 안으로 들어간다. 1830년 찰스 파울러가 설계한 신고전주의 건물 — 철골과 유리 지붕 아래로 햇빛이 쏟아진다. 수요일은 핸드메이드 주얼리, 수채화, 공예품 위주. 위층 발코니에서 내려다보는 마켓 전경이 포토스팟.</div>
+      <div class="highlight">20분 · 2층 발코니에서 아래를 내려다보며 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:10</div>
+      <div class="name">③ Neal's Yard</div>
+      <div class="desc">마켓 북쪽 출구로 나가 Shorts Gardens를 따라 3분. 좁은 골목을 지나면 갑자기 알록달록한 건물들로 둘러싸인 작은 중정이 나타난다. 1976년까지 쥐가 들끓는 폐창고였던 곳을 활동가 니콜라스 손더스가 7,000파운드에 사서 통째로 바꿨다. Neal's Yard Dairy(치즈), Monmouth Coffee(커피) 등이 여기서 시작했다.</div>
+      <div class="highlight">20분 · 런던에서 가장 컬러풀한 사진 스팟</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:30</div>
+      <div class="name">④ Royal Opera House 외관 + 테라스</div>
+      <div class="desc">Neal's Yard에서 다시 피아자 방향으로 돌아와 Bow Street 쪽으로. 1732년 개관한 로얄 오페라 하우스(현 건물은 1858년). 내부 관람은 시간이 부족하지만, 무료 개방된 2층 Amphitheatre 테라스 바에서 피아자 전경을 내려다볼 수 있다.</div>
+      <div class="highlight">15분 · 테라스에서 피아자 조망 (무료, 공연 없는 시간대)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:45</div>
+      <div class="name">⑤ Jubilee Market + 마무리 산책</div>
+      <div class="desc">피아자 남쪽의 주빌리 마켓. 수요일은 일반 마켓(의류, 잡화). Apple Market보다 캐주얼한 분위기. 빨간 전화박스 5대가 나란히 서 있는 Broad Court(Young Dancer 동상 뒤)에서 기념사진을 찍고 마무리.</div>
+      <div class="highlight">15분 · 빨간 전화박스 포토스팟은 Broad Court</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:00</div>
+      <div class="name">퇴장 → 저녁식사</div>
+      <div class="desc">코벤트 가든 주변에서 저녁식사 후 피카디리 서커스로 이동.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>버스킹 관람 — 관객이 쇼의 일부</h4>
+    <p>코벤트 가든 버스커들은 관객 참여형 공연이 많다. 줄에서 사람을 불러내 마술 어시스턴트를 시키거나, 아크로바틱의 인간 장애물이 되어달라고 한다. 원형으로 둘러선 관객 앞줄에 서면 지목될 확률이 높다. 공연 끝에 모자가 돌아올 때 팁은 1~2파운드가 적정.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Apple Market 장인 직거래</h4>
+    <p>수요일 Apple Market에는 직접 만든 물건을 파는 장인들이 나온다. 은세공 주얼리, 수채화 런던 풍경화, 가죽 소품 등. 작가와 직접 대화하며 작업 과정을 들을 수 있다. 런던 기념품으로 수채화 엽서나 핸드메이드 소품을 고르기 좋은 곳.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Infinity Chamber — 빛의 터널</h4>
+    <p>Long Acre와 Floral Street를 잇는 통로에 설치된 거울 + LED 조명 설치물. 끝없이 이어지는 빛의 터널 효과. 해가 진 뒤(16:30 이후) 방문하면 가장 반짝이는 모습을 볼 수 있다. 무료.</p>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    평일 오후 3~5시는 비교적 여유로운 시간대. Half Term(2/16~20) 기간이라 평소보다는 붐비지만, 주말 대비 훨씬 낫다. 버스킹 공연 주변만 일시적으로 혼잡.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 4</div>
+    ① Neal's Yard — 알록달록 건물 중정 (낮 시간 빛 좋음)<br>
+    ② Apple Market 2층 발코니 — 유리 지붕 아래 마켓 전경<br>
+    ③ Broad Court 빨간 전화박스 5대 — Young Dancer 동상 뒤<br>
+    ④ Infinity Chamber — 해 진 뒤 거울 터널 효과
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    마켓 건물 내 2theloo (유료 1파운드, 깨끗함) 또는 St Paul's Church 옆 (50p). Jubilee Market 쪽에 장애인 화장실도 있음.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">소매치기 주의</div>
+    버스킹 공연 관람 시 주변이 밀집됨 — 소매치기 활동 구간. 크로스백 앞으로 메기, 주머니에 핸드폰 넣지 않기. 특히 아이와 함께일 때 공연에 집중하는 사이 주의.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">2월 날씨 대비</div>
+    마켓 건물 내부는 따뜻하지만, 피아자와 Neal's Yard는 야외. 15:30이면 해가 기울기 시작하고 체감 온도가 떨어진다. 방한 외투 착용 상태로 이동.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 버스킹 팁용 동전 준비 (1~2파운드)</label>
+    <label><input type="checkbox"> 크로스백 앞으로 메기 (소매치기 대비)</label>
+    <label><input type="checkbox"> 카메라/핸드폰 충전 확인 (포토스팟 다수)</label>
+  </div>
+</section>
+
+<!-- 더 알아보기 -->
+<section>
+  <details>
+    <summary>🎭 세인트 폴 교회 — 배우들의 교회</summary>
+
+    <div class="story-block">
+      <h4>런던 연극계의 안식처</h4>
+      <p>이니고 존스가 1633년에 지은 세인트 폴 교회는 "배우들의 교회(The Actors' Church)"라는 별명으로 불린다. 코벤트 가든 주변에 극장들이 들어서면서 자연스럽게 연극인들의 교구 교회가 되었다.</p>
+      <p>교회 안에는 찰리 채플린, 노엘 카워드, 비비안 리, 다이애나 리그 등 전설적인 배우들의 기념패가 있다. 펀치 앤 주디가 처음 공연된 장소이기도 하다 — 매년 5월이면 교회 현관에서 펀치 앤 주디 축제가 열린다.</p>
+      <p>피아자 서쪽에 있어 산책 중 잠깐 들르기 좋다. 내부는 소박하지만 벽면의 기념패를 읽는 재미가 있다. 무료 입장.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>🏛️ 시장에서 쇼핑몰로 — 마켓 건물의 변신</summary>
+
+    <div class="story-block">
+      <h4>300년간 런던의 부엌이었던 곳</h4>
+      <p>1670년, 찰스 2세가 코벤트 가든에 매일(일요일과 크리스마스 제외) 시장을 열 수 있는 칙허를 내렸다. 1666년 런던 대화재 이후 다른 시장들이 불타면서, 코벤트 가든은 런던 최대의 청과 시장으로 성장했다.</p>
+      <p>시장이 커지자 1828년, 건축가 찰스 파울러가 신고전주의 양식의 마켓 건물을 설계했다. 1875년에 추가된 철골 유리 지붕은 당시 혁신적인 기술이었다. 지금 Apple Market 안에서 올려다보는 그 아치형 유리 천장이다.</p>
+      <p>1974년, 시장은 템스강 남쪽 나인 엘름스로 이전했다. 빈 건물을 철거하자는 의견이 있었지만, 주민들이 반대 운동을 벌여 보존에 성공했다. 1980년 쇼핑센터로 재개장한 후 지금의 모습이 되었다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 저녁식사</strong> → <strong>피카디리 서커스</strong> (18:00~)<br>
+  코벤트 가든 주변 식당에서 저녁식사 후 도보 10분 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
