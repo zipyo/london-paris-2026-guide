@@ -35,7 +35,63 @@
   }
   .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
   .header p { font-size: 13px; opacity: 0.8; }
-  .section { padding: 20px; }
+
+  /* 아코디언 */
+  .day-section {
+    margin: 0 12px 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--card);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .day-section:first-of-type { margin-top: 16px; }
+  .day-section summary {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    list-style: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .day-section summary::-webkit-details-marker { display: none; }
+  .day-section summary::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(-45deg);
+    margin-right: 12px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .day-section[open] summary::before {
+    transform: rotate(45deg);
+  }
+  .day-section summary .day-title {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .day-section summary .day-count {
+    font-size: 11px;
+    color: var(--muted);
+    background: #f3f4f6;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .day-section[open] summary {
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .day-cards { padding: 12px 12px 4px; }
+
+  /* 일반 섹션 (종합/준비) */
+  .section { padding: 20px 12px 8px; }
   .section h2 {
     font-size: 14px;
     font-weight: 700;
@@ -43,28 +99,34 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 12px;
+    padding: 0 4px;
   }
+
+  /* 카드 */
   .guide-card {
     display: block;
     background: var(--card);
     border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     text-decoration: none;
     color: var(--text);
     transition: box-shadow 0.2s;
   }
+  .day-cards .guide-card {
+    background: #fafaf8;
+  }
   .guide-card:active { box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
   .guide-card .title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     margin-bottom: 2px;
   }
   .guide-card .en {
     font-size: 12px;
     color: var(--muted);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .guide-card .meta {
     font-size: 12px;
@@ -86,6 +148,18 @@
     font-size: 11px;
     color: var(--muted);
   }
+
+  /* 오늘 날짜 강조 */
+  .day-section.today summary {
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+  }
+  .day-section.today summary .day-title {
+    color: #065f46;
+  }
+  .day-section.today summary .day-count {
+    background: #d1fae5;
+    color: #065f46;
+  }
 </style>
 </head>
 <body>
@@ -95,392 +169,398 @@
   <p>2/16(월) ~ 3/1(일) · 런던 8박 + 파리 4박</p>
 </div>
 
-<div class="section">
-  <h2>런던 — 2/17(화)</h2>
+<details class="day-section" data-date="2026-02-17">
+  <summary>
+    <span class="day-title">런던 — 2/17(화)</span>
+    <span class="day-count">5개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="자연사박물관.html">
+      <div class="title">자연사박물관</div>
+      <div class="en">Natural History Museum</div>
+      <div class="meta"><strong>10:00~11:30</strong> · 90분 · 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="과학박물관.html">
+      <div class="title">과학박물관</div>
+      <div class="en">Science Museum</div>
+      <div class="meta"><strong>11:30~13:00</strong> · 90분 · 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_사우스켄싱턴.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
+      <div class="en">South Kensington Restaurants</div>
+      <div class="meta"><strong>13:00~14:00</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="사치갤러리.html">
+      <div class="title">사치갤러리</div>
+      <div class="en">Saatchi Gallery</div>
+      <div class="meta"><strong>15:00~16:30</strong> · 90분</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="해러즈.html">
+      <div class="title">해러즈</div>
+      <div class="en">Harrods</div>
+      <div class="meta"><strong>18:30~19:30</strong> · 60분</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="자연사박물관.html">
-    <div class="title">자연사박물관</div>
-    <div class="en">Natural History Museum</div>
-    <div class="meta"><strong>10:00~11:30</strong> · 90분 · 무료</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-18">
+  <summary>
+    <span class="day-title">런던 — 2/18(수)</span>
+    <span class="day-count">9개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="세인트_제임스_파크.html">
+      <div class="title">세인트 제임스 파크</div>
+      <div class="en">St James's Park</div>
+      <div class="meta"><strong>09:30~10:00</strong> · 30분 · 무료 · 펠리컨 + 블루 브리지</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="근위병_교대식.html">
+      <div class="title">근위병 교대식</div>
+      <div class="en">Changing of the Guard</div>
+      <div class="meta"><strong>10:30~11:30</strong> · 60분 · 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_웨스트민스터.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 4개 식당 비교</div>
+      <div class="en">Westminster Restaurants — Kids Eat Free!</div>
+      <div class="meta"><strong>11:30~12:30</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="웨스트민스터_사원.html">
+      <div class="title">웨스트민스터 사원</div>
+      <div class="en">Westminster Abbey</div>
+      <div class="meta"><strong>12:30~14:00</strong> · 90분 · £31/£14</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="빅벤_국회의사당.html">
+      <div class="title">빅벤 / 국회의사당</div>
+      <div class="en">Big Ben / Houses of Parliament</div>
+      <div class="meta"><strong>14:00~14:30</strong> · 30분 · 외부 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="트라팔가_광장.html">
+      <div class="title">트라팔가 광장</div>
+      <div class="en">Trafalgar Square</div>
+      <div class="meta"><strong>14:30~15:30</strong> · 60분 · 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="코벤트_가든.html">
+      <div class="title">코벤트 가든</div>
+      <div class="en">Covent Garden</div>
+      <div class="meta"><strong>15:30~17:00</strong> · 90분 · 무료</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="저녁_코벤트가든.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">저녁식사 · 4개 식당 비교</div>
+      <div class="en">Covent Garden ~ Chinatown — Kids Eat Free!</div>
+      <div class="meta"><strong>17:00~18:00</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="피카디리_서커스.html">
+      <div class="title">피카디리 서커스</div>
+      <div class="en">Piccadilly Circus</div>
+      <div class="meta"><strong>18:00~19:00</strong> · 60분 · 야경</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="과학박물관.html">
-    <div class="title">과학박물관</div>
-    <div class="en">Science Museum</div>
-    <div class="meta"><strong>11:30~13:00</strong> · 90분 · 무료</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-19">
+  <summary>
+    <span class="day-title">런던 — 2/19(목)</span>
+    <span class="day-count">4개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="점심_윔블던.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
+      <div class="en">윔블던역 앞 · 빌리지 · 박물관 카페</div>
+      <div class="meta"><strong>11:30~12:30</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="윔블던.html">
+      <div class="title">윔블던</div>
+      <div class="en">The All England Lawn Tennis Club</div>
+      <div class="meta"><strong>13:00~15:30</strong> · 150분 · £64</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="저녁_라이시엄.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">저녁식사 · 4개 식당 비교</div>
+      <div class="en">Lyceum Theatre 근처 — Pre-Theatre Dining</div>
+      <div class="meta"><strong>17:30~18:15</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="웨스트엔드_뮤지컬.html">
+      <div class="title">웨스트엔드 뮤지컬 · 라이온킹</div>
+      <div class="en">West End Musical · The Lion King</div>
+      <div class="meta"><strong>19:00~21:30</strong> · 150분 · £68.95 x 3</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="점심_사우스켄싱턴.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
-    <div class="en">South Kensington Restaurants</div>
-    <div class="meta"><strong>13:00~14:00</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-20">
+  <summary>
+    <span class="day-title">런던 — 2/20(금)</span>
+    <span class="day-count">7개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="런던_타워.html">
+      <div class="title">런던 타워</div>
+      <div class="en">Tower of London</div>
+      <div class="meta"><strong>09:30~12:00</strong> · 150분 · £34.80/£17.40</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_타워힐.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
+      <div class="en">Tower Hill — Cote £1 Kids · PizzaExpress Kids Free!</div>
+      <div class="meta"><strong>12:00~13:00</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="타워_브리지.html">
+      <div class="title">타워 브리지</div>
+      <div class="en">Tower Bridge</div>
+      <div class="meta"><strong>13:00~14:00</strong> · 60분 · £15/£9</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="리든홀_마켓.html">
+      <div class="title">리든홀 마켓</div>
+      <div class="en">Leadenhall Market</div>
+      <div class="meta"><strong>14:00~15:00</strong> · 40분 · 무료 · 빅토리아 유리 아케이드</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="HP_리든홀마켓.html" style="border-left: 3px solid #740001;">
+      <div class="title" style="color:#740001;">HP 촬영지 · 리든홀 마켓</div>
+      <div class="en">Leadenhall Market — Diagon Alley Entrance</div>
+      <div class="meta"><strong>14:00~15:00</strong> · 다이애건 앨리 + 리키콜드런 파란 문</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="저녁_블룸즈버리.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">저녁식사 · 5개 식당 비교</div>
+      <div class="en">Bloomsbury — Uzumaki 나루토 라멘 · Kids Eat Free!</div>
+      <div class="meta"><strong>17:00~18:00</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="대영박물관.html">
+      <div class="title">대영박물관</div>
+      <div class="en">The British Museum</div>
+      <div class="meta"><strong>18:00~20:30</strong> · 150분 · 무료 · 금요일 야간개관</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="사치갤러리.html">
-    <div class="title">사치갤러리</div>
-    <div class="en">Saatchi Gallery</div>
-    <div class="meta"><strong>15:00~16:30</strong> · 90분</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-21">
+  <summary>
+    <span class="day-title">런던 근교 — 2/21(토)</span>
+    <span class="day-count">5개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="스톤헨지.html">
+      <div class="title">스톤헨지</div>
+      <div class="en">Stonehenge</div>
+      <div class="meta"><strong>10:00~12:00</strong> · 120분 · £25/£16</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_라콕.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 3개 식당 비교</div>
+      <div class="en">Lacock Village — 14세기 펍 + NT 카페</div>
+      <div class="meta"><strong>13:00~14:00</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="라콕.html">
+      <div class="title">라콕 Abbey & 마을</div>
+      <div class="en">Lacock Abbey & Village</div>
+      <div class="meta"><strong>14:00~15:30</strong> · 90분 · £33.50(3인) · 사진 탄생지 + 중세 마을</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="HP_라콕.html" style="border-left: 3px solid #740001;">
+      <div class="title" style="color:#740001;">HP 촬영지 · 라콕 Abbey</div>
+      <div class="en">Lacock Abbey — Hogwarts Corridors · Mirror of Erised</div>
+      <div class="meta"><strong>13:00~15:00</strong> · 호그와트 복도 + 소망의 거울 + 마을 산책</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="바스.html">
+      <div class="title">바스</div>
+      <div class="en">Bath</div>
+      <div class="meta"><strong>15:30~18:30</strong> · 180분 · Roman Baths £20</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="해러즈.html">
-    <div class="title">해러즈</div>
-    <div class="en">Harrods</div>
-    <div class="meta"><strong>18:30~19:30</strong> · 60분</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
+<details class="day-section" data-date="2026-02-22">
+  <summary>
+    <span class="day-title">런던 근교 — 2/22(일)</span>
+    <span class="day-count">3개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="세븐시스터즈.html">
+      <div class="title">세븐시스터즈</div>
+      <div class="en">Seven Sisters Cliffs</div>
+      <div class="meta"><strong>10:00~12:00</strong> · 120분 · 무료 · 절벽 트래킹</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_브라이튼.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심 · 브라이튼</div>
+      <div class="en">Brighton — Royal Pavilion 주변 4곳</div>
+      <div class="meta"><strong>13:00~14:00</strong> · Al Duomo · Fatto a Mano · Mowgli · Bill's</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="로열파빌리언.html">
+      <div class="title">로열파빌리언</div>
+      <div class="en">Royal Pavilion</div>
+      <div class="meta"><strong>14:00~15:00</strong> · 60분 · 가족 £50.75 · 인도풍 왕실 별궁</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-<div class="section">
-  <h2>런던 — 2/18(수)</h2>
+<details class="day-section" data-date="2026-02-23">
+  <summary>
+    <span class="day-title">런던 근교 — 2/23(월)</span>
+    <span class="day-count">6개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="탄식의_다리_래드클리프_카메라.html">
+      <div class="title">탄식의 다리 + 래드클리프 카메라</div>
+      <div class="en">Bridge of Sighs + Radcliffe Camera</div>
+      <div class="meta"><strong>09:30~10:00</strong> · 30분 · 무료 · 옥스포드 아이콘 사진 산책</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="크라이스트_처치.html">
+      <div class="title">크라이스트 처치</div>
+      <div class="en">Christ Church College</div>
+      <div class="meta"><strong>10:00~11:15</strong> · 75분 · £20.50/£17.50 · Great Hall + 회랑 + 성당</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="픽처_갤러리.html">
+      <div class="title">픽처 갤러리</div>
+      <div class="en">Christ Church Picture Gallery</div>
+      <div class="meta"><strong>11:15~11:45</strong> · 30분 · £3 · 다빈치 드로잉 + 빈 액자 미스터리</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="HP_옥스포드.html" style="border-left: 3px solid #740001;">
+      <div class="title" style="color:#740001;">HP 촬영지 · 옥스포드</div>
+      <div class="en">Oxford — Christ Church · Bodleian Library</div>
+      <div class="meta"><strong>10:00~12:00</strong> · 대식당 계단 + 도서관 금지구역 + 의무실</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_옥스포드.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 옥스포드</div>
+      <div class="en">Covered Market · George Street · Westgate</div>
+      <div class="meta"><strong>12:00~13:00</strong> · 1시간 · Pieminister 外 4곳 비교</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="해리포터_스튜디오.html">
+      <div class="title">해리포터 스튜디오 투어</div>
+      <div class="en">Warner Bros. Studio Tour London</div>
+      <div class="meta"><strong>15:00~19:30</strong> · 4시간 30분 · 슈퍼팬 특별 가이드</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="세인트_제임스_파크.html">
-    <div class="title">세인트 제임스 파크</div>
-    <div class="en">St James's Park</div>
-    <div class="meta"><strong>09:30~10:00</strong> · 30분 · 무료 · 펠리컨 + 블루 브리지</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-24">
+  <summary>
+    <span class="day-title">런던 → 파리 — 2/24(화)</span>
+    <span class="day-count">1개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="HP_킹스크로스.html" style="border-left: 3px solid #740001;">
+      <div class="title" style="color:#740001;">HP 촬영지 · 킹스크로스</div>
+      <div class="en">King's Cross — Platform 9¾ · St Pancras Hotel</div>
+      <div class="meta"><strong>10:00~11:30</strong> · 트롤리 포토존 + HP Shop + Ford Anglia</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="근위병_교대식.html">
-    <div class="title">근위병 교대식</div>
-    <div class="en">Changing of the Guard</div>
-    <div class="meta"><strong>10:30~11:30</strong> · 60분 · 무료</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-25">
+  <summary>
+    <span class="day-title">파리 — 2/25(수)</span>
+    <span class="day-count">5개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="트로카데로_에펠탑.html">
+      <div class="title">트로카데로 광장 & 에펠탑</div>
+      <div class="en">Trocadéro & Tour Eiffel</div>
+      <div class="meta"><strong>09:00~10:30</strong> · 90분 · 2층 €53/3인</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="오랑주리_미술관.html">
+      <div class="title">오랑주리 미술관</div>
+      <div class="en">Musée de l'Orangerie</div>
+      <div class="meta"><strong>12:00~13:30</strong> · 90분 · €12.50 · 모네 수련 + 발터-기욤 컬렉션</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="점심_튈르리.html" style="border-left: 3px solid #b45309;">
+      <div class="title" style="color:#b45309;">점심식사 · 4개 식당 비교</div>
+      <div class="en">Tuileries / Concorde — Flottes · Marronniers · Hippo 수요일 키즈특가</div>
+      <div class="meta"><strong>13:30~14:30</strong> · 예약 정보 · 메뉴 추천</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="샹젤리제.html">
+      <div class="title">샹젤리제 거리</div>
+      <div class="en">Avenue des Champs-Élysées</div>
+      <div class="meta"><strong>14:30~17:00</strong> · 150분 · 무료 · 정원→라뒤레→상업구역→에투알</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="개선문.html">
+      <div class="title">개선문</div>
+      <div class="en">Arc de Triomphe</div>
+      <div class="meta"><strong>17:30~18:30</strong> · 60분 · Museum Pass 포함 · 석양 18:27</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="점심_웨스트민스터.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 4개 식당 비교</div>
-    <div class="en">Westminster Restaurants — Kids Eat Free!</div>
-    <div class="meta"><strong>11:30~12:30</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
+<details class="day-section" data-date="2026-02-26">
+  <summary>
+    <span class="day-title">파리 — 2/26(목)</span>
+    <span class="day-count">3개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="노트르담_대성당.html">
+      <div class="title">노트르담 대성당</div>
+      <div class="en">Cathédrale Notre-Dame de Paris</div>
+      <div class="meta"><strong>09:00~10:00</strong> · 60분 · 무료(사전예약) · 2024.12 재개관</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="생_샤펠.html">
+      <div class="title">생 샤펠</div>
+      <div class="en">Sainte-Chapelle</div>
+      <div class="meta"><strong>10:00~11:00</strong> · 60분 · €22 · Paris Museum Pass 적용</div>
+      <div class="arrow">›</div>
+    </a>
+    <a class="guide-card" href="시테섬_라틴_쿼터.html">
+      <div class="title">시테섬 / 라틴 쿼터</div>
+      <div class="en">Île de la Cité / Quartier Latin</div>
+      <div class="meta"><strong>11:00~12:00</strong> · 60분 · 무료 · 꽃시장 → 퐁 뇌프 → 셰익스피어 서점</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
-  <a class="guide-card" href="웨스트민스터_사원.html">
-    <div class="title">웨스트민스터 사원</div>
-    <div class="en">Westminster Abbey</div>
-    <div class="meta"><strong>12:30~14:00</strong> · 90분 · £31/£14</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="빅벤_국회의사당.html">
-    <div class="title">빅벤 / 국회의사당</div>
-    <div class="en">Big Ben / Houses of Parliament</div>
-    <div class="meta"><strong>14:00~14:30</strong> · 30분 · 외부 무료</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="트라팔가_광장.html">
-    <div class="title">트라팔가 광장</div>
-    <div class="en">Trafalgar Square</div>
-    <div class="meta"><strong>14:30~15:30</strong> · 60분 · 무료</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="코벤트_가든.html">
-    <div class="title">코벤트 가든</div>
-    <div class="en">Covent Garden</div>
-    <div class="meta"><strong>15:30~17:00</strong> · 90분 · 무료</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="저녁_코벤트가든.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">저녁식사 · 4개 식당 비교</div>
-    <div class="en">Covent Garden ~ Chinatown — Kids Eat Free!</div>
-    <div class="meta"><strong>17:00~18:00</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="피카디리_서커스.html">
-    <div class="title">피카디리 서커스</div>
-    <div class="en">Piccadilly Circus</div>
-    <div class="meta"><strong>18:00~19:00</strong> · 60분 · 야경</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 — 2/19(목)</h2>
-
-  <a class="guide-card" href="점심_윔블던.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
-    <div class="en">윔블던역 앞 · 빌리지 · 박물관 카페</div>
-    <div class="meta"><strong>11:30~12:30</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="윔블던.html">
-    <div class="title">윔블던</div>
-    <div class="en">The All England Lawn Tennis Club</div>
-    <div class="meta"><strong>13:00~15:30</strong> · 150분 · £64</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="저녁_라이시엄.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">저녁식사 · 4개 식당 비교</div>
-    <div class="en">Lyceum Theatre 근처 — Pre-Theatre Dining</div>
-    <div class="meta"><strong>17:30~18:15</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="웨스트엔드_뮤지컬.html">
-    <div class="title">웨스트엔드 뮤지컬 · 라이온킹</div>
-    <div class="en">West End Musical · The Lion King</div>
-    <div class="meta"><strong>19:00~21:30</strong> · 150분 · £68.95 x 3</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 — 2/20(금)</h2>
-
-  <a class="guide-card" href="런던_타워.html">
-    <div class="title">런던 타워</div>
-    <div class="en">Tower of London</div>
-    <div class="meta"><strong>09:30~12:00</strong> · 150분 · £34.80/£17.40</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="점심_타워힐.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 5개 식당 비교</div>
-    <div class="en">Tower Hill — Cote £1 Kids · PizzaExpress Kids Free!</div>
-    <div class="meta"><strong>12:00~13:00</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="타워_브리지.html">
-    <div class="title">타워 브리지</div>
-    <div class="en">Tower Bridge</div>
-    <div class="meta"><strong>13:00~14:00</strong> · 60분 · £15/£9</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="리든홀_마켓.html">
-    <div class="title">리든홀 마켓</div>
-    <div class="en">Leadenhall Market</div>
-    <div class="meta"><strong>14:00~15:00</strong> · 40분 · 무료 · 빅토리아 유리 아케이드</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="HP_리든홀마켓.html" style="border-left: 3px solid #740001;">
-    <div class="title" style="color:#740001;">HP 촬영지 · 리든홀 마켓</div>
-    <div class="en">Leadenhall Market — Diagon Alley Entrance</div>
-    <div class="meta"><strong>14:00~15:00</strong> · 다이애건 앨리 + 리키콜드런 파란 문</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="저녁_블룸즈버리.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">저녁식사 · 5개 식당 비교</div>
-    <div class="en">Bloomsbury — Uzumaki 나루토 라멘 · Kids Eat Free!</div>
-    <div class="meta"><strong>17:00~18:00</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="대영박물관.html">
-    <div class="title">대영박물관</div>
-    <div class="en">The British Museum</div>
-    <div class="meta"><strong>18:00~20:30</strong> · 150분 · 무료 · 금요일 야간개관</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 근교 — 2/21(토)</h2>
-
-  <a class="guide-card" href="스톤헨지.html">
-    <div class="title">스톤헨지</div>
-    <div class="en">Stonehenge</div>
-    <div class="meta"><strong>10:00~12:00</strong> · 120분 · £25/£16</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="점심_라콕.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 3개 식당 비교</div>
-    <div class="en">Lacock Village — 14세기 펍 + NT 카페</div>
-    <div class="meta"><strong>13:00~14:00</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="라콕.html">
-    <div class="title">라콕 Abbey & 마을</div>
-    <div class="en">Lacock Abbey & Village</div>
-    <div class="meta"><strong>14:00~15:30</strong> · 90분 · £33.50(3인) · 사진 탄생지 + 중세 마을</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="HP_라콕.html" style="border-left: 3px solid #740001;">
-    <div class="title" style="color:#740001;">HP 촬영지 · 라콕 Abbey</div>
-    <div class="en">Lacock Abbey — Hogwarts Corridors · Mirror of Erised</div>
-    <div class="meta"><strong>13:00~15:00</strong> · 호그와트 복도 + 소망의 거울 + 마을 산책</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="바스.html">
-    <div class="title">바스</div>
-    <div class="en">Bath</div>
-    <div class="meta"><strong>15:30~18:30</strong> · 180분 · Roman Baths £20</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 근교 — 2/22(일)</h2>
-
-  <a class="guide-card" href="세븐시스터즈.html">
-    <div class="title">세븐시스터즈</div>
-    <div class="en">Seven Sisters Cliffs</div>
-    <div class="meta"><strong>10:00~12:00</strong> · 120분 · 무료 · 절벽 트래킹</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="점심_브라이튼.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심 · 브라이튼</div>
-    <div class="en">Brighton — Royal Pavilion 주변 4곳</div>
-    <div class="meta"><strong>13:00~14:00</strong> · Al Duomo ⭐ · Fatto a Mano · Mowgli · Bill's</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="로열파빌리언.html">
-    <div class="title">로열파빌리언</div>
-    <div class="en">Royal Pavilion</div>
-    <div class="meta"><strong>14:00~15:00</strong> · 60분 · 가족 £50.75 · 인도풍 왕실 별궁</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 근교 — 2/23(월)</h2>
-
-  <a class="guide-card" href="탄식의_다리_래드클리프_카메라.html">
-    <div class="title">탄식의 다리 + 래드클리프 카메라</div>
-    <div class="en">Bridge of Sighs + Radcliffe Camera</div>
-    <div class="meta"><strong>09:30~10:00</strong> · 30분 · 무료 · 옥스포드 아이콘 사진 산책</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="크라이스트_처치.html">
-    <div class="title">크라이스트 처치</div>
-    <div class="en">Christ Church College</div>
-    <div class="meta"><strong>10:00~11:15</strong> · 75분 · £20.50/£17.50 · Great Hall + 회랑 + 성당</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="픽처_갤러리.html">
-    <div class="title">픽처 갤러리</div>
-    <div class="en">Christ Church Picture Gallery</div>
-    <div class="meta"><strong>11:15~11:45</strong> · 30분 · £3 · 다빈치 드로잉 + 빈 액자 미스터리</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="HP_옥스포드.html" style="border-left: 3px solid #740001;">
-    <div class="title" style="color:#740001;">HP 촬영지 · 옥스포드</div>
-    <div class="en">Oxford — Christ Church · Bodleian Library</div>
-    <div class="meta"><strong>10:00~12:00</strong> · 대식당 계단 + 도서관 금지구역 + 의무실</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="점심_옥스포드.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 옥스포드</div>
-    <div class="en">Covered Market · George Street · Westgate</div>
-    <div class="meta"><strong>12:00~13:00</strong> · 1시간 · Pieminister 外 4곳 비교</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="해리포터_스튜디오.html">
-    <div class="title">해리포터 스튜디오 투어</div>
-    <div class="en">Warner Bros. Studio Tour London</div>
-    <div class="meta"><strong>15:00~19:30</strong> · 4시간 30분 · 슈퍼팬 특별 가이드</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>런던 → 파리 — 2/24(화)</h2>
-
-  <a class="guide-card" href="HP_킹스크로스.html" style="border-left: 3px solid #740001;">
-    <div class="title" style="color:#740001;">HP 촬영지 · 킹스크로스</div>
-    <div class="en">King's Cross — Platform 9¾ · St Pancras Hotel</div>
-    <div class="meta"><strong>10:00~11:30</strong> · 트롤리 포토존 + HP Shop + Ford Anglia</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>파리 — 2/25(수)</h2>
-
-  <a class="guide-card" href="트로카데로_에펠탑.html">
-    <div class="title">트로카데로 광장 & 에펠탑</div>
-    <div class="en">Trocadéro & Tour Eiffel</div>
-    <div class="meta"><strong>09:00~10:30</strong> · 90분 · 2층 €53/3인</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="오랑주리_미술관.html">
-    <div class="title">오랑주리 미술관</div>
-    <div class="en">Musée de l'Orangerie</div>
-    <div class="meta"><strong>12:00~13:30</strong> · 90분 · €12.50 · 모네 수련 + 발터-기욤 컬렉션</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="점심_튈르리.html" style="border-left: 3px solid #b45309;">
-    <div class="title" style="color:#b45309;">점심식사 · 4개 식당 비교</div>
-    <div class="en">Tuileries / Concorde — Flottes · Marronniers · Hippo 수요일 키즈특가</div>
-    <div class="meta"><strong>13:30~14:30</strong> · 예약 정보 · 메뉴 추천</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="샹젤리제.html">
-    <div class="title">샹젤리제 거리</div>
-    <div class="en">Avenue des Champs-Élysées</div>
-    <div class="meta"><strong>14:30~17:00</strong> · 150분 · 무료 · 정원→라뒤레→상업구역→에투알</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="개선문.html">
-    <div class="title">개선문</div>
-    <div class="en">Arc de Triomphe</div>
-    <div class="meta"><strong>17:30~18:30</strong> · 60분 · Museum Pass 포함 · 석양 18:27</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>파리 — 2/26(목)</h2>
-
-  <a class="guide-card" href="노트르담_대성당.html">
-    <div class="title">노트르담 대성당</div>
-    <div class="en">Cathédrale Notre-Dame de Paris</div>
-    <div class="meta"><strong>09:00~10:00</strong> · 60분 · 무료(사전예약) · 2024.12 재개관</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="생_샤펠.html">
-    <div class="title">생 샤펠</div>
-    <div class="en">Sainte-Chapelle</div>
-    <div class="meta"><strong>10:00~11:00</strong> · 60분 · €22 · Paris Museum Pass 적용</div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="guide-card" href="시테섬_라틴_쿼터.html">
-    <div class="title">시테섬 / 라틴 쿼터</div>
-    <div class="en">Île de la Cité / Quartier Latin</div>
-    <div class="meta"><strong>11:00~12:00</strong> · 60분 · 무료 · 꽃시장 → 퐁 뇌프 → 셰익스피어 서점</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
-
-<div class="section">
-  <h2>파리 근교 — 2/27(금)</h2>
-
-  <a class="guide-card" href="베르사유_궁전.html">
-    <div class="title">베르사유 궁전</div>
-    <div class="en">Palace of Versailles</div>
-    <div class="meta"><strong>09:30~12:00</strong> · 150분 · 예약완료 €111 · 궁전+정원 코스</div>
-    <div class="arrow">›</div>
-  </a>
-</div>
+<details class="day-section" data-date="2026-02-27">
+  <summary>
+    <span class="day-title">파리 근교 — 2/27(금)</span>
+    <span class="day-count">1개</span>
+  </summary>
+  <div class="day-cards">
+    <a class="guide-card" href="베르사유_궁전.html">
+      <div class="title">베르사유 궁전</div>
+      <div class="en">Palace of Versailles</div>
+      <div class="meta"><strong>09:30~12:00</strong> · 150분 · 예약완료 €111 · 궁전+정원 코스</div>
+      <div class="arrow">›</div>
+    </a>
+  </div>
+</details>
 
 <div class="section">
   <h2>종합 가이드</h2>
@@ -555,6 +635,49 @@
 </div>
 
 <script>
+(function() {
+  var today = new Date();
+  var yyyy = today.getFullYear();
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var dd = String(today.getDate()).padStart(2, '0');
+  var dateStr = yyyy + '-' + mm + '-' + dd;
+
+  var sections = document.querySelectorAll('.day-section[data-date]');
+  var opened = false;
+
+  // 오늘 날짜와 일치하는 섹션 펼침
+  for (var i = 0; i < sections.length; i++) {
+    if (sections[i].getAttribute('data-date') === dateStr) {
+      sections[i].setAttribute('open', '');
+      sections[i].classList.add('today');
+      opened = true;
+      var target = sections[i];
+      setTimeout(function() {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+      break;
+    }
+  }
+
+  // 여행 전: 가장 가까운 미래 날짜 펼침
+  if (!opened) {
+    for (var j = 0; j < sections.length; j++) {
+      if (sections[j].getAttribute('data-date') >= dateStr) {
+        sections[j].setAttribute('open', '');
+        opened = true;
+        break;
+      }
+    }
+  }
+
+  // 여행 후: 전체 펼침
+  if (!opened) {
+    for (var k = 0; k < sections.length; k++) {
+      sections[k].setAttribute('open', '');
+    }
+  }
+})();
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').then(function(reg) {
     reg.addEventListener('updatefound', function() {
