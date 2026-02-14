@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>탄식의 다리 + 래드클리프 카메라 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #002147;
+    --accent-light: #e8edf4;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #002147 0%, #1a3a5c 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>탄식의 다리 + 래드클리프 카메라 <span class="en">Bridge of Sighs + Radcliffe Camera</span></h1>
+  <p class="oneliner">베네치아 다리를 닮은 공중 통로와, 영국에서 세 번째로 큰 돔을 가진 원형 도서관 — 옥스포드의 두 아이콘을 한눈에 담는 사진 산책</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/23(월) 09:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">30분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (외관)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Catte Street</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주차장</span>
+      <span class="value">Westgate (도보 10분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">24시간 (외관)</span>
+    </div>
+  </div>
+  <div class="info-warn">Christ Church 10:00 개장 — 09:30~10:00 사이 사진 촬영 후 바로 이동</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>이름은 베네치아에서, 모양은 리알토에서</h4>
+    <p>1914년, 건축가 토머스 잭슨이 허트퍼드 칼리지의 두 건물을 연결하는 다리를 설계했다. 뉴칼리지 레인 위를 가로지르는 이 아치형 통로에 사람들은 베네치아의 '탄식의 다리'라는 별명을 붙였는데, 사실 진짜 닮은 건 베네치아의 리알토 다리다.</p>
+    <p>베네치아의 원조 탄식의 다리는 감옥으로 끌려가는 죄수들이 마지막으로 바깥 세상을 보며 한숨을 쉬던 곳. 옥스포드의 탄식은? 시험을 앞둔 학생들이 이 다리를 건너기 전에 내쉬는 한숨이라는 농담이 있다. 실제로 "시험 전에 이 다리를 건너면 불합격한다"는 미신이 학생들 사이에 전해진다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"뚱뚱한 학생" 전설의 진실</h4>
+    <p>옥스포드에서 가장 유명한 도시 전설 하나. 어느 해 건강 조사에서 허트퍼드 칼리지 학생들이 다른 칼리지보다 평균 체중이 높게 나왔고, 학교 측이 "운동을 더 시키려고" 다리를 폐쇄했다는 이야기다.</p>
+    <p>하지만 이건 완전한 거짓말이다. 다리를 안 쓰면 오히려 계단을 더 많이 올라야 하기 때문이다! 다리는 지금도 학생 전용 통로로 잘 쓰이고 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>무례한 의사가 남긴 영국 최고의 도서관</h4>
+    <p>래드클리프 카메라는 존 래드클리프라는 의사의 유산으로 지어졌다. 윌리엄 3세와 메리 여왕의 주치의였던 그는 실력은 뛰어났지만 성격이 괴팍하기로 유명했다. 앤 여왕이 아플 때 술집에서 불려갔는데 "가기 싫다"고 거부한 일화가 전해질 정도.</p>
+    <p>1714년 래드클리프가 사망하면서 옥스포드 대학에 거액을 기부했고, 건축가 제임스 깁스가 설계하여 1749년에 완공됐다. 영국에서 세 번째로 큰 돔을 얹은 이 원형 건물은 당시 유행하던 팔라디오 양식으로, 아래층은 헤딩턴 석재, 위층은 테이턴 석재로 지어 색감이 미묘하게 다르다.</p>
+    <p>지금은 보들리안 도서관의 열람실로 쓰이고, 지하에는 '글래드스턴 링크'라는 터널이 보들리안 본관까지 연결되어 있다. 예전에는 이 터널로 책을 실은 컨베이어 벨트가 달렸다!</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:30</div>
+      <div class="name">① 래드클리프 카메라 (Radcliffe Square)</div>
+      <div class="desc">Catte Street에서 래드클리프 광장으로 진입. 광장 북쪽(보들리안 도서관 쪽)에서 돔 전체를 배경으로 촬영. 아침 햇살이 동남쪽에서 비치므로 돔 정면이 밝게 빛난다.</div>
+      <div class="highlight">10분 · 광장을 천천히 한 바퀴 돌며 각도를 바꿔 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:40</div>
+      <div class="name">② 탄식의 다리 (New College Lane)</div>
+      <div class="desc">래드클리프 광장에서 동쪽으로 걸어 New College Lane으로 진입. 다리 바로 아래에서 올려다보는 각도가 베스트. 좁은 골목 위로 아치가 걸린 장면은 해리포터 호그와트 복도 분위기.</div>
+      <div class="highlight">10분 · 다리 아래 + 양쪽 끝에서 촬영</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:50</div>
+      <div class="name">③ All Souls College 외관 + University Church 첨탑</div>
+      <div class="desc">돌아오는 길에 래드클리프 광장 동쪽의 All Souls College 외관과 High Street의 University Church 첨탑을 감상. 옥스포드 스카이라인의 핵심 요소들.</div>
+      <div class="highlight">5분 · 여유 있으면 광장 벤치에서 잠시 분위기 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:55</div>
+      <div class="name">이동 → Christ Church College</div>
+      <div class="desc">Radcliffe Square → St Mary's Passage → High Street → St Aldates → Christ Church 입구 (도보 5분)</div>
+      <div class="highlight">10:00 Christ Church 개장에 맞춰 도착</div>
+    </div>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    <b>래드클리프 카메라</b>: 광장 북서쪽 모서리(보들리안 방향)에서 돔 전체 + 하늘 배경. 광장 남쪽 Brasenose College 앞에서도 좋은 각도.<br>
+    <b>탄식의 다리</b>: New College Lane 한가운데 서서 올려다보기. 양쪽 건물 벽이 프레임 역할.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    월요일 아침 09:30은 학기 중 평일이라 관광객이 거의 없는 골든타임. 래드클리프 광장에 사람 없이 사진 찍을 수 있는 최적 시간대.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 대비</div>
+    2월 옥스포드 평균 3~8°C. 아침은 꽤 춥고 바람이 있을 수 있다. 광장은 탁 트여 있어 바람 직격. 장갑·목도리 필수. 비가 오면 빠르게 촬영 후 Christ Church로 이동.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Westgate 쇼핑센터 내부에 깨끗한 화장실 있음 (무료). 광장 주변에는 공공 화장실 없으므로 Westgate에서 미리 해결.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">영화 속 옥스포드</div>
+    래드클리프 카메라는 영화 <b>황금나침반(The Golden Compass)</b>에서 조던 칼리지로 등장. <b>인스펙터 모스</b>, <b>루이스</b> 등 영국 드라마의 단골 배경. 해리포터에서는 직접 촬영되지 않았지만, 바로 옆 보들리안 도서관이 호그와트 도서관·의무실 촬영지.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 카메라/스마트폰 충전 확인</label>
+    <label><input type="checkbox"> 방한용 장갑·목도리 (2월 아침 추움)</label>
+    <label><input type="checkbox"> Christ Church 예약 확인 (10:00 입장)</label>
+    <label><input type="checkbox"> Westgate 주차 후 화장실 미리 이용</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: Christ Church College</strong> (10:00~11:15)<br>
+  래드클리프 광장 → St Aldates 방향 도보 5분. 호그와트 대식당의 모델이 된 Great Hall을 12:00 전에 반드시 관람!
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
