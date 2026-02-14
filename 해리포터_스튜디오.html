@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>해리포터 스튜디오 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #740001;        /* 그리핀도르 빨강 */
+    --accent-light: #fef2f2;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fef7ed;
+    --warn: #dc2626;
+    --gold: #d4af37;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #450001 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+  .story-block .number {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p {
+    font-size: 13px;
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .exp-card p:last-child { margin-bottom: 0; }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: var(--accent);
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .section-divider {
+    border-top: 2px dashed var(--border);
+    margin: 16px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>해리포터 스튜디오 투어 <span class="en">Warner Bros. Studio Tour London</span></h1>
+  <p class="oneliner">해리포터 영화 8편이 실제로 촬영된 세트장. 마법 세계가 어떻게 만들어졌는지 직접 확인할 수 있는 유일한 장소.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/23 월 15:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">4시간 30분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">사전예약 완료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">위치</span>
+      <span class="value">Leavesden, Watford</span>
+    </div>
+    <div class="info-item">
+      <span class="label">교통</span>
+      <span class="value">렌터카 (주차 무료)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">10:00-22:00</span>
+    </div>
+  </div>
+  <div class="info-warn">⚡️ 예약 시간 엄수 필수 (15:00 입장). 한 번 입장하면 시간 제한 없음. 슈퍼팬이라면 5시간도 가능.</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📚</span> 책 5번 읽은 슈퍼팬을 위한 특별 가이드</h2>
+
+  <div class="story-block">
+    <h4>J.K. 롤링이 직접 승인한 세트 디자인</h4>
+    <p>프로덕션 디자이너 Stuart Craig는 첫 미팅 때 롤링에게서 <span class="number">손으로 그린 호그와트 지도</span>를 받았다. 이 지도가 10년 넘게 이어진 영화 시리즈의 세트 디자인 기준이 되었다.</p>
+    <p>롤링은 제작 과정 내내 세트 디자인을 검토하고 승인했다. 특히 덤블도어 사무실, 그리핀도르 기숙사, 대식당의 디테일은 롤링이 머릿속에서 상상한 것과 최대한 일치하도록 만들어졌다. Craig는 롤링이 "이게 내가 상상한 그대로예요"라고 말한 순간을 가장 자랑스럽게 여긴다고 밝혔다.</p>
+    <p>2007년 롤링은 인터뷰에서 "Stuart Craig와 함께 작업한 것은 제 인생의 특권이었다. 그는 진정한 비전을 가지고 마법 세계를 스크린으로 불러냈다"고 말했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>책에는 있지만 영화에서 빠진 장면의 흔적</h4>
+    <p><strong>Peeves the Poltergeist:</strong> 완전히 CGI 캐릭터로 제작됐고, 실제 촬영도 했지만 최종 편집에서 모두 삭제됐다. 감독 Chris Columbus는 "그 영상은 존재하고, 관심 있다면 재조합할 수 있다"고 밝혔다.</p>
+    <p><strong>펜시브 기억들(Half-Blood Prince):</strong> 책에서는 덤블도어가 해리에게 Tom Riddle의 과거를 보여주는 여러 기억이 나온다. 영화에서는 상영 시간 때문에 대부분 삭제됐지만, 투어에서 펜시브 소품과 그 기억들의 배경 세트를 볼 수 있다.</p>
+    <p><strong>드레이코와 덤블도어 대화 확장판(Half-Blood Prince):</strong> 천문학 탑 장면에서 드레이코와 덤블도어의 대화가 더 길게 촬영됐지만 편집됐다. 책을 읽은 팬은 이 장면의 의미를 더 깊게 이해할 수 있다.</p>
+    <p><strong>드레이코가 해리에게 지팡이를 던지는 장면(Deathly Hallows Part 2):</strong> 볼드모트 진영에서 호그와트로 뛰어오며 해리에게 지팡이를 던지는 장면이 촬영됐지만 최종본에서 삭제. 이 세트에서 그 장면의 흔적을 찾아볼 수 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>책 디테일이 세트에 반영된 예시</h4>
+    <p><strong>덤블도어 사무실:</strong> <span class="number">17,000개 이상</span>의 개별 라벨이 붙은 지팡이 상자(올리밴더 스타일), 펜시브, 그리핀도르의 검, Fawkes 모형, 천문학 기구들, 역대 교장 초상화가 책의 묘사를 충실히 반영한다. 롤링이 직접 승인한 소품들.</p>
+    <p><strong>위즐리 가의 버로우:</strong> 마법으로만 지탱되는 기울어진 집. 제작팀은 벽과 기둥을 체인으로 밀고 당겨 의도적으로 비틀었다. 낡은 목재, 짝짝이 가구, 이상한 주방 도구까지 책에 묘사된 "살아있는 듯한 혼란" 느낌을 완벽히 재현.</p>
+    <p><strong>슬리데린 공용실:</strong> <span class="number">25피트 높이</span>의 벽난로와 어두운 소파. 책 2권에서 론이 폴리주스 물약을 먹고 크랩으로 변했던 바로 그 공간. 2023년 신설 전시에서 공개.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>호크룩스 전부 찾기 챌린지</h4>
+    <p>2023년 개설된 <strong>Dark Arts 영구 전시관</strong>에서 7개 호크룩스 실물을 모두 볼 수 있다:</p>
+    <p>① Tom Riddle의 일기장 ② Marvolo Gaunt의 반지 ③ Salazar Slytherin의 로켓 ④ Helga Hufflepuff의 컵 ⑤ Rowena Ravenclaw의 왕관 ⑥ Nagini(뱀) ⑦ 해리 포터</p>
+    <p>볼드모트 의상, 데스이터 본부로 쓰인 Malfoy Manor 세트 확장, 어둠의 마법 관련 소품들도 함께 전시. 책을 읽은 팬이라면 각 호크룩스의 스토리를 떠올리며 감동할 수 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>예언의 방과 네빌의 숨겨진 이야기</h4>
+    <p>영화에서는 대부분 삭제됐지만, 책에서는 <strong>네빌 롱바텀도 예언의 대상이었다</strong>는 중요한 반전이 있다. 투어의 Hall of Prophecy(예언의 방)에서 수천 개의 예언 구슬을 보며 이 숨겨진 스토리를 떠올릴 수 있다.</p>
+    <p>책 5권: 예언은 "7월 말에 태어난 아이"를 가리켰고, 해리와 네빌 모두 해당됐다. 볼드모트가 해리를 선택한 순간 예언이 확정됐다.</p>
+  </div>
+</section>
+
+<section class="story">
+  <h2><span class="icon">🎬</span> 영화는 어떻게 만들어졌나</h2>
+
+  <div class="story-block">
+    <h4>Great Hall: 5,000개의 진짜 돌 바닥</h4>
+    <p>Great Hall(대식당) 세트는 2000년에 처음 만들어졌고, 이후 10년간 전 시리즈를 촬영했다. 바닥에는 진짜 York stone(요크셔 돌) 석재 <span class="number">5,000개</span>가 깔려 있고, 크기는 약 <span class="number">36m × 12m</span>로 실제 학생 400명을 앉힐 수 있다.</p>
+    <p>촬영 중 재미있는 에피소드: 시험 장면 촬영 때 톰 펠튼(드레이코 역)과 조슈아 허드먼(고일 역)이 책상 위 애벌레를 지팡이로 계속 굴리며 웃느라 촬영이 중단됐다. 감독 크리스 콜럼버스가 따로 불러 훈계했지만, 결국 모든 동물 소품을 치워야 했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Diagon Alley: 기울어진 건물의 비밀</h4>
+    <p>다이애건 앨리 세트는 시리즈 내내 계속 변했다. 벽이 옮겨지고, 상점 입구가 바뀌고, 건물이 <span class="number">살짝 기울어진 각도</span>로 조정됐다. 이건 의도된 디자인으로, 마법 세계의 비현실적이고 왜곡된 느낌을 주기 위함이었다.</p>
+    <p>Weasleys' Wizard Wheezes(위즐리 장난감 가게)는 제작에 <span class="number">13개월</span>이 걸렸고, <span class="number">120개</span>의 장난감 제품이 개별 디자인됐다. 각 제품은 프레드와 조지의 장난기 넘치는 성격을 반영한다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Hogwarts 성 모형: 74인년의 작업</h4>
+    <p>1:24 스케일 호그와트 성 모형은 길이 <span class="number">15.25m</span>로, <span class="number">2,500개 이상</span>의 광섬유 조명이 내장돼 있다. 랜턴과 복도를 지나는 학생들의 움직임까지 표현했다.</p>
+    <p>첫 번째 버전은 <span class="number">86명</span>의 아티스트와 스태프가 만들었고, 이후 7편의 영화를 위해 계속 재건·수정됐다. 총 제작 시간은 <span class="number">74 person-years</span>(한 사람이 혼자 만들면 74년 걸림).</p>
+    <p>디테일: 올빼미 우리의 미니어처 새, 진짜 식물을 사용한 조경, 여닫을 수 있는 경첩 달린 문들까지 포함.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>지팡이: 3,000개 이상 제작</h4>
+    <p>영화를 위해 <span class="number">3,000개 이상</span>의 지팡이가 제작됐다. 나무, 플라스틱, 레진, 고무를 조합해 만들었다.</p>
+    <p>초기엔 보석으로 장식된 화려한 디자인이었지만, J.K. 롤링이 "단순한 나무 구조로, 마법사 성격에 맞는 길이와 모양"을 제안했다. 각 지팡이는 주인의 성격을 반영해 디자인됐고, 부러질 경우를 대비해 복제본을 만들었으며, 스턴트용 고무 버전도 제작됐다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>생물 애니매트로닉스: 손으로 깃털 붙이기</h4>
+    <p><strong>Aragog(아라고그)</strong>: 다리 길이 <span class="number">5.5m</span> 이상. 작동에 <span class="number">15명 이상</span>의 인력 필요 (4명은 무대 뒤편).</p>
+    <p><strong>Buckbeak(벅빅)</strong>: 실물 크기 애니매트로닉 3개 제작. 모든 깃털을 <span class="number">손으로 하나씩 꽂아 접착</span>했다.</p>
+    <p><strong>Basilisk(바실리스크)</strong>: 움직임 대부분은 CGI지만, 클로즈업 장면에선 실물 크기 애니매트로닉 사용. <span class="number">7.6m 전신 모형</span>도 제작됐고, 턱·콧구멍·눈·독니가 모두 움직인다.</p>
+    <p><strong>고블린 분장</strong>: 그린고츠 장면에서 60명의 배우를 고블린으로 변신시키는 데 140명의 분장 아티스트가 동원됐고, 단 4시간 안에 완료했다. 전 시리즈에서 사용된 실리콘만 <span class="number">1.7톤</span>.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>수중 촬영: 하루 7초 분량</h4>
+    <p>불의 잔 Triwizard Tournament 수중 장면은 <span class="number">깊이 6m × 가로 18m</span>의 유럽 최대 수중 촬영 탱크에서 찍었다. 물 약 <span class="number">50만 갤런</span> 사용.</p>
+    <p>다니엘 래드클리프는 <span class="number">6개월간</span> 스쿠버 훈련을 받았고, 촬영 3주간 <span class="number">40시간 이상</span> 물속에 있었다. 본인이 로그북에 기록했다고 한다. 하루 촬영 분량은 겨우 <span class="number">7초</span>.</p>
+    <p>처음엔 "dry for wet" 기법(배우를 매달고 바람 불어서 수중처럼 보이게)을 시도했지만, 머리카락이 자연스럽게 흔들리지 않아 실제 물탱크로 전환했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Ministry of Magic: 20년 걸릴 뻔한 세트</h4>
+    <p>마법부 세트는 Victorian(빅토리아 시대) 건축에서 영감을 받았고, <span class="number">수천 개</span>의 녹색·빨간색 타일(래커 처리된 목재)로 덮여 있다.</p>
+    <p>제작 복잡도가 엄청나서, 한 사람이 혼자 만들면 <span class="number">20년 이상</span> 걸릴 것으로 추정됐다. 거대한 벽난로들은 각각 <span class="number">높이 2.7m 이상</span>.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Platform 9¾: 가짜 벽 보호대</h4>
+    <p>실제 King's Cross 역의 플랫폼 9와 10은 붙어있지 않아서, 촬영팀은 <span class="number">플랫폼 4와 5를 9와 10으로 번호 변경</span>해서 찍었다.</p>
+    <p>Victorian 시대 벽 구조물을 보호하기 위해 가짜 복제 커버를 대고 두께를 늘렸다. 카트가 벽에 부딪힐 때 손상 방지용.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>배우들의 비하인드 스토리</h4>
+    <p><strong>루퍼트 그린트(론 역)</strong>: 다니엘 래드클리프의 소품 지팡이를 바꿔치기하거나, 엠마 왓슨의 분장실에 고무 거미를 몰래 숨겨놓는 장난을 쳤다.</p>
+    <p><strong>4편 촬영 중 밀크셰이크 사건</strong>: 네빌과 론 역 배우가 앨런 릭맨(스네이프 역)의 새 BMW에 밀크셰이크를 쏟았다. 이후 릭맨은 두 배우를 차 근처에 못 오게 했다.</p>
+    <p><strong>에세이 숙제</strong>: 아즈카반의 죄수 감독 알폰소 쿠아론이 세 주연 배우에게 "자기 캐릭터에 대한 에세이"를 쓰라고 했다. 다니엘은 1페이지 썼고, 엠마는 <span class="number">16페이지</span>를 제출했다. 루퍼트는 아예 안 했다. (론 캐릭터에 완벽히 부합.)</p>
+    <p><strong>랄프 파인즈(볼드모트 역)</strong>: 어두운 분위기의 후반부 촬영 중 분위기를 풀기 위해, 볼드모트 로브 아래 <span class="number">가터벨트 달린 타이츠</span>를 입고 다니며 스태프들에게 보여줬다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Butterbeer & Great Hall 연회</h4>
+    <p>버터비어는 크림소다에 버터스카치 시럽을 섞고, 위에 휘핑크림 토핑을 얹은 것. 스튜디오 투어 카페에서 실제로 맛볼 수 있다.</p>
+    <p>Great Hall 연회 음식은 대부분 실제 소품. 로스트 치킨, 으깬 감자, 트리클 타르트 등. 일부는 먹을 수 있게 만들었지만, 촬영 시간이 길어지면 상하기도 했다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🎯</span> 책 팬이 꼭 봐야 할 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">입장 직후</div>
+      <div class="name">① Great Hall - 분류 모자가 있던 그곳</div>
+      <div class="desc">책 1권: 해리가 처음 분류 모자를 썼던 바로 그 홀. 4개 기숙사 테이블, 교수석, 촛불이 떠다니는 천장(실제로는 그린스크린). 입장 전 짧은 영상 상영 후 문이 열린다. 첫 순간의 감동 필수.</div>
+      <div class="highlight">10-15분 · 책 1권 첫 장면 떠올리기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+10분</div>
+      <div class="name">② 그리핀도르 기숙사 공용실</div>
+      <div class="desc">책 1권: 해리가 첫 위즐리 스웨터를 받은 벽난로. 책 전편에 걸쳐 트리오가 밤새 떠들고 숙제하던 소파와 테이블. 벽 게시판 포스터까지 모두 진품. 소파에 앉아 사진 촬영 가능.</div>
+      <div class="highlight">10분 · "이 소파에서 해리가 앉았구나"</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+15분</div>
+      <div class="name">③ 덤블도어 사무실 - 펜시브와 기억들</div>
+      <div class="desc">책 4-7권: 해리와 덤블도어의 대화 장면. 17,000개 지팡이 상자, 펜시브, Fawkes, 그리핀도르의 검, 천문학 기구, 역대 교장 초상화. 롤링이 직접 승인한 디테일. 펜시브 앞에서 기억 탐험 체험 가능.</div>
+      <div class="highlight">15분 · 호크룩스 탐색 시작점</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+10분</div>
+      <div class="name">④ 포션 교실 - 스네이프의 수업</div>
+      <div class="desc">책 1-6권: 스네이프 교수의 포션 수업. 950개 병 속에 구운 동물 뼈, 작아진 머리 등 실제 소품. 책에 나온 포션 재료 이름표 확인 가능. 포션 조제 시뮬레이션 체험.</div>
+      <div class="highlight">10분 · Polyjuice Potion 재료 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+25분</div>
+      <div class="name">⑤ 다이애건 앨리 - 첫 마법 세계</div>
+      <div class="desc">책 1권: 해리가 처음 마법 세계를 경험한 장소. 올리밴더 지팡이 가게(17,000개 상자), 위즐리 형제 장난감 가게(120개 제품 개별 제작), 그린고트 은행 입구. 건물 높이를 다르게 만든 강제 원근법 사용.</div>
+      <div class="highlight">20-25분 · 상점 쇼윈도 디테일 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑥ 마법 생물 - Buckbeak, Aragog, Dobby</div>
+      <div class="desc">책 2권: Dobby / 책 3권: Buckbeak / 책 2권: Aragog. 실제 크기 애니매트로닉. Buckbeak(히포그리프)에게 인사(bow) 체험. Aragog 거미(다리 18피트, 실제 움직임). Dobby 실리콘 모형. Fawkes(불사조).</div>
+      <div class="highlight">15-20분 · Buckbeak 인사 필수</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑦ 금지된 숲 - Aragog의 거미줄</div>
+      <div class="desc">책 2권: 론과 해리가 거미를 따라간 장면. 직경 12피트 나무 19그루, 얽힌 뿌리, Aragog과 새끼 거미 떼. 날씨 효과(천둥, 번개, 바람)를 직접 조작 가능. 어두운 조명과 음향으로 실제 숲 느낌.</div>
+      <div class="highlight">15분 · 날씨 컨트롤 체험</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑧ Platform 9¾ & 호그와트 특급</div>
+      <div class="desc">책 1-7권: 매년 9월 1일 장면. 벽으로 사라지는 카트 포토존. 실제 증기기관차와 객실 내부 입장 가능. 해리, 론, 헤르미온느가 앉았던 칸에 앉아볼 수 있다. Honeydukes 트롤리.</div>
+      <div class="highlight">15분 · 기차 내부 촬영 필수</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+25분</div>
+      <div class="name">⑨ 어둠의 마법 전시 - 호크룩스 7개</div>
+      <div class="desc">책 6-7권: 호크룩스 탐색. 2023년 신설 영구 전시. Malfoy Manor 확장, 볼드모트·데스이터 본부. 7개 호크룩스 실물(일기장, 반지, 로켓, 컵, 왕관, Nagini, 해리). 볼드모트 의상과 지팡이.</div>
+      <div class="highlight">20-25분 · 호크룩스 전부 찾기 챌린지</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑩ 4개 기숙사 전시</div>
+      <div class="desc"><strong>슬리데린 공용실:</strong> 책 2권 폴리주스 물약 사건. 25피트 벽난로, 어두운 소파. 볼드모트·말포이·벨라트릭스 의상.<br><br><strong>그리핀도르/레번클로/후플푸프:</strong> 각 기숙사 학생복, 퀴디치 유니폼, 깃발, 소품.</div>
+      <div class="highlight">15분 · 자기 기숙사 의상 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑪ 위즐리 가족의 버로우</div>
+      <div class="desc">책 2-7권: 위즐리 가족의 집. 마법으로만 지탱되는 기울어진 구조. 벽과 바닥이 직각이 아니며, 체인으로 의도적으로 비틀었다. 낡은 가구, 이상한 주방 도구, 마법 시계까지 "살아있는 집" 느낌.</div>
+      <div class="highlight">10분 · 마법 시계 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑫ 그린고트 은행 & 예언의 방</div>
+      <div class="desc"><strong>그린고트:</strong> 책 1권 첫 방문. 대리석 기둥, 크리스탈 샹들리에 3개, 진짜 황동 잎. 210,000개 동전(영화 7-8편용).<br><br><strong>예언의 방:</strong> 책 5권 전투 장면. 수천 개 예언 구슬. 네빌도 예언의 대상이었다는 반전.</div>
+      <div class="highlight">15-20분 · 해리의 예언 구슬 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">+20분</div>
+      <div class="name">⑬ 인터랙티브 체험 - 주문 배우기</div>
+      <div class="desc">지팡이 안무가 Paul Harris의 주문 동작 연습. Wingardium Leviosa, Expelliarmus, Expecto Patronum 등. 포션 조제 시뮬레이션. 데스이터와 결투(특별 이벤트).</div>
+      <div class="highlight">15-20분 · 지팡이 필수</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">종료 30분 전</div>
+      <div class="name">⑭ 호그와트 성 모형 - 최종 하이라이트</div>
+      <div class="desc">책 전편: 호그와트 성. 1:24 스케일, 15.25m, 2,500개 광섬유 조명. 낮/밤 조명 전환. 영화 항공 촬영용 실제 모델. 올빼미 우리, 미니어처 식물, 여닫을 수 있는 문까지 디테일.</div>
+      <div class="highlight">15-20분 · 야경 전환 타이밍 맞추기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:30 출발</div>
+      <div class="name">퇴장 → SIXT Hammersmith 렌터카 반납</div>
+      <div class="desc">렌터카로 약 60분 이동 → 20:30 반납 → Piccadilly Line으로 숙소 복귀</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<section class="experience">
+  <h2><span class="icon">✨</span> 책 장면을 직접 체험하기</h2>
+
+  <div class="exp-card">
+    <h4>지팡이 주문 연습 (책 1-7권)</h4>
+    <p><strong>Wingardium Leviosa:</strong> 책 1권 론이 Hermione한테 발음 배운 그 주문. 손목 동작 연습.</p>
+    <p><strong>Expelliarmus:</strong> 해리의 시그니처 주문. 지팡이 안무가 Paul Harris가 직접 디자인한 동작.</p>
+    <p><strong>Expecto Patronum:</strong> 책 3권 해리가 디멘터를 물리친 주문. 손목을 크게 휘두르는 동작.</p>
+    <p>지팡이 가져가면 훨씬 재미있다. 현장 구매(£35~50)도 가능.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>포션 조제 시뮬레이션 (책 1-6권)</h4>
+    <p>포션 교실에서 Polyjuice Potion, Felix Felicis 등 마법 물약 만들기 시뮬레이션. 실제 병 라벨과 재료 이름을 보며 책 속 레시피를 떠올릴 수 있다. 스네이프 교수가 가르쳤던 바로 그 교실.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Buckbeak에게 인사하기 (책 3권)</h4>
+    <p>실제 크기 히포그리프 모형 앞에서 책에 나온 대로 고개 숙여 인사(bow)하고 사진 찍기. 해리가 처음 Buckbeak을 만났을 때처럼. 눈을 마주치고, 천천히 인사하면 Buckbeak도 인사를 돌려준다(애니매트로닉 작동).</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>금지된 숲 날씨 조작 (책 2권)</h4>
+    <p>영화 제작진이 사용한 것과 같은 컨트롤로 천둥, 번개, 바람 효과를 직접 작동. Aragog 거미굴 장면에서 쓰인 실제 장비. 아이가 직접 버튼을 누르면 숲 전체가 변한다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>빗자루 타기 그린스크린 (책 1권~)</h4>
+    <p>퀴디치 장면 촬영 기법 체험. 빗자루에 올라타고 그린스크린 앞에서 촬영. 합성 영상은 나중에 다운로드 가능(유료). 해리가 처음 빗자루를 탔던 순간을 재현.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Butterbeer 시음 (책 3권~)</h4>
+    <p>호그스미드에서 해리와 론이 마셨던 바로 그 음료. 달콤한 크림소다 + 버터스카치 맛. 야외 Backlot에서 판매. 컵 기념품(+£5) 구매 가능. 책에서 상상한 맛과 비슷할 수도, 아닐 수도.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>호크룩스 7개 찾기 챌린지 (책 6-7권)</h4>
+    <p>어둠의 마법 전시관에서 7개 호크룩스를 모두 찾아보기. 책을 5번 읽었다면 쉽게 알아볼 수 있다: ① 일기장 ② 반지 ③ 로켓 ④ 컵 ⑤ 왕관 ⑥ Nagini ⑦ 해리. 각 호크룩스의 스토리를 떠올리며 감동.</p>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 슈퍼팬을 위한 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">책-영화 차이 체크 포인트</div>
+    <strong>Peeves:</strong> 완전히 세트와 CGI를 만들었지만 최종 편집에서 삭제. 흔적 찾기.<br>
+    <strong>펜시브 기억들:</strong> Half-Blood Prince에서 덤블도어가 보여준 기억 대부분 삭제. 펜시브 소품 확인.<br>
+    <strong>예언의 방:</strong> 영화에서는 네빌 이야기가 대부분 잘렸지만, 책 팬은 예언 구슬의 의미를 더 깊게 이해.<br>
+    <strong>드레이코 지팡이 던지기:</strong> Deathly Hallows Part 2 삭제 장면. 세트에서 흔적 탐색.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 필수 스팟 (책 장면 재현)</div>
+    ① 대식당 그리핀도르 테이블 (책 1권 분류 모자)<br>
+    ② 그리핀도르 공용실 소파 (책 전편 트리오 대화)<br>
+    ③ 9¾ 승강장 벽 통과 카트 (책 1권 첫 등장)<br>
+    ④ 호그와트 특급 내부 칸 (책 1권 해리와 론 첫 만남)<br>
+    ⑤ Buckbeak 앞에서 인사 포즈 (책 3권)<br>
+    ⑥ 덤블도어 사무실 펜시브 (책 4-7권)<br>
+    ⑦ 호그와트 성 모형 야경 (책 전편)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">슈퍼팬 관람 전략</div>
+    <strong>속도 조절:</strong> 입장 후 시간 제한 없음. 평균 3-4시간이지만 슈퍼팬은 5시간도 가능. 천천히 디테일 감상.<br>
+    <strong>책 복습:</strong> 각 세트를 보기 전에 책 장면을 떠올리면 감동 2배.<br>
+    <strong>소품 라벨:</strong> 지팡이 상자, 포션 병, 책 등 소품마다 라벨이 붙어있음. 책에 나온 이름 찾기.<br>
+    <strong>호크룩스 챌린지:</strong> 어둠의 마법 전시관에서 7개 모두 찾기. 책을 읽었다면 쉽게 알아볼 수 있다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    입장 시간대별 인원 제한. 대식당, 9¾ 승강장은 사진 찍으려는 사람들로 붐빔. 나머지 구간은 사람 분산. 인내심 필요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">소요 시간 (슈퍼팬 기준)</div>
+    <strong>일반:</strong> 3-4시간<br>
+    <strong>슈퍼팬:</strong> 4-5시간 (디테일 감상, 책 장면 비교, 호크룩스 찾기 등)<br>
+    우리는 15:00 입장 → 19:30 퇴장 목표 (4시간 30분)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Butterbeer 평가</div>
+    달콤한 크림소다 + 버터스카치 시럽 + 휘핑크림. 책에서 상상한 맛과 비슷할 수도, 아닐 수도. 아이들은 대부분 좋아함. 컵 기념품(+£5) 구매 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">기념품샵 전략 (슈퍼팬 버전)</div>
+    <strong>지팡이:</strong> £35~50. 해리, 헤르미온느, 론, 덤블도어 등 캐릭터별. 인터랙티브 체험용으로 좋음.<br>
+    <strong>초콜릿 개구리:</strong> £12. 마법사 카드 포함.<br>
+    <strong>기숙사 로브:</strong> £90~ (비쌈, 신중히)<br>
+    <strong>호크룩스 복제품:</strong> 일기장, 로켓 등 판매. 책 팬 기념품.<br>
+    시간 여유 30분 확보. 예산 초과 주의.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    입구, 중간 Backlot(야외 구역), 출구 근처 총 3곳. 중간에 나가면 재입장 불가. 미리 들르기.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">2026년 특별 전시</div>
+    <strong>5/7~9/7: Philosopher's Stone 25주년 기념전</strong><br>
+    황금 스니치, 마법사의 돌(Philosopher's Stone) 소품 제작 과정, 첫 영화 비하인드 스토리. 우리 방문일(2/23)에는 없지만, 이후 방문 시 참고.
+  </div>
+
+  <div class="checklist">
+    <h3>슈퍼팬 출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 예약 확인서 준비 (모바일 가능)</label>
+    <label><input type="checkbox"> 15:00 입장 시간 엄수</label>
+    <label><input type="checkbox"> 휴대폰 충전 100% (사진 많이 찍음)</label>
+    <label><input type="checkbox"> 편한 신발 착용 (4-5시간 걷기)</label>
+    <label><input type="checkbox"> 호크룩스 7개 복습 (찾기 게임용)</label>
+    <label><input type="checkbox"> 주요 책 장면 복습 (감동 2배)</label>
+    <label><input type="checkbox"> 지팡이 가져가기 (있으면, 없으면 현장 구매)</label>
+    <label><input type="checkbox"> 기념품 예산 미리 정하기</label>
+    <label><input type="checkbox"> 기숙사 색깔 옷 (선택, 사진용)</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: SIXT Hammersmith 렌터카 반납</strong><br>
+  스튜디오 출발 19:30 → 렌터카로 60분 이동 → 20:30 반납 → Piccadilly Line으로 숙소 복귀 (21:30 도착)
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
