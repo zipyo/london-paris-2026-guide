@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/26 점심 · 라틴 쿼터/일 생루이</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-french { background: #ede9fe; color: #5b21b6; }
+  .cuisine-crepe { background: #fef3c7; color: #92400e; }
+  .cuisine-brasserie { background: #ecfdf5; color: #065f46; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/26 점심식사 <span class="sub">라틴 쿼터 / 일 생루이</span></h1>
+  <div class="context">
+    시테섬/라틴 쿼터 산책(~12:00) 마친 뒤 → 점심 → 숙소(마레) 복귀하여 자유시간<br>
+    시테섬·일 생루이 주변 도보 1~10분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">12:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">라틴 쿼터 산책 후</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">13:00 자유시간/휴식</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── 한눈 비교 ── -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Café Med</td>
+        <td>크레프/비스트로</td>
+        <td>~€47</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Les Fous de l'Île</td>
+        <td>프렌치 비스트로</td>
+        <td>~€62</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Le Reminet</td>
+        <td>프렌치 비스트로</td>
+        <td>~€55*</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Brasserie Les Deux Palais</td>
+        <td>프렌치 브라스리</td>
+        <td>~€65</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+    </table>
+    <div style="font-size:11px; color:var(--muted); margin-top:4px;">* TheFork 40% 할인 적용 시</div>
+  </div>
+</section>
+
+<!-- ── 식당 상세 ── -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Café Med -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 최고 · 크레프 맛집</div>
+    <div class="rest-header">
+      <div class="rest-name">Café Med</div>
+      <span class="rest-cuisine cuisine-crepe">크레프/비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">10분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:45~15:15</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">TheFork 9.2/10</span>
+      <span class="tag tag-good">TheFork 30% 할인</span>
+      <span class="tag tag-info">포뮬 €9.90~€15.90</span>
+      <span class="tag tag-good">일 생루이 섬 분위기</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule €15.90 × 2 (갈레트+크레프+음료)</span><span class="price">€31.80</span></div>
+        <div class="menu-line"><span class="item">Formule Enfant €9.90 (갈레트+크레프+주스)</span><span class="price">€9.90</span></div>
+        <div class="menu-line"><span class="item">카페 크렘 × 2</span><span class="price">~€5</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€47</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.com/restaurant/cafe-med-r302717" class="btn btn-book" target="_blank">예약하기 (30%↓)</a>
+      <a href="https://www.google.com/maps/search/Caf%C3%A9+Med+77+Rue+Saint-Louis+en+l'%C3%8Ele+75004+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Les Fous de l'Île -->
+  <div class="restaurant pick">
+    <div class="pick-badge">아이 친화 · 일 생루이 명소</div>
+    <div class="rest-header">
+      <div class="rest-name">Les Fous de l'Île</div>
+      <span class="rest-cuisine cuisine-french">프렌치 비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">10:00~00:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">TheFork 20% 할인</span>
+      <span class="tag tag-good">점심 포뮬 €19~€25</span>
+      <span class="tag tag-info">햄버거·감자튀김 가능</span>
+      <span class="tag tag-good">1953년부터 운영</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule déjeuner (앙트레+플라+디저트) × 2</span><span class="price">€50</span></div>
+        <div class="menu-line"><span class="item">Hamburger maison + frites (아이)</span><span class="price">~€16</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€74</span></div>
+        <div class="menu-line" style="margin-top:4px;"><span class="item" style="color:var(--green);font-weight:600;">TheFork 20% 할인 시</span><span class="price" style="color:var(--green);">~€62</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.com/restaurant/les-fous-de-l-ile-r10478" class="btn btn-book" target="_blank">예약하기 (20%↓)</a>
+      <a href="https://www.google.com/maps/search/Les+Fous+de+l'%C3%8Ele+33+Rue+des+Deux+Ponts+75004+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Le Reminet -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Le Reminet</div>
+      <span class="rest-cuisine cuisine-french">프렌치 비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~14:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good" style="background:#fef3c7;color:#92400e;">TheFork 40% 할인!</span>
+      <span class="tag tag-good">TheFork 9.2/10</span>
+      <span class="tag tag-info">노트르담 맞은편</span>
+      <span class="tag tag-warn">아이 메뉴 미확인 · 전화 문의</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">앙트레+플라 또는 플라+디저트 × 2</span><span class="price">€92</span></div>
+        <div class="menu-line"><span class="item">아이 메인 1품</span><span class="price">~€20</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>합계 (할인 전)</span><span>~€120</span></div>
+        <div class="menu-line" style="margin-top:4px;"><span class="item" style="color:var(--green);font-weight:600;">TheFork 40% 할인 시 (음식만)</span><span class="price" style="color:var(--green);">~€75</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.com/restaurant/le-reminet-r17504" class="btn btn-book" target="_blank">예약하기 (40%↓)</a>
+      <a href="https://www.google.com/maps/search/Le+Reminet+3+Rue+des+Grands+Degr%C3%A9s+75005+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Brasserie Les Deux Palais -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Brasserie Les Deux Palais</div>
+      <span class="rest-cuisine cuisine-brasserie">프렌치 브라스리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">06:30~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">생트 샤펠 바로 맞은편</span>
+      <span class="tag tag-good">벨 에포크 인테리어</span>
+      <span class="tag tag-info">크로크 무슈 · 스테이크</span>
+      <span class="tag tag-warn">관광지 가격대</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Saumon gravlax + Steak-frites</span><span class="price">€42</span></div>
+        <div class="menu-line"><span class="item">Croque Monsieur + Salade (아이)</span><span class="price">~€18</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~€12</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€72</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://brasserielesdeuxpalais.fr/fr" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://www.google.com/maps/search/Brasserie+Les+Deux+Palais+3+Boulevard+du+Palais+75004+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">TheFork 할인 활용</div>
+    Café Med(30%), Les Fous de l'Île(20%), Le Reminet(40%) 모두 TheFork 예약 시 할인이 적용됩니다.
+    TheFork 앱을 미리 설치하고 예약하면 상당한 금액을 절약할 수 있습니다.
+    할인은 음식 가격에만 적용되며, 음료는 할인 대상이 아닐 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    시테섬/라틴 쿼터 산책 후 위치에 따라 선택하세요:<br>
+    · 생트 샤펠 근처라면 → Les Deux Palais (1분)<br>
+    · 노트르담 근처라면 → Le Reminet (5분, 다리 건너편)<br>
+    · 일 생루이 섬 산책 겸 → Café Med 또는 Les Fous de l'Île (8~10분)<br>
+    식사 후 숙소(마레)까지: 일 생루이에서 도보 15분 또는 Pont Marie역에서 메트로 1호선
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">프랑스 서비스 차지</div>
+    프랑스는 모든 메뉴 가격에 서비스료와 세금이 포함(service compris)되어 있습니다.
+    런던과 달리 별도 서비스 차지가 추가되지 않으며, 팁은 선택 사항입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025~2026년 초 확인 기준이며, 방문 시점에 소폭 변동될 수 있습니다.
+    TheFork 할인율도 시기에 따라 변경될 수 있으니 예약 시 확인하세요.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 자유시간/휴식 (13:00~17:00)</strong><br>
+  숙소(마레, 3 Rue Commines)로 복귀<br>
+  일 생루이에서 도보 15분 또는 Pont Marie역 → 메트로 1호선 → Saint-Paul역
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
