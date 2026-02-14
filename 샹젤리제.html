@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>샹젤리제 거리 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a365d;
+    --accent-light: #edf2f7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0f1f3d 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 라뒤레 특별 섹션 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* 라뒤레 메뉴 */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .menu-item {
+    background: #fdf8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .menu-item .menu-name { font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .menu-item .menu-desc { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>샹젤리제 거리 <span class="en">Avenue des Champs-Élysées</span></h1>
+  <p class="oneliner">그리스 신화 속 영웅들의 낙원 이름을 딴, 파리를 관통하는 2km의 대로. 400년간 왕실 산책로에서 세계에서 가장 유명한 거리가 되었다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/25(수) 14:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">150분 (산책)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (거리)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">거리</span>
+      <span class="value">약 2km</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Champs-Élysées–Clemenceau</span>
+    </div>
+    <div class="info-item">
+      <span class="label">방향</span>
+      <span class="value">콩코르드 → 개선문</span>
+    </div>
+  </div>
+  <div class="info-warn">소매치기 다발 구역 — 지퍼 가방 필수, 소지품 항상 몸 앞으로</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>신들의 낙원이 거리가 되다</h4>
+    <p>그리스 신화에서 '엘리시온의 들판(Champs Élysées)'은 영웅들이 죽은 뒤 영원히 쉬는 낙원이다. 트로이 전쟁의 아킬레우스, 오디세우스가 갔다는 그 장소.</p>
+    <p>1616년, 프랑스 왕비 마리 드 메디치가 튈르리 궁전 뒤편에 나무 늘어선 산책로를 만들었다. 1667년에는 루이 14세의 전설적 정원사 앙드레 르 노트르가 이 길을 본격적으로 설계했다. 베르사유 정원도 만든 그가 파리 한가운데에 직선의 녹색 축을 그은 것이다.</p>
+    <p>1724년, 길이 현재의 에투알(개선문 자리)까지 확장되면서 '샹젤리제'라는 이름이 공식적으로 붙었다. 신화 속 낙원의 이름이 파리의 실제 거리가 된 순간이었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>200만 명이 울고 웃은 거리</h4>
+    <p>1944년 8월 25일, 4년간의 나치 점령이 끝난 날. 샤를 드골 장군이 개선문에서 출발해 샹젤리제를 걸어 내려왔다. 200만 파리 시민이 거리를 가득 메워 환호하고 울었다. 독일군 저격수들이 아직 콩코르드 광장 근처 건물 옥상에서 사격을 가하는 와중에도, 시민들은 거리를 떠나지 않았다.</p>
+    <p>이 규모의 군중은 이후 54년이 지난 1998년, 프랑스가 자국에서 열린 월드컵에서 우승할 때까지 다시 모이지 않았다. 매년 7월 14일 바스티유 데이에는 프랑스군 퍼레이드가, 7월에는 투르 드 프랑스의 결승 코스가 이 거리를 채운다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>€2.5억의 대변신</h4>
+    <p>21세기 들어 샹젤리제는 '세계에서 가장 아름다운 거리'라는 명성과 달리 자동차 매연과 관광객 인파로 매력을 잃어가고 있었다. 파리 시장 안 이달고는 €2.5억 규모의 도시재생 프로젝트를 발표했다.</p>
+    <p>자동차 통행량 50% 감축, 보행 공간 확대, 15,000㎡ 녹지 추가가 핵심이다. 2024년 올림픽에 맞춰 1단계가 완료되었고, 2030년까지 2단계가 진행 중이다. 지금 걷는 이 거리는 400년 역사상 가장 큰 변화의 한가운데에 있다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 산책 동선</h2>
+  <p style="font-size:13px; color:#6b7280; margin-bottom:16px;">오랑주리 미술관/점심 → 콩코르드 광장에서 출발, 개선문까지 올라간다</p>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">① 콩코르드 광장에서 출발</div>
+      <div class="desc">파리 최대 광장. 중앙에 3,200년 된 이집트 룩소르 오벨리스크(높이 23m, 금박 꼭대기)가 서 있다. 1836년 이집트 부왕이 프랑스에 선물한 것. 여기서 샹젤리제 방향으로 출발.</div>
+      <div class="highlight">10분 · 오벨리스크 앞에서 가족 사진</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:40</div>
+      <div class="name">② 샹젤리제 정원 구역</div>
+      <div class="desc">콩코르드에서 롱 푸앵(Rond-Point)까지의 하반부는 상업 구역이 아닌 녹음이 우거진 정원이다. 르 노트르가 1667년 설계한 프랑스식 정원에 회전목마, 마리오네트 극장(1818년 개장), 분수가 자리한다. 그랑팔레와 프티팔레(무료, 화~일 10:00~18:00)도 이 구간 남쪽에 있다.</div>
+      <div class="highlight">30분 · 나무 사이 산책, 계절 분위기 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:10</div>
+      <div class="name">③ 롱 푸앵 크리스탈 분수</div>
+      <div class="desc">정원과 상업 구역의 경계인 롱 푸앵 로터리. 2019년 설치된 6개의 회전 분수가 있다. 스와로브스키 크리스탈 3,060개(4톤 이상)와 LED 조명이 결합된 현대 조형물로, 프랑스 디자이너 부루렉 형제의 작품.</div>
+      <div class="highlight">10분 · 분수 앞 사진 포인트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:20</div>
+      <div class="name">④ 라뒤레 Ladurée (75번지)</div>
+      <div class="desc">1862년 창업한 프랑스 마카롱의 상징. 샹젤리제 지점은 파리 최대 매장으로, 부티크·윈터가든·테라스를 갖추고 있다. 마카롱 박스를 테이크아웃하거나, 핫초콜릿과 함께 즐길 수 있다.</div>
+      <div class="highlight">30분 · 마카롱 + 핫초콜릿으로 휴식</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:50</div>
+      <div class="name">⑤ 상업 구역 산책</div>
+      <div class="desc">롱 푸앵 이후 개선문까지가 럭셔리 브랜드와 카페가 늘어선 상업 지구. 루이뷔통 플래그십(101번지, 세계 최대), 세포라, FNAC(서적·전자기기) 등이 있다. 윈도쇼핑을 하며 천천히 개선문 방향으로 올라간다.</div>
+      <div class="highlight">50분 · 여유롭게 양쪽 인도를 번갈아 걸으며</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:40</div>
+      <div class="name">⑥ 에투알 광장 도착 → 개선문 전경</div>
+      <div class="desc">샹젤리제 끝에서 개선문이 정면에 보인다. 횡단보도 중앙 안전지대에서 개선문을 배경으로 사진을 찍기 좋다. 개선문은 12개 도로가 방사형으로 뻗는 원형 교차로(에투알) 중앙에 있으므로 절대 도로를 직접 횡단하지 말 것. 지하도를 이용해 접근한다.</div>
+      <div class="highlight">17:00 종료 · 지하도로 개선문 이동</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 라뒤레 가이드 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 라뒤레 Ladurée 가이드</h2>
+
+  <div class="exp-card">
+    <h4>영업시간 & 위치</h4>
+    <p>75 Avenue des Champs-Élysées · 매일 09:00~20:00 (수요일 포함)<br>
+    최근역: Franklin D. Roosevelt (1·9호선) 바로 앞</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>추천: 마카롱 테이크아웃</h4>
+    <p>살롱 드 테(Tea Time)는 €65/인으로 3인 가족에겐 부담스럽다. 부티크에서 마카롱 박스를 사서 산책하며 먹는 게 훨씬 낫다.</p>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div class="menu-name">마카롱 박스</div>
+        <div class="menu-desc">6개 ~€18, 12개 ~€35 (현장 확인)</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-name">핫초콜릿</div>
+        <div class="menu-desc">~€7.50 · 주전자+휘핑크림</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-card">
+    <h4>시그니처 맛</h4>
+    <p>로즈(핑크색, 라뒤레의 상징) · 피스타치오(진한 초록) · 카라멜 플뢰르 드 셀(소금캐러멜) · 바닐라 · 초콜릿. 선물용 박스 포장도 가능하다.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">소매치기 대비 (중요)</div>
+    샹젤리제는 파리에서 소매치기가 가장 활발한 구역 중 하나다.<br>
+    · 지퍼 있는 크로스백 — 항상 몸 앞으로<br>
+    · 뒷주머니에 지갑이나 폰 넣지 않기<br>
+    · 낯선 사람의 서명 요청, 팔찌 묶기 = 전형적 수법<br>
+    · 현금은 €40~50 이하만 소지, 카드 1장만 휴대
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 BEST 4</div>
+    ① 콩코르드 광장 오벨리스크 앞 (샹젤리제 시작점)<br>
+    ② 롱 푸앵 크리스탈 분수 앞<br>
+    ③ 샹젤리제 횡단보도 중앙 안전지대 (개선문 배경)<br>
+    ④ 라뒤레 매장 입구 (파리 감성 배경)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    · 샹젤리제 정원 내 키오스크 화장실 (€2)<br>
+    · 가로변 Sanisette (무료, 자동 세척 공중화장실) — 06:00~22:00<br>
+    · 라뒤레 등 카페 이용 시 매장 화장실 사용 가능
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 대비</div>
+    2월 말 파리: 평균 4~13°C, 비 올 확률 약 50%. 야외 산책 코스이므로 방수 재킷 + 겹겹이 입기 필수. 우산도 가방에 넣어둘 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오후 햇빛 방향</div>
+    14:30~17:00에 해가 서쪽(개선문 방향)으로 기운다. 콩코르드에서 개선문 방향으로 걸으면 역광이 되므로, 사진 촬영 시 뒤돌아서 찍으면 순광을 받을 수 있다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 방수 재킷 + 우산</label>
+    <label><input type="checkbox"> 크로스백 (지퍼 필수)</label>
+    <label><input type="checkbox"> 현금 €40~50 이하 + 카드 1장</label>
+    <label><input type="checkbox"> 여권은 숙소에 (복사본만 휴대)</label>
+    <label><input type="checkbox"> 개선문 예약 확인 (17:30 입장)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 개선문 (Arc de Triomphe)</strong><br>
+  샹젤리제 끝 에투알 광장 → 지하도로 개선문 접근 (도보 5분)<br>
+  17:30 입장 [예약완료] · 옥상 전망대에서 석양 감상 (일몰 18:27)
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
