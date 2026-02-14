@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>몽마르트 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #8B5E83;
+    --accent-light: #f3eaf0;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f5f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #5C3D54 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 스토리 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── 타임라인 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── 체험 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ① 헤더 -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>몽마르트 <span class="en">Montmartre · Sacré-Cœur · Place du Tertre</span></h1>
+  <p class="oneliner">피카소가 가난하던 시절 이 언덕에서 입체파를 발명했고, 140명의 화가가 아직도 광장에서 붓을 든다. 패전의 속죄로 세워진 하얀 성당 꼭대기에서, 파리 전체가 발밑에 펼쳐진다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/27(금) 14:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">대성당 무료<br>돔 €21(3인)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">예약</span>
+      <span class="value">불필요</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Anvers (2호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">돔 운영</span>
+      <span class="value">10:00~17:30 (2월)</span>
+    </div>
+  </div>
+  <div class="info-warn">소매치기·팔찌 사기 주의 구역 · 가방은 앞으로 메고 지퍼가 보이게</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>패전의 속죄로 세운 성당</h4>
+    <p>1870년, 프랑스는 프로이센에 굴욕적으로 패배했다. 나폴레옹 3세는 포로가 되었고, 파리는 4개월간 포위당해 시민들이 동물원의 동물까지 잡아먹었다. 곧이어 파리 코뮌이 일어나 시민끼리 피를 흘렸다. 프랑스 전체가 혼란과 절망에 빠진 시절이었다.</p>
+    <p>1872년, 가톨릭 사업가 알렉상드르 르장틸과 위베르 로오 드 플뢰리가 발의했다. "프랑스의 도덕적 타락에 대한 속죄로, 파리에서 가장 높은 언덕에 성당을 짓자." 1875년 착공했지만 문제가 있었다 — 몽마르트 언덕 지하는 수세기 동안의 석고 채굴로 구멍투성이였다. 건축가 폴 아바디는 83개의 거대한 기둥을 지하 33미터까지 박아야 했다. 착공부터 봉헌까지 44년, 1919년에야 완성.</p>
+    <p>아이러니하게도, 파리 코뮌이 시작된 곳이 바로 이 몽마르트 언덕이었다. 속죄의 성당이 혁명의 발원지 위에 세워진 것이다. 그래서 이 성당은 지금까지도 프랑스에서 가장 논쟁적인 종교 건축물로 남아 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>피카소와 바토라부아르 — 현대미술의 요람</h4>
+    <p>1904년, 23세의 무명 스페인 화가 파블로 피카소가 몽마르트의 허름한 건물에 입주했다. 원래 피아노 공장이었던 이 건물은 20개의 작은 작업실로 쪼개져 있었고, 세느강의 빨래배(bateau-lavoir)를 닮았다 해서 '바토라부아르'라 불렸다. 방 하나에 침대, 의자, 화구만 있었다. 겨울에는 물감이 얼었다.</p>
+    <p>피카소는 이곳에서 연인 페르낭드 올리비에를 만나 우울한 청색시대에서 따뜻한 장밋빛시대로 전환했다. 그리고 1907년, 바로 이 작업실에서 <strong>《아비뇽의 처녀들》</strong>을 완성한다. 그림을 본 친구 화가 조르주 브라크는 "유리를 씹어 먹는 느낌"이라 했지만, 이것이 입체파(Cubism)의 시작이었다.</p>
+    <p>모딜리아니, 반 동헌, 후안 그리스도 이 건물에 살았다. 1908년에는 앙리 루소를 위한 만찬이 열려 벽에 그림을 걸고 새벽까지 노래를 불렀다. "빛이 좋고 월세가 싸다" — 이것이 몽마르트가 예술가의 성지가 된 이유였다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>비에 젖을수록 하얗게 빛나는 돌</h4>
+    <p>사크레쾨르 대성당은 130년이 넘었는데 왜 이렇게 새것 같을까? 비밀은 건축 재료에 있다. 센 에 마른(Seine-et-Marne) 지역의 샤토랑동(Château-Landon)에서 가져온 특수 석회암으로 지어졌는데, 이 돌은 비가 내리면 표면에서 방해석(calcite)이 스며 나와 하얀 막을 형성한다.</p>
+    <p>보통 건물은 세월이 지나면 때가 타고 어두워지는데, 이 성당은 정반대다. 비에 젖을수록, 세월이 흐를수록 <strong>더 하얗게 빛난다</strong>. 파리의 흐린 하늘 아래에서 몽마르트 꼭대기의 하얀 돔이 유독 눈에 띄는 이유가 바로 이 돌의 화학적 성질 때문이다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 90분 코스</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">① 테르트르 광장</div>
+      <div class="desc">점심 식사 후 도보로 이동. 300년 역사의 예술가 광장에서 140명의 공인 화가가 작업하는 모습을 구경한다. 초상화·캐리커처를 원하면 <strong>작업 시작 전 가격을 반드시 합의</strong>할 것(스케치 €25~40, 15~30분). 광장 구석구석의 파리 풍경화와 다양한 화풍을 감상하며 산책.</div>
+      <div class="highlight">20분 · 현금 필요(화가 결제) · 1901년부터 화가 전통</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:50</div>
+      <div class="name">② 사크레쾨르 대성당 내부</div>
+      <div class="desc">테르트르 광장에서 도보 2분. 무료 입장. 보안검색 후 내부로 들어서면 천장의 거대한 모자이크(<strong>475m², 세계 최대급</strong>)가 압도한다. 그리스도가 두 팔을 벌리고 있고, 금빛 배경에 성인과 천사가 가득하다. 비잔틴 양식의 둥근 돔 아래 잠시 앉아 공간의 분위기를 느끼자.</div>
+      <div class="highlight">15분 · 무료 · 사진 촬영 금지(내부) · 어깨와 무릎 가린 복장</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:05</div>
+      <div class="name">③ 앞마당 테라스 — 파리 파노라마</div>
+      <div class="desc">대성당 정문으로 나오면 파리 시내 전체가 한눈에 펼쳐지는 무료 전망대. 해발 130m 높이에서 에펠탑, 앵발리드, 몽파르나스 타워, 라데팡스까지 40km 시야. 넓은 대리석 계단에 앉아 여유롭게 사진 촬영. 오후의 따뜻한 빛이 파리 지붕을 물들이는 시간.</div>
+      <div class="highlight">20분 · 파리 최고의 무료 전망 포인트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:25</div>
+      <div class="name">④ 정면 계단 & 공원 하산</div>
+      <div class="desc">대성당 앞 계단(약 220단)을 따라 천천히 내려가며 다양한 각도에서 사크레쾨르 사진을 촬영한다. 중간 정원에서 올려다보는 구도가 특히 좋다. 시간이 촉박하면 <strong>퓨니쿨레르(케이블카)</strong>로 90초 만에 하산 가능(Navigo 또는 메트로 티켓 1매).</div>
+      <div class="highlight">20분 · 계단 하산 또는 퓨니쿨레르(06:00~00:45)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:45</div>
+      <div class="name">Anvers역 → 메트로</div>
+      <div class="desc">퓨니쿨레르 하단 또는 계단 끝에서 Rue de Steinkerque를 따라 200m 직진하면 Anvers역. 메트로 2호선으로 Opéra역까지 약 10분.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+
+  <details>
+    <summary>돔 전망대 (선택 — 추가 30분)</summary>
+    <p style="font-size:13px; color:#4b5563; padding:0 4px;">시간 여유가 있다면 돔 전망대(280계단, 엘리베이터 없음)에 도전할 수 있다. 대성당 외부 왼쪽 해자로 내려가 티켓 구매(성인 €8, 아동 €5). 360도 파노라마로 앞마당 테라스보다 훨씬 높은 곳에서 파리를 볼 수 있다. 다만 좁은 나선 계단 왕복 + 관람에 약 30분이 추가로 필요하므로, 테르트르 광장 시간을 줄여야 한다. 마지막 입장 17:00.</p>
+  </details>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>테르트르 광장에서 초상화 그려받기</h4>
+    <p>1901년부터 이어져 온 전통. 광장의 공인 화가 중 마음에 드는 스타일을 골라, <strong>작업 전에 가격과 완성 시간을 합의</strong>한다. 흑백 스케치(€25~40, 15~30분)가 시간과 비용 면에서 부담 없다. 캐리커처도 재미있지만, 컬러 초상화(€40~80)는 1시간 가까이 걸린다. 현금 준비 필수. 파리에서만 할 수 있는 독특한 기념품이 된다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>세계 최대급 모자이크 감상</h4>
+    <p>사크레쾨르 내부 반원형 천장을 채우는 475m² 모자이크는 1922년 뤽 올리비에 메르송(Luc-Olivier Merson)이 설계했다. 두 팔을 벌린 그리스도상 높이가 11m에 달하며, 금빛·청빛 배경에 프랑스 역사 속 성인과 인물이 가득하다. 한가운데 잔 다르크와 루이 9세(성 루이)를 찾아보자.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">소매치기·사기 주의</div>
+    <strong>팔찌 사기:</strong> 사크레쾨르 계단에서 "우정의 팔찌"를 강제로 묶어주고 돈을 요구하는 수법. 접근하면 단호하게 "Non, merci" 하고 지나갈 것.<br>
+    <strong>3컵 도박:</strong> 계단 주변 컵 놀이는 100% 사기. 구경도 하지 말 것.<br>
+    <strong>소매치기:</strong> 전망에 빠져 있는 사이 가방을 노린다. 크로스바디 백을 앞으로 메고 지퍼가 보이게. 뒷주머니에 지갑·폰 금지.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 금요일 오후 = 비수기. 여름 대비 상당히 한산하지만, 사크레쾨르 앞 계단은 연중 관광객이 있다. 테르트르 광장도 겨울에는 화가 수가 줄어 여유롭다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    <strong>1. 정면 계단 중간 정원</strong> — 사크레쾨르 전체가 프레임에 담기는 클래식 구도<br>
+    <strong>2. 앞마당 테라스</strong> — 파리 시내 파노라마, 에펠탑이 보이는 방향으로<br>
+    <strong>3. Rue de l'Abreuvoir</strong> — 파스텔 색 집들과 덩굴이 어우러진 몽마르트에서 가장 아름다운 거리 (시간 여유 시)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">퓨니쿨레르</div>
+    RATP 운영, Navigo 패스 또는 메트로 티켓 1매(€2.55)로 탑승. 매일 06:00~00:45 운행. 36m를 90초 만에 올라간다. 하산 시에도 이용 가능. 계단(약 220단)이 부담되면 추천.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    <strong>퓨니쿨레르 하단 역 앞:</strong> 무료 Sanisette (공중 화장실)<br>
+    <strong>사크레쾨르 상단 키오스크 근처:</strong> 유료 (€0.80), 계단 내려가야 함<br>
+    <strong>대성당 내부:</strong> 화장실 없음
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페 (점심 후 간식)</div>
+    <strong>La Maison Rose</strong> — Rue de l'Abreuvoir. 피카소와 모딜리아니가 다녔던 파스텔 핑크 카페. 인스타 성지지만 분위기 좋음.<br>
+    <strong>테르트르 광장 카페</strong> — 광장 분위기를 즐기며 에스프레소(€4~5). 관광지 가격이지만 경험에 가치.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오르간 복원 공사</div>
+    2026년 말까지 대형 오르간(Cavaillé-Coll) 복원 진행 중. 관람에는 영향 없으며, 미사 때는 합창단 오르간이 대체 사용된다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 현금 €30~50 (초상화·간식용)</label>
+    <label><input type="checkbox"> 방풍재킷 + 모자·장갑 (언덕 위 바람 강함)</label>
+    <label><input type="checkbox"> 크로스바디 백 (소매치기 대비)</label>
+    <label><input type="checkbox"> 카메라/스마트폰 충전 (전망 촬영)</label>
+    <label><input type="checkbox"> Navigo 패스 또는 메트로 티켓 확인</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 갤러리 라파예트 오스만 + 오페라 가르니에(외관) 16:30</strong><br>
+  Anvers역 → 메트로 2호선 → Opéra역 (약 10분)
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
