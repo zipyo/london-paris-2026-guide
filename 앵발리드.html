@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>앵발리드 & Aura Invalides 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a365d;
+    --accent-light: #ebf0f7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --gold: #8b6914;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0f1f36 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── 핵심 포인트 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── Aura 체험 ── */
+  .aura-section {
+    background: linear-gradient(180deg, #0f1f36 0%, #1a365d 100%);
+    color: #fff;
+    padding: 24px 20px;
+  }
+  .aura-section h2 {
+    color: #ffd700;
+  }
+  .aura-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    backdrop-filter: blur(4px);
+  }
+  .aura-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #ffd700;
+  }
+  .aura-card p { font-size: 13px; color: rgba(255,255,255,0.9); }
+  .aura-warn {
+    background: rgba(220,38,38,0.2);
+    border: 1px solid rgba(220,38,38,0.4);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #fecaca;
+  }
+  .aura-warn strong { color: #fff; }
+  .aura-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .aura-info-item {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  .aura-info-item .label {
+    color: rgba(255,255,255,0.5);
+    font-size: 10px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .aura-info-item .value {
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ① 헤더 -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>앵발리드 <span class="en">Les Invalides</span></h1>
+  <p class="oneliner">루이 14세가 상이군인을 위해 지은 궁전. 나폴레옹은 이곳에 6겹의 관으로 잠들었고, 오늘 밤 그 돔이 빛과 음악으로 살아난다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/25(수) 저녁</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Aura 쇼</span>
+      <span class="value">20:20 입장 · 50분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Place Vauban (남쪽)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Ecole Militaire (8호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">박물관</span>
+      <span class="value">€17 · Museum Pass 포함</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관 (박물관)</span>
+      <span class="value">10:00~18:00</span>
+    </div>
+  </div>
+  <div class="info-warn">Esplanade(북쪽) 입구로 오면 도보 15분 — 반드시 Place Vauban(남쪽)으로!</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>총은 있는데, 총알이 없다 — 바스티유의 진짜 시작</h4>
+    <p>1789년 7월 14일 아침, 성난 파리 시민 수천 명이 앵발리드 지하를 습격했다. 상이군인 요양소 지하에 보관된 <strong>3만 정의 소총과 대포</strong>를 탈취한 것이다. 그런데 문제가 하나 — 화약이 없었다.</p>
+    <p>"바스티유 감옥에 화약 250통이 있다!" 탈영 근위병의 귀띔을 받은 시민들은 대포를 끌고 3.5km를 행군하여 바스티유를 공격했다. 프랑스 혁명의 상징이 된 바스티유 습격은, 사실 죄수를 풀어주러 간 게 아니라 <strong>총알을 찾으러 간 것</strong>이었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>6겹의 관, 19년 만의 귀환</h4>
+    <p>1821년 대서양 한가운데 세인트헬레나 섬에서 세상을 떠난 나폴레옹. 유언은 하나였다. "내가 그토록 사랑한 프랑스 국민 곁, 센 강변에 잠들게 해주오."</p>
+    <p>19년 후인 1840년, 프리깃함 벨 풀(Belle Poule)이 유해를 실어왔다. 섬에서 관을 열었을 때, 참석자들은 경악했다 — 19년이 지났는데 나폴레옹의 모습이 거의 그대로였던 것이다. 군복 차림에 가슴엔 레지옹 도뇌르 훈장. 6겹 관(주석→마호가니→납 2겹→흑단→참나무)이 완벽한 밀봉 역할을 한 것이었다.</p>
+    <p>12월 15일, <strong>16마리의 검은 말</strong>이 끄는 장례 마차가 개선문 아래를 지나 앵발리드에 도착했다. 파리 시민 100만 명이 거리에 나와 그를 맞았다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"석탄도 없는데 재를 보내주다니"</h4>
+    <p>나폴레옹의 아들 나폴레옹 2세는 '레글롱(L'Aiglon, 독수리 새끼)'이란 별명으로 불렸다. 아버지가 퇴위한 뒤 비엔나로 보내져, 겨우 21세에 세상을 떠났다.</p>
+    <p>1940년 12월 15일 새벽, 나치 점령 하의 어둡고 고요한 파리. 히틀러의 명령으로 레글롱의 유해가 비엔나에서 앵발리드로 옮겨졌다. 200명의 근위병이 횃불을 들고 도열한 가운데, 아버지 곁에 안치되었다. 히틀러는 프랑스의 협력을 유도하려는 속셈이었지만, 파리 시민들은 냉소적이었다.</p>
+    <p>다음날 퍼진 농담: <strong>"석탄도 없는 겨울에 재(cendres)를 보내주다니!"</strong> — 프랑스어로 cendres는 '유해'와 '재'를 동시에 뜻한다.</p>
+  </div>
+</section>
+
+<!-- ③ 저녁 동선 -->
+<section>
+  <h2><span class="icon">🗺️</span> 저녁 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">18:30</div>
+      <div class="name">① 개선문 출발 → 메트로</div>
+      <div class="desc">Charles de Gaulle-Étoile역에서 <strong>메트로 8호선</strong>(Balard 방면) → <strong>Ecole Militaire</strong>역 하차. 직행으로 약 15분. Invalides역(북쪽)이 아닌 Ecole Militaire역(남쪽)에서 내려야 Place Vauban 입구에 가깝다.</div>
+      <div class="highlight">15분 · 8호선 직행 환승 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:00</div>
+      <div class="name">② 저녁식사 (Place Vauban 근처)</div>
+      <div class="desc">Ecole Militaire역 주변 또는 Avenue de Tourville에서 저녁식사. 식사 후 Place Vauban까지 도보 5~7분이면 충분하다.</div>
+      <div class="highlight">60분 · 20:10까지 여유 있게</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:10</div>
+      <div class="name">③ Place Vauban 도착 → 대기</div>
+      <div class="desc">Place Vauban 입구로 이동. <strong>20:20이 보안검색 시작 시간</strong>이므로 10분 전 도착. 대기줄이 야외이니 너무 일찍 가지 않는다. 티켓(종이 또는 모바일) 준비.</div>
+      <div class="highlight">10분 · 야외 대기 — 따뜻하게</div>
+    </div>
+
+    <div class="route-stop" style="border-left: 2px solid #ffd700;">
+      <div class="time" style="color: var(--gold);">20:20~21:30</div>
+      <div class="name" style="color: var(--gold);">④ Aura Invalides</div>
+      <div class="desc">20:20 보안검색 → 20:40 쇼 시작. 돔 교회와 6개 예배당을 걸으며 빛·음악·영상의 향연을 체험. 상세 내용은 아래 Aura 섹션 참조.</div>
+      <div class="highlight">약 70분 (대기+쇼 50분)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">21:30</div>
+      <div class="name">퇴장 → 메트로로 숙소</div>
+      <div class="desc">Place Vauban에서 나와 Ecole Militaire역 또는 St François Xavier역(13호선)에서 메트로 탑승. 숙소(마레 3구)까지 약 25분.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ Aura Invalides 특별 섹션 -->
+<section class="aura-section">
+  <h2><span class="icon">✨</span> Aura Invalides</h2>
+
+  <div class="aura-info-grid">
+    <div class="aura-info-item">
+      <span class="label">티켓 시간</span>
+      <span class="value">20:20 (보안검색)</span>
+    </div>
+    <div class="aura-info-item">
+      <span class="label">쇼 시작</span>
+      <span class="value">20:40 (20분 후)</span>
+    </div>
+    <div class="aura-info-item">
+      <span class="label">소요시간</span>
+      <span class="value">약 50분</span>
+    </div>
+    <div class="aura-info-item">
+      <span class="label">인원</span>
+      <span class="value">성인 2 + 아동 1</span>
+    </div>
+  </div>
+
+  <div class="aura-warn">
+    <strong>입장 주의사항</strong><br>
+    ● Place Vauban 입구만 가능 (Esplanade 쪽 절대 불가 — 15분 거리!)<br>
+    ● 티켓 시간(20:20)은 게이트 도착 시간 = 보안검색 시작<br>
+    ● <strong>지각 시 입장 불가</strong> — 쇼 시작 후 입장 안 됨<br>
+    ● Skip-the-line 티켓 아님 — 대기줄 있을 수 있음
+  </div>
+
+  <div class="aura-card">
+    <h4>어떤 경험인가</h4>
+    <p>나폴레옹의 관이 잠든 돔 교회(Dôme des Invalides)가 밤에 전혀 다른 공간으로 변신한다. 비디오 매핑, 오케스트라 음악, 공간 음향, 레이저가 바로크 건축의 돔·기둥·아치를 캔버스 삼아 펼쳐지는 50분간의 이머시브 쇼. 돔과 6개 예배당을 걸어 다니며 감상하는 방식이다.</p>
+  </div>
+
+  <div class="aura-card">
+    <h4>쇼 종료 후</h4>
+    <p>쇼가 끝나면 돔 교회 메인 플로어에서 나폴레옹의 무덤을 볼 수 있다. 조명이 켜진 상태에서 위에서 내려다보는 붉은 규암 석관 — 낮과는 다른 분위기.</p>
+  </div>
+
+  <div class="aura-warn">
+    <strong>반드시 알아둘 것</strong><br>
+    ● <strong>춥다</strong> — 돔 교회 내부에 난방 없음. 2월이라 상당히 추울 수 있다. 모자·장갑·목도리 필수<br>
+    ● <strong>소리가 크다</strong> — 깜빡이는 조명 + 큰 음향. 소리에 민감하면 귀마개 지참<br>
+    ● <strong>화장실 없음</strong> — 부지 내 화장실·매점·식당 없음. 저녁식사 때 미리 해결<br>
+    ● <strong>서서/걸으며 감상</strong> — 의자 없음. 계단에 앉을 수는 있지만 바닥이 차가움<br>
+    ● 유모차·캐리어·큰 짐 반입 불가
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">메트로 역 선택이 핵심</div>
+    Invalides역(8/13호선)은 Esplanade(북쪽)에 있어 Place Vauban(남쪽)까지 도보 15분. <strong>Ecole Militaire역(8호선)</strong> 또는 <strong>St François Xavier역(13호선)</strong>에서 내리면 5분 거리.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">도착 타이밍</div>
+    티켓에 "일찍 오지 마세요"라고 적혀 있다. 보안검색 대기가 <strong>야외</strong>이기 때문. 2월 밤 파리에서 오래 서 있으면 체감온도 0도 근처. 20:10~20:15 도착이 적절.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">복장</div>
+    교회 내부가 정말 춥다는 리뷰가 압도적. <strong>패딩 + 모자 + 장갑 + 목도리</strong>를 입고 들어갈 것. 계단에 앉으려면 깔 것(얇은 쿠션/접이식 방석)이 있으면 좋다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 (도착 시)</div>
+    아직 해가 진 직후(18:45경)라면 Place Vauban에서 <strong>금빛 돔 야경</strong>을 촬영할 수 있다. Pont Alexandre III에서 앵발리드를 바라보는 구도가 파리 최고의 사진 스팟 중 하나이지만, 이번 동선에서는 시간상 어렵다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Aura 부지에 화장실이 없으므로 <strong>저녁식사 장소에서 반드시 미리</strong> 해결. Ecole Militaire역 근처 카페도 이용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">취소/변경 불가</div>
+    예약 시 취소 보험을 들지 않았으면 변경·환불 불가. 악천후·파업·교통장애도 환불 사유 아님. 기상 상황에 관계없이 반드시 참석.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> Aura 티켓 (종이 또는 모바일)</label>
+    <label><input type="checkbox"> 수겸이 나이 증명 신분증 (만 18세 미만 할인 확인용)</label>
+    <label><input type="checkbox"> 패딩·모자·장갑·목도리 (교회 내부 난방 없음)</label>
+    <label><input type="checkbox"> 저녁식사 때 화장실 미리!</label>
+    <label><input type="checkbox"> Place Vauban 입구 확인 (Esplanade 쪽 아님!)</label>
+    <label><input type="checkbox"> 메트로: 8호선 Ecole Militaire 하차</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 숙소 복귀 21:30</strong><br>
+  Ecole Militaire역(8호선) → Concorde 환승 → 9호선 Oberkampf → 도보 · 약 25분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
