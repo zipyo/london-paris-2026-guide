@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세븐시스터즈 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1b6b7d;
+    --accent-light: #e8f4f7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #0d3d47 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* 안전 경고 섹션 */
+  .safety { background: #fef2f2; }
+  .safety h2 { color: var(--warn); }
+  .safety-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--warn);
+  }
+  .safety-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--warn);
+    margin-bottom: 6px;
+  }
+  .safety-card p, .safety-card ul {
+    font-size: 13px;
+    color: #374151;
+  }
+  .safety-card ul {
+    padding-left: 16px;
+    margin-top: 6px;
+  }
+  .safety-card li { margin-bottom: 4px; }
+
+  /* 날씨 판단 */
+  .weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .weather-table th, .weather-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .weather-table th {
+    font-weight: 700;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .go { color: #16a34a; font-weight: 600; }
+  .caution { color: #ca8a04; font-weight: 600; }
+  .nogo { color: var(--warn); font-weight: 600; }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>세븐시스터즈 <span class="en">Seven Sisters</span></h1>
+  <p class="oneliner">1억 년 전 바닷속 플랑크톤이 쌓여 만든 새하얀 절벽 7개. 도버보다 더 아름다운 이유는 단 하나 — 건물이 단 하나도 없다. 순수한 자연 절벽이 영국 해협을 마주하고 줄지어 서 있는 풍경.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/22(일) 10:00~12:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">120분 (트래킹)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (주차 £3.50)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주차</span>
+      <span class="value">Exceat BN25 4AD</span>
+    </div>
+    <div class="info-item">
+      <span class="label">이동</span>
+      <span class="value">렌터카 2.5시간</span>
+    </div>
+    <div class="info-item">
+      <span class="label">시설</span>
+      <span class="value">Visitor Centre 10~16시</span>
+    </div>
+  </div>
+  <div class="info-warn">절벽 가장자리 울타리 없음 — 반드시 5m 이상 거리 유지. 당일 아침 풍속 확인 필수!</div>
+</div>
+
+<!-- ══════ 안전 경고 (최우선) ══════ -->
+<section class="safety">
+  <h2><span class="icon">⚠️</span> 안전 경고</h2>
+
+  <div class="safety-card">
+    <h4>절벽 위험성</h4>
+    <p>백악(Chalk) 절벽은 예고 없이 붕괴됩니다. 매년 22~60cm씩 후퇴하며, 수천 톤의 백악이 바다로 떨어집니다.</p>
+    <ul>
+      <li>절벽 가장자리에 <strong>울타리(펜스) 없음</strong></li>
+      <li>절벽 가장자리 및 아래 <strong>최소 5m 이상 거리 유지</strong></li>
+      <li>2024년 6월 — 절벽 위 점프 포즈 사진 촬영 중 60m 추락 사망 사고</li>
+    </ul>
+  </div>
+
+  <div class="safety-card">
+    <h4>우리 루트는 안전합니다</h4>
+    <p>절벽 위 코스(Seven Sisters Cliff Walk, 21km)가 아닌, <strong>Cuckmere Haven Loop(강변 평지 코스)</strong>를 이용합니다. 절벽 위로 올라가지 않고, 계곡 바닥의 강변을 따라 해변까지 걸어간 후 해변에서 절벽 전경을 감상합니다.</p>
+  </div>
+
+  <div class="safety-card">
+    <h4>날씨별 방문 판단</h4>
+    <table class="weather-table">
+      <tr><th>풍속</th><th>판단</th></tr>
+      <tr><td>~20mph</td><td class="go">방문 가능, 따뜻하게</td></tr>
+      <tr><td>20~30mph</td><td class="caution">주의, 강변 루트만</td></tr>
+      <tr><td>30mph 이상</td><td class="nogo">방문 취소 권장</td></tr>
+    </table>
+    <p style="margin-top:8px; font-size:12px; color:#6b7280;">Met Office 앱으로 당일 06:00 최종 확인 → 07:30 출발 전 판단</p>
+  </div>
+</section>
+
+<!-- ══════ 왜 유명한가 ══════ -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>1억 년 전의 플랑크톤 무덤</h4>
+    <p>약 1억 년 전, 이곳은 따뜻한 얕은 바다였다. 바닷속에는 코콜리소포어(coccolithophore)라는 눈에 보이지 않을 만큼 작은 플랑크톤이 살았는데, 이들이 죽으면서 탄산칼슘 껍질이 바닥에 쌓이고 쌓였다.</p>
+    <p>수천만 년 동안 쌓인 이 미세한 껍질이 눌리고 굳어져 백악(chalk)이 되었다. 그리고 지각이 솟아올라 바다 밖으로 나왔다. 마지막 빙하기가 끝나면서 녹은 얼음이 엄청난 양의 물을 흘려보냈고, 이 물줄기들이 백악을 깎아 7개의 골짜기와 봉우리를 만들었다.</p>
+    <p>지금 보이는 새하얀 절벽은 말 그대로 수조 마리 플랑크톤의 무덤이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>7자매, 봉우리마다 이름이 있다</h4>
+    <p>오래된 서섹스 전설에 따르면, 앨프리스턴(Alfriston) 마을의 부유한 농부에게 일곱 딸이 있었다. 각 딸이 자기만의 언덕 위에 집을 짓고 살았다는 이야기에서 "일곱 자매"라는 이름이 붙었다.</p>
+    <p>동쪽부터 서쪽으로: Haven Brow, Short Brow, Rough Brow, Brass Point, Flagstaff Point, Bailey's Hill, Went Hill. 가장 높은 것은 첫째 Haven Brow(약 77m)이고, 해변에서 올려다보면 7개의 봉우리가 물결치듯 이어지는 장관이 펼쳐진다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>도버보다 유명한 이유, 그리고 영화 속 절벽</h4>
+    <p>영국 하면 '도버의 하얀 절벽'이 떠오르지만, 사진작가들과 영화감독들이 더 좋아하는 건 세븐시스터즈다. 이유는 단순하다 — 도버 절벽 위에는 항구와 건물이 있지만, 세븐시스터즈에는 건물이 단 하나도 없다. 순수한 자연 그대로의 백악 절벽.</p>
+    <p>이 풍경에 반한 영화감독들의 목록: <em>로빈 후드: 프린스 오브 씨브즈</em>(1991)의 오프닝에서 케빈 코스트너가 "영국에 돌아왔다!" 외치는 장면, <em>어톤먼트</em>(속죄, 2007)의 마지막 장면에서 로비와 세실리아가 꿈꾸던 해안가, <em>해리포터와 불의 잔</em>(2005)에서 퀴디치 월드컵 배경, 셜록 홈즈의 은퇴를 그린 <em>미스터 홈즈</em>(2015)까지.</p>
+  </div>
+</section>
+
+<!-- ══════ 핵심 포인트 ══════ -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+  <p style="font-size:13px; color:#6b7280; margin-bottom:16px;">코스: Cuckmere Haven Loop (약 5km, 평지 위주)</p>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">① Exceat 주차장 + Visitor Centre</div>
+      <div class="desc">North Car Park(BN25 4AD)에 주차. Visitor Centre에서 지도 수령, 화장실 이용. Grab & Go 카페에서 따뜻한 음료 구매 가능. 날씨와 트레일 상태 확인.</div>
+      <div class="highlight">10분 · 주차 £3.50(2시간) / 동전·카드·RinGo앱</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:10</div>
+      <div class="name">② Cuckmere River 강변 산책</div>
+      <div class="desc">주차장에서 남쪽으로 Cuckmere River를 따라 걷는다. 범람원 습지대를 지나며 새(물떼새, 왜가리, 백조)를 관찰할 수 있다. 강이 바다를 향해 사행(蛇行)하는 독특한 지형 — 하늘에서 보면 S자 곡선.</div>
+      <div class="highlight">30분 · 겨울 진흙 주의 — 방수 등산화 필수</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:40</div>
+      <div class="name">③ Cuckmere Haven 해변 도착</div>
+      <div class="desc">강이 바다와 만나는 자갈 해변. 동쪽을 바라보면 7개의 백악 절벽이 물결치듯 이어지는 장관. 해변 왼쪽(서쪽) 위 언덕에는 Coastguard Cottages — 세븐시스터즈의 상징적 사진 배경으로, 하얀 절벽 앞에 서 있는 작은 집들.</div>
+      <div class="highlight">최고의 사진 스팟 — 해변에서 동쪽을 향해 7개 봉우리 파노라마</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:50</div>
+      <div class="name">④ 해변 탐험 & 사진</div>
+      <div class="desc">자갈 해변을 걸으며 절벽 가까이(5m 이상 거리 유지!) 감상. 백악 조각과 부싯돌(flint)을 주워볼 수 있다 — 부싯돌은 까만색이고 백악 안에 박혀 있던 것. 파도 소리를 들으며 바다 공기를 마시는 시간.</div>
+      <div class="highlight">30분 · 절벽 바로 아래 접근 금지 (낙석 위험)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:20</div>
+      <div class="name">⑤ 복귀 (강 서쪽 길)</div>
+      <div class="desc">올 때와 다른 경로로 복귀 — 강 서쪽의 약간 높은 길을 따라 되돌아가면 계곡 전체와 강의 사행을 내려다보는 뷰가 나온다. Saltmarsh Farmhouse Cafe(벽난로 있음)에서 쉬어가도 좋다.</div>
+      <div class="highlight">40분 · Saltmarsh Cafe에서 핫초코 한 잔</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:00</div>
+      <div class="name">퇴장 → 브라이튼</div>
+      <div class="desc">주차장 복귀 → 진흙 묻은 신발 비닐봉투에 보관 → 렌터카로 브라이튼 이동 (A259 경유, 약 40분)</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ 꿀팁 ══════ -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">2월 날씨 대비</div>
+    평균 기온: 최고 8°C / 최저 3°C<br>
+    해안 바람: 15~25 km/h, 돌풍 시 40~65 km/h 가능<br>
+    절벽/해변은 차폐물 없음 → 체감 온도 실제보다 5~10°C 낮음<br>
+    <strong>레이어링 필수</strong>: 방풍·방수 재킷, 모자, 장갑, 머플러
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① Cuckmere Haven 해변: 동쪽을 향해 7개 봉우리 파노라마 (최고!)<br>
+    ② Coastguard Cottages: 절벽 앞 작은 집들 (Seaford Head 방향에서)<br>
+    ③ 강 사행 구간: 위에서 내려다보는 S자 곡선<br>
+    ④ 자갈 해변의 파도와 절벽
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Visitor Centre 옆 화장실: 07:00~18:00<br>
+    해변까지 가는 도중에는 화장실 없음 → 출발 전 꼭 이용
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페</div>
+    Visitor Centre 내 Grab & Go: 10:00~16:00 (음료, 간식)<br>
+    Saltmarsh Farmhouse Cafe: 연중 운영, 벽난로 있음, 복귀 시 추천
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">겨울 트레일 주의</div>
+    계곡 바닥 경로는 겨울에 진흙이 많음 → 방수 등산화 필수<br>
+    Cuckmere 강 범람원 지역, 비 후 일부 침수 가능<br>
+    만조 시 강 입구 수위 상승 → 강 건너기 절대 금지
+  </div>
+
+  <details>
+    <summary>악천후 대안 플랜</summary>
+    <div class="tip-card" style="margin-top:8px;">
+      <div class="tip-title">대안 A: 브라이튼 확대</div>
+      세븐시스터즈 건너뛰고 브라이튼 직행 (약 1시간 20분)<br>
+      SEA LIFE 수족관 (£19/£16) + The Lanes 점심 + 로열파빌리언
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">대안 B: Windsor + Hampton Court</div>
+      폭우/강풍으로 해안 자체 포기 시 (숙소에서 30분)<br>
+      Windsor Castle (£22/£11) + Hampton Court Palace (£27~29)
+    </div>
+  </details>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> Met Office 앱 풍속 확인 (당일 06:00)</label>
+    <label><input type="checkbox"> 방수 등산화 착용</label>
+    <label><input type="checkbox"> 방풍/방수 재킷, 모자, 장갑, 머플러</label>
+    <label><input type="checkbox"> 여벌 옷 차에 비치</label>
+    <label><input type="checkbox"> 물, 간식 준비</label>
+    <label><input type="checkbox"> 빈 비닐봉투 (진흙 묻은 신발용)</label>
+    <label><input type="checkbox"> 스마트폰 충전 (사진!)</label>
+    <label><input type="checkbox"> 주차장 18:00 잠김 확인 (우리는 12:00 출발이므로 OK)</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 브라이튼 (13:00)</strong><br>
+  주차장 → A259 서쪽 → 브라이튼 (렌터카 약 40분). 점심식사 후 로열파빌리언 방문 (14:00~15:00).
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
