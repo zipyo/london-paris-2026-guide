@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디즈니랜드 파리 공략 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #3730a3;
+    --accent-light: #eef2ff;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f0f0ff;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --ride-thrill: #7c3aed;
+    --ride-family: #2563eb;
+    --ride-calm: #059669;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #3730a3 0%, #1e1b4b 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── 파크 선택 ── */
+  .park-choice {
+    background: var(--story-bg);
+  }
+  .park-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .park-card.recommended {
+    border-left-color: #059669;
+    box-shadow: 0 0 0 1px #059669;
+  }
+  .park-card.not-recommended {
+    border-left-color: var(--muted);
+    opacity: 0.7;
+  }
+  .park-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .park-card p {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 4px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .badge-go { background: #d1fae5; color: #065f46; }
+  .badge-skip { background: #f3f4f6; color: #6b7280; }
+
+  /* ── 타임라인 ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop.meal::before { background: #f59e0b; }
+  .route-stop.exit::before { background: #ef4444; }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop.meal .time { color: #d97706; }
+  .route-stop.exit .time { color: #ef4444; }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+  .route-stop .wait-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .wait-short { background: #d1fae5; color: #065f46; }
+  .wait-mid { background: #fef3c7; color: #92400e; }
+  .wait-long { background: #fce7f3; color: #9d174d; }
+
+  /* ── 어트랙션 카드 ── */
+  .ride-section { background: var(--accent-light); }
+  .ride-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .ride-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .ride-card .ride-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .ride-card p { font-size: 13px; color: #374151; }
+  .ride-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .ride-meta span {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    color: #374151;
+    font-weight: 500;
+  }
+
+  /* ── Premier Access ── */
+  .pa-section { background: #fdf4ff; }
+  .pa-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .pa-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7c3aed;
+    margin-bottom: 6px;
+  }
+  .pa-card p { font-size: 13px; color: #374151; }
+  .pa-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #7c3aed;
+  }
+
+  /* ── 식사 ── */
+  .food-section { background: #fffbeb; }
+  .food-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .food-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #b45309;
+    margin-bottom: 6px;
+  }
+  .food-card p { font-size: 13px; color: #374151; }
+
+  /* ── 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .crowd-note {
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .crowd-note .note-title {
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+  }
+  .crowd-note p { color: #78350f; }
+
+  .alt-box {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+  .alt-box .alt-title {
+    font-weight: 700;
+    color: #166534;
+    margin-bottom: 4px;
+  }
+  .alt-box p { color: #14532d; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>디즈니랜드 파리 공략 <span class="en">Disneyland Paris</span></h1>
+  <p class="oneliner">6.5시간 안에 핵심 어트랙션을 최대한 즐기는 맞춤 전략. 여행 마지막 날, 최고의 피날레를 만들자.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/28(토) 10:00~16:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">체류 시간</span>
+      <span class="value">6시간 30분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">티켓 (사전구매)</span>
+      <span class="value">성인 ~€80~95 / 아동 ~€75~90</span>
+    </div>
+    <div class="info-item">
+      <span class="label">선택 파크</span>
+      <span class="value">Disneyland Park</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Marne-la-Vallée/Chessy</span>
+    </div>
+    <div class="info-item">
+      <span class="label">파크 오픈</span>
+      <span class="value">09:30~21:00</span>
+    </div>
+  </div>
+  <div class="info-warn">프랑스 겨울방학(Zone C: 2/21~3/9) 토요일 — 일반 비수기보다 혼잡. 인기 라이드 30~50분 대기 예상</div>
+</div>
+
+<!-- ── 파크 선택 ── -->
+<section class="park-choice">
+  <h2><span class="icon">🏰</span> 왜 Disneyland Park인가</h2>
+
+  <div class="park-card recommended">
+    <span class="badge badge-go">추천</span>
+    <h4>Disneyland Park</h4>
+    <p>어트랙션 40개 이상으로 6.5시간을 알차게 채울 수 있다. Big Thunder Mountain, Hyperspace Mountain, Pirates of the Caribbean 등 10세가 좋아할 라이드가 집중되어 있고, 잠자는 숲속의 공주 성과 Main Street의 디즈니 특유 분위기까지 경험할 수 있다.</p>
+  </div>
+
+  <div class="park-card not-recommended">
+    <span class="badge badge-skip">비추천</span>
+    <h4>Walt Disney Studios Park</h4>
+    <p>Avengers Campus가 있지만 어트랙션 수가 15개 내외로 적다. 2026년 3월 29일에 "Disney Adventure World" + "World of Frozen"으로 대규모 확장 오픈 예정이지만, 2/28은 오픈 전이라 현재의 제한적 라인업만 운영. Crush's Coaster 하나에 대기 50분 이상이 걸려 비효율적.</p>
+  </div>
+</section>
+
+<!-- ── 6.5시간 공략 플랜 ── -->
+<section>
+  <h2><span class="icon">🗺️</span> 6.5시간 공략 플랜</h2>
+
+  <div class="crowd-note">
+    <div class="note-title">동선 핵심 원칙</div>
+    <p>10:00 입장(개장 30분 후) → <strong>왼쪽(Frontierland)부터 반시계 방향</strong>으로 돌며 인기 라이드 선점. 11:30 이른 점심으로 혼잡 회피. 오후에 Discoveryland → Fantasyland 순서.</p>
+  </div>
+
+  <div class="route-timeline">
+
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">입장 → Frontierland 직행</div>
+      <div class="desc">Main Street를 빠르게 통과해 Frontierland로 간다. 성 사진은 나올 때 찍으면 된다.</div>
+      <div class="highlight">이동 10분</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:10</div>
+      <div class="name">① Big Thunder Mountain</div>
+      <div class="desc">DLP 최고 인기 광산열차 코스터. 세계 디즈니 파크 중 유일하게 호수 위 섬에 지어져 독보적 스케일을 자랑한다. 오전이라 대기가 상대적으로 짧다.</div>
+      <span class="wait-tag wait-mid">대기 30~40분</span>
+      <div class="highlight">탑승 4분 · 신장 102cm 이상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:50</div>
+      <div class="name">② Phantom Manor</div>
+      <div class="desc">바로 옆에 있는 유령의 저택. 미국 디즈니의 Haunted Mansion과 스토리가 완전히 다르다 — 서부 금광 마을의 비극적 신부 이야기. 대기 짧고 디테일이 훌륭하다.</div>
+      <span class="wait-tag wait-short">대기 10~15분</span>
+      <div class="highlight">탑승 10분 · 신장 제한 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:15</div>
+      <div class="name">③ Pirates of the Caribbean</div>
+      <div class="desc">Adventureland로 이동(도보 3분). 보트를 타고 해적 세계를 탐험하는 보트 라이드. DLP 버전은 2개의 낙하 구간이 있어 스릴이 더하다.</div>
+      <span class="wait-tag wait-short">대기 15~20분</span>
+      <div class="highlight">탑승 15분 · 신장 제한 없음</div>
+    </div>
+
+    <div class="route-stop meal">
+      <div class="time">11:50</div>
+      <div class="name">이른 점심</div>
+      <div class="desc">12시 이전에 먹어야 줄이 짧다. Frontierland의 <strong>Cowboy Cookout Barbecue</strong>(BBQ 립/치킨) 또는 Adventureland의 <strong>Hakuna Matata</strong>(치킨 + 라이스). 앱 모바일 오더로 대기 없이 수령 가능.</div>
+      <div class="highlight">30~40분 · 3인 €50~70</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:30</div>
+      <div class="name">④ Star Wars Hyperspace Mountain</div>
+      <div class="desc">Discoveryland로 이동(도보 7분). 완전한 어둠 속에서 스타워즈 전투를 경험하는 실내 코스터. 급선회와 캐논볼 구간이 짜릿하다.</div>
+      <span class="wait-tag wait-mid">대기 25~35분</span>
+      <div class="highlight">탑승 3분 · 신장 120cm 이상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:10</div>
+      <div class="name">⑤ Buzz Lightyear Laser Blast</div>
+      <div class="desc">레이저건으로 표적을 쏘며 점수를 겨루는 슈팅 라이드. 가족끼리 점수 경쟁이 가능해서 아이가 아주 좋아한다.</div>
+      <span class="wait-tag wait-mid">대기 25~30분</span>
+      <div class="highlight">탑승 5분 · 신장 제한 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:45</div>
+      <div class="name">⑥ Star Tours</div>
+      <div class="desc">바로 옆. 스타워즈 세계관 시뮬레이터. 매번 목적지가 랜덤으로 바뀌어 어디로 갈지 모른다.</div>
+      <span class="wait-tag wait-short">대기 15~20분</span>
+      <div class="highlight">탑승 5분 · 신장 102cm 이상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:10</div>
+      <div class="name">⑦ Peter Pan's Flight</div>
+      <div class="desc">Fantasyland로 이동(도보 5분). 해적선을 타고 런던 야경 위를 날아 네버랜드로 향하는 클래식 다크라이드. 항상 대기가 가장 긴 라이드 — <strong>Premier Access 추천 1순위</strong>.</div>
+      <span class="wait-tag wait-long">대기 35~50분 (PA 없이)</span>
+      <div class="highlight">탑승 3분 · 신장 제한 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:05</div>
+      <div class="name">⑧ It's a Small World</div>
+      <div class="desc">보트를 타고 세계 각국 인형들이 노래하는 15분 라이드. 걷느라 지친 다리를 쉬기에도 좋다.</div>
+      <span class="wait-tag wait-short">대기 10~15분</span>
+      <div class="highlight">탑승 15분 · 신장 제한 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:30</div>
+      <div class="name">⑨ 보너스 라이드 또는 간식</div>
+      <div class="desc">시간 여유가 있으면 <strong>Autopia</strong>(자동차 운전 체험, 아이가 직접 운전 가능) 또는 놓친 라이드 재탑승. 간식 타임으로 활용해도 좋다.</div>
+      <div class="highlight">상황에 따라 유동적</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:00</div>
+      <div class="name">Main Street 쇼핑 + 성 사진</div>
+      <div class="desc">잠자는 숲속의 공주 성 앞에서 가족사진. Main Street의 기념품 숍에서 쇼핑. Emporium이 가장 크다.</div>
+      <div class="highlight">30분</div>
+    </div>
+
+    <div class="route-stop exit">
+      <div class="time">16:30</div>
+      <div class="name">파크 퇴장 → 역 짐 회수</div>
+      <div class="desc">출구에서 Marne-la-Vallée/Chessy역까지 도보 2분. 짐 회수 후 택시로 CDG 공항으로 이동.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+
+  <div class="alt-box">
+    <div class="alt-title">대기 짧으면? 추가 라이드 옵션</div>
+    <p>예상보다 대기가 짧아 시간이 남으면: <strong>Autopia</strong>(132cm 이상 혼자 운전 가능) → <strong>Les Voyages de Pinocchio</strong>(대기 거의 없는 다크라이드) → Big Thunder Mountain <strong>재탑승</strong></p>
+  </div>
+</section>
+
+<!-- ── 어트랙션 상세 ── -->
+<section class="ride-section">
+  <h2><span class="icon">🎢</span> 어트랙션 상세 가이드</h2>
+
+  <div class="ride-card" style="border-left-color: var(--ride-thrill)">
+    <h4>Big Thunder Mountain</h4>
+    <div class="ride-sub">Frontierland · 야외 코스터</div>
+    <p>세계 6개 디즈니 파크의 빅썬더 중 DLP 버전이 유일하게 호수 위 섬에 지어졌다. 트랙이 물 위를 통과하며 동굴, 폐광을 누비는 경험은 여기서만 가능. 무서운 급강하는 없어 온 가족이 함께 즐길 수 있으면서도 속도감이 있다.</p>
+    <div class="ride-meta">
+      <span>102cm 이상</span>
+      <span>탑승 4분</span>
+      <span>야외 (비 맞을 수 있음)</span>
+      <span>Premier Access 가능</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-thrill)">
+    <h4>Star Wars Hyperspace Mountain</h4>
+    <div class="ride-sub">Discoveryland · 실내 코스터</div>
+    <p>원래 Space Mountain이었던 이 라이드가 스타워즈 테마로 변신했다. 완전한 어둠과 스타워즈 음향 효과 속에서 급회전과 캐논볼 구간을 통과한다. 최고 시속 약 60km. Big Thunder보다 강도가 높지만 루프는 없다.</p>
+    <div class="ride-meta">
+      <span>120cm 이상</span>
+      <span>탑승 3분</span>
+      <span>실내 (날씨 무관)</span>
+      <span>Premier Access 가능</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-family)">
+    <h4>Pirates of the Caribbean</h4>
+    <div class="ride-sub">Adventureland · 보트 라이드</div>
+    <p>해적 동굴을 보트로 탐험하는 15분짜리 대작. DLP 버전에는 2번의 작은 낙하 구간이 있어 미국판보다 스릴이 있다. 정교한 오디오 애니매트로닉스와 해적 마을 세트가 압도적. 대기 짧아 효율적.</p>
+    <div class="ride-meta">
+      <span>신장 제한 없음</span>
+      <span>탑승 15분</span>
+      <span>실내</span>
+      <span>Premier Access 가능</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-family)">
+    <h4>Buzz Lightyear Laser Blast</h4>
+    <div class="ride-sub">Discoveryland · 슈팅 라이드</div>
+    <p>레이저건으로 저그 군단의 표적을 맞히며 점수를 올리는 인터랙티브 라이드. 좌석이 360도 회전해서 원하는 방향으로 조준 가능. 가족끼리 점수 대결이 재미 포인트.</p>
+    <div class="ride-meta">
+      <span>신장 제한 없음</span>
+      <span>탑승 5분</span>
+      <span>실내</span>
+      <span>Premier Access 가능</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-family)">
+    <h4>Peter Pan's Flight</h4>
+    <div class="ride-sub">Fantasyland · 다크라이드</div>
+    <p>해적선 모양 탑승체를 타고 레일을 따라 하늘을 나는 느낌으로 런던 야경과 네버랜드를 통과한다. 1992년 개장 이래 꾸준히 가장 긴 대기줄을 자랑하는 DLP의 시그니처 라이드. Premier Access 1순위 추천.</p>
+    <div class="ride-meta">
+      <span>신장 제한 없음</span>
+      <span>탑승 3분</span>
+      <span>실내</span>
+      <span>Premier Access 가능</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-calm)">
+    <h4>Phantom Manor</h4>
+    <div class="ride-sub">Frontierland · 다크라이드</div>
+    <p>DLP만의 오리지널 유령의 저택. 미국 Haunted Mansion과 완전히 다른 스토리 — 서부 금광 마을의 비극적 신부 유령과 팬텀의 이야기. 2019년 전면 리뉴얼 후 디테일이 놀랍다. 대기 10분 내외로 효율 최고.</p>
+    <div class="ride-meta">
+      <span>신장 제한 없음</span>
+      <span>탑승 10분</span>
+      <span>실내</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-family)">
+    <h4>Star Tours: The Adventures Continue</h4>
+    <div class="ride-sub">Discoveryland · 시뮬레이터</div>
+    <p>스타워즈 세계관의 3D 모션 시뮬레이터. 70가지 이상의 시나리오가 랜덤 조합되어 매번 다른 행성, 다른 캐릭터를 만난다. 대기 짧고 몰입감 높다.</p>
+    <div class="ride-meta">
+      <span>102cm 이상</span>
+      <span>탑승 5분</span>
+      <span>실내</span>
+    </div>
+  </div>
+
+  <div class="ride-card" style="border-left-color: var(--ride-calm)">
+    <h4>It's a Small World</h4>
+    <div class="ride-sub">Fantasyland · 보트 라이드</div>
+    <p>1966년 월트 디즈니가 직접 감독한 클래식. 보트를 타고 세계 각국의 인형들이 각 나라 언어로 노래하는 공간을 15분간 유람한다. 지친 다리를 쉬기에도 좋다.</p>
+    <div class="ride-meta">
+      <span>신장 제한 없음</span>
+      <span>탑승 15분</span>
+      <span>실내</span>
+    </div>
+  </div>
+
+  <details>
+    <summary>탑승 불가 어트랙션 참고</summary>
+    <div class="ride-card" style="border-left-color: #ef4444; opacity: 0.6;">
+      <h4>Indiana Jones and the Temple of Peril</h4>
+      <div class="ride-sub">Adventureland · 야외 코스터 · <strong style="color:#ef4444;">신장 140cm 이상 (탑승 불가)</strong></div>
+      <p>360도 루프가 있는 야외 코스터. 키 제한이 140cm로 현재(137cm) 탑승 불가. 아쉽지만 Big Thunder Mountain과 Hyperspace Mountain으로 충분히 대체된다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ── Premier Access 전략 ── -->
+<section class="pa-section">
+  <h2><span class="icon">⚡</span> Premier Access 전략</h2>
+
+  <div class="pa-card">
+    <h4>Premier Access One (개별 구매) — 추천</h4>
+    <p>라이드별로 1개씩 구매하는 유료 우선탑승. <strong>당일 앱에서 실시간 가격 확인 후 구매</strong>한다. 수요에 따라 가격이 변동하는 동적 가격제.</p>
+    <p style="margin-top: 8px;"><strong>구매 추천:</strong></p>
+    <p>1순위 — <strong>Peter Pan's Flight</strong>: 항상 대기 최장, PA 효과가 극대화됨</p>
+    <p>2순위 — <strong>Big Thunder Mountain</strong>: 오전에 30분 이상 대기 예상 시</p>
+    <p style="margin-top: 8px;">예상 가격: 라이드당 <strong>€5~18/인</strong> (날짜·수요에 따라 변동)</p>
+    <p style="margin-top: 4px;">1인당 <strong>1일 최대 3개</strong>까지 구매 가능</p>
+    <p style="margin-top: 4px; color: var(--muted); font-size: 12px;">Peter Pan 3인 기준 약 €24~39. 35~50분 대기를 건너뛰는 가치</p>
+  </div>
+
+  <div class="pa-card">
+    <h4>Premier Access Ultimate (번들) — 비추천</h4>
+    <p>양쪽 파크 주요 라이드 전부 1회씩 우선탑승. 가격 약 <strong>€90/인</strong>(비수기). 3인이면 <strong>€270</strong>.</p>
+    <p style="margin-top: 4px;">6.5시간에 8~10개만 탈 수 있으므로 과잉투자. PA One 1~2개 전략 구매가 훨씬 경제적.</p>
+  </div>
+
+  <div class="pa-card">
+    <h4>구매 방법</h4>
+    <p>1. <strong>Disneyland Paris 앱</strong>에서만 구매 가능 (현장 창구 없음)</p>
+    <p>2. 입장 후 앱에서 라이드 선택 → 시간 슬롯 지정 → 결제</p>
+    <p>3. 지정 시간에 가서 Premier Access 전용 줄로 입장</p>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--muted);">팁: 입장 직후 바로 Peter Pan PA를 구매하고 오후 시간 슬롯을 잡으면 오전에 다른 라이드를 자유롭게 돌 수 있다.</p>
+  </div>
+</section>
+
+<!-- ── 식사 & 간식 ── -->
+<section class="food-section">
+  <h2><span class="icon">🍽️</span> 식사 & 간식</h2>
+
+  <div class="crowd-note">
+    <div class="note-title">핵심 전략: 11:30 이른 점심</div>
+    <p>12:00~14:00은 레스토랑 피크 타임. 11:30에 먹으면 줄 없이 바로 먹고 오후 라이드 시간을 확보할 수 있다.</p>
+  </div>
+
+  <div class="food-card">
+    <h4>Cowboy Cookout Barbecue</h4>
+    <p><strong>위치:</strong> Frontierland (Big Thunder Mountain 근처)</p>
+    <p><strong>메뉴:</strong> BBQ 립, 로스트 치킨, 버거 + 감자튀김/콘</p>
+    <p><strong>3인 예상:</strong> €55~70</p>
+    <p style="margin-top: 4px; color: var(--muted); font-size: 12px;">오전 동선(Frontierland → Adventureland)과 자연스럽게 연결. 실내외 좌석 모두 있음. 앱 모바일 오더 가능.</p>
+  </div>
+
+  <div class="food-card">
+    <h4>Au Chalet de la Marionnette</h4>
+    <p><strong>위치:</strong> Fantasyland</p>
+    <p><strong>메뉴:</strong> 로스트 치킨, 버거, 맥앤치즈</p>
+    <p><strong>3인 예상:</strong> €50~65</p>
+    <p style="margin-top: 4px; color: var(--muted); font-size: 12px;">피노키오 테마 인테리어. 오후 Fantasyland 라이드 전후로 이용하기 좋은 위치.</p>
+  </div>
+
+  <details>
+    <summary>디즈니 전용 간식 추천</summary>
+    <div class="food-card">
+      <h4>미키 와플 + 누텔라</h4>
+      <p><strong>위치:</strong> Cool Post (Adventureland) · <strong>가격:</strong> ~€5</p>
+      <p>미키 머리 모양 와플에 누텔라를 뿌린 DLP 시그니처 간식.</p>
+    </div>
+    <div class="food-card">
+      <h4>츄러스</h4>
+      <p><strong>위치:</strong> 파크 곳곳 카트 · <strong>가격:</strong> ~€4.50</p>
+      <p>디즈니 파크의 상징적 간식. 따뜻해서 2월 날씨에 딱.</p>
+    </div>
+    <div class="food-card">
+      <h4>다스베이더 와플</h4>
+      <p><strong>위치:</strong> Rocket Cafe (Discoveryland) · <strong>가격:</strong> ~€5~6</p>
+      <p>다스베이더 얼굴 모양 와플. 스타워즈 팬이라면 Hyperspace Mountain 후 디저트로.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">앱 필수 설치</div>
+    <strong>Disneyland Paris 공식 앱</strong>을 반드시 사전 설치. 실시간 대기시간 확인, Premier Access 구매, 모바일 음식 주문, GPS 파크 지도 모두 이 앱에서. 티켓 QR코드도 앱에 미리 연동해 두자.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">2월 날씨 대비</div>
+    낮 최고 8~10°C, 바람 불면 체감 더 낮다. <strong>방수 재킷 + 레이어링</strong>이 핵심. 우산보다 레인코트가 라이드 탑승 시 편하다. 실내 어트랙션(Pirates, Buzz, Phantom Manor)이 많아 추울 때 안으로 피하면 된다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">결제</div>
+    파크 전체에서 비접촉 결제(Contactless) 가능. Visa, Mastercard, Apple Pay, Google Pay 모두 사용 가능. 현금 준비 불필요 (역 락커 동전 제외).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    <strong>잠자는 숲속의 공주 성</strong> — 정면 광장에서 + 성 뒤편 다리에서. <strong>Main Street</strong> — 성을 배경으로 거리 한가운데서. 나올 때(16:00) 찍으면 오전보다 한산하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    각 랜드 입구마다 위치. <strong>가장 한산한 곳</strong>: Adventureland 안쪽, Discoveryland Star Tours 근처. Main Street 화장실은 항상 붐빈다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">캐릭터 만남</div>
+    파크 곳곳에서 디즈니 캐릭터를 만날 수 있다. 앱에서 실시간 위치와 대기시간 확인 가능. 줄이 길면(20분+) 과감히 패스하고 라이드에 집중하자. Meet Mickey Mouse(Fantasyland)는 리노베이션 후 2026년 초 재오픈 예정 — 방문 전 앱에서 운영 여부 재확인.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">야간 쇼 (Disney Tales of Magic)</div>
+    2025년 1월 시작된 새 야간쇼. 성 프로젝션 + 불꽃놀이 + 드론 + 레이저, 약 20분. 파크 마감 무렵(~20:30) 시작이라 <strong>16:30 퇴장하는 우리 일정에서는 관람 불가</strong>. 아쉽지만 비행기 스케줄상 어쩔 수 없다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> Disneyland Paris 앱 설치 + 티켓 QR코드 연동</label>
+    <label><input type="checkbox"> 앱에 결제수단 등록 (Premier Access 당일 구매용)</label>
+    <label><input type="checkbox"> 1일 1파크 티켓 사전 구매 (공식 사이트 or Klook)</label>
+    <label><input type="checkbox"> 역 락커용 동전 준비 (€1, €2 동전)</label>
+    <label><input type="checkbox"> 방수 재킷 + 장갑 + 목도리 준비</label>
+    <label><input type="checkbox"> 충전 보조배터리 (앱 + 사진으로 배터리 소모 큼)</label>
+    <label><input type="checkbox"> 아침 택시 예약 (숙소 → Marne-la-Vallée)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: CDG 공항 → 인천</strong><br>
+  16:30 파크 퇴장 → 역 짐 회수 (5분) → 택시로 CDG 공항 (35~45분, €65~95) → 18:00 체크인 → 21:00 KE902 출발
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
