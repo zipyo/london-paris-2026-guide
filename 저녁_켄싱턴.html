@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/22(일) 저녁 · 켄싱턴</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+  .info-good {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--green-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 500;
+  }
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick { border: 2px solid var(--accent); }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name { font-size: 16px; font-weight: 700; }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-pub { background: #f0fdf4; color: #166534; }
+  .cuisine-chicken { background: #fff1f2; color: #9f1239; }
+  .cuisine-thai { background: #dcfce7; color: #166534; }
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label { display: block; font-size: 10px; color: var(--muted); }
+  .rest-meta .meta-value { font-weight: 600; font-size: 12px; }
+  .rest-menu { padding: 0 16px 12px; }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book { background: var(--accent); color: #fff; }
+  .btn-map { background: #f3f4f6; color: #374151; }
+  .btn-walkin { background: #f3f4f6; color: var(--muted); cursor: default; }
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/22(일) 저녁식사 <span class="sub">켄싱턴</span></h1>
+  <div class="context">
+    브라이튼에서 렌터카 복귀(~18:00) → 저녁식사 → 숙소 휴식<br>
+    DoubleTree Kensington 주변 도보 5분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">18:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">DoubleTree 숙소</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">숙소 휴식 (하루 끝)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-good">PizzaExpress Kids Eat Free 프로모션 마지막 날 (2/16~22) — 성인 메인 1개당 키즈 Piccolo 1개 무료!</div>
+  <div class="info-warn">세븐시스터즈 트래킹 + 브라이튼 + 2.5시간 운전 직후 — 호텔 가까운 곳 우선</div>
+</div>
+
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">PizzaExpress ★</td>
+        <td>피자</td>
+        <td>~£47</td>
+        <td style="color:var(--green)">온라인</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Hereford Arms</td>
+        <td>Sunday Roast</td>
+        <td>~£60</td>
+        <td style="color:var(--green)">온라인</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Nando's</td>
+        <td>PERi-PERi 치킨</td>
+        <td>~£40</td>
+        <td style="color:var(--warn)">walk-in</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Meekhun Thai</td>
+        <td>태국 요리</td>
+        <td>~£54</td>
+        <td style="color:var(--green)">전화</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- PizzaExpress -->
+  <div class="restaurant pick">
+    <div class="pick-badge">Kids Eat Free 마지막 날! 호텔 2분</div>
+    <div class="rest-header">
+      <div class="rest-name">PizzaExpress</div>
+      <span class="rest-cuisine cuisine-pizza">피자/파스타</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">2분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업(일)</span>
+        <span class="meta-value">11:30~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">OpenTable</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Kids Eat Free (2/16~22)</span>
+      <span class="tag tag-good">호텔에서 가장 가까움</span>
+      <span class="tag tag-good">Piccolo 키즈 3코스 세트</span>
+      <span class="tag tag-info">88 Cromwell Road</span>
+      <span class="tag tag-info">서비스 차지 없음 (3인)</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인) — Kids Eat Free 적용</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · American Hot (Classic)</span><span class="price">~£17.85</span></div>
+        <div class="menu-line"><span class="item">성인2 · Margherita (Classic)</span><span class="price">~£13.95</span></div>
+        <div class="menu-line"><span class="item">공유 · Dough Balls</span><span class="price">~£6.95</span></div>
+        <div class="menu-line"><span class="item">아이 · Piccolo 3코스+음료 (무료!)</span><span class="price">£0</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£47</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">Piccolo 키즈 세트 (~£8.50 → 무료)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">스타터: Dough Balls</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">메인: 피자/파스타/샐러드 중 택1</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">디저트 + Bambinoccino 음료</span><span class="price">포함</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.pizzaexpress.com/london-gloucester-road/book/book-a-table" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=PizzaExpress+88+Cromwell+Road+London+SW7+4EN" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- The Hereford Arms -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">The Hereford Arms</div>
+      <span class="rest-cuisine cuisine-british">영국 Sunday Roast</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업(일)</span>
+        <span class="meta-value">12:00~21:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">온라인</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">1857년 개업 · 코난 도일 단골</span>
+      <span class="tag tag-good">Fuller's 키즈 메뉴</span>
+      <span class="tag tag-info">127 Gloucester Road</span>
+      <span class="tag tag-info">Griffin Trophy 수상 펍</span>
+      <span class="tag tag-warn">서비스 차지 ~12.5%</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인) — Sunday Roast</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · Sunday Roast Beef</span><span class="price">~£18.50</span></div>
+        <div class="menu-line"><span class="item">성인2 · Sunday Roast Chicken</span><span class="price">~£15.50</span></div>
+        <div class="menu-line"><span class="item">아이 · Kids Sunday Roast</span><span class="price">~£9</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£10</span></div>
+        <div class="menu-line"><span class="item">서비스 차지 12.5%</span><span class="price">~£7</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£60</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">Sunday Roast 포함 구성</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Roast Potatoes</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">Yorkshire Pudding</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">Cauliflower Cheese + Greens</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">Gravy</span><span class="price">포함</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.herefordarms.co.uk/" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://www.google.com/maps?cid=3257450597387510334" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- Nando's -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Nando's</div>
+      <span class="rest-cuisine cuisine-chicken">PERi-PERi 치킨</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">4분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업(일)</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">walk-in</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">가장 저렴</span>
+      <span class="tag tag-good">Nandinos 키즈 세트 £6.25</span>
+      <span class="tag tag-good">서비스 차지 없음</span>
+      <span class="tag tag-info">117 Gloucester Road</span>
+      <span class="tag tag-warn">예약 불가 · 대기 가능</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · 1/2 PERi-PERi Chicken</span><span class="price">£8.95</span></div>
+        <div class="menu-line"><span class="item">성인1 · PERi Chips</span><span class="price">£4.25</span></div>
+        <div class="menu-line"><span class="item">성인2 · Butterfly Chicken</span><span class="price">£9.95</span></div>
+        <div class="menu-line"><span class="item">성인2 · Spicy Rice</span><span class="price">£4.25</span></div>
+        <div class="menu-line"><span class="item">아이 · Nandinos 세트</span><span class="price">£6.25</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£6.50</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£40</span></div>
+      </div>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">Nandinos 키즈 세트 (£6.25)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">메인: 버거/피타/맥앤치즈 중 택1</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">사이드 × 2</span><span class="price">포함</span></div>
+        <div class="menu-line"><span class="item">음료 + Soft Swirl 아이스크림</span><span class="price">포함</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://maps.google.com/?q=Nando's+117+Gloucester+Road+London+SW7+4ST" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- Meekhun Thai -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Meekhun Thai Bistro</div>
+      <span class="rest-cuisine cuisine-thai">태국 요리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">4분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업(일)</span>
+        <span class="meta-value">17:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">전화</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">정통 태국 요리</span>
+      <span class="tag tag-good">매운맛 조절 가능</span>
+      <span class="tag tag-info">9A Gloucester Road</span>
+      <span class="tag tag-info">아담하고 아늑한 분위기</span>
+      <span class="tag tag-warn">키즈 메뉴 없음 (일반 메뉴 주문)</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인1 · Gang Massaman (Chicken)</span><span class="price">£14.90</span></div>
+        <div class="menu-line"><span class="item">성인2 · Green Curry (Chicken)</span><span class="price">£14.90</span></div>
+        <div class="menu-line"><span class="item">아이 · Chicken Satay (2본)</span><span class="price">£7.90</span></div>
+        <div class="menu-line"><span class="item">Jasmine Rice × 2</span><span class="price">£7.20</span></div>
+        <div class="menu-line"><span class="item">Egg Fried Rice × 1</span><span class="price">£4.20</span></div>
+        <div class="menu-line"><span class="item">서비스 차지 ~12.5%</span><span class="price">~£6</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£55</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="tel:+442079986262" class="btn btn-book">전화 예약 020 7998 6262</a>
+      <a href="https://maps.google.com/?q=Meekhun+Thai+Bistro+9A+Gloucester+Road+London+SW7+4PP" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+</section>
+
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">피곤한 하루 뒤 최적 전략</div>
+    세븐시스터즈 트래킹 + 브라이튼 관광 + 2.5시간 운전 후입니다. 호텔에서 가장 가까운 PizzaExpress(2분)를 예약해두면 도착 즉시 편하게 식사할 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Kids Eat Free 조건</div>
+    PizzaExpress: 성인 메인(£10 이상) 1개 구매 시 Piccolo 키즈 세트 1개 무료. 다인인 전용, 다른 할인과 중복 불가. <strong>2/22가 프로모션 마지막 날</strong>이므로 놓치지 마세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Sunday Roast 체험</div>
+    영국 전통 Sunday Roast를 경험하고 싶다면 The Hereford Arms가 최고의 선택. 일요일 저녁에 인기가 높으므로 반드시 사전 예약하세요. 음식 라스트오더 21:30.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">10세 아이 키즈 메뉴 참고</div>
+    PizzaExpress Piccolo: 12세 이하, 3코스+음료로 양 충분.<br>
+    Nando's Nandinos: 10세 이하 대상, 양이 부족할 수 있으니 사이드 추가(£4.25) 고려.<br>
+    Hereford Arms: Fuller's 키즈 메뉴 운영, 10세에게 적합.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">서비스 차지 안내</div>
+    PizzaExpress: 3인은 서비스 차지 없음 (7인 이상만 12.5%).<br>
+    The Hereford Arms: ~12.5% optional — 요청 시 제거 가능.<br>
+    Nando's: 서비스 차지 없음 (카운터 셀프서비스).<br>
+    Meekhun Thai: 서비스 차지 있음 (비율 방문 시 확인).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025년 기준이며, 방문 시점에 소폭 인상될 수 있습니다.
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 숙소 휴식</strong><br>
+  DoubleTree by Hilton Kensington · 도보 2~5분 · 하루 마무리
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
