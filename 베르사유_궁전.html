@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>베르사유 궁전 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #8B6914;
+    --accent-light: #faf5e4;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #5a4510 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* 트리아농 안내 */
+  .trianon-note {
+    background: #fffbeb;
+    border: 1px solid #fbbf24;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+  }
+  .trianon-note .note-title {
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+  }
+  .trianon-note p { color: #78350f; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>베르사유 궁전 <span class="en">Palace of Versailles</span></h1>
+  <p class="oneliner">한 왕이 귀족들을 감시하려고 지은 궁전이 유럽에서 가장 화려한 건축물이 되었다. 357개의 거울이 빛나는 거울의 방에서 세계사가 바뀌었다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/27(금) 09:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">150분 (2시간 30분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">예약완료 €111</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">Entrance A (Pavillon Dufour)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Versailles-Château Rive Gauche</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">09:00~17:30 (월 휴관)</span>
+    </div>
+  </div>
+  <div class="info-warn">겨울 시즌: 트리아농 내부 12:00 오픈 · 분수쇼 없음 · 정원 무료</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>사냥터에서 유럽 최대의 궁전으로</h4>
+    <p>1661년, 스물두 살의 루이 14세는 재무장관 푸케의 보르비콩트 성에 초대받았다. 눈부시게 화려한 연회를 보고 왕은 분노했다. "신하가 왕보다 잘 산다고?" 3주 뒤 푸케를 체포하고, 그 성을 만든 건축가·정원사·화가를 모두 빼앗아 베르사유에 투입했다.</p>
+    <p>단순한 질투가 아니었다. 어린 시절 귀족들의 반란(프롱드의 난)으로 파리 궁전에서 쫓겨난 기억이 있던 루이 14세는, 귀족들을 한곳에 모아 감시하기로 했다. 매년 3만 명 이상의 인부를 동원해 20년간 공사. 1682년, 파리를 떠나 베르사유를 프랑스의 새 수도로 선포했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>357개의 거울이 만든 권력의 무대</h4>
+    <p>길이 73미터, 천장 높이 12.3미터의 거울의 방. 357개의 거울이 정원을 향한 17개의 아치형 창문과 마주하고 있다. 당시 거울은 베네치아만 만들 수 있는 최첨단 기술이었는데, 루이 14세는 베네치아 장인들을 몰래 빼내와 프랑스에서 직접 제작하게 했다.</p>
+    <p>이 방에서 세계사의 결정적 순간들이 펼쳐졌다. 1685년 샴(태국) 대사를 맞이한 외교 행사, 1770년 루이 16세와 마리 앙투아네트의 결혼 축하연. 그리고 1919년 6월 28일, 제1차 세계대전을 끝낸 베르사유 조약이 바로 이 거울들 앞에서 서명되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>궁전의 마지막 아침 — 1789년 10월</h4>
+    <p>1789년 10월 5일, 빵값이 치솟자 파리 시장의 여성들이 무기고를 습격하고 베르사유를 향해 행진했다. 비를 맞으며 6시간을 걸어온 수천 명의 군중이 궁전 앞에 도착했다.</p>
+    <p>다음 날 새벽, 군중은 궁전 안까지 밀고 들어왔다. 마리 앙투아네트는 잠옷 차림으로 비밀 통로를 통해 겨우 탈출했다. 왕실 가족은 6만 명의 군중에 둘러싸여 파리까지 9시간을 걸어가야 했다. 107년간 프랑스의 심장이었던 베르사유 시대가 그렇게 끝났다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 150분 핵심 코스</h2>
+
+  <div class="trianon-note">
+    <div class="note-title">트리아농 안내</div>
+    <p>겨울 시즌 트리아농 내부는 12:00 오픈이라 이번 방문에서는 관람 불가. 궁전 + 정원에 집중하는 코스로 구성했습니다.</p>
+  </div>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:30</div>
+      <div class="name">① 입장 & 오디오가이드</div>
+      <div class="desc">Entrance A(Pavillon Dufour)에서 보안검색 통과 후 현관 홀에서 한국어 오디오가이드 수령. 모바일 e-ticket 화면 준비.</div>
+      <div class="highlight">10분 · 보안검색 포함</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:40</div>
+      <div class="name">② 왕실 예배당</div>
+      <div class="desc">2층 복도에서 내려다보는 예배당. 대리석 기둥과 천장의 종교화가 압도적이다. 마리 앙투아네트와 루이 16세가 결혼식을 올린 곳.</div>
+      <div class="highlight">10분 · 2층 난간에서 조망</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:50</div>
+      <div class="name">③ 국가 아파트먼트 → 거울의 방</div>
+      <div class="desc">헤라클레스의 방부터 시작해 전쟁의 방까지 이어지는 국가 아파트먼트. 각 방은 로마 신 이름으로 불린다. 끝에 도달하면 73m 길이의 거울의 방이 펼쳐진다. 357개의 거울이 17개 창에서 들어오는 빛을 반사해 만드는 광경을 느긋하게 감상.</div>
+      <div class="highlight">30분 · 오전 일찍 입장해서 비교적 여유로움</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:20</div>
+      <div class="name">④ 왕의 침실 & 왕비의 침실</div>
+      <div class="desc">왕의 침실은 궁전의 정중앙. 매일 아침 귀족들이 왕의 기상을 지켜보는 의식이 열렸던 곳이다. 왕비의 침실에는 마리 앙투아네트가 직접 고른 꽃무늬 벽지와 화려한 가구가 남아있다.</div>
+      <div class="highlight">20분 · 침실에서 정원 뷰 확인</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:40</div>
+      <div class="name">⑤ 물의 파르테르</div>
+      <div class="desc">궁전 뒤편으로 나오면 정원이 한눈에 펼쳐진다. 궁전 바로 앞 두 개의 큰 연못(물의 파르테르)에서 궁전 파사드를 뒤돌아보면 건물의 규모가 실감된다.</div>
+      <div class="highlight">10분 · 궁전 전체 사진 베스트 포인트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:50</div>
+      <div class="name">⑥ 라토나 분수 → 그랑 알레</div>
+      <div class="desc">물의 파르테르 아래 계단을 내려가면 라토나 분수. 대리석 피라미드 위에 올라선 라토나 여신상이 있다. 여기서 그랑 알레(왕의 산책로)를 따라 내려간다.</div>
+      <div class="highlight">10분 · 겨울에는 분수 가동 없음</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:00</div>
+      <div class="name">⑦ 아폴로 분수 & 대운하</div>
+      <div class="desc">그랑 알레 끝의 아폴로 분수 — 금박 입힌 태양신 아폴로가 4마리의 말이 끄는 전차와 함께 물에서 솟아오르는 조각. 뒤로는 십자형 대운하(길이 1.67km)가 끝없이 뻗어있다. 루이 14세가 곤돌라까지 띄웠던 수로다.</div>
+      <div class="highlight">15분 · 대운하 전망 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:15</div>
+      <div class="name">⑧ 정원 산책 & 복귀</div>
+      <div class="desc">대운하에서 궁전 방향으로 돌아오며 겨울 정원의 고요한 분위기를 즐긴다. 겨울에는 관광객이 적어 여유롭게 산책 가능. 시간 여유가 있으면 Angelina 티룸에서 핫초콜릿(궁전 내 위치).</div>
+      <div class="highlight">30분 · 여유롭게 사진 찍으며 복귀</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:45</div>
+      <div class="name">퇴장 → 몽마르트로</div>
+      <div class="desc">오디오가이드 반납 후 궁전 광장 → 역까지 도보 10분 → RER C로 파리 복귀</div>
+      <div class="highlight">코스 종료 · 12:00 열차 탑승 목표</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">교통 — RER C 상세</div>
+    숙소(3구 Rue Commines) → 메트로로 Saint-Michel-Notre-Dame → RER C 탑승 → <strong>Versailles-Château Rive Gauche</strong> 하차 (약 35~40분). 역에서 궁전까지 도보 10분. 총 이동시간 약 60~70분. Navigo 카드 Zone 4 이상이면 사용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 금요일 오전 — 1년 중 가장 한산한 시기. 개장 직후 09:30 입장이면 거울의 방을 비교적 여유롭게 볼 수 있다. 가장 붐비는 시간대는 10:30~13:00.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    <strong>1.</strong> 거울의 방 — 창문 쪽에서 거울 방향으로 촬영하면 빛 반사 효과 극대화<br>
+    <strong>2.</strong> 물의 파르테르 — 궁전 파사드를 배경으로 전체 건물 촬영<br>
+    <strong>3.</strong> 아폴로 분수 — 금박 조각상과 대운하를 함께 프레임에
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오디오가이드</div>
+    한국어 포함 13개 언어 지원. Pavillon Dufour 현관에서 수령. 궁전 내부 주요 방(거울의 방, 왕의 침실, 국가 아파트먼트 등)을 커버. 오디오가이드 1개를 가족이 번갈아 들으면 충분.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">식사 옵션 (궁전 내)</div>
+    <strong>Angelina</strong> — 유명한 핫초콜릿과 페이스트리. 궁전 안에 지점이 있어 관람 중 간식 해결 가능. <strong>La Flottille</strong> — 대운하 옆 테이크아웃(샌드위치, 크레페). 단, 점심은 몽마르트에서 먹을 예정이므로 간식 정도만.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    <strong>궁전:</strong> Pavillon Dufour(Entrance A) 지하, History Gallery 끝. 주의 — 1층 State Apartments 관람 구간에는 화장실이 없으므로 입장 전 미리 이용.<br>
+    <strong>정원:</strong> Little Venice(대운하 근처), Girandole Grove 옆.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">촬영 규정</div>
+    궁전 내부 사진 촬영 허용. 단, <strong>플래시·삼각대 금지</strong>. 정원에서는 삼각대도 사용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">2월 겨울 정원</div>
+    분수쇼 없음(4~10월만 운영). 조각상 일부에 보호 덮개가 씌워져 있다. 대신 관광객이 극히 적어 고요한 베르사유를 경험할 수 있는 특별한 시기. 정원 입장료 무료.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">짐 보관</div>
+    클로크룸 서비스 없음. 수하물 보관함이 North Ministers' Wing에 있으나 기내 수하물 크기까지만 가능. 짐은 최소한으로.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> e-ticket 스마트폰에 저장 (오프라인 접근 가능하게)</label>
+    <label><input type="checkbox"> 스마트폰 충전 완료 (티켓 + 오디오가이드 앱)</label>
+    <label><input type="checkbox"> Navigo 카드 or 교통권 확인 (Zone 4)</label>
+    <label><input type="checkbox"> 편한 운동화 (궁전+정원 도보 많음)</label>
+    <label><input type="checkbox"> 겨울 외투 + 장갑 (정원 야외 산책)</label>
+    <label><input type="checkbox"> 물 & 간식 (궁전 내 매점 가격 비쌈)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 몽마르트 점심식사 (13:30)</strong><br>
+  RER C → Saint-Michel-Notre-Dame에서 환승 → 몽마르트 (약 50분). 또는 Versailles Rive Droite → Gare Saint-Lazare 직행 후 메트로 12호선 (약 40분).
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
