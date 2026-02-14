@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세인트 제임스 파크 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #2d6a4f;
+    --accent-light: #e9f5ee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #1b4332 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>세인트 제임스 파크 <span class="en">St James's Park</span></h1>
+  <p class="oneliner">360년째 펠리컨이 사는 런던에서 가장 오래된 왕실 공원. 다리 위에서 버킹엄 궁전과 런던 아이가 동시에 보인다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 09:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">30분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">The Mall (Admiralty Arch 쪽)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">St James's Park</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개장</span>
+      <span class="value">05:00~24:00</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 주간(2/16~20) — 평소보다 방문객 많음</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>헨리 8세의 사슴 사냥터에서 왕실 정원으로</h4>
+    <p>1532년, 헨리 8세는 이튼 대학 소유의 습지를 사들여 사슴 사냥터로 만들었다. 이후 1603년 제임스 1세가 왕위에 오르면서 이 질퍽한 늪지를 배수하고 조경하여 격식 있는 왕실 공원으로 탈바꿈시켰다. 그는 공원 안에 새장(aviary)과 소규모 동물원까지 설치했는데, 악어 2마리도 있었다고 한다. 공원 남쪽 도로가 아직도 "Birdcage Walk(새장 산책로)"로 불리는 건 그때의 흔적이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>찰스 2세와 베르사유의 영향</h4>
+    <p>크롬웰 시절 프랑스로 망명했던 찰스 2세는 베르사유 궁전의 화려한 정원에 매료되었다. 1660년 복권 후, 그는 프랑스 건축가를 초빙해 공원 한가운데에 긴 나무가 늘어선 운하를 파고 프랑스식 정원으로 재설계했다. 이 운하가 오늘날의 호수 원형이다. 찰스 2세는 직접 공원을 거닐며 시민들과 대화를 나누기도 했는데, 왕이 공원에서 산책하는 일이 흔한 광경이었다고 전해진다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>러시아 대사가 보낸 펠리컨, 360년의 역사</h4>
+    <p>1664년, 러시아 대사가 찰스 2세에게 볼가강 삼각주 출신 동부 흰펠리컨을 선물했다. 이것이 시작이었다. 이후 각국 대사들이 펠리컨을 선물하는 것이 외교 전통이 되었고, 360년이 지난 지금도 공원에는 6마리 펠리컨이 살고 있다. 2013년 프라하에서 온 Tiffany와 Isla, 2019년에 합류한 Sun·Moon·Star까지. 이들은 공원을 자유롭게 돌아다니며, 때로는 벤치에 앉은 방문객 옆에 와서 쉬기도 한다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">09:30</div>
+      <div class="name">① Admiralty Arch → 공원 진입</div>
+      <div class="desc">호텔에서 트라팔가 광장을 지나 Admiralty Arch를 통과하면 The Mall이 펼쳐진다. 왼쪽으로 공원 입구가 보인다.</div>
+      <div class="highlight">3분 · The Mall의 가로수길이 버킹엄 궁전까지 일직선</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:33</div>
+      <div class="name">② 호수변 산책 + 펠리컨 찾기</div>
+      <div class="desc">호수 북쪽 길을 따라 서쪽으로 걸으며 수면 위 물새들을 관찰한다. 오리, 거위, 운이 좋으면 펠리컨이 호수변이나 바위 위에서 쉬고 있다. 2월에는 스노드롭과 크로커스가 피어 있다.</div>
+      <div class="highlight">7분 · 40종 이상의 물새 서식</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:40</div>
+      <div class="name">③ 블루 브리지 — 최고의 포토 스팟</div>
+      <div class="desc">호수를 가로지르는 다리 중앙에 서면, 서쪽으로 버킹엄 궁전이 호수와 나무 사이로 그림처럼 프레임되고, 동쪽으로 돌아서면 Horse Guards, 런던 아이, 빅벤이 한눈에 들어온다. 맑은 날에는 수면 반영까지 볼 수 있다.</div>
+      <div class="highlight">5분 · 양방향 촬영 필수, 런던 대표 뷰</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:45</div>
+      <div class="name">④ Duck Island 주변</div>
+      <div class="desc">다리 남쪽으로 내려오면 Duck Island 근처. 펠리컨들이 자주 머무는 곳이다. Duck Island Cottage(관리인 오두막) 옆에서 가까이 관찰할 수 있다. 매일 14:30 먹이주기가 여기서 열리지만, 아침에도 근처에서 쉬고 있는 경우가 많다.</div>
+      <div class="highlight">5분 · 펠리컨 서식지</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">09:50</div>
+      <div class="name">⑤ 버킹엄 궁전 화단 → Birdcage Walk</div>
+      <div class="desc">호수 서쪽 끝에서 Queen Victoria Memorial과 버킹엄 궁전 정면이 보인다. 화단에는 겨울에도 5만 송이의 월플라워가 심어져 있다. Birdcage Walk 방향으로 나가면 근위병 교대식 장소인 Wellington Barracks가 바로 보인다.</div>
+      <div class="highlight">10분 · 근위병 교대식 장소까지 도보 5분</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">퇴장 → 근위병 교대식</div>
+      <div class="desc">Birdcage Walk를 따라 서쪽으로 5분 걸으면 Wellington Barracks. 10:30 교대식 시작 전 자리를 잡는다.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    블루 브리지 중앙이 압도적 1순위. 서쪽(버킹엄 궁전)과 동쪽(런던 아이+빅벤) 양방향 모두 촬영. 펠리컨과 함께 찍고 싶다면 Duck Island 근처 호수가에서.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">2월 날씨</div>
+    평균 기온 7°C, 체감은 더 춥다. 바람이 호수 위로 불어오니 따뜻한 외투 필수. 비 올 확률 있으니 우산도 챙길 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    The Mall과 Marlborough Road 교차점에 공중화장실. 이용료 20p (카드·Apple Pay 결제 가능).
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">카페</div>
+    St James's Café가 08:00부터 영업. 커피 한 잔 하며 호수 뷰를 즐길 수 있지만, 30분 코스라면 시간이 빠듯하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">다람쥐</div>
+    회색 다람쥐가 사람을 두려워하지 않고 가까이 온다. 먹이 주기는 금지.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 따뜻한 외투 + 장갑</label>
+    <label><input type="checkbox"> 우산 또는 우비</label>
+    <label><input type="checkbox"> 카메라 (블루 브리지 뷰 촬영용)</label>
+    <label><input type="checkbox"> 화장실 이용 시 20p 동전 또는 카드</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 근위병 교대식</strong> (10:30)<br>
+  Birdcage Walk를 따라 서쪽으로 도보 5분 → Wellington Barracks
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
