@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/18(수) 저녁 · 코벤트가든</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick { border: 2px solid var(--accent); }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name { font-size: 16px; font-weight: 700; }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-chinese { background: #fff1f2; color: #9f1239; }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-indian { background: #fef9c3; color: #713f12; }
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label { display: block; font-size: 10px; color: var(--muted); }
+  .rest-meta .meta-value { font-weight: 600; font-size: 12px; }
+  .rest-menu { padding: 0 16px 12px; }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book { background: var(--accent); color: #fff; }
+  .btn-map { background: #f3f4f6; color: #374151; }
+  .btn-walkin { background: #f3f4f6; color: var(--muted); cursor: default; }
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ① 헤더 -->
+<div class="header">
+  <h1>2/18(수) 저녁식사 <span class="sub">코벤트가든</span></h1>
+  <div class="context">
+    코벤트 가든(~17:00) 탐방 후 → 저녁식사 → 18:00 피카디리 서커스 이동<br>
+    Covent Garden ~ Chinatown 도보권 식당 4곳
+  </div>
+</div>
+
+<!-- ② 실용 정보 -->
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">17:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">Covent Garden 피아자</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">18:00 피카디리 서커스</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term(2/16~20) 기간 — 코벤트 가든·차이나타운 매우 혼잡. 사전 예약 필수!</div>
+</div>
+
+<!-- ③ 한눈 비교 -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Bill's ⭐</td>
+        <td>영국식</td>
+        <td>~£40</td>
+        <td style="color:var(--green)">OpenTable</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Dumplings' Legend</td>
+        <td>딤섬</td>
+        <td>~£55</td>
+        <td>전화</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Homeslice</td>
+        <td>아티즌 피자</td>
+        <td>~£45</td>
+        <td>Walk-in</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Cinnamon Bazaar</td>
+        <td>인도 퓨전</td>
+        <td>~£70</td>
+        <td style="color:var(--green)">OpenTable</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ④ 식당 상세 -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- ── Bill's Covent Garden (추천) ── -->
+  <div class="restaurant pick">
+    <div class="pick-badge">Kids Eat Free 적용!</div>
+    <div class="rest-header">
+      <div class="rest-name">Bill's Covent Garden</div>
+      <span class="rest-cuisine cuisine-british">영국식 올데이</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">피아자에서</span>
+        <span class="meta-value">도보 3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">08:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Piccadilly까지</span>
+        <span class="meta-value">도보 8분</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">Kids Eat Free (2/16~20)</span>
+      <span class="tag tag-good">메뉴 다양</span>
+      <span class="tag tag-info">아이 한정판 동화책 증정</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Bill's Classic Burger</span><span class="price">£15.40</span></div>
+        <div class="menu-line"><span class="item">Bill's Fish Pie</span><span class="price">£17.45</span></div>
+        <div class="menu-line"><span class="item">키즈 세트 (메인+사이드+디저트)</span><span class="price">무료</span></div>
+        <div class="menu-line"><span class="item">음료 2잔</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£39.85</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.com/r/bills-restaurant-and-bar-covent-garden-london" class="btn btn-book" target="_blank">OpenTable 예약</a>
+      <a href="https://maps.google.com/?q=Bill's+Covent+Garden+St+Martin's+Courtyard+London+WC2E+9AB" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Dumplings' Legend ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Dumplings' Legend 小龍皇</div>
+      <span class="rest-cuisine cuisine-chinese">딤섬 · 샤오롱바오</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">피아자에서</span>
+        <span class="meta-value">도보 8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Piccadilly까지</span>
+        <span class="meta-value">도보 3분</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">오픈주방 만두 제작 관람</span>
+      <span class="tag tag-good">Piccadilly에서 가장 가까움</span>
+      <span class="tag tag-info">하루 8,000개 수제 만두</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인, 나눠 먹기)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Pork Xiao Long Bao</span><span class="price">£7.00</span></div>
+        <div class="menu-line"><span class="item">Steamed Prawn Dumplings (하카우)</span><span class="price">£7.60</span></div>
+        <div class="menu-line"><span class="item">Dim Sum Platter</span><span class="price">£12.00</span></div>
+        <div class="menu-line"><span class="item">볶음면</span><span class="price">~£10.00</span></div>
+        <div class="menu-line"><span class="item">볶음밥</span><span class="price">~£10.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£46.60</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="tel:02074941200" class="btn btn-book">전화 예약 020 7494 1200</a>
+      <a href="https://www.google.com/maps/place/Dumplings'+Legend/@51.5114,-0.1311,17z/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Homeslice Neal's Yard ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Homeslice Neal's Yard</div>
+      <span class="rest-cuisine cuisine-pizza">아티즌 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">피아자에서</span>
+        <span class="meta-value">도보 3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Piccadilly까지</span>
+        <span class="meta-value">도보 8분</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">20인치 대형 피자 셰어링</span>
+      <span class="tag tag-good">Neal's Yard 컬러풀 골목</span>
+      <span class="tag tag-warn">Walk-in 전용 (예약 불가)</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">20" 홀 피자 (3인 셰어링)</span><span class="price">£20.00</span></div>
+        <div class="menu-line"><span class="item">추가 슬라이스 × 2</span><span class="price">£11.00</span></div>
+        <div class="menu-line"><span class="item">음료 3잔</span><span class="price">~£12.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£43.00</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">Walk-in 전용 (대기 문자 알림)</span>
+      <a href="https://www.google.com/maps?cid=8272709387768345358" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- ── Cinnamon Bazaar ── -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Cinnamon Bazaar</div>
+      <span class="rest-cuisine cuisine-indian">인도 퓨전</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">피아자에서</span>
+        <span class="meta-value">도보 3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Piccadilly까지</span>
+        <span class="meta-value">도보 8분</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">프리씨어터 3코스 £28</span>
+      <span class="tag tag-good">서비스 차지 없음 (8인 이하)</span>
+      <span class="tag tag-info">Vivek Singh 셰프 · 키즈 메뉴 있음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천: Pre-Theatre 3코스 (17:00~18:30)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">성인 3코스 × 2 (스타터+메인+디저트)</span><span class="price">£56.00</span></div>
+        <div class="menu-line"><span class="item">아이 키즈 메뉴 (12세 이하)</span><span class="price">~£12.00</span></div>
+        <div class="menu-line"><span class="item">도착 시 무료 Bazaar's Punch</span><span class="price">무료</span></div>
+        <div class="menu-total"><span>예상 합계 (SC 없음)</span><span>~£68.00</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.co.uk/r/cinnamon-bazaar-covent-garden-london" class="btn btn-book" target="_blank">OpenTable 예약</a>
+      <a href="https://www.google.com/maps/place/Cinnamon+Bazaar/@51.5113,-0.1228" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">점심에 Bill's 갔다면?</div>
+    같은 날 점심(웨스트민스터)에 Bill's를 이미 선택했다면, 저녁은 Dumplings' Legend나 Homeslice로 분위기를 바꿔보세요. 점심을 다른 곳에서 먹었다면 Bill's의 Kids Eat Free가 여전히 최고 가성비입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">17시 = 이른 저녁 장점</div>
+    17시는 런던 저녁 피크 타임(18:30~20:00) 이전이라, Walk-in 전용인 Homeslice도 대기 없이 입장 가능성이 높습니다. 차이나타운도 이 시간대는 상대적으로 여유로움.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Piccadilly Circus 동선</div>
+    Dumplings' Legend(차이나타운)는 Piccadilly Circus에서 도보 3분으로 가장 가까워 시간 관리가 편합니다. Bill's·Homeslice·Cinnamon Bazaar는 ~8분 거리이므로 17:50에 출발하세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2026년 2월 확인 기준입니다. 서비스 차지: Bill's 12.5%, Dumplings' Legend 12.5%, Cinnamon Bazaar 없음(8인 이하), Homeslice 미확인. 합계에는 서비스 차지 미포함이므로 실제 결제 시 +12.5% 예상하세요.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 피카디리 서커스 (18:00)</strong><br>
+  야경 · 네온사인 · 도보 3~8분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
