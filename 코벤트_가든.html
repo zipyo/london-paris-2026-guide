@@ -247,12 +247,31 @@
     color: var(--accent);
   }
   details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
   <h1>코벤트 가든 <span class="en">Covent Garden</span></h1>
   <p class="oneliner">수도원의 채소밭에서 런던의 무대로. 400년 전 이니고 존스가 설계한 영국 최초의 광장에서, 오디션을 통과한 버스커들이 매일 공연을 펼친다. 일라이자 둘리틀이 꽃을 팔던 바로 그 자리.</p>
 </div>

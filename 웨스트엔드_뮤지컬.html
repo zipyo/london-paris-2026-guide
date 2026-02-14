@@ -326,12 +326,31 @@
   .songs-section details summary {
     color: var(--gold);
   }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
   <h1>웨스트엔드 뮤지컬 <span class="en">West End Musical</span></h1>
   <p class="oneliner">360년 역사의 극장가에서, 전 세계 흥행 1위 뮤지컬 라이온킹을 본다. 객석 사이로 코끼리와 기린이 걸어 나오는 오프닝 "Circle of Life"는 한 번 보면 절대 잊지 못한다.</p>
 </div>

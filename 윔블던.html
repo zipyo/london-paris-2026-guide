@@ -278,12 +278,31 @@
     color: var(--accent);
   }
   details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
   <h1>윔블던 <span class="en">The All England Lawn Tennis Club</span></h1>
   <p class="oneliner">잔디 관리용 조랑말 롤러를 고치려고 시작한 테니스 대회가 150년 뒤 세계에서 가장 권위 있는 스포츠 이벤트가 되었다. 그 모든 이야기가 이곳에 있다.</p>
 </div>

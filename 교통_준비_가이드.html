@@ -351,11 +351,30 @@
     color: var(--accent);
   }
   details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
   <h1>대중교통 가이드 <span class="en">Public Transport Guide</span></h1>
   <p class="oneliner">런던은 Apple Pay 탭 한 번, 파리는 iPhone Navigo. 아이는 런던 무료, 파리 성인 요금. 출발 전 설정만 해두면 현지에서 바로 탑승할 수 있습니다.</p>
 </div>
@@ -492,10 +511,14 @@
   <div class="compare-card">
     <span class="city-tag paris">PARIS</span>
     <h4>Navigo 카드</h4>
-    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리 메트로는 <strong>신용카드 직접 탭 탑승 불가</strong>. 별도 교통카드(Navigo)가 필요합니다.</p>
+    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리 <strong>메트로/RER은 신용카드 직접 탭 탑승 불가</strong>. Navigo 카드(물리 또는 iPhone)가 필요합니다.</p>
     <div class="warn-card">
-      <div class="warn-title">2025년 11월부터 종이 티켓 판매 중단</div>
-      Navigo Easy 카드 또는 iPhone Navigo만 사용 가능합니다.
+      <div class="warn-title">2025.11 종이 티켓 완전 폐지</div>
+      Navigo Easy 물리카드 또는 iPhone Navigo만 사용 가능합니다.
+    </div>
+    <div class="info-card" style="margin-top:10px;">
+      <div class="info-title">버스는 신용카드 탭 결제 가능 (2025.11~)</div>
+      버스 탑승구 단말기에 비접촉 신용카드 탭 → €2.50/회. 단, Navigo로 사면 €1.64이므로 Navigo가 더 저렴. 카드 1장으로 최대 4인 결제 가능 (2초 간격으로 반복 탭).
     </div>
   </div>
 
@@ -513,15 +536,18 @@
       <div class="info-title">iPhone Navigo 장점</div>
       • 물리 카드 구매하러 창구 줄 설 필요 없음<br>
       • Express Mode 설정 시 잠금 해제 없이 탭 가능<br>
-      • 배터리 꺼져도 약 5시간 Power Reserve 지원<br>
-      • 한국 출발 전 미리 설정 가능
+      • 배터리 꺼져도 약 5시간 Power Reserve 지원
+    </div>
+    <div class="warn-card" style="margin-top:12px;">
+      <div class="warn-title">해외에서 Navigo 추가 안 될 수 있음</div>
+      한국에서 미리 Wallet에 Navigo 추가 시도 시 실패 사례 있음. <strong>Île-de-France Mobilités 앱 설치 + 계정 생성만 미리</strong> 해두고, 파리 도착 후 WiFi/데이터 연결되면 Wallet에서 Navigo 추가 + 티켓 구매 권장.
     </div>
     <p style="font-size:12px; color:var(--muted); margin-top:8px;">* 요구사항: iPhone XR/XS 이상, iOS 17.5 이상</p>
   </div>
 
   <div class="compare-card">
     <span class="city-tag paris">PARIS</span>
-    <h4>구매 가능 상품</h4>
+    <h4>구매 가능 상품 (2026년 기준)</h4>
     <table class="data-table">
       <tr>
         <th>상품</th>
@@ -529,14 +555,14 @@
         <th>비고</th>
       </tr>
       <tr>
-        <td>t+ 티켓 (1회)</td>
+        <td>메트로/RER 1회</td>
         <td><strong>€2.55</strong></td>
-        <td>메트로/버스/트램/RER(Zone 1)</td>
+        <td>메트로·RER·Transilien 공통</td>
       </tr>
       <tr>
-        <td>t+ 10매 카르네</td>
-        <td><strong>€17.35</strong></td>
-        <td>1매당 €1.74, 가장 경제적</td>
+        <td>버스/트램 1회</td>
+        <td><strong>€1.64</strong></td>
+        <td>버스·트램 전용 (메트로 별도)</td>
       </tr>
       <tr>
         <td>Navigo Jour (1일권)</td>
@@ -544,11 +570,15 @@
         <td>Zone 1-5 전 구간 무제한</td>
       </tr>
       <tr>
-        <td>공항 패스</td>
-        <td>별도</td>
-        <td>CDG/오를리 공항 ↔ 시내</td>
+        <td>공항 패스 (CDG RER B)</td>
+        <td><strong>€14.00</strong></td>
+        <td>CDG 공항 ↔ 시내</td>
       </tr>
     </table>
+    <div class="warn-card" style="margin-top:10px;">
+      <div class="warn-title">2026.1.1 카르네(10매) 할인 폐지</div>
+      기존 10매 묶음 할인이 사라짐. 이제 1매씩 사든 10매를 사든 동일 단가(€2.55).
+    </div>
   </div>
 
   <div class="story-block" style="border-left-color: var(--paris);">
@@ -559,7 +589,7 @@
     <ol class="steps">
       <li>파리 도착 후 메트로역 창구 또는 자동판매기에서 구매</li>
       <li>Navigo Easy 카드: <strong>€2</strong> (카드 비용, 재사용 가능)</li>
-      <li>t+ 티켓 충전: 1회 €2.15 또는 10매 €17.35</li>
+      <li>메트로 티켓 충전: 1회 €2.55 (10매 묶음 할인 없음)</li>
     </ol>
     <div class="info-card" style="margin-top:12px;">
       <div class="info-title">추천 구매 장소</div>
@@ -570,10 +600,11 @@
   <div class="compare-card">
     <span class="city-tag paris">PARIS</span>
     <h4>아이 (만 10세): 성인 요금</h4>
-    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리는 런던과 달리 <strong>4~9세만 반액 할인</strong>. 만 10세는 성인 요금 적용.</p>
+    <p style="font-size:13px; color:#374151; margin-bottom:10px;">파리는 런던과 달리 <strong>4~9세만 반액 할인</strong> (€1.30). 만 10세는 성인 요금 적용.</p>
     <ul class="bullet-list">
-      <li>t+ 1회: €2.55 (성인과 동일)</li>
-      <li>아이용 Navigo Easy 카드 별도 구매 필요</li>
+      <li>메트로/RER 1회: €2.55 (성인과 동일)</li>
+      <li>13세 미만 Apple Wallet Navigo 추가 불가 (Apple 정책)</li>
+      <li>아이용 Navigo Easy 물리 카드 별도 구매 필요</li>
     </ul>
   </div>
 
@@ -588,20 +619,20 @@
       </tr>
       <tr>
         <td>부부 (iPhone Navigo x2)</td>
-        <td>각 10매 카르네</td>
-        <td>€17.35 x 2 = <strong>€34.70</strong></td>
+        <td>각 ~10회 메트로</td>
+        <td>€2.55 x 10 x 2 = <strong>€51.00</strong></td>
       </tr>
       <tr>
         <td>아이 (Navigo Easy)</td>
-        <td>10매 카르네</td>
-        <td>카드 €2 + 충전 €17.35 = <strong>€19.35</strong></td>
+        <td>~10회 메트로</td>
+        <td>카드 €2 + €2.55 x 10 = <strong>€27.50</strong></td>
       </tr>
       <tr class="total">
         <td colspan="2">합계</td>
-        <td><strong>약 €54</strong></td>
+        <td><strong>약 €79</strong></td>
       </tr>
     </table>
-    <p style="font-size:12px; color:var(--muted); margin-top:8px;">* 하루 평균 2~3회 탑승 기준. 많이 이동하는 날은 Navigo Jour(€12.30) 1일권이 유리할 수 있음 (5회 이상이면 1일권이 이득).</p>
+    <p style="font-size:12px; color:var(--muted); margin-top:8px;">* 하루 평균 2~3회 탑승 기준. 카르네 할인 폐지로 1매당 €2.55 고정. 많이 이동하는 날은 Navigo Jour(€12.30) 1일권이 유리 (메트로 5회 이상이면 1일권이 이득).</p>
   </div>
 
   <div class="compare-card">
@@ -661,8 +692,8 @@
       <div class="compare-item paris-bg">
         <span class="flag">파리 (4일)</span>
         Navigo 카드<br>
-        10매 카르네 €17.35/인<br>
-        1일권 €8.45/인<br>
+        메트로 1회 €2.55/인<br>
+        1일권 €12.30/인<br>
         <strong>아이: 성인 요금</strong>
       </div>
     </div>
@@ -695,8 +726,8 @@
       </tr>
       <tr>
         <td style="font-weight:600;">카드 직접 탭</td>
-        <td>가능</td>
-        <td><strong>불가</strong></td>
+        <td>가능 (전 노선)</td>
+        <td>메트로/RER <strong>불가</strong><br><span style="font-size:11px;">버스만 가능 (€2.50)</span></td>
       </tr>
       <tr>
         <td style="font-weight:600;">아이 요금</td>
@@ -717,10 +748,10 @@
     <h3>출국 전 준비 사항</h3>
     <label><input type="checkbox"> 카드사 앱에서 해외 컨택리스 결제 활성화</label>
     <label><input type="checkbox"> Apple Pay에 해외결제 가능 Visa/Mastercard 등록 확인</label>
-    <label><input type="checkbox"> iPhone Wallet에 Navigo 카드 추가 (부부 각각)</label>
+    <label><input type="checkbox"> Île-de-France Mobilités 앱 설치 + 계정 생성 (부부 각각) — Navigo는 파리 도착 후 추가</label>
     <label><input type="checkbox"> Citymapper 앱 설치 (런던/파리 도시 데이터 다운로드)</label>
     <label><input type="checkbox"> TfL Go 앱 설치</label>
-    <label><input type="checkbox"> Île-de-France Mobilités 앱 설치</label>
+    <label><input type="checkbox"> 파리 도착 후: Wallet에서 Navigo 추가 + 아이 Navigo Easy 물리카드 구매 (Gare du Nord)</label>
   </div>
 </section>
 
