@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>로열파빌리언 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #7c2d12;
+    --accent-light: #fef3c7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #fefce8;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ① 헤더 ── */
+  .header {
+    background: linear-gradient(135deg, #7c2d12 0%, #451a03 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* 실용 정보 박스 */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* ── 공통 섹션 ── */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* ── ② 왜 유명한가 ── */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* ── ③ 핵심 포인트 (Must-See) ── */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* ── ④ 체험 & 인터랙티브 ── */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* ── ⑤ 꿀팁 ── */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 다음 일정 연결 */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>로열파빌리언 <span class="en">Royal Pavilion</span></h1>
+  <p class="oneliner">영국 해변 도시에 나타난 인도 궁전. 조지 4세가 자신의 환상을 통째로 건물로 지어버린, 유럽에서 가장 기이하고 화려한 왕실 별궁.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/22(일) 14:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">가족 £50.75</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주차</span>
+      <span class="value">The Lanes 주차장</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">10:00~17:15</span>
+    </div>
+    <div class="info-item">
+      <span class="label">오디오 가이드</span>
+      <span class="value">스마트폰 £2/인</span>
+    </div>
+  </div>
+  <div class="info-warn">한국어 오디오 가이드 미지원 — 이 페이지를 미리 읽어두세요</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>바다가 필요했던 왕세자</h4>
+    <p>1783년, 스물한 살의 조지 왕세자는 의사의 권유로 브라이튼을 찾았습니다. 당시 바닷바람이 건강에 좋다는 믿음이 유행이었거든요. 그런데 이 방탕한 왕세자는 단순한 요양에 만족하지 못했습니다. 1787년, 건축가 헨리 홀랜드에게 신고전주의 양식의 해변 별장을 짓게 했고, 이것이 로열파빌리언의 시작이었습니다.</p>
+    <p>왕세자는 여기서 멈추지 않았습니다. 1815년부터 건축가 존 내시에게 건물을 완전히 뜯어고치라고 명령했습니다. 그의 주문은 파격적이었습니다 — "인도 무굴 제국의 궁전처럼 만들어라." 양파 모양 돔, 이슬람 첨탑, 아치형 구조물이 영국 해변 마을 한복판에 솟아올랐습니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>밖은 인도, 안은 중국</h4>
+    <p>로열파빌리언의 진짜 반전은 문을 열고 들어가는 순간 일어납니다. 인도풍 외관과 달리 내부는 온통 중국 황실 스타일로 장식되어 있거든요. 금박 용 조각, 손으로 그린 중국 벽지, 붉은색과 금색의 압도적인 인테리어. 조지 왕세자는 한 번도 인도나 중국에 가본 적이 없었지만, 동양에 대한 자신의 상상을 통째로 건물에 부어넣었습니다.</p>
+    <p>1820년 왕(조지 4세)이 된 후에도 파빌리언을 사랑했지만, 후임 빅토리아 여왕은 이 화려한 별궁을 그다지 좋아하지 않았습니다. 결국 1850년 브라이튼 시에 매각되었고, 이후 시가 조지 4세 시절의 모습 그대로 복원해 오늘날의 박물관이 되었습니다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>1톤짜리 용 샹들리에</h4>
+    <p>이 궁전에서 가장 유명한 것은 연회실 천장에 매달린 거대한 샹들리에입니다. 길이 9미터, 무게 약 1톤. 은빛 용 여섯 마리가 연꽃 모양 받침대에서 불꽃을 뿜는 형상입니다. 조지 4세는 이 방에서 한 끼에 70가지 요리를 차려놓고 만찬을 열었다고 합니다. 왕의 사치가 어느 정도였는지 눈으로 직접 확인할 수 있는 곳입니다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 60분 핵심 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:00</div>
+      <div class="name">① 외관 감상 & 사진</div>
+      <div class="desc">정원 쪽에서 건물 전면을 바라보면 양파형 돔과 첨탑이 모두 보입니다. 마치 인도에 온 것 같은 착각을 일으키는 이 외관이 영국 해변 마을에 있다는 사실 자체가 볼거리.</div>
+      <div class="highlight">5분 · 가족 사진은 정원 잔디밭에서</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:05</div>
+      <div class="name">② 연회실 (Banqueting Room)</div>
+      <div class="desc">천장에서 내려오는 1톤짜리 용 샹들리에가 이 궁전의 하이라이트. 은빛 용 6마리가 연꽃 받침에서 불꽃을 내뿜고, 벽면은 중국풍 벽화와 금박으로 가득합니다. 고개를 들어 천장 전체를 천천히 감상하세요.</div>
+      <div class="highlight">15분 · 로열파빌리언의 상징</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:20</div>
+      <div class="name">③ 음악실 (Music Room)</div>
+      <div class="desc">돔형 천장 아래 금박과 붉은색이 폭발하는 공간. 1823년 이탈리아 작곡가 로시니가 이곳에서 직접 연주했습니다. 조지 4세 전속 밴드의 공연장이었던 만큼, 음향을 위해 설계된 돔의 곡선을 올려다보세요.</div>
+      <div class="highlight">10분 · 돔 천장의 금박 세공이 압권</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">④ 대주방 (Great Kitchen)</div>
+      <div class="desc">구리로 만든 야자수 잎이 천장을 떠받치는 4개의 주철 기둥 — "팜트리 기둥"이 이 공간의 주인공입니다. 1816년 당시 최첨단 주방 설비를 갖추었고, 조지 4세가 손님들에게 자랑하며 투어를 시켜줄 정도였습니다. 200년 전 왕실 요리사들이 쓰던 거대한 조리 기구들이 그대로 남아 있습니다.</div>
+      <div class="highlight">10분 · 야자수 기둥 아래에서 위를 올려다보기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:40</div>
+      <div class="name">⑤ 긴 회랑 & 왕의 거실</div>
+      <div class="desc">연결 복도인 Long Gallery를 따라 걸으며 중국풍 벽화와 가구를 감상합니다. 곳곳에 숨어 있는 용 조각들을 찾아보세요. 왕의 거실(King's Apartments)은 조지 4세의 사적 공간으로, 화려하지만 연회실보다는 아늑한 분위기입니다.</div>
+      <div class="highlight">15분 · 복도 곳곳의 용 장식 찾기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:55</div>
+      <div class="name">기프트샵 → 주차장</div>
+      <div class="desc">출구 기프트샵을 빠르게 둘러본 후 The Lanes 주차장으로 이동 (도보 5분).</div>
+      <div class="highlight">15:00 출발 목표</div>
+    </div>
+  </div>
+</section>
+
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>오디오 가이드 (스마트폰 이용)</h4>
+    <p>각 방마다 번호를 입력하면 해설을 들을 수 있습니다. 영어·중국어 등 7개 언어 지원 (한국어 미지원). 스마트폰으로 이용 시 £2/인, 이어폰 지참 필요. 60분 코스에서는 핵심 방(연회실·음악실·대주방)만 선택적으로 들으세요.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Behind Closed Doors — 1층 특별 공개</h4>
+    <p>2026년 2월 11일부터 평소 비공개인 1층(Upper Chambers)이 특별 개방 중입니다. 하인들의 생활 공간과 2차 세계대전 당시 군 병원으로 사용된 흔적을 볼 수 있습니다. 별도 투어 예약이 필요할 수 있으니 입장 시 안내데스크에서 확인하세요.</p>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">주차</div>
+    파빌리언 자체 주차장 없음. <strong>The Lanes 주차장</strong> (355대, 장애인 30대) 또는 <strong>Churchill Square</strong> (1,600대)를 이용하세요. 일요일이라 비교적 여유롭지만, 브라이튼 중심가이므로 사전 예약 권장.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영</div>
+    개인 비상업적 용도 촬영 가능. <strong>플래시·삼각대·셀카봉 사용 금지.</strong> 연회실 용 샹들리에는 아래에서 올려다보며 찍으면 가장 잘 나옵니다. 외관은 정원 잔디밭 남쪽에서 전면이 모두 담깁니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">입장료</div>
+    성인 £19.50 × 2 + 아동(5-18) £11.75 = <strong>£50.75</strong>. 가족 티켓(성인 2 + 아동 4명까지)도 £50.75로 동일합니다. 티켓 구매 시 <strong>1년간 무료 재방문</strong> 가능한 연간 패스 형태입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">시간 관리</div>
+    일반 권장 관람 시간은 1.5~2시간이지만, 우리는 60분 압축 코스입니다. 오디오 가이드는 핵심 3곳(연회실·음악실·대주방)만 선택적으로 듣고, 나머지는 눈으로 감상하며 이동하세요. 15:00 출발을 위해 14:55까지 나와야 합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    건물 내부에 화장실이 있습니다. 입장 직후 또는 퇴장 직전에 이용하세요.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 스마트폰 충전 확인 (오디오 가이드 + 사진용)</label>
+    <label><input type="checkbox"> 이어폰 챙기기 (오디오 가이드용)</label>
+    <label><input type="checkbox"> The Lanes 주차장 위치 확인</label>
+    <label><input type="checkbox"> 이 가이드 한번 읽어두기 (한국어 오디오 없으므로)</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 브라이튼 → 숙소 (DoubleTree Kensington)</strong><br>
+  15:00 출발, 렌터카로 약 2시간 30분 소요. A23 → M23 → M25 → A3 경유.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
