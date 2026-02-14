@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웨스트엔드 뮤지컬 · 라이온킹 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #8b1a1a;
+    --accent-light: #fdf2f2;
+    --gold: #d4a017;
+    --gold-light: #fdf8e8;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f5f0;
+    --dark-bg: #1a1a2e;
+    --dark-text: #e0e0e0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --curtain: #6b0f1a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #6b0f1a 0%, #1a1a2e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Lion King Special Section (dark gold themed) */
+  .lionking-section {
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    padding: 24px 20px;
+  }
+  .lionking-section h2 {
+    color: var(--gold);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lionking-section h2 .icon { font-size: 20px; }
+  .lionking-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--gold);
+  }
+  .lionking-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .lionking-card p {
+    font-size: 13.5px;
+    color: #d1d5db;
+    margin-bottom: 8px;
+  }
+  .lionking-card p:last-child { margin-bottom: 0; }
+  .lionking-card .highlight-gold {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Songs Section */
+  .songs-section {
+    background: #0f172a;
+    color: var(--dark-text);
+    padding: 24px 20px;
+  }
+  .songs-section h2 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .songs-section h2 .icon { font-size: 20px; }
+  .song-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .song-card .song-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .song-card .song-act {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 6px;
+  }
+  .song-card p {
+    font-size: 13px;
+    color: #cbd5e1;
+  }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* Dark section collapsible */
+  .lionking-section details summary,
+  .songs-section details summary {
+    color: var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>웨스트엔드 뮤지컬 <span class="en">West End Musical</span></h1>
+  <p class="oneliner">360년 역사의 극장가에서, 전 세계 흥행 1위 뮤지컬 라이온킹을 본다. 객석 사이로 코끼리와 기린이 걸어 나오는 오프닝 "Circle of Life"는 한 번 보면 절대 잊지 못한다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">관람일</span>
+      <span class="value">2/19(목) 19:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">공연 시간</span>
+      <span class="value">2시간 30분 (인터미션 포함)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">티켓</span>
+      <span class="value">£68.95 x 3 (예약완료)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">극장</span>
+      <span class="value">Lyceum Theatre</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Covent Garden</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주소</span>
+      <span class="value">21 Wellington St, WC2E 7RQ</span>
+    </div>
+  </div>
+  <div class="info-warn">공연 시작 60분 전(18:00) 도착 권장 — 보안 검색 후 입장. 늦으면 1막 중 입장 불가할 수 있음</div>
+</div>
+
+<!-- 왜 유명한가: 웨스트엔드의 역사 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 웨스트엔드 — 세계에서 가장 오래된 극장가</h2>
+
+  <div class="story-block">
+    <h4>17년간 닫혔던 극장의 문이 열리다</h4>
+    <p>1642년, 영국 청교도 혁명. 올리버 크롬웰은 연극이 도덕을 타락시킨다며 모든 극장을 폐쇄했다. 17년간 런던에서 연극은 사라졌다.</p>
+    <p>1660년, 찰스 2세가 프랑스 망명에서 돌아왔다. 파리에서 화려한 연극과 오페라를 즐겼던 그는 즉위 직후 두 사람에게 왕실 극장 특허를 내렸다. Thomas Killigrew의 King's Company와 William Davenant의 Duke's Company. 1663년 문을 연 Theatre Royal, Drury Lane이 웨스트엔드의 시작이다. 이 극장은 363년이 지난 지금도 같은 자리에서 공연 중이다.</p>
+    <p>찰스 2세의 또 다른 혁신: 여성 배우를 허용했다. 그전까지 줄리엣도, 클레오파트라도 전부 남자가 연기했다. 영국 최초의 여성 배우 Nell Gwyn은 Drury Lane 무대에 섰고, 나중에 왕의 연인이 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>세계 최초의 전기 조명 극장</h4>
+    <p>1881년, Savoy Theatre. 리처드 도일리 카트가 길버트와 설리번의 오페라를 위해 지은 이 극장은 세계 최초로 전체가 전기 조명으로 밝혀진 공공 건물이다. 개관 당일, 도일리 카트는 무대에서 전구를 헝겊으로 감싸고 망치로 내리쳐 깨뜨렸다. 불꽃이 튀지 않았다. "가스등과 달리 전기는 화재를 일으키지 않습니다." 관객석이 술렁였다.</p>
+    <p>이후 웨스트엔드 극장들은 빅토리아, 에드워드 시대에 걸쳐 앞다투어 지어졌다. 화려한 금박 장식, 붉은 벨벳 커튼, 샹들리에. 지금 웨스트엔드의 약 40개 극장 대부분은 이 시기에 완공되었고, 뉴욕 브로드웨이보다 240년이나 오래되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>웨스트엔드 vs 브로드웨이</h4>
+    <p>브로드웨이에서 인기작이 12~16주 한정으로 끝나는 경우가 많지만, 웨스트엔드는 관객이 있는 한 계속 달린다. 추리극 <em>The Mousetrap</em>은 1952년부터 74년째 공연 중이다. 라이온킹도 1999년 런던 초연 이후 26년째 매일 무대에 오른다.</p>
+    <p>브로드웨이 티켓이 평균 130% 더 비싸다. 웨스트엔드에서 같은 작품을 더 저렴하게 볼 수 있는 셈이다. 그리고 웨스트엔드만의 문화가 있다: 공연 전에 인터미션 음료를 미리 주문해두면, 쉬는 시간에 바에서 줄 서지 않고 바로 받을 수 있다.</p>
+  </div>
+</section>
+
+<!-- 라이온킹 전용 섹션 -->
+<section class="lionking-section">
+  <h2><span class="icon">🦁</span> 라이온킹 — 역사상 가장 많은 돈을 번 엔터테인먼트</h2>
+
+  <div class="lionking-card">
+    <h4>"그건 불가능하다" — 줄리 테이모어가 한 일</h4>
+    <p>1996년, 디즈니가 애니메이션 라이온킹을 뮤지컬로 만들겠다고 발표했을 때 업계의 반응은 회의적이었다. 아프리카 사바나, 수백 마리 동물, 누 떼의 질주 — 어떻게 무대에서?</p>
+    <p>디즈니는 인도네시아와 일본에서 전통 가면극과 인형극을 연구한 연출가 <span class="highlight-gold">줄리 테이모어</span>를 영입했다. 테이모어의 첫 번째 결정은 파격적이었다: 배우를 동물 탈 안에 숨기지 않겠다.</p>
+    <p>그녀는 "이중 사건(Double Event)"이라는 개념을 만들었다. 관객이 동물 인형도 보고, 그것을 조종하는 배우의 얼굴 표정도 동시에 보는 것이다. 배우 머리 위에 동물 가면을 얹고, 아프리카 전통 의상을 입혔다. 이것이 라이온킹만의 시각 언어가 되었다.</p>
+    <p>1998년 토니상에서 <span class="highlight-gold">6개 부문 수상</span> — 작품상, 연출상, 의상상, 안무상, 무대 디자인상, 조명상. 테이모어는 뮤지컬 연출상을 받은 <span class="highlight-gold">최초의 여성</span>이 되었다.</p>
+  </div>
+
+  <div class="lionking-card">
+    <h4>200개의 인형, 그리고 누 떼의 비밀</h4>
+    <p>라이온킹 무대에는 <span class="highlight-gold">200개 이상의 인형</span>이 등장한다. 막대 인형, 그림자 인형, 전신 인형, 분라쿠(일본 전통 인형극) 방식 등 다양한 기법이 한 작품에 혼재한다.</p>
+    <p><strong>무파사와 스카의 가면</strong>: 탄소 섬유로 만들어 나무처럼 칠했다. 한 개에 수백만 원. 캐릭터가 차분할 때는 가면이 배우 머리 위에 올라가 있고, 본능에 사로잡히는 순간 가면이 내려와 얼굴을 덮는다. 무파사의 가면은 둥글고 부드럽게, 스카의 가면은 날카롭고 각지게 — 선과 악의 대립을 디자인으로 보여준다.</p>
+    <p><strong>누 떼의 질주(The Stampede)</strong>: 무대 앞에서 배우들이 털복숭이 누 의상을 입고 커다란 누 방패를 들고 달린다. 그 뒤로 작은 누 인형이 롤러 위를 굴러가고, 맨 뒤 배경에는 아프리카 화풍으로 그린 누 떼 그림이 걸린다. 원근법의 층위가 만들어내는 압도적 스케일.</p>
+    <p><strong>어린 심바의 그림자 인형</strong>: 5명이 조종한다. 2명이 허리를 잡고, 2명이 다리를 움직이고, 1명이 뒤에서 밝은 조명을 비춰 그림자를 스크린에 투사한다. 인도네시아 와양 쿨릿(Wayang Kulit) 기법이다.</p>
+  </div>
+
+  <div class="lionking-card">
+    <h4>Lyceum Theatre — 록 전설들의 극장</h4>
+    <p>1765년에 시작되어 260년 역사를 가진 극장. 보통 극장이 아니다.</p>
+    <p>1817년, 영국 최초로 가스 조명을 사용한 극장. 1871년부터 32년간 당대 최고 배우 <span class="highlight-gold">헨리 어빙</span>이 이끌며 "보조금 없는 국립극장"이라 불렸다. 브람 스토커(드라큘라의 작가)가 이 극장의 매니저였고, 어빙의 외모가 드라큘라 캐릭터의 모델이 되었다는 설이 있다.</p>
+    <p>1939년 극장이 문을 닫으며 마지막 공연은 존 기엘구드의 <em>햄릿</em>. 이후 "라이시엄 볼룸"으로 변신하여 The Rolling Stones, Led Zeppelin, Pink Floyd, Queen, The Who가 무대에 섰다. Prince의 영국 첫 공연(1981)도 이곳에서.</p>
+    <p>1996년 1,500만 파운드를 들여 극장으로 복원. 1999년부터 라이온킹의 전용 극장이 되어 26년째 매일 공연 중이다. 좌석 수 2,100석.</p>
+  </div>
+</section>
+
+<!-- 대표 넘버와 관람 포인트 -->
+<section class="songs-section">
+  <h2><span class="icon">🎵</span> 대표 넘버 & 관람 포인트</h2>
+
+  <div class="song-card">
+    <div class="song-title">Circle of Life</div>
+    <div class="song-act">1막 오프닝</div>
+    <p>라피키의 줄루어 독창으로 시작. 객석 통로로 기린, 코끼리, 치타, 가젤이 걸어 나온다. 무대 뒤에서 거대한 해가 떠오르고, 프라이드 록 위에서 아기 심바가 들어 올려지는 순간 — 관객의 탄성이 터진다. 26년간 매일 같은 반응이 나온다고.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">I Just Can't Wait to Be King</div>
+    <div class="song-act">1막</div>
+    <p>어린 심바의 넘버. 무대 전체가 형형색색의 아프리카 직물과 대형 인형으로 가득 찬다. 10세 아이가 가장 좋아할 장면.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">Be Prepared</div>
+    <div class="song-act">1막</div>
+    <p>스카의 솔로. 가면이 서서히 내려와 얼굴을 덮는 순간, 사악한 본능이 지배한다. 하이에나 군단의 군무가 압권.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">The Stampede</div>
+    <div class="song-act">1막 클라이맥스</div>
+    <p>누 떼의 질주. 인형, 배우, 배경화의 3중 원근법. 무파사가 쓰러지는 장면. 극장이 조용해진다.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">Hakuna Matata</div>
+    <div class="song-act">1막 후반</div>
+    <p>"걱정 없이 살자." 티몬과 품바의 코미디 넘버. 무거운 장면 후 분위기를 환기시킨다.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">Shadowland</div>
+    <div class="song-act">2막 — 뮤지컬에만 있는 곡</div>
+    <p>날라의 솔로. 영화에는 없는, 뮤지컬을 위해 새로 작곡된 곡. 황폐해진 고향을 떠나 심바를 찾으러 가는 날라의 결심.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">He Lives in You</div>
+    <div class="song-act">2막 — 뮤지컬에만 있는 곡</div>
+    <p>라피키가 심바에게 부르는 곡. "너의 아버지는 네 안에 살아있다." 원래 앨범 <em>Rhythm of the Pride Lands</em>에 수록되었던 곡을 뮤지컬에서 부활시켰다. 아프리카 합창이 극장 전체를 울린다.</p>
+  </div>
+
+  <div class="song-card">
+    <div class="song-title">Can You Feel the Love Tonight</div>
+    <div class="song-act">2막</div>
+    <p>엘튼 존이 작곡하고 아카데미상을 받은 곡. 심바와 날라의 사랑을 그린다. 뮤지컬에서는 합창단의 아프리카 하모니가 더해져 영화보다 더 풍성하다.</p>
+  </div>
+
+  <details>
+    <summary>전체 곡 목록 (1막 11곡 + 2막 7곡)</summary>
+    <div class="song-card" style="margin-top:8px;">
+      <p><strong>1막:</strong> Circle of Life · Grasslands Chant · The Morning Report · The Lioness Hunt · I Just Can't Wait to Be King · Chow Down · They Live in You · Be Prepared · The Stampede · Rafiki Mourns · Hakuna Matata</p>
+      <p style="margin-top:8px;"><strong>2막:</strong> One by One · The Madness of King Scar · Shadowland · Endless Night · Can You Feel the Love Tonight · He Lives in You (Reprise) · King of Pride Rock / Circle of Life (Reprise)</p>
+    </div>
+  </details>
+</section>
+
+<!-- 동선 타임라인 -->
+<section>
+  <h2><span class="icon">🗺️</span> 저녁 동선</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">17:30</div>
+      <div class="name">① 코벤트 가든 저녁식사</div>
+      <div class="desc">Lyceum Theatre에서 도보 2~5분 거리. 코벤트 가든은 길거리 공연과 쇼핑으로 유명한 지역. 극장가 분위기를 느끼며 식사.</div>
+      <div class="highlight">60분 · Pre-theatre 메뉴(2~3코스) 주문 시 빠르게 제공됨</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:30</div>
+      <div class="name">② 극장 이동 + 도착</div>
+      <div class="desc">Wellington Street 따라 도보 이동. 극장 정면의 6개 코린트식 기둥이 보이면 도착. 보안 검색 후 입장.</div>
+      <div class="highlight">30분 · 18:00 이전 도착이 이상적</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:30~19:00</div>
+      <div class="name">③ 좌석 찾기 + 프로그램 구매</div>
+      <div class="desc">프로그램(유료, 약 £5) 구매 선택. 인터미션 음료 미리 주문해두면 쉬는 시간에 줄 안 섬. 화장실 미리 다녀오기.</div>
+      <div class="highlight">자리 확인 · 인터미션 음료 사전주문은 웨스트엔드만의 문화</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">19:00</div>
+      <div class="name">④ 공연 시작 — 1막</div>
+      <div class="desc">조명이 꺼지고 라피키의 줄루어 독창이 울려퍼진다. "Circle of Life" — 객석 통로로 동물들이 걸어 나오는 오프닝. 약 75분.</div>
+      <div class="highlight">1막 75분 · 통로 옆 좌석이면 동물이 바로 옆을 지나감</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:15</div>
+      <div class="name">⑤ 인터미션 (15분 휴식)</div>
+      <div class="desc">미리 주문한 음료 수령. 화장실 이용. 바에서 줄 서지 않으려면 사전주문 필수.</div>
+      <div class="highlight">15분 · 로비는 혼잡하므로 아이 손 잡기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">20:30</div>
+      <div class="name">⑥ 2막 + 커튼콜</div>
+      <div class="desc">2막 약 60분. "He Lives in You"와 "Can You Feel the Love Tonight"이 하이라이트. 커튼콜까지 약 21:30 종료.</div>
+      <div class="highlight">1시간 · 마지막 "Circle of Life (Reprise)"까지 자리 유지</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">21:30</div>
+      <div class="name">퇴장 → 호텔 귀환</div>
+      <div class="desc">극장 앞 Wellington Street로 나와서 택시 또는 Covent Garden역에서 Piccadilly Line 이용. 공연 끝나면 극장가 전체가 인파로 붐비므로 아이 손 꼭 잡기.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">좌석 팁</div>
+    <strong>Stalls(1층)</strong> D~G열 중앙이 최고. 앞 3열은 너무 가까워 무대 전체를 보기 어려울 수 있음.<br>
+    <strong>Royal Circle(2층)</strong> 경사가 급해 앞사람 머리에 안 가려짐. 가족 관람에 최적.<br>
+    통로(Aisle) 옆 좌석이면 "Circle of Life" 때 동물 인형이 바로 옆을 지나간다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">관람 에티켓</div>
+    <strong>촬영 완전 금지</strong> — 오프닝 순간 폰을 꺼내면 스태프가 즉시 제지함.<br>
+    <strong>소음 주의</strong> — 과자봉지, 비닐백 소리도 조용한 극장에서는 크게 들림.<br>
+    <strong>모자 벗기</strong> — 뒤 관객의 시야를 위해.<br>
+    웨스트엔드는 브로드웨이보다 관객 반응이 차분한 편. 커튼콜에서 기립박수(Standing Ovation)는 자연스러움.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">인터미션 음료 사전주문</div>
+    극장 로비 바에서 공연 전에 음료를 미리 주문+결제 가능. 이름표 붙은 음료가 쉬는 시간에 카운터에서 대기. 웨스트엔드만의 시스템 — 바 줄서기 없이 15분 인터미션을 여유있게 보냄.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">연기와 조명 효과</div>
+    공연 중 <strong>연막(theatrical smoke)</strong>과 <strong>스트로브 조명</strong>이 사용됨. 누 떼의 질주, 무파사의 죽음 장면에서 강렬한 효과가 나온다. 사전에 알고 있으면 놀라지 않음.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">코벤트 가든 저녁식사</div>
+    <strong>Pre-theatre 메뉴</strong>: 코벤트 가든 식당 대부분이 17:00~18:30 한정 2~3코스 할인 메뉴 운영. 빠르게 나오고, 일반 주문보다 저렴.<br>
+    <strong>Paro</strong>: Lyceum Theatre 건물 안에 있는 인도 식당. 가장 가까움. 키즈 프리시어터 메뉴 있음.<br>
+    <strong>Joe Allen</strong>: 극장 바로 옆. 웨스트엔드 배우들이 공연 후 모이는 곳으로 유명.<br>
+    <strong>Cafe Murano</strong>: 미쉐린 셰프 Angela Hartnett 계열. 파스타 키즈 메뉴.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    극장 내 화장실은 인터미션 때 긴 줄이 생김. <strong>공연 전에 반드시 다녀오기</strong>. 극장 1층과 2층 모두 화장실 있음.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">프로그램 (유료, 약 £5)</div>
+    캐스트 정보, 제작 비하인드, 인형 제작 과정 등이 담긴 소책자. 기념품으로도 좋음. 극장 로비에서 구매.
+  </div>
+
+  <h3>출발 전 체크리스트</h3>
+  <div class="checklist">
+    <label><input type="checkbox"> 티켓 확인 (모바일 또는 인쇄)</label>
+    <label><input type="checkbox"> 저녁식사 장소 결정 (pre-theatre 메뉴 확인)</label>
+    <label><input type="checkbox"> 18:00 극장 도착 목표로 출발 시간 역산</label>
+    <label><input type="checkbox"> 극장 내 촬영 금지 — 폰 무음/진동 설정</label>
+    <label><input type="checkbox"> 간식은 소리 안 나는 것으로 (비닐봉지 X)</label>
+    <label><input type="checkbox"> 코트/겉옷 벗어서 무릎 위에 (좌석이 좁음)</label>
+  </div>
+</section>
+
+<!-- 흥행 기록 -->
+<section>
+  <details>
+    <summary>🏆 라이온킹의 기록들</summary>
+
+    <div class="story-block">
+      <h4>전 세계 역대 1위 — 어떤 영화보다, 어떤 게임보다</h4>
+      <p>라이온킹 뮤지컬의 전 세계 누적 매출은 약 <strong>91억 달러(약 12조 원)</strong>. 인플레이션 미조정 기준으로 단일 엔터테인먼트 작품 중 역대 1위다. 어떤 영화도, 어떤 게임도, 어떤 책도 이 기록을 깨지 못했다.</p>
+      <p>브로드웨이에서만 20억 달러 이상을 벌었고, 런던, 도쿄, 함부르크, 상하이, 시드니 등 전 세계 주요 도시에서 동시에 공연 중이다. 1억 명 이상이 이 뮤지컬을 관람했다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>1998년 토니상 — 최초의 여성 연출상</h4>
+      <p>11개 부문 후보, 6개 수상. 작품상, 연출상, 안무상, 의상상, 무대 디자인상, 조명상. 줄리 테이모어는 뮤지컬 연출상을 받은 <strong>최초의 여성</strong>. 의상상까지 합쳐 혼자 2관왕을 차지했다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>런던 웨스트엔드에서 26년째</h4>
+      <p>1999년 10월 19일 런던 초연. 이후 한 번도 극장을 옮기지 않고 Lyceum Theatre에서만 26년 넘게 공연 중이다. 2026년 11월까지 연장 확정.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 호텔 귀환</strong><br>
+  공연 종료(~21:30) → Covent Garden역 또는 택시로 호텔 이동. 오늘의 마지막 일정.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>윔블던 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #00703c;
+    --accent-light: #e8f5ee;
+    --purple: #4e2a84;
+    --purple-light: #f3eef9;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f5f3ee;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --gold: #c9b037;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, #1b4332 60%, var(--purple) 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Trophy Section (dark themed) */
+  .trophy-section { background: #1a1a2e; color: #e0e0e0; }
+  .trophy-section h2 { color: #fff; }
+  .trophy-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--gold);
+  }
+  .trophy-card .match-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .trophy-card .match-year {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+  }
+  .trophy-card p {
+    font-size: 13px;
+    color: #d1d5db;
+    margin-bottom: 6px;
+  }
+  .trophy-card p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience Section */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>윔블던 <span class="en">The All England Lawn Tennis Club</span></h1>
+  <p class="oneliner">잔디 관리용 조랑말 롤러를 고치려고 시작한 테니스 대회가 150년 뒤 세계에서 가장 권위 있는 스포츠 이벤트가 되었다. 그 모든 이야기가 이곳에 있다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/19(목) 13:00~</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">약 150분 (투어+박물관)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">예약완료 (3인 £64)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">투어 형식</span>
+      <span class="value">Blue Badge 가이드 투어</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Southfields (District)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">겨울 운영</span>
+      <span class="value">10:00~17:00 (입장 16:00)</span>
+    </div>
+  </div>
+  <div class="info-warn">겨울 시즌 — 대회 기간이 아니므로 한산하게 관람 가능. 야외 코트 투어 시 방한 필수.</div>
+</div>
+
+<!-- STORY SECTION -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>조랑말 롤러와 1실링 — 테니스의 시작</h4>
+    <p>1868년, 런던 남서부에 '올 잉글랜드 크로켓 클럽'이 설립됐다. 주 종목은 크로켓이었고, 잔디 관리에는 조랑말이 끄는 잔디 롤러가 필수였다. 그런데 1870년대 중반, 크로켓 인기가 급격히 떨어졌다. 클럽 재정이 악화되자 새로운 방안이 필요해졌다.</p>
+    <p>1877년 6월, 클럽은 결정적인 선택을 한다. 조랑말 롤러 수리비를 마련하기 위해 새로운 스포츠 대회를 개최하기로 한 것이다. 종목은 최근 유행하기 시작한 '론 테니스'. 22명이 참가비 1기니(약 1파운드)를 내고, 200명의 관중이 1실링씩 내고 관람했다.</p>
+    <p>결승전은 27세 토지측량사 스펜서 고어와 케임브리지 대학 선수 윌리엄 마셜의 대결이었다. 경기 시간 단 48분. 고어가 6-1, 6-2, 6-4로 압도적으로 승리했다. 우승 상금은 12기니와 은제 트로피. 그리고 첫 우승자 고어가 남긴 한마디: "론 테니스는 좀 지루하다. 절대 유행하지 않을 것이다."</p>
+    <p>고어의 예언은 보기 좋게 빗나갔다. 잔디 롤러 수리비를 벌려던 이 대회는 150년이 지난 지금, 전 세계에서 가장 권위 있는 테니스 대회가 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>4시간 48분 — 역대 최고의 경기</h4>
+    <p>2008년 7월 6일, 센터 코트. 잔디의 제왕 로저 페더러가 5연패를 노리고, 클레이의 왕 라파엘 나달이 도전장을 던졌다. 누가 이기든 역사가 쓰이는 경기였다.</p>
+    <p>나달이 2세트를 먼저 가져갔다. 하지만 페더러가 3, 4세트를 타이브레이크로 빼앗으며 반격했다. 특히 4세트 타이브레이크 7-7에서 두 사람이 연달아 보여준 패싱샷은 BBC 해설자가 "이 대회 최고의 두 샷이 방금 연속으로 나왔다"고 외친 장면이었다.</p>
+    <p>두 차례 우천 중단을 포함해 7시간이 넘게 이어진 이 경기는 해가 질 무렵에야 끝났다. 나달이 마지막 5세트를 9-7로 가져가며 첫 윔블던 우승을 달성했다. 경기 시간 4시간 48분. 많은 전문가들이 "테니스 역사상 가장 위대한 경기"로 꼽는다.</p>
+    <p>박물관에서 이 경기의 영상과 함께 당시 나달과 페더러가 사용한 라켓을 직접 볼 수 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>윔블던만의 규칙들</h4>
+    <p><strong>흰색 드레스코드.</strong> 선수들은 반드시 거의 전신 흰색 유니폼을 입어야 한다. 속옷까지. 이유는 의외로 단순하다 — 테니스는 원래 상류층 사교 행사에서 시작됐고, 땀 자국이 눈에 띄지 않도록 흰옷을 입었다. 150년이 지나도 이 규칙은 변하지 않았다.</p>
+    <p><strong>딸기와 크림.</strong> 대회 기간 중 약 19만 인분의 딸기와 크림이 팔린다. 이 전통의 기원은 헨리 8세 시대까지 거슬러 올라간다. 윔블던에서 6마일 떨어진 햄프턴 코트에서 왕의 대법관 울지 추기경이 야생 딸기에 크림을 곁들여 대접한 것이 시작이었다.</p>
+    <p><strong>루퍼스라는 이름의 매.</strong> 경기장 위로 비둘기가 날아다니면 경기에 방해가 된다. 해결책? 해리스 매 루퍼스를 고용했다. 루퍼스는 공식 신분증("bird scarer")까지 발급받은 정식 직원이다. 2012년 루퍼스가 도난당했을 때 전 세계 뉴스에 보도될 정도로 유명해졌다. 지금도 인스타그램 팔로워 만 명이 넘는 셀러브리티 매다.</p>
+  </div>
+</section>
+
+<!-- LEGENDARY MATCHES (dark themed) -->
+<section class="trophy-section">
+  <h2><span class="icon">🏆</span> 전설의 순간들</h2>
+
+  <div class="trophy-card">
+    <div class="match-title">보그 vs 매켄로 — 18-16 타이브레이크</div>
+    <div class="match-year">1980년 결승</div>
+    <p>냉철한 스웨덴 기계 비요른 보그의 5연패 도전. 불같은 성격의 미국인 존 매켄로가 가로막았다. 4세트 타이브레이크에서 매켄로는 5번의 매치포인트를 막아내며 18-16으로 승리했다. 하지만 보그가 마지막 5세트를 8-6으로 가져가며 전설이 되었다.</p>
+  </div>
+
+  <div class="trophy-card">
+    <div class="match-title">페더러 — 잔디의 제왕</div>
+    <div class="match-year">2003~2017</div>
+    <p>로저 페더러는 윔블던에서 8번 우승했다. 2003년부터 2007년까지 5연패는 보그 이후 최초였다. 35세에 달성한 2017년 우승까지, 페더러와 센터 코트의 잔디는 하나로 기억된다.</p>
+  </div>
+
+  <div class="trophy-card">
+    <div class="match-title">센터 코트의 지붕</div>
+    <div class="match-year">2009년</div>
+    <p>윔블던은 130년 이상 비가 오면 경기를 중단해야 했다. 2009년, 3,000톤 무게의 개폐식 지붕이 설치되었다. 완전히 닫히는 데 10분. 이제 비가 와도 경기가 계속된다. 투어에서 이 거대한 구조물을 올려다볼 수 있다.</p>
+  </div>
+</section>
+
+<!-- ROUTE / TIMELINE -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">13:00</div>
+      <div class="name">① 가이드 투어 시작</div>
+      <div class="desc">Gate 4에서 집합. Blue Badge 가이드가 클럽의 역사부터 설명하며 투어를 시작한다. 잔디 관리의 비밀, 각 코트의 역할을 들으며 그라운드를 걷는다.</div>
+      <div class="highlight">90분 투어 · 가이드가 영어로 진행</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:20</div>
+      <div class="name">② 센터 코트 입장</div>
+      <div class="desc">15,000석 센터 코트에 직접 들어간다. 선수들이 경기 전 대기하는 복도, 탈의실의 벤치에 앉아볼 수 있다. 개폐식 지붕의 거대한 트러스 구조물이 머리 위로 펼쳐진다. 비시즌이라 관중 없는 고요한 센터 코트를 독점할 수 있다.</div>
+      <div class="highlight">30분 · 탈의실 벤치에 앉아 사진 촬영 가능</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:50</div>
+      <div class="name">③ No.1 코트 & 미디어 센터</div>
+      <div class="desc">12,345석 No.1 코트를 관람하고, 선수들이 기자회견을 하는 미디어룸도 방문한다. 경기 후 인터뷰하는 의자에 앉아볼 수 있다.</div>
+      <div class="highlight">20분 · 기자회견 의자 체험</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">④ 박물관 관람</div>
+      <div class="desc">오디오 가이드(6개 국어)를 들으며 자유 관람. 1877년 첫 대회에서 사용된 공, 역대 챔피언 트로피, 선수들의 라켓 변천사를 볼 수 있다. 200도 파노라마 시네마에서 명장면 영상 감상. 존 매켄로의 "유령"이 경기 준비 과정을 이야기하는 인터랙티브 전시도 있다.</div>
+      <div class="highlight">60분 · 오디오 가이드 한국어 없음 (영어)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:30</div>
+      <div class="name">⑤ 퇴장 → 윔블던 빌리지</div>
+      <div class="desc">투어 종료 후 Church Road를 따라 12분 도보로 윔블던 빌리지 도착. 카페에서 휴식.</div>
+      <div class="highlight">코트 투어 종료 · 빌리지로 이동</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>Batak Wall 반응 속도 테스트</h4>
+    <p>박물관 내 설치된 Batak Wall에서 반응 속도를 측정할 수 있다. 불이 켜지는 패드를 빠르게 터치하는 방식. 프로 선수들의 기록과 비교해 볼 수 있다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>트로피와 라켓 실물 체험</h4>
+    <p>챔피언십 트로피 레플리카를 들어보고, 1880년대 나무 라켓부터 현대 카본 라켓까지 직접 잡아볼 수 있다. 150년간 테니스 장비가 어떻게 변했는지 손으로 느껴보는 체험.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>200도 파노라마 시네마</h4>
+    <p>박물관 내 시네마에서 윔블던의 명장면을 200도 파노라마 스크린으로 감상한다. 페더러-나달 결승, 보그-매켄로 타이브레이크 등 역사적 순간들이 압도적 화면으로 재현된다.</p>
+  </div>
+</section>
+
+<!-- WIMBLEDON VILLAGE -->
+<section>
+  <h2><span class="icon">🏘️</span> 윔블던 빌리지</h2>
+
+  <div class="story-block">
+    <h4>투어 후 산책 코스 (15:30~16:30)</h4>
+    <p>윔블던 빌리지는 런던 도심과 완전히 다른 분위기의 고급 주거 지역이다. Church Road를 따라 클럽에서 빌리지까지 도보 12분. 독립 카페, 레스토랑, 부티크 숍이 모여 있는 High Street를 산책할 수 있다.</p>
+    <p><strong>Maison St. Cassien</strong> — 지중해+레바논 스타일 카페. 윔블던 대회 기간에는 유명 선수들이 자주 들르는 곳으로 알려져 있다. 커피와 페이스트리가 맛있다.</p>
+    <p><strong>Hand in Hand</strong> — 1830년대부터 운영된 전통 영국 펍. 벽난로와 아늑한 인테리어. 윔블던 커먼(공유지) 바로 옆에 위치.</p>
+    <p>빌리지에서 16:30에 출발하면 Lyceum Theatre까지 약 45분 소요 (Wimbledon역 → District Line → Temple역).</p>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">교통편</div>
+    호텔(Trafalgar Square) → <strong>Westminster역</strong> → District Line → <strong>Southfields역</strong> (약 30분)<br>
+    Southfields역 → All England Club 도보 15분. Gate 4 입구로 진입.<br>
+    또는 Wimbledon역(District/South Western Railway)에서 도보 20분도 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">비시즌 방문의 장점</div>
+    대회 기간(6~7월)에는 티켓 구하기가 거의 불가능하고 인파가 엄청나다.<br>
+    2월 방문은 한산하게 센터 코트를 둘러보고, 가이드의 설명을 여유롭게 들을 수 있는 기회. 관중 없는 센터 코트에 앉아보는 경험은 비시즌에만 가능하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">방한 준비</div>
+    야외 코트 투어 구간이 있으므로 2월 날씨(3~8°C) 대비 필수.<br>
+    방한 외투, 장갑, 핫팩 준비. 박물관 내부는 따뜻하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① 센터 코트 관중석 — 빈 코트를 배경으로<br>
+    ② 탈의실 벤치 — 선수가 된 것처럼<br>
+    ③ 기자회견 의자 — 인터뷰 포즈<br>
+    ④ 박물관 트로피 앞 — 우승 트로피와 함께
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    클럽 내 투어 중 이용 가능. 박물관 내부에도 있음.
+  </div>
+
+  <h3>출발 전 체크리스트</h3>
+  <div class="checklist">
+    <label><input type="checkbox"> 투어 예약 확인 (13:00, Gate 4 집합)</label>
+    <label><input type="checkbox"> 방한 준비 (외투, 장갑, 핫팩)</label>
+    <label><input type="checkbox"> Oyster/컨택리스 결제 준비 (District Line)</label>
+    <label><input type="checkbox"> 카메라/스마트폰 충전 확인</label>
+    <label><input type="checkbox"> 빌리지 산책 후 Wimbledon역 → Temple역 경로 확인</label>
+  </div>
+</section>
+
+<!-- FUN FACTS (collapsible) -->
+<section>
+  <details>
+    <summary>🎾 윔블던 재미있는 사실들</summary>
+
+    <div class="story-block">
+      <h4>잔디의 높이는 정확히 8mm</h4>
+      <p>윔블던의 잔디는 호밀풀(perennial ryegrass)로, 대회 시작 시 정확히 8mm로 깎인다. 매일 아침 잔디 관리팀이 측정한다. 1mm라도 차이 나면 공의 바운스가 달라진다. 비시즌에는 잔디를 쉬게 하며 13mm로 유지한다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>테니스 점수가 15-30-40인 이유</h4>
+      <p>윔블던이 처음 규칙을 만들 때 시계 문자판 기반 점수 체계를 채택했다. 15-30-45가 원래 형태였으나, 발음 편의상 45가 40으로 줄었다. 1877년 첫 대회에서 확정된 이 규칙이 지금까지 전 세계 테니스에서 사용된다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>우천 중단의 역사</h4>
+      <p>윔블던은 130년 이상 야외에서만 경기했다. 비가 오면 무조건 중단. 2004년에는 비 때문에 경기가 하루 종일 취소된 적도 있다. 2009년 센터 코트 개폐식 지붕이 설치되면서 비로소 비를 이겼다. 지붕 무게 3,000톤, 닫히는 데 10분, 비용 약 1억 파운드(한화 약 1,600억 원).</p>
+    </div>
+
+    <div class="story-block">
+      <h4>대회 기간 중 소비되는 것들</h4>
+      <p>딸기 약 28톤(19만 인분), 크림 약 7,000리터, 샴페인 약 3만 잔, 피므스(Pimm's) 약 30만 잔. 공은 약 54,000개가 사용된다. 사용된 공은 대회 후 자선단체에 기부된다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- NEXT STOP -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 저녁식사(코벤트 가든)</strong> → <strong>웨스트엔드 뮤지컬 라이온킹</strong><br>
+  윔블던 빌리지 16:30 출발 → Wimbledon역 → District Line → Temple역 (약 45분) → Lyceum Theatre
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
