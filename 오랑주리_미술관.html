@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오랑주리 미술관 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #3d6b5e;
+    --accent-light: #e9f2ee;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #3d6b5e 0%, #2a4f44 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .story-block p { font-size: 13.5px; color: #374151; margin-bottom: 8px; }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .route-timeline { position: relative; padding-left: 28px; }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 2px; }
+  .route-stop .name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .route-stop .desc { font-size: 13px; color: #4b5563; }
+  .route-stop .highlight { font-size: 12px; color: var(--accent); font-weight: 500; margin-top: 6px; }
+
+  /* ── 작품 카드 ── */
+  .artwork-list { background: var(--accent-light); }
+  .artwork {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--accent);
+  }
+  .artwork h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .artwork .artist { font-size: 12px; color: var(--accent); font-weight: 600; }
+  .artwork .art-meta { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .artwork p { font-size: 13px; color: #374151; margin-bottom: 6px; }
+  .artwork p:last-child { margin-bottom: 0; }
+  .artwork .kid-note {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+  }
+  .artwork.nympheas { border-left-color: #6b8fa3; }
+  .artwork.nympheas h4 { color: #4a7185; }
+  .art-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 12px;
+    color: var(--accent);
+  }
+  .art-section-title:first-child { margin-top: 0; }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] { margin-top: 3px; accent-color: var(--accent); }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer { padding: 20px; text-align: center; font-size: 11px; color: var(--muted); }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>오랑주리 미술관 <span class="en">Musée de l'Orangerie</span></h1>
+  <p class="oneliner">1차 세계대전 다음 날, 모네가 프랑스에 바친 평화의 선물 — 높이 2미터, 총 길이 91미터의 수련이 두 개의 타원형 방을 감싸는 곳</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/25(수) 12:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">€12.50 (18세 미만 무료)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">튈르리 정원, 콩코르드 쪽</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Concorde (1·8·12호선)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">09:00~18:00 (화 휴관)</span>
+    </div>
+  </div>
+  <div class="info-warn">관내 사진 촬영 전면 금지 — 눈으로 담아오기</div>
+</div>
+
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>휴전 다음 날의 편지</h4>
+    <p>1918년 11월 11일, 4년간의 1차 세계대전이 끝났다. 바로 다음 날인 11월 12일, 78세의 화가 클로드 모네는 친구이자 프랑스 총리인 조르주 클레망소에게 편지를 썼다. "내가 30년 동안 그려온 수련 연작을 프랑스 국가에 기증하겠습니다. 이것이 진정한 평화의 기념비가 되기를."</p>
+    <p>모네와 클레망소는 1860년에 만나 평생 우정을 이어갔다. 1908년 클레망소가 모네의 지베르니 근처에 부동산을 사면서 두 사람의 왕래는 더 잦아졌다. 클레망소는 노쇠한 화가를 독려해 원래 2개 패널 기증 계획을 8개 대형 파노라마로 확대시켰고, 건축가와 함께 두 개의 타원형 전시실을 설계했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>오렌지 나무 온실에서 세계적 미술관으로</h4>
+    <p>이 건물은 원래 1852년 나폴레옹 3세가 튈르리 궁전 정원의 오렌지 나무를 겨울에 보관하기 위해 지은 온실이다. 건축가 오귀스트 부르주아가 단 4개월 만에 완성했다. 남쪽으로 유리 파사드를 두어 햇빛을 끌어들이는 이 구조가, 훗날 모네의 수련에 자연광을 비추는 최적의 공간이 되었다.</p>
+    <p>1871년 튀일리 화재 이후 건물은 원예 전시, 음악회, 심지어 개 쇼까지 다양한 행사에 활용되었다. 1922년 모네의 기증이 확정되면서 미술관으로 탈바꿈했고, 1927년 모네 사후 수개월 만에 "뮤제 클로드 모네"라는 이름으로 개관했다. 2006년 대규모 리노베이션을 통해 모네가 구상했던 자연 채광 상태가 비로소 완전히 복원되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>미술상의 컬렉션, 아내의 선택</h4>
+    <p>지하층의 발터-기욤 컬렉션은 젊은 미술상 폴 기욤(1891~1934)이 20년간 모은 보물이다. 르누아르, 세잔, 피카소, 모딜리아니의 주요 후원자이자 거래상이었던 그는 42세에 급성 복막염으로 갑자기 세상을 떠났다.</p>
+    <p>아내 도메니카는 건축가 장 발터와 재혼한 뒤 컬렉션을 대폭 정리했다. 피카소의 입체파 작품 전부, 드 키리코의 모든 그림, 모딜리아니 초상화 다수를 처분하는 대신 르누아르와 세잔을 새로 사들였다. 1959년 앙드레 말로 문화부 장관이 나서 146점을 시장가의 30분의 1~50분의 1 가격에 국가로 양도받는 데 성공했다. 컬렉션 이름은 도메니카의 뜻에 따라 두 남편의 이름을 합쳐 "장 발터 - 폴 기욤 컬렉션"이 되었다.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">12:00</div>
+      <div class="name">① 수련 제1전시실 (Salle 1)</div>
+      <div class="desc">입장 직후 바로 수련 전시실로. 타원형 방에 4개 패널이 곡선 벽을 따라 감싸고 있다. Soleil couchant(일몰)의 강렬한 오렌지색, Les Nuages(구름)의 몽환적 반사. 방 한가운데 앉아 천천히 360도를 둘러보자.</div>
+      <div class="highlight">15분 · 벤치에 앉아 자연광 아래 수련 감상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:15</div>
+      <div class="name">② 수련 제2전시실 (Salle 2)</div>
+      <div class="desc">Les Deux Saules(두 그루의 버드나무)가 17미터 폭으로 방 전체를 감싸는 가장 큰 패널. 아침 빛의 부드러움과 버들가지의 섬세한 커튼 효과. 모네가 일출은 동쪽, 일몰은 서쪽에 배치해 하루의 시간 흐름을 공간으로 재현했다.</div>
+      <div class="highlight">15분 · 두 방의 분위기 차이를 느끼며</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:30</div>
+      <div class="name">③ 발터-기욤 컬렉션 (지하층)</div>
+      <div class="desc">르누아르 25점, 세잔 15점, 피카소 12점, 수틴 22점, 드랭 28점, 마티스 10점, 루소 9점, 모딜리아니 5점 등 총 148점. 인상파에서 에콜 드 파리까지 근대 미술의 압축판.</div>
+      <div class="highlight">40분 · 아래 주요 작품 가이드 참고</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:10</div>
+      <div class="name">④ 카페-서점 + 퇴장</div>
+      <div class="desc">중간층(Level -1)의 Cafe-Librairie에서 음료/간식 가능. 기프트숍에서 수련 엽서·포스터 구매. 이후 튈르리 정원 방향으로 퇴장.</div>
+      <div class="highlight">20분 · 13:30 점심식사 목표</div>
+    </div>
+  </div>
+</section>
+
+<section class="artwork-list">
+  <h2><span class="icon">🖼️</span> 주요 작품</h2>
+
+  <div class="art-section-title">수련 Les Nymphéas — 8개 패널, 2개 타원형 방</div>
+
+  <div class="artwork nympheas">
+    <h4>Soleil couchant (일몰)</h4>
+    <div class="artist">클로드 모네 Claude Monet</div>
+    <div class="art-meta">c.1914-26 · 유화 · 2 × 6m · 제1전시실</div>
+    <p>8개 패널 중 가장 극적인 색채. 수면 위로 퍼지는 주황-붉은 석양빛이 수련과 물을 함께 물들인다. 다른 패널들의 녹색·파랑과 강렬한 대비를 이루는 제1전시실의 하이라이트.</p>
+  </div>
+
+  <div class="artwork nympheas">
+    <h4>Les Deux Saules (두 그루의 버드나무)</h4>
+    <div class="artist">클로드 모네 Claude Monet</div>
+    <div class="art-meta">c.1914-26 · 유화 · 2 × 17m (4개 캔버스) · 제2전시실</div>
+    <p>8개 패널 중 가장 큰 작품. 두 그루의 수양버들이 양쪽 끝에서 수면 위로 늘어지며 파노라마 전체를 감싸는 압도적 규모. 방 한가운데 서면 수련 연못 한복판에 들어온 듯한 몰입감.</p>
+    <div class="kid-note">이 그림의 폭은 17미터 — 학교 교실 길이와 비슷하다.</div>
+  </div>
+
+  <div class="artwork nympheas">
+    <h4>Le Matin clair aux saules (맑은 아침의 버드나무)</h4>
+    <div class="artist">클로드 모네 Claude Monet</div>
+    <div class="art-meta">c.1914-26 · 유화 · 2 × 12.75m (3개 캔버스) · 제2전시실</div>
+    <p>맑은 아침 빛 아래 수양버들 가지가 양쪽에서 커튼처럼 드리우는 장면. 제2전시실에서 가장 밝고 서정적인 패널.</p>
+  </div>
+
+  <div class="art-section-title">발터-기욤 컬렉션 — 지하층 하이라이트</div>
+
+  <div class="artwork">
+    <h4>La Carriole du père Junier (쥐니에 아저씨의 마차)</h4>
+    <div class="artist">앙리 루소 Henri Rousseau "Le Douanier"</div>
+    <div class="art-meta">1908 · 유화</div>
+    <p>채소 장수 쥐니에 아저씨가 자랑스러운 새 말과 가족을 태운 마차. 루소가 빚진 돈 대신 그려준 그림이다. 사진을 참고했지만 나무를 생략하고 개 3마리의 크기와 위치를 의도적으로 바꿨다.</p>
+    <div class="kid-note">마차 위 사람들과 개 3마리를 하나씩 찾아보자. 루소는 세관원이었다가 49세에 화가가 된 독학 천재.</div>
+  </div>
+
+  <div class="artwork">
+    <h4>La Noce (결혼식)</h4>
+    <div class="artist">앙리 루소 Henri Rousseau</div>
+    <div class="art-meta">c.1905 · 유화</div>
+    <p>결혼식 단체 사진처럼 보이지만, 자세히 보면 하얀 드레스의 신부가 공중에 떠 있다. 언뜻 실수 같지만 루소의 의도적 선택 — 유령처럼 부유하는 초현실적 장면.</p>
+    <div class="kid-note">"신부가 어디 있는지" 찾아보자. 발이 땅에 닿지 않는다!</div>
+  </div>
+
+  <div class="artwork">
+    <h4>Claude Renoir en clown (광대 의상의 클로드)</h4>
+    <div class="artist">오귀스트 르누아르 Auguste Renoir</div>
+    <div class="art-meta">1909 · 유화 · 77 × 120cm</div>
+    <p>르누아르의 8살 아들 클로드가 빨간 광대 의상을 입고 포즈를 취한 초상화. 클로드는 간지러운 스타킹이 싫어서 마지막 세션 때 유화 물감 세트와 기차 장난감을 받는 조건으로 겨우 입었다고 한다.</p>
+    <div class="kid-note">10살 또래 아이가 모델 — 뾰로통한 표정이 포인트.</div>
+  </div>
+
+  <div class="artwork">
+    <h4>Jeunes filles au piano (피아노 앞의 소녀들)</h4>
+    <div class="artist">오귀스트 르누아르 Auguste Renoir</div>
+    <div class="art-meta">c.1892 · 유화 · 116 × 81cm</div>
+    <p>흰 드레스를 입은 두 소녀가 피아노 앞에 앉아 악보를 보고 있다. 부드럽고 따뜻한 색조의 인상파 대표작. 르누아르는 이 구도를 여러 버전으로 그렸는데, 프랑스 정부가 공식 의뢰한 버전은 오르세에 있고 이 작품은 그 변주.</p>
+  </div>
+
+  <div class="artwork">
+    <h4>Pommes et biscuits (사과와 비스킷)</h4>
+    <div class="artist">폴 세잔 Paul Cézanne</div>
+    <div class="art-meta">c.1880 · 유화</div>
+    <p>접시 위 사과와 비스킷의 정물화. 단순한 과일 그림이 아니라, 세잔이 "사물의 진짜 모양"을 찾기 위해 여러 시점을 하나의 캔버스에 합친 실험작. 이 아이디어가 훗날 피카소의 입체파로 이어졌다.</p>
+    <div class="kid-note">"왜 사과가 떨어지지 않고 기울어진 접시 위에 있을까?" — 세잔은 보이는 대로가 아니라 '알고 있는 대로' 그렸다.</div>
+  </div>
+
+  <div class="artwork">
+    <h4>Paul Guillaume, Novo Pilota</h4>
+    <div class="artist">아메데오 모딜리아니 Amedeo Modigliani</div>
+    <div class="art-meta">1915 · 유화 · 판지+합판</div>
+    <p>이 미술관의 컬렉션을 만든 미술상 폴 기욤의 초상화. 모딜리아니 특유의 길쭉한 얼굴과 아몬드 눈. "Novo Pilota(새로운 조종사)"라는 문구가 적혀 있다 — 기욤이 모딜리아니를 세상에 이끌어준 조종사라는 의미. 돈이 없어 캔버스 대신 판지 위에 그렸다.</p>
+  </div>
+
+  <div class="artwork">
+    <h4>Grande baigneuse (대형 목욕하는 여인)</h4>
+    <div class="artist">파블로 피카소 Pablo Picasso</div>
+    <div class="art-meta">1921 · 유화</div>
+    <p>피카소의 신고전주의 시기 대표작. 거대하고 조각적인 비율의 좌상 누드로, 그리스 조각과 앵그르의 영향이 보인다. 입체파로 유명한 피카소가 이런 고전적 그림도 그렸다는 것이 의외.</p>
+  </div>
+
+  <div class="artwork">
+    <h4>Arlequin et Pierrot (아를르캥과 피에로)</h4>
+    <div class="artist">앙드레 드랭 André Derain</div>
+    <div class="art-meta">c.1924 · 유화 · 175 × 175cm</div>
+    <p>폴 기욤이 직접 주문한 작품. 기타를 든 아를르캥과 흰 옷의 피에로 — 피에로의 모델은 폴 기욤 자신이라고 알려져 있다. 이탈리아 코메디아 델라르테의 두 캐릭터를 통해 예술과 후원의 관계를 상징.</p>
+  </div>
+
+  <div class="artwork">
+    <h4>Le Petit Pâtissier (어린 제과사)</h4>
+    <div class="artist">하임 수틴 Chaïm Soutine</div>
+    <div class="art-meta">c.1922-23 · 유화</div>
+    <p>밝은 색채와 격렬한 붓놀림으로 그린 제과사 소년 초상. 수틴은 이 주제로 6가지 버전을 제작했다. 리투아니아에서 파리로 온 극빈 이민자였던 수틴의 거친 에너지가 물감 위에 생생하게 남아 있다.</p>
+  </div>
+
+  <div class="artwork">
+    <h4>Portrait de Mademoiselle Chanel (코코 샤넬 초상)</h4>
+    <div class="artist">마리 로랑생 Marie Laurencin</div>
+    <div class="art-meta">1923 · 유화</div>
+    <p>코코 샤넬이 작은 개와 함께 기대어 있는 초상. 부드럽고 시원한 파스텔 톤이 특징. 샤넬 본인은 이 초상화가 마음에 들지 않아 돌려보냈다는 일화가 있다.</p>
+  </div>
+</section>
+
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월 수요일 낮은 비수기 중의 비수기. 수련 전시실에서 벤치에 앉아 여유롭게 감상할 수 있는 시기. 기획전 없는 달이라 더욱 쾌적.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영 전면 금지</div>
+    수련 전시실을 포함해 관내 모든 곳에서 사진·동영상 촬영 불가. 폰은 주머니에 넣고 눈으로 감상하자.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오디오 가이드</div>
+    €5, <b>한국어 지원</b> (10개 언어). 상설전 150개 이상 작품 해설. 8세 이상 게임형 어린이 앱도 있음(프랑스어/영어). 입구 데스크에서 수령.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">보관소</div>
+    무료 물품보관소 운영. 대형 배낭·큰 우산은 반드시 맡겨야 입장 가능. 56×45×25cm 이하 캐리어도 보관 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    관내 화장실 있음 (기저귀 교환대 포함). 지하층 부근.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Paris Museum Pass</div>
+    오랑주리 포함. Pass 소지 시 우선 입장 라인 이용 가능하나, 시간대 예약은 별도 필수 (이미 예약 완료).
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 예약 확인 (e-ticket / QR 코드)</label>
+    <label><input type="checkbox"> 사진 촬영 불가 — 폰 충전보다 눈 충전</label>
+    <label><input type="checkbox"> 오디오 가이드 €5 준비 (한국어 지원)</label>
+    <label><input type="checkbox"> 대형 가방은 보관소에 맡기기</label>
+  </div>
+</section>
+
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 점심식사</strong> (13:30)<br>
+  오랑주리 퇴장 후 튈르리 정원~리볼리가 방면. 이후 14:30부터 샹젤리제 산책 + Ladurée 마카롱.
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
