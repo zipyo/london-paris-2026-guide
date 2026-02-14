@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웨스트민스터 사원 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #3b2d6b;
+    --accent-light: #ede8f5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #3b2d6b 0%, #1a1240 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience Section */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next Stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① HEADER -->
+<div class="header">
+  <h1>웨스트민스터 사원 <span class="en">Westminster Abbey</span></h1>
+  <p class="oneliner">960년간 모든 영국 왕이 이 의자에 앉아 왕관을 받았다. 뉴턴과 다윈과 호킹이 같은 바닥 아래 잠들어 있고, 서 있을 자리가 없어 선 채로 묻힌 시인도 있다. 천장을 올려다보면, 500년 전 석공이 돌로 레이스를 짠 것 같은 볼트가 펼쳐진다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 12:30~14:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">90분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">성인 £31 / 아동 £14</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입구</span>
+      <span class="value">North Door (정문)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Westminster</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관</span>
+      <span class="value">수요일 9:30~18:00</span>
+    </div>
+  </div>
+  <div class="info-warn">2/18은 Ash Wednesday — 17시 재의 예배 예정. 관람에는 영향 없음 (수요일은 18시까지 연장 개관). Nave 일부 보존 공사 중으로 무명용사의 묘 3/6까지 관람 불가.</div>
+</div>
+
+<!-- ② 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 이곳의 이야기</h2>
+
+  <div class="story-block">
+    <h4>960년간 이어진 의자 하나의 힘</h4>
+    <p>1066년 크리스마스, 노르망디에서 바다를 건너온 정복왕 윌리엄이 이 성당에서 잉글랜드 왕관을 썼다. 그때부터 지금까지 — 960년간 총 40번의 대관식이 모두 이곳에서 열렸다.</p>
+    <p>핵심은 'King Edward's Chair'라 불리는 나무 의자다. 1300~1301년 에드워드 1세가 만들게 한 참나무 의자로, 원래는 금박과 새·나뭇잎 문양으로 화려하게 칠해져 있었다. 이 의자 아래에는 스코틀랜드에서 빼앗아 온 '운명의 돌(Stone of Scone)'이 700년간 들어 있었다.</p>
+    <p>1950년 크리스마스, 스코틀랜드 대학생 4명이 한밤중에 사원에 침입해 이 돌을 훔쳤다. 돌은 운반 중 두 조각으로 깨졌고, 4개월 뒤 스코틀랜드 아브로스 성당에서 발견됐다. 1996년 영국 정부는 마침내 돌을 스코틀랜드에 돌려주었고, 2023년 찰스 3세 대관식 때만 잠시 돌아왔다가 다시 퍼스 박물관으로 갔다. 의자는 그대로 이곳에 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>뉴턴, 다윈, 호킹 — 과학자의 전당</h4>
+    <p>1727년 3월 31일, 아이작 뉴턴의 장례식. 관을 든 사람은 영국 총리, 대법관, 공작 세 명이었다. 평민 출신 과학자에게 이런 장례가 치러진 것은 처음이었다. 그의 무덤 비문에는 라틴어로 "여기 필멸의 아이작 뉴턴이 잠들다(Hic depositum est, quod mortale fuit, Isaaci Newtoni)"라고 적혀 있다.</p>
+    <p>155년 뒤인 1882년, 찰스 다윈이 같은 바닥 아래 묻혔다. 다윈 본인은 고향 다운 마을에 묻히길 원했지만, 동료 과학자들과 국회의원 28명이 청원해 뉴턴 옆자리를 차지했다.</p>
+    <p>그로부터 136년 뒤, 2018년 6월 15일. 스티븐 호킹의 유골이 뉴턴과 다윈 사이에 안치됐다. 그의 묘비에는 뉴턴의 라틴어 비문을 영어로 옮긴 "Here lies what was mortal of Stephen Hawking"과 함께, 블랙홀 열역학 방정식이 새겨져 있다. 세 과학자가 같은 바닥 아래 나란히 — 만유인력, 진화론, 블랙홀 복사가 한 지붕 아래 모여 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>시인의 코너 — 서서 묻힌 남자</h4>
+    <p>남쪽 트랜셉트에 'Poets' Corner'가 있다. 100명 이상의 작가가 묻히거나 기념되는 곳. 시작은 1400년, 제프리 초서의 매장이었다. 그런데 초서가 여기 묻힌 건 시인이라서가 아니라, 웨스트민스터 궁전의 관리인이었기 때문이다. 156년 뒤(1556년) 누군가 멋진 무덤을 세워주면서 '시인의 코너'가 시작됐다.</p>
+    <p>가장 기이한 이야기는 벤 존슨(셰익스피어의 절친)이다. 시인의 코너가 아닌 본당(Nave) 북쪽 통로에 묻혀 있는데, 누워 있는 게 아니라 <strong>서 있다</strong>. 가로세로 2피트짜리 묘지를 살 돈밖에 없어서, 서서 묻어달라고 했다는 것이다.</p>
+    <p>셰익스피어는 정작 이곳에 묻히지 않았다. 스트랫퍼드어폰에이번 고향 교회에 잠들어 있고, 웨스트민스터에는 사후 124년이 지난 1740년에야 기념물이 세워졌다. 바이런 경은 더 오래 걸렸다 — 스캔들투성이 사생활 때문에 1824년 사망 후 무려 145년이 지난 1969년에야 기념패가 허락됐다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>돌로 짠 레이스 — Henry VII Lady Chapel</h4>
+    <p>사원 가장 안쪽, 1503~1509년에 지어진 헨리 7세 레이디 채플. 올려다보면 숨이 멎는다. 천장 전체가 돌로 만든 부채꼴 볼트(fan vault)인데, 무거운 돌 펜던트가 마치 샹들리에처럼 매달려 있다. "어떻게 떨어지지 않지?"가 첫 반응이다.</p>
+    <p>존 릴랜드는 이 채플을 "세상의 경이(orbis miraculum)"라고 불렀다. 영국 중세 건축의 마지막 걸작이자, 펜던트와 팬 볼트를 결합한 세계 최초의 천장이다. 500년 넘게 한 조각도 떨어지지 않았다.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">12:30</div>
+      <div class="name">① Nave (본당)</div>
+      <div class="desc">North Door로 입장하면 펼쳐지는 31m 높이의 고딕 본당. 영국에서 가장 높은 고딕 천장이다. 멀티미디어 가이드(입장료 포함)를 수령하고, 바닥의 과학자 묘비를 찾아보자 — 뉴턴, 다윈, 호킹이 나란히 잠들어 있다. 호킹의 묘비에 새겨진 블랙홀 방정식도 확인.</div>
+      <div class="highlight">15분 · 멀티미디어 가이드 꼭 수령</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:45</div>
+      <div class="name">② Coronation Chair + Poets' Corner</div>
+      <div class="desc">960년간 40번의 대관식에 사용된 나무 의자. 금박 흔적이 희미하게 남아 있다. 이어서 남쪽 트랜셉트의 시인의 코너로 — 초서, 디킨스, 키플링의 묘와 셰익스피어 기념물. 바닥과 벽면을 꼼꼼히 살펴볼 것.</div>
+      <div class="highlight">20분 · 벤 존슨의 '서 있는 무덤'은 Nave 북쪽</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:05</div>
+      <div class="name">③ Henry VII Lady Chapel</div>
+      <div class="desc">사원의 하이라이트. 500년 된 펜던트 팬 볼트 천장을 올려다보자 — 돌이 공중에 매달린 것 같은 착각이 든다. 헨리 7세와 엘리자베스 1세의 무덤, 그리고 엘리자베스 1세와 이복 언니 메리 1세(블러디 메리)가 같은 무덤에 있다는 아이러니도 놓치지 말 것.</div>
+      <div class="highlight">15분 · 천장 올려다보기 — 이 여행 최고의 순간</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:20</div>
+      <div class="name">④ Cloisters + Chapter House</div>
+      <div class="desc">13세기 회랑을 걸어 Chapter House로. 팔각형 홀에 영국에서 가장 아름다운 중세 타일 바닥이 있고, 입구에는 영국에서 가장 오래된 문(1050년대 제작, 약 970년 전!)이 있다. 이 방에서 1257년 영국 의회의 전신이 처음 모였다.</div>
+      <div class="highlight">15분 · 970년 된 문의 참나무 결을 관찰</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:35</div>
+      <div class="name">⑤ Jubilee Galleries</div>
+      <div class="desc">Weston Tower(2018년 개관, 사원 최초 1745년 이후 증축)를 통해 16m 높이의 트리포리엄으로 올라간다. 사원을 내려다보는 버드아이뷰가 압권. 700년 된 왕과 왕비의 장례 초상(effigies) — 에드워드 3세의 데스 마스크, 헨리 7세의 밀랍 얼굴 등 21구의 실물 크기 인형이 전시되어 있다.</div>
+      <div class="highlight">20분 · 위에서 내려다보는 사원 전경이 백미</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">13:55</div>
+      <div class="name">퇴장 → 빅벤/국회의사당</div>
+      <div class="desc">West Door(서쪽 대문)로 나오면 위에 현대 순교자 10인 동상 — 마틴 루터 킹 포함. 나와서 왼쪽으로 2분 걸으면 빅벤.</div>
+      <div class="highlight">코스 종료 · 도보 2분</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 놓치기 쉬운 포인트</h2>
+
+  <div class="exp-card">
+    <h4>Cosmati Pavement (High Altar 앞)</h4>
+    <p>1268년 로마에서 온 장인 오도리쿠스가 만든 바닥 모자이크. 8만 개 이상의 오닉스, 반암, 유리 조각으로 구성. 라틴어 비문에는 "세상이 19,683년간 지속될 것"이라는 예언이 적혀 있다. 대관식 때 왕이 서는 바로 그 자리.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>West Door 위 현대 순교자 10인 동상</h4>
+    <p>1998년 설치. 마틴 루터 킹, 오스카 로메로 대주교 등 20세기에 신앙을 위해 목숨을 바친 10명의 동상. 퇴장 시 밖에서 올려다보면 보인다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>멀티미디어 가이드</h4>
+    <p>입장료에 포함된 오디오 가이드. 한국어는 없지만 영어 가이드가 잘 만들어져 있다. 각 포인트에서 번호를 누르면 2~3분짜리 이야기를 들을 수 있다. 아이용 버전도 별도 제공.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">수요일의 행운</div>
+    수요일은 18시까지 연장 개관 + 단체 관광객 입장 불가. 평일 중 가장 여유롭게 관람할 수 있는 날이다. 12:30 입장이면 오후 혼잡 피크 전이라 더욱 좋다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영</div>
+    2024년부터 내부 사진 촬영 허용 (플래시/삼각대/셀카봉 금지). 단, Jubilee Galleries와 성 에드워드 사당은 촬영 금지. Lady Chapel 천장은 광각 렌즈가 있으면 최고의 사진이 나온다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Ash Wednesday 참고</div>
+    2/18은 사순절 시작일(Ash Wednesday). 17시에 재의 예배가 열리지만, 일반 관람에는 영향 없다. 오히려 성당의 종교적 분위기를 한층 더 느낄 수 있는 날.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Cloisters와 Jubilee Galleries 로비에 위치. Chapter House 가기 전 Cloisters에서 미리 다녀올 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">점심은 이미 해결</div>
+    11:30~12:30 점심 후 방문이므로 식사 걱정 없음. 사원 내 Cellarium Cafe(회랑 서쪽 끝)에서 커피/간식 구매 가능.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 예약 확인서 확인 (시간 지정 티켓)</label>
+    <label><input type="checkbox"> 멀티미디어 가이드 앱 다운로드 (선택 — 현장 기기 수령 가능)</label>
+    <label><input type="checkbox"> 카메라 광각 렌즈 준비 (Lady Chapel 천장용)</label>
+    <label><input type="checkbox"> 사원 내부는 서늘함 — 가벼운 겉옷</label>
+    <label><input type="checkbox"> 모자·선글라스 벗기 (종교 시설 예절)</label>
+  </div>
+</section>
+
+<!-- 더 알아보기 -->
+<section>
+  <details>
+    <summary>왕실 결혼식과 장례식 이야기</summary>
+
+    <div class="story-block">
+      <h4>왕실 결혼식</h4>
+      <p>1100년 헨리 1세의 결혼부터 2011년 윌리엄 왕자와 케이트 미들턴까지, 16번의 왕실 결혼식이 이곳에서 열렸다. 1923년 요크 공작(후의 조지 6세)과 엘리자베스 보우스라이언의 결혼식 때, 신부가 입장하며 무명용사의 묘에 부케를 내려놓았다. 1차 세계대전에서 죽은 오빠를 기리기 위해서였다. 이후 웨스트민스터에서 결혼하는 왕실 신부는 결혼식 다음 날 이 묘에 부케를 놓는 전통이 생겼다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>무명용사의 묘</h4>
+      <p>1920년 11월 11일, 프랑스 전선에서 신원을 알 수 없는 영국 군인의 유해가 국장으로 이곳에 안치됐다. 같은 날 파리 개선문에서도 프랑스 무명용사가 묻혔다. 세계 최초의 '무명용사의 묘' 두 곳이 동시에 탄생한 것이다. 이 무덤은 사원 전체에서 유일하게 밟고 지나가는 것이 금지된 묘다.</p>
+      <p>* 현재 Nave 보존 공사로 3/6까지 관람 불가</p>
+    </div>
+  </details>
+</section>
+
+<section>
+  <details>
+    <summary>Jubilee Galleries 주요 전시물</summary>
+
+    <div class="story-block">
+      <h4>왕의 장례 초상 (Funeral Effigies)</h4>
+      <p>14~17세기에 만들어진 실물 크기 밀랍·목재 인형 21구. 왕이 죽으면 방부 처리 중 관 대신 이 인형을 왕관과 예복으로 치장해 장례 행렬에 사용했다. 에드워드 3세(1377)의 얼굴은 실제 데스 마스크에서 뜬 것 — 뇌졸중으로 일그러진 한쪽 입술까지 그대로 재현되어 있다.</p>
+    </div>
+
+    <div class="story-block">
+      <h4>위에서 내려다보는 사원</h4>
+      <p>16m 높이의 트리포리엄에서 본당 전체를 내려다볼 수 있다. 고딕 볼트 천장의 구조, 스테인드글라스 창의 빛 패턴을 눈높이에서 관찰하는 유일한 장소. 2018년 개관 당시 엘리자베스 2세 여왕이 직접 개관했다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 빅벤 / 국회의사당</strong> (도보 2분)<br>
+  West Door 출구 → 왼쪽(남쪽)으로 Parliament Square 횡단 → Big Ben 앞 도착
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

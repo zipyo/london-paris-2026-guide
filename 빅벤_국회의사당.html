@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>빅벤 / 국회의사당 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #1a3a5c;
+    --accent-light: #edf2f7;
+    --gold: #c9a84c;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #0f2440 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--gold);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next Stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>빅벤 / 국회의사당 <span class="en">Big Ben / Houses of Parliament</span></h1>
+  <p class="oneliner">나무 막대기를 태우다 궁전을 불태웠고, 36통의 화약으로 날려버리려 했지만 실패했으며, 폭격에도 멈추지 않았다. 96미터 탑 꼭대기에서 13.5톤 종이 매시간 울린다 — 그 종소리가 곧 런던의 시간이다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/18(수) 14:00~14:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">30분 (외부 관람)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료 (외부)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">최근역</span>
+      <span class="value">Westminster</span>
+    </div>
+    <div class="info-item">
+      <span class="label">종소리</span>
+      <span class="value">매시 정각 + 15분마다</span>
+    </div>
+    <div class="info-item">
+      <span class="label">이전 일정</span>
+      <span class="value">웨스트민스터 사원</span>
+    </div>
+  </div>
+  <div class="info-warn">외부 관람 전용 — 시계탑 내부 투어는 영국 거주자만 신청 가능 (MP 초대)</div>
+</div>
+
+<!-- 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>나무 막대기가 궁전을 태우다 — 1834년 대화재</h4>
+    <p>중세 시대 영국 재무부(Exchequer)는 세금을 기록할 때 종이 대신 버드나무 막대기를 사용했다. 막대에 홈을 파서 금액을 표시한 뒤 반으로 쪼개, 한쪽은 납세자가, 한쪽은 재무부가 보관했다. 'tally stick'이라 불린 이 막대기 시스템은 무려 1826년까지 계속되었다.</p>
+    <p>1834년 10월, 재무부 창고에 수레 두 대 분량의 막대기가 쌓여 있었다. 관리인은 모닥불로 태우거나 땔감으로 나눠주는 대신, 궁전 지하 난방로에 몽땅 집어넣었다. 불이 과열되었고, 상원(House of Lords) 바닥 아래로 불길이 번졌다. 그날 밤 웨스트민스터 궁전 대부분이 잿더미가 되었다.</p>
+    <p>이 어처구니없는 사고 덕분에 건축가 찰스 배리(Charles Barry)와 장식 천재 어거스터스 퓨진(Augustus Pugin)이 지금의 고딕 리바이벌 걸작을 새로 지을 수 있었다. 97개 응모작 중 배리의 64번 도안이 선택되었고, 30년에 걸친 공사 끝에 오늘날의 국회의사당가 완성되었다. 결국 나무 막대기 덕분에 런던에서 가장 아름다운 건물이 탄생한 셈이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"Big Ben"은 사실 종의 이름이다</h4>
+    <p>많은 사람이 시계탑 자체를 빅벤이라고 부르지만, 정확히 말하면 빅벤은 탑 안에 매달린 13.5톤짜리 거대한 종의 별명이다. 탑의 공식 이름은 원래 'Clock Tower'였고, 2012년 엘리자베스 2세 여왕 즉위 60주년(Diamond Jubilee)을 기념해 'Elizabeth Tower'로 개명되었다.</p>
+    <p>빅벤이라는 이름의 유래에는 두 가지 설이 있다. 유력한 설은 종 설치를 감독한 벤자민 홀(Sir Benjamin Hall) 경의 이름에서 따왔다는 것이다. 키가 크고 체구가 좋아서 'Big Ben'이라 불렸다고 한다. 실제로 종에는 그의 이름이 새겨져 있다. 다른 설은 당시 유명한 헤비급 권투 챔피언 벤자민 카운트(Benjamin Caunt)에서 따왔다는 것.</p>
+    <p>재미있는 건 이 종의 탄생이 순탄치 않았다는 점이다. 첫 번째 종(16톤)은 1856년에 주조되었지만 시험 중 금이 가서 폐기되었다. 1858년 화이트채플 주조소(Whitechapel Bell Foundry)에서 다시 만든 두 번째 종도 1859년 설치 두 달 만에 금이 갔다. 설계자 에드먼드 데니슨이 규정보다 두 배 이상 무거운 해머를 사용한 탓이었다. 결국 종을 살짝 돌리고 가벼운 해머로 교체해 해결했는데, 이 균열 때문에 빅벤만의 독특한 음색이 만들어졌다. 지금 우리가 듣는 그 깊고 약간 갈라진 듯한 종소리는 167년 된 금간 종이 내는 소리다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>36통의 화약 — 가이 포크스의 음모 (1605)</h4>
+    <p>빅벤이 세워지기 훨씬 전, 이 자리에서 영국 역사상 가장 대담한 테러 미수 사건이 벌어졌다. 1605년 11월 5일, 가톨릭 신자 로버트 케이츠비(Robert Catesby)가 이끄는 13명의 공모자들이 국왕 제임스 1세와 의원들을 한꺼번에 날려버리려 했다.</p>
+    <p>실행 담당은 가이 포크스(Guy Fawkes). 군인 출신인 그는 상원 바로 아래 지하 창고에 화약 36통(약 2,500kg)을 숨겼다. 의회 개원식 날 폭파할 계획이었다. 그러나 공모자 중 한 명이 보낸 익명의 경고 편지가 발각되어, 개원 전날 밤 수색대가 지하에서 도화선 옆에 서 있던 포크스를 체포했다.</p>
+    <p>이 사건 이후 매년 11월 5일은 'Bonfire Night'으로 불리며, 영국 전역에서 모닥불을 피우고 불꽃놀이를 한다. 그리고 지금도 의회 개원식 전에 근위병들이 지하실을 수색하는 전통이 남아 있다 — 포크스 이후 420년째 계속되는 의식이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>폭격에도 멈추지 않은 시계 — WWII</h4>
+    <p>제2차 세계대전 중 런던 대공습(The Blitz) 동안, 국회의사당은 14차례나 폭격을 받았다. 가장 처참했던 날은 1941년 5월 10일 밤. 소이탄이 떨어져 하원(House of Commons) 의사당이 완전히 불탔고, 소방관 3명과 경찰 2명이 목숨을 잃었다.</p>
+    <p>시계탑도 폭탄을 맞았다. 장식 철제 구조물이 파괴되고 석재가 손상되었으며, 남쪽 시계 유리가 모두 깨졌다. 2017~2022년 복원 공사 중에야 당시 폭격 피해가 생각보다 훨씬 심각했다는 사실이 밝혀졌다.</p>
+    <p>그러나 시계는 멈추지 않았다. 전쟁 내내 빅벤의 종소리는 BBC 라디오를 통해 전국에 방송되었다. 공습 경보 사이렌과 폭격 소리 속에서도 매시간 울리는 종소리는 "런던은 아직 건재하다"는 신호였다. 영국인에게 빅벤은 단순한 시계가 아니라, 견뎌냈다는 증거 그 자체다.</p>
+  </div>
+</section>
+
+<!-- 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">14:00</div>
+      <div class="name">① 웨스트민스터 다리에서 전경 감상</div>
+      <div class="desc">웨스트민스터 사원에서 나와 다리 위로 올라간다. 다리 왼쪽(남쪽) 보도에서 Elizabeth Tower와 국회의사당 전체가 한 프레임에 담긴다. 다리 아래 아치 통로에서 찍으면 빅벤이 아치에 프레이밍되는 인생샷 포인트.</div>
+      <div class="highlight">10분 · 사진 촬영 최적 포인트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:10</div>
+      <div class="name">② Elizabeth Tower 가까이 보기</div>
+      <div class="desc">다리에서 돌아와 탑 바로 아래로 이동. 96m 높이의 탑을 올려다보며 시계 문자판(지름 7m, 오팔 유리 312장)의 스케일을 체감한다. 시계 바늘의 분침 길이만 4.3m. 탑 꼭대기 Ayrton Light — 의회가 야간에 열릴 때 켜지는 등불 — 도 찾아보자.</div>
+      <div class="highlight">5분 · 탑 아래에서 올려다보기</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:15</div>
+      <div class="name">③ 국회의사당 파사드 & 올리버 크롬웰 동상</div>
+      <div class="desc">Palace of Westminster 외벽을 따라 걸으며 고딕 리바이벌 장식을 감상한다. 웨스트민스터 홀 옆 정원에는 한 손에 칼, 한 손에 성경을 든 올리버 크롬웰(1653~1658 호국경) 동상이 서 있다. 왕을 처형하고 공화정을 세웠던 인물의 동상이 왕실 궁전 앞에 있다는 아이러니.</div>
+      <div class="highlight">5분 · 크롬웰 동상은 웨스트민스터 홀 정면 오른쪽</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:20</div>
+      <div class="name">④ Parliament Square 동상 투어</div>
+      <div class="desc">광장에는 윈스턴 처칠, 넬슨 만델라, 에이브러햄 링컨, 간디 등 세계 지도자들의 동상이 모여 있다. 처칠 동상은 특히 인기 — 코트 자락을 바람에 날리며 결연한 표정으로 국회의사당을 바라보고 있다.</div>
+      <div class="highlight">5분 · 처칠 동상과 빅벤을 함께 프레이밍</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">14:30</div>
+      <div class="name">이동 → 트라팔가 광장</div>
+      <div class="desc">Parliament Street → Whitehall을 따라 북쪽으로 도보 약 12분. 길 양쪽으로 정부 청사들이 늘어서 있다.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">종소리 타이밍</div>
+    빅벤은 매시 정각에 큰 종이 울리고, 15분마다 4개의 쿼터 벨이 멜로디를 연주한다. 14:00 도착이면 정각 종소리를 들을 수 있다. 웨스트민스터 사원에서 나올 때 시간을 맞춰보자.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 Best 3</div>
+    ① <strong>웨스트민스터 다리 왼쪽 보도</strong> — 탑 + 국회의사당 전경 (가장 클래식한 앵글)<br>
+    ② <strong>다리 아래 아치 통로</strong> — 아치가 프레임 역할, 관광객 적음<br>
+    ③ <strong>Parliament Square 남서쪽</strong> — 처칠 동상 + 빅벤 동시 촬영
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">촬영 팁</div>
+    2월 오후 2시 — 해가 남서쪽에 있어 시계탑 정면에 빛이 든다. 역광 걱정 없는 좋은 시간대. 다리 위는 바람이 강하니 모자/스카프 주의.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동전과 시계</div>
+    빅벤의 시계는 167년 된 기계식 시계다. 정확도 조절에 옛날 1페니 동전을 사용한다 — 동전 하나를 추에 올리면 하루에 0.4초 빨라진다. 세계에서 가장 정확한 기계식 시계 중 하나.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Westminster 역 내부 또는 웨스트민스터 사원 방문 시 미리 이용. 광장 주변에는 공중 화장실이 없으므로 사전에 해결할 것.
+  </div>
+
+  <div class="checklist">
+    <h3>체크리스트</h3>
+    <label><input type="checkbox"> 웨스트민스터 사원에서 화장실 미리 이용</label>
+    <label><input type="checkbox"> 카메라/스마트폰 충전 확인 (사진 스팟 다수)</label>
+    <label><input type="checkbox"> 14:00 정각 종소리 — 다리 위에서 듣기</label>
+    <label><input type="checkbox"> 다리 아래 아치 통로 인생샷</label>
+    <label><input type="checkbox"> 크롬웰 동상 찾기</label>
+    <label><input type="checkbox"> Parliament Square 처칠 동상 사진</label>
+  </div>
+</section>
+
+<!-- 더 알아보기 -->
+<section>
+  <details>
+    <summary>빅벤 숫자로 보기</summary>
+    <div class="tip-card" style="margin-top:8px;">
+      <div class="tip-title">Elizabeth Tower</div>
+      높이 96m · 계단 334개(종까지) · 399개(꼭대기까지) · 1859년 완공 · 기울기 약 0.26도(북서쪽으로 살짝 기울어져 있다)
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">시계 문자판</div>
+      지름 7m(23피트) · 오팔 유리 312장 · 분침 4.3m · 시침 2.7m · 4개 면 모두 동일
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">Big Ben (종)</div>
+      무게 13.5톤 · 높이 2.2m · 지름 2.7m · 음정: E (3옥타브) · 1858년 화이트채플 주조소 제작
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">복원 공사 (2017~2022)</div>
+      비용 6,900만 파운드(당초 예산 2,900만의 2.4배) · 시계 부품 1,000개 이상 수리 · 유리 324장 교체 · 원래 색상(파랑+초록+금) 복원 · 엘리베이터 신설
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 트라팔가 광장</strong> (도보 12분)<br>
+  Parliament Street → Whitehall 직진 → 트라팔가 광장
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
