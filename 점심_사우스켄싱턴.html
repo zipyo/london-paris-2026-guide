@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/17 점심 · South Kensington</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-pizza { background: #fef3c7; color: #92400e; }
+  .cuisine-burger { background: #fee2e2; color: #991b1b; }
+  .cuisine-lebanese { background: #e0f2fe; color: #075985; }
+  .cuisine-chicken { background: #f0fdf4; color: #166534; }
+  .cuisine-cafe { background: #f3e8ff; color: #6b21a8; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="header">
+  <h1>2/17 점심식사 <span class="sub">South Kensington</span></h1>
+  <div class="context">
+    과학박물관(~13:00) 나온 뒤 → 점심 → 14:00 사치갤러리 이동<br>
+    South Kensington역 주변 도보 5분 이내 식당 5곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">13:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">과학박물관 출구</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">14:00 사치갤러리</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 주간 (2/16~20) — 박물관 일대 점심시간 매우 혼잡. 예약 가능한 곳은 미리 예약 권장!</div>
+</div>
+
+<!-- ── 한눈 비교 ── -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Franco Manca</td>
+        <td>피자</td>
+        <td>~£35</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Honest Burgers</td>
+        <td>버거</td>
+        <td>~£42</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Comptoir Libanais</td>
+        <td>레바논</td>
+        <td>~£35</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Cocotte</td>
+        <td>치킨</td>
+        <td>~£47</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">V&A Café</td>
+        <td>카페</td>
+        <td>~£43</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── 식당 상세 ── -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Franco Manca -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 추천</div>
+    <div class="rest-header">
+      <div class="rest-name">Franco Manca</div>
+      <span class="rest-cuisine cuisine-pizza">나폴리 피자</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">키즈메뉴 충분한 양</span>
+      <span class="tag tag-good">빠른 서빙</span>
+      <span class="tag tag-info">좁은 매장</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">No.4 프로슈토 & 퐁기 피자</span><span class="price">£12.95</span></div>
+        <div class="menu-line"><span class="item">No.6 초리소 피자</span><span class="price">£13.95</span></div>
+        <div class="menu-line"><span class="item">Piccirillo 키즈세트 (피자+음료+아이스크림)</span><span class="price">£8.25</span></div>
+        <div class="menu-total"><span>예상 합계 (성인 음료 미포함)</span><span>~£35</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://eu.sevenrooms.com/reservations/francomancasouthkensington" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Franco+Manca,+91+Old+Brompton+Road,+London+SW7+3LD" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Honest Burgers -->
+  <div class="restaurant pick">
+    <div class="pick-badge">아이 만족도 추천</div>
+    <div class="rest-header">
+      <div class="rest-name">Honest Burgers</div>
+      <span class="rest-cuisine cuisine-burger">수제 버거</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">10:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">로즈마리 칩스 포함</span>
+      <span class="tag tag-good">빠른 회전율</span>
+      <span class="tag tag-warn">walk-in 전용 · 대기 가능</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Honest Burger (베이컨+치즈+칩스)</span><span class="price">£15.60</span></div>
+        <div class="menu-line"><span class="item">Beef Burger (기본+칩스)</span><span class="price">£12.40</span></div>
+        <div class="menu-line"><span class="item">Kids 세트 (버거+칩스+음료)</span><span class="price">£7.60</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£6.40</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£42</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://maps.google.com/?q=Honest+Burgers,+24+Thurloe+Street,+London+SW7+2LT" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Comptoir Libanais -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Comptoir Libanais</div>
+      <span class="rest-cuisine cuisine-lebanese">레바논</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">2분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">09:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">박물관에서 가장 가까움</span>
+      <span class="tag tag-good">walk-in도 수월</span>
+      <span class="tag tag-info">이국적 메뉴 경험</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Chicken Shawarma Wrap</span><span class="price">£8.95</span></div>
+        <div class="menu-line"><span class="item">Lamb Kofta Wrap</span><span class="price">£8.95</span></div>
+        <div class="menu-line"><span class="item">Kids 세트 (치킨타우크+칩+후무스+음료+아이스크림)</span><span class="price">£6.50</span></div>
+        <div class="menu-line"><span class="item">Hummus 공유</span><span class="price">£5.95</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£5.90</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£36</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.sevenrooms.com/explore/comptoirlibanaissouthkensington/reservations/create/search/" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Comptoir+Libanais,+1-5+Exhibition+Road,+London+SW7+2HE" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Cocotte -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Cocotte</div>
+      <span class="rest-cuisine cuisine-chicken">프렌치 로티세리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~21:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">가족 친화적 분위기</span>
+      <span class="tag tag-good">런치딜 £15~16</span>
+      <span class="tag tag-info">프랑스산 방목 치킨</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Cheeky Lunch (¼치킨+사이드2+소스2)</span><span class="price">£16.00</span></div>
+        <div class="menu-line"><span class="item">3 Items 런치딜 (평일 13~17시)</span><span class="price">£15.00</span></div>
+        <div class="menu-line"><span class="item">Kids 치킨 + 사이드</span><span class="price">~£8.00</span></div>
+        <div class="menu-line"><span class="item">음료 × 3</span><span class="price">~£8.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£47</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://mycocotte.uk/book-a-table/" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Cocotte,+11+Harrington+Road,+London+SW7+3ES" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 5. V&A Café -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">V&A Café</div>
+      <span class="rest-cuisine cuisine-cafe">뮤지엄 카페</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">10:00~17:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-info">세계 최초 뮤지엄 레스토랑</span>
+      <span class="tag tag-good">V&A 무료 입장</span>
+      <span class="tag tag-warn">13시 피크 · 대기 30분+</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">핫밀 (오늘의 메인)</span><span class="price">~£14.00</span></div>
+        <div class="menu-line"><span class="item">샌드위치 or 수프</span><span class="price">~£9.00</span></div>
+        <div class="menu-line"><span class="item">Kids Lunchbox (샌드위치+과일+음료)</span><span class="price">£7.00</span></div>
+        <div class="menu-line"><span class="item">커피 + 음료</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£37</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://maps.google.com/?q=V%26A+Cafe,+Cromwell+Road,+London+SW7+2RL" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">Half Term 대응 전략</div>
+    2/17은 영국 학교 방학 주간이라 South Kensington 일대가 가족 단위로 매우 붐빕니다.
+    예약 가능한 식당(Franco Manca, Comptoir Libanais, Cocotte)은 전날까지 예약해두세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    과학박물관 출구 → Exhibition Road로 나오면 Comptoir Libanais가 가장 가깝고(2분),
+    Thurloe Street 방향으로 걸으면 Honest Burgers/Franco Manca(5분).
+    식사 후 사치갤러리까지는 어디서든 도보 12~15분.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025년 확인 기준이며, 2026년 2월에 소폭 인상될 수 있습니다.
+    런던 레스토랑 대부분 서비스 차지 12.5%가 자동 추가됩니다.
+    합계에는 서비스 차지 미포함이므로, 실제 결제 시 +12.5% 예상하세요.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 사치갤러리 (14:00)</strong><br>
+  도보 이동 · Brompton Oratory(외관) + Sloane Street 경유 (~15분)
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
