@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>센강변 산책 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #2b4c7e;
+    --accent-light: #e8ecf4;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f3f0ea;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2b4c7e 50%, #3a6b8c 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>센강변 산책 <span class="en">Promenade le long de la Seine</span></h1>
+  <p class="oneliner">켈트족이 섬에 마을을 세우고, 바이킹이 약탈하고, 강이 범람해 도시를 삼켰던 곳. 2,300년 파리 역사가 이 강을 따라 흐른다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/24(화) 16:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">약 60분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">무료</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">숙소(마레 지구)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">거리</span>
+      <span class="value">약 2km (편도)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">일몰</span>
+      <span class="value">18:25 (골든아워)</span>
+    </div>
+  </div>
+  <div class="info-warn">2월 오후 기온 5~8°C + 강바람 → 방풍 외투·장갑·목도리 필수</div>
+</div>
+
+<!-- ── ② 왜 유명한가 ── -->
+<section class="story">
+  <h2><span class="icon">📖</span> 센강 이야기</h2>
+
+  <div class="story-block">
+    <h4>파리가 태어난 섬</h4>
+    <p>기원전 3세기, 파리지(Parisii)라는 켈트족이 센강 위 작은 섬에 정착했다. 강이 자연 해자가 되어 방어에 유리했고, 남북 교역로가 강을 건너는 지점이라 무역 중심지가 되었다. 이 섬이 지금의 일 드 라 시테(Île de la Cité).</p>
+    <p>기원전 52년, 카이사르의 로마군이 쳐들어오자 파리지 사람들은 자기 마을과 다리를 통째로 불태워 버렸다. 하지만 로마군은 다른 곳에서 강을 건너 돌아왔고, 이 자리에 '뤼테시아(Lutetia)'를 세웠다. 그리고 이 도시는 파리지 부족의 이름을 따 '파리'가 되었다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"흔들리되 가라앉지 않는다"</h4>
+    <p>파리 시 문장에는 배가 그려져 있다. AD 25년경, 센강의 뱃사람 길드(Nautae)가 세운 기념 기둥이 1710년 노트르담 지하에서 발굴되었는데, 이것이 파리에 현존하는 가장 오래된 유물이다. 이 뱃사람 길드는 너무 부유해져서 1263년에는 파리 시정(市政) 자체를 위임받았다.</p>
+    <p>그래서 파리의 모토는 "Fluctuat nec mergitur" — "흔들리되 가라앉지 않는다". 센강 위의 배처럼. 홍수, 혁명, 전쟁, 테러를 겪어도 무너지지 않은 도시의 정체성이 이 한마디에 담겨 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>"새 다리"가 가장 오래된 다리</h4>
+    <p>1578년, 앙리 3세가 첫 돌을 놓았지만 종교전쟁으로 공사가 30년이나 걸렸다. 1607년 앙리 4세가 완공한 이 다리의 이름은 '퐁 뇌프(Pont Neuf)' — '새 다리'라는 뜻이다. 430년이 지난 지금, 파리에서 가장 오래된 다리가 되었다.</p>
+    <p>다리 밑에 괴물 얼굴이 381개 조각되어 있다. 전설에 따르면 바람둥이 앙리 4세에게 아내를 빼앗긴 남편들의 얼굴이라는 농담이 전해진다. 개통 첫날 64,000명이 건넜고, 다리 위에서 아이스크림을 팔고, 길거리 치과까지 영업했다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>파리가 물에 잠긴 날</h4>
+    <p>1910년 1월, 겨울 폭우로 센강 수위가 정상보다 8.62m 상승했다. 12개 구(arrondissement)가 침수되고, 150,000명이 이재민이 되었다. 국회의사당까지 물에 잠겼고, 파리 시민들은 거리에서 보트를 저어 다녔다.</p>
+    <p>알마 다리(Pont de l'Alma)에는 1856년에 세운 주아브 병사 동상이 있다. 이 동상이 파리의 비공식 홍수 경보 — 물이 발에 닿으면 '강변 폐쇄', 허벅지까지 차면 '선박 운행 불가', 어깨까지 오면 '재앙'. 1910년에 진짜 어깨까지 왔다.</p>
+  </div>
+</section>
+
+<!-- ── ③ 산책 코스 ── -->
+<section>
+  <h2><span class="icon">🗺️</span> 산책 코스</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">16:30</div>
+      <div class="name">① 숙소 출발 → 센강변 진입</div>
+      <div class="desc">마레 숙소에서 Rue de Turenne를 따라 남쪽으로. Quai de l'Hôtel de Ville에서 센강에 도달. 파리 시청(Hôtel de Ville)이 오른쪽에 보인다.</div>
+      <div class="highlight">도보 15분 · 강변 도착 시 일 드 라 시테 전경이 펼쳐진다</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:45</div>
+      <div class="name">② 부키니스트 & 노트르담 조망</div>
+      <div class="desc">강변을 따라 서쪽으로 걸으면 초록 상자들이 보인다 — 500년 넘게 이어진 센강변 헌책방, 부키니스트. 240명의 상인이 900개 상자에 30만 권을 판다. 2024년 올림픽 때 철거 위기를 마크롱 대통령이 직접 막았다. 강 건너로 노트르담 대성당이 보인다. 2019년 화재에서 복원되어 2024년 12월 재개장.</div>
+      <div class="highlight">도보 10분 · 노트르담 사이드뷰 포토 스팟 · 부키니스트는 16시 이후 닫기 시작</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">16:55</div>
+      <div class="name">③ 퐁 뇌프 (Pont Neuf)</div>
+      <div class="desc">파리에서 가장 오래된 다리. 다리 밑 난간에 381개의 마스카롱(괴물 얼굴 조각)을 찾아보자. 다리 위에는 앙리 4세 기마상 — 말 배 안에 반왕정 팜플렛이 숨겨져 있다는 전설이 있다. 다리 아래 뾰족한 삼각형 광장이 스퀘어 뒤 베르 갈랑(Square du Vert-Galant), 센강 수면과 거의 같은 높이.</div>
+      <div class="highlight">5분 정차 · 381개 괴물 얼굴 찾기 · 앙리 4세 동상</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:05</div>
+      <div class="name">④ 퐁 데 자르 (Pont des Arts)</div>
+      <div class="desc">1803년 나폴레옹 시대에 지어진 파리 최초의 철제 다리. '예술의 다리'라는 이름은 맞은편 루브르가 '예술의 궁전'으로 불렸기 때문. 한때 100만 개, 45톤의 사랑의 자물쇠가 매달려 다리가 붕괴 위험에 처했고, 2015년 전면 철거되었다. 보행자 전용이라 가족 사진 촬영에 좋다.</div>
+      <div class="highlight">10분 정차 · 4방향 뷰: 루브르(북), 프랑스 학술원 돔(남), 에펠탑(서), 일 드 라 시테(동)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:20</div>
+      <div class="name">⑤ 골든아워 사진 & 마무리</div>
+      <div class="desc">일몰 18:25 — 17시부터 하늘이 따뜻한 색으로 물들기 시작한다. 퐁 데 자르 위에서 서쪽(에펠탑 방향)을 바라보면 석양빛 아래 센강이 금빛으로 변한다. 르누아르, 피사로, 시냑 같은 인상주의 화가들이 이 다리에서 영감을 받아 그림을 그렸다.</div>
+      <div class="highlight">골든아워 포토 타임 · 센강 양안은 1991년 유네스코 세계문화유산</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:30</div>
+      <div class="name">⑥ 저녁식사로 이동</div>
+      <div class="desc">퐁 데 자르 주변에서 저녁식사. 이후 숙소까지 도보 약 25분 (Pont des Arts → Rue de Rivoli → 마레).</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ⑤ 꿀팁 ── -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟 TOP 3</div>
+    1. <strong>퐁 데 자르 위</strong> — 서쪽으로 에펠탑 + 석양, 북쪽으로 루브르 정면, 동쪽으로 일 드 라 시테<br>
+    2. <strong>퐁 뇌프 위</strong> — 다리 위에서 센강 양방향 + 시테섬 끝 베르 갈랑 광장<br>
+    3. <strong>Quai de l'Hôtel de Ville</strong> — 강 건너로 노트르담 대성당 사이드뷰 (재개장 후 조명 업그레이드됨)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 & 시간대</div>
+    16:30 출발 시 아직 밝고, 산책 중 골든아워(17:00~)로 전환된다. 일몰 18:25 — 템즈 산책(완전 야경)과 달리 석양빛 센강을 볼 수 있는 시간대. 기온 5~8°C, 강바람으로 체감 더 낮음.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">부키니스트 (초록 헌책방)</div>
+    500년 역사의 센강변 헌책 노점. 240명, 900개 상자, 30만 권. 겨울에는 날씨에 따라 15~16시경 닫기 시작하므로, 열려 있는 상자를 만나면 운이 좋은 것. 고판화나 빈티지 엽서를 기념품으로 추천.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    파리 곳곳에 무료 공중화장실(Sanisette)이 있다. 퐁 데 자르 근처에서는 루브르 카루젤 입구 부근에 위치. 강변 카페에 들러도 이용 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">센강에서 발견된 것들</div>
+    50만 년 된 네안데르탈인 석기, 로마인이 소원을 빌며 던진 신상(神像), 중세 무기, 그리고... 1984년에 하수도에서 진짜 나일 악어가 발견되었다. 누군가 키우다 버린 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">바토무슈 이름의 비밀</div>
+    센강 관광 보트 '바토무슈(Bateaux-Mouches)'. 'Mouche'가 파리(곤충)라 '파리 보트'로 오해하지만, 실은 리옹의 '무슈' 동네 조선소에서 건조되어 붙은 이름. 1953년 만우절에 가공의 인물 '장 세바스티앵 무슈'를 창시자로 소개하는 장난까지 벌어졌다.
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 방풍 외투 + 장갑 + 목도리</label>
+    <label><input type="checkbox"> 스마트폰 충전 (골든아워 사진용)</label>
+    <label><input type="checkbox"> 호텔 카드키 소지 확인</label>
+    <label><input type="checkbox"> 23:50 노트르담 예약 대기 알람 설정</label>
+  </div>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 저녁식사 (17:30)</strong><br>
+  퐁 데 자르 주변에서 저녁 후 숙소 복귀.
+  오늘 밤 23:50 — 노트르담 2/26 예약 오픈 대기!
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
