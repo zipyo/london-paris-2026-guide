@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스톤헨지 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #6b7c4e;
+    --accent-dark: #4a5638;
+    --accent-light: #eef2e6;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f5f3ed;
+    --tip-bg: #fdf6ee;
+    --warn: #dc2626;
+    --stone: #8b7d6b;
+    --stone-light: #f0ebe4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--stone);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience Section */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent-dark);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next Stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* Stone Info */
+  .stone-info {
+    background: var(--stone-light);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .stone-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--stone);
+  }
+  .stone-info p { font-size: 13px; color: #374151; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>스톤헨지 <span class="en">Stonehenge</span></h1>
+  <p class="oneliner">5,000년 전, 도구라곤 돌과 밧줄뿐이던 사람들이 240km 떨어진 웨일즈에서 바위를 끌고 와 하늘에 맞춰 세웠다. 1915년에는 의자를 사러 간 변호사가 경매장에서 이 유적을 통째로 사버렸다. 그리고 다윈은 여기서 지렁이를 파헤쳤다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/21(토) 10:00~12:00</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">120분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료</span>
+      <span class="value">성인 £25 / 아동 £16</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주차</span>
+      <span class="value">비지터 센터 (무료)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">이동</span>
+      <span class="value">렌터카 (런던 90분)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개장</span>
+      <span class="value">09:30~17:00 (2월)</span>
+    </div>
+  </div>
+  <div class="info-warn">사전 예약 필수 (시간대별 입장) · 평원이라 강풍 — 방풍 재킷 꼭 챙기기</div>
+</div>
+
+<!-- 왜 유명한가 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 왜 유명한가</h2>
+
+  <div class="story-block">
+    <h4>240km를 걸어온 돌</h4>
+    <p>스톤헨지 안쪽에 서 있는 블루스톤들은 원래 여기 것이 아니다. 웨일즈 서쪽 끝, Preseli Hills라는 산에서 왔다. 직선거리로 240km — 서울에서 대전을 왕복하는 거리다.</p>
+    <p>오랫동안 "빙하가 굴려왔을 것"이라는 설이 있었다. 그러나 2024년, 호주 Curtin University 연구팀이 스톤헨지 근처 강바닥 퇴적물의 광물 "지문"을 분석했다. 결과는 명확했다. 빙하가 이 돌을 운반한 흔적은 전혀 없었다. 사람이 직접 끌고 온 것이다.</p>
+    <p>수톤짜리 바위를 밧줄과 통나무 굴림대로 240km를 옮겼다. 왜 그랬을까? 웨일즈의 채석장에서는 돌을 깎아낸 쐐기 도구와 작업장 흔적이 발견됐다. 아무 돌이나 가져온 게 아니라, 특정한 돌을 골라서 정성껏 떼어낸 것이다. 이 돌이 그들에게 얼마나 특별했는지를 보여준다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>스코틀랜드에서 온 제단석 — 섬 전체의 프로젝트</h4>
+    <p>스톤헨지 한가운데 눕혀진 6톤짜리 평평한 돌이 있다. '제단석(Altar Stone)'이라 불리는 이 돌의 정체가 2024년에야 밝혀졌다. 웨일즈가 아니라 스코틀랜드에서 온 것이었다.</p>
+    <p>이 발견이 충격적인 이유가 있다. 웨일즈에서 240km도 대단한데, 스코틀랜드에서는 무려 750km 이상이다. 5,000년 전 사람들이 브리튼 섬 전역에서 돌을 모아왔다는 뜻이다. Mike Parker Pearson 교수는 이것을 "고대 영국의 통합 프로젝트"라고 해석한다. 서로 다른 지역의 부족들이 하나의 기념물을 함께 짓기 위해 협력했다는 것이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>의자를 사러 갔다가 스톤헨지를 산 남자</h4>
+    <p>1915년 9월 21일, 영국 Salisbury의 Palace Theatre. 변호사 Cecil Chubb는 아내의 부탁으로 식탁 의자를 사러 경매장에 갔다. 때마침 1차 세계대전에서 상속자가 전사한 Antrobus 가문의 재산이 분할 경매에 나와 있었다.</p>
+    <p>경매 목록 Lot 15: "스톤헨지와 인접한 약 30에이커 토지." Chubb는 의자를 잊어버렸다. "Salisbury 사람이 사야 한다고 생각했습니다." 낙찰가 £6,600. 아내는 실망했다. 의자를 원했는데 남편이 선사시대 유적을 사왔으니.</p>
+    <p>3년 뒤, Chubb는 스톤헨지를 국가에 기증했다. 대가로 기사 작위를 받았고, 사람들은 그를 'Viscount Stonehenge'라 불렀다. 오늘날 스톤헨지가 English Heritage의 관리 아래 누구나 볼 수 있는 것은, 이 변호사의 충동 구매 덕분이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>다윈이 여기서 지렁이를 팠다</h4>
+    <p>자연사박물관에서 만났던 찰스 다윈. 그는 말년에 40년간 연구한 주제의 마지막 책을 쓰고 있었다 — 지렁이.</p>
+    <p>다윈은 스톤헨지에 직접 와서 2시간 동안 돌 주변의 흙을 팠다. 쓰러진 석판 옆에서 아들 William과 함께 꼬챙이와 흙손으로 지렁이 배설물을 추적했다. 그의 발견: 지렁이는 1에이커당 매년 15톤의 흙을 지표면으로 올린다. 수천 년이면 거대한 돌도 서서히 묻힌다.</p>
+    <p>고고학자가 아닌 자연학자가 스톤헨지에서 최초의 과학적 기록 발굴을 수행한 셈이다. 자연사박물관에서 다윈 동상을 보고, 여기서 그가 실제로 흙을 파던 현장에 서 있다 — 여행 속 연결이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>소리가 새어나가지 않는 원형극장</h4>
+    <p>2020년, 연구팀이 스톤헨지의 1:12 축소 모형을 만들어 음향 실험을 했다. 결과는 놀라웠다. 돌 서클 안에서는 목소리가 증폭되고, 음악의 품질이 향상됐다. 그런데 서클 바깥에서는 안의 소리가 거의 들리지 않았다.</p>
+    <p>의도적인 음향 설계였을까? Royal College of Art 연구에서는 블루스톤을 두드리면 큰 종소리가 울린다는 것도 밝혀졌다. 5,000년 전 사람들이 이 서클 안에서 돌을 두드리며 의식을 치렀다면, 바깥 세계와 완전히 차단된 소리의 성소였을 것이다.</p>
+  </div>
+</section>
+
+<!-- 핵심 포인트 -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">10:00</div>
+      <div class="name">① 도착 및 준비</div>
+      <div class="desc">비지터 센터 주차장 도착. 예약 QR 코드 확인, 화장실, 오디오 가이드 앱 다운로드 (English Heritage 앱, 비지터 센터 Wi-Fi 이용).</div>
+      <div class="highlight">20분 · 앱을 미리 다운받아 두면 시간 절약</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:20</div>
+      <div class="name">② 비지터 센터 전시</div>
+      <div class="desc">250여 점의 고고학 유물. 블루스톤 조각, 신석기 도구, 화장 유골, 청동기 유물. 멀티미디어 디스플레이로 50톤 사르센석을 어떻게 세웠는지 시각적으로 확인할 수 있다.</div>
+      <div class="highlight">20분 · 인터랙티브 전시에서 건설 과정 체험</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:40</div>
+      <div class="name">③ 신석기 가옥</div>
+      <div class="desc">비지터 센터 바깥에 재현된 6채의 4,500년 전 가옥. 개암나무 뼈대에 짚과 백악 회반죽으로 지은 집 내부에 직접 들어갈 수 있다. 스톤헨지를 지은 사람들이 살던 Durrington Walls 마을(북동쪽 3km)의 100여 채 가옥 발굴 결과를 바탕으로 재현.</div>
+      <div class="highlight">10분 · 자원봉사자가 있으면 고대 공예 시연 관람</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">10:50</div>
+      <div class="name">④ 셔틀버스 → 스톤헨지</div>
+      <div class="desc">비지터 센터에서 스톤헨지까지 2.4km. 셔틀버스로 약 10분 소요. 수 분 간격 운행. 차창으로 Salisbury Plain 평원의 광활한 풍경이 펼쳐진다.</div>
+      <div class="highlight">10분 · 입장권에 셔틀 포함</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:00</div>
+      <div class="name">⑤ 스톤헨지 서클 관람</div>
+      <div class="desc">원형 산책로(약 300~400m)를 따라 서클 한 바퀴. 로프 경계에서 돌까지 약 10~15m 거리. 오디오 가이드를 들으며 Heel Stone(하지 일출 정렬), 사르센 서클(30개 수직석 + 린텔), 5개 트릴리톤(말굽 배치, 가장 큰 돌 높이 7.5m), 블루스톤, 제단석을 차례로 만난다.</div>
+      <div class="highlight">45분 · 오전 빛이 돌을 비추는 최적 시간대</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">11:45</div>
+      <div class="name">⑥ 셔틀버스 복귀 → 출발</div>
+      <div class="desc">셔틀버스 탑승 후 비지터 센터 복귀. 화장실, 필요시 카페에서 간단한 스낵 구매 (차에서 먹을 용). 12:00 정각 라콕으로 출발.</div>
+      <div class="highlight">15분 · 기념품샵은 시간상 스킵</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">12:00</div>
+      <div class="name">퇴장 → 라콕</div>
+      <div class="desc">렌터카로 약 60분 이동. A303 → A36 경유.</div>
+      <div class="highlight">코스 종료</div>
+    </div>
+  </div>
+</section>
+
+<!-- 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>50톤의 무게 상상하기</h4>
+    <p>가장 큰 사르센석은 50톤 — 코끼리 10마리 무게다. 높이는 지상 6.7m + 지하 2.4m = 총 9.1m. 아파트 3층 높이의 바위를 사람의 힘만으로 25km 떨어진 Marlborough Downs에서 끌고 왔다. 서클 앞에서 크기를 가늠해보자.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>하늘 정렬 확인하기</h4>
+    <p>서클 중앙에서 북동쪽을 보면 Heel Stone이 있다. 여름 하지(6/21)에는 이 돌 왼쪽으로 해가 뜬다. 겨울 동지(12/21)에는 남서쪽 가장 큰 트릴리톤 뒤로 해가 진다. 2월 방문이지만 정렬축의 방향을 확인할 수 있다. 농사의 시기를 알려주는 거대한 달력이었다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>신석기 가옥 탐험</h4>
+    <p>비지터 센터 옆 재현 가옥에 직접 들어갈 수 있다. 4,500년 전 이 근처 Durrington Walls에서 살던 사람들의 집. 개암나무 뼈대, 짚 지붕, 백악 회반죽 벽. 스톤헨지를 세운 건축가들이 퇴근 후 돌아간 집이다.</p>
+  </div>
+</section>
+
+<!-- 돌 이야기 더 보기 -->
+<section>
+  <details>
+    <summary>돌의 과학 — 더 알아보기</summary>
+
+    <div class="stone-info">
+      <h4>사르센석 — 같은 산에서 온 형제들</h4>
+      <p>2020년 University of Reading 연구팀이 Stone 58에서 코어 샘플을 채취해 화학 분석을 했다. 대부분의 사르센석이 동일한 화학 조성을 가지고 있었다 — 북쪽 25km Marlborough Downs의 West Woods에서 한꺼번에 가져온 것이다. 가장 가까운 곳에서 가장 크고 튼튼한 돌만 골랐다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>트릴리톤의 기술</h4>
+      <p>두 개의 수직석 위에 수평 린텔석(약 7톤)을 올린 구조. 고정 방식은 장부(mortise-and-tenon) 이음 — 목공 기술을 돌에 적용한 것이다. 5,000년 전 사람들이 돌을 나무처럼 깎아 맞춘 정밀함이 놀랍다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>1958년: 크레인으로 세운 돌</h4>
+      <p>1797년에 무너진 트릴리톤을 1958~1959년에 크레인으로 다시 세웠다. David Healy가 크레인을 조종했고, 무너진 사르센석 주변에 돌을 채워 고정했다. "복원은 거짓말이다"라는 비판도 있었지만, 이 작업이 없었다면 더 많은 돌이 무너졌을 것이다. 1963년에는 실제로 강풍에 외곽 돌 하나가 쓰러지기도 했다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>Aubrey Holes — 56개의 구멍</h4>
+      <p>서클 바깥에 정확히 271.6m 둘레로 배치된 56개의 구멍. 17세기 고고학자 John Aubrey의 이름을 땄다. 처음에는 블루스톤을 세웠던 자리였다가, 나중에 화장 매장지로 바뀌었다. 58명분의 유골이 발견되었다. 스톤헨지는 영국 제도에서 가장 큰 후기 신석기 묘지이기도 하다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 스톤헨지의 목적 -->
+<section>
+  <details>
+    <summary>왜 만들었을까 — 다섯 가지 이론</summary>
+
+    <div class="stone-info">
+      <h4>1. 천문 관측소</h4>
+      <p>Gerald Hawkins는 스톤헨지가 56년 주기로 태양과 달의 움직임을 관측할 수 있도록 설계되었다고 주장했다. 하지에는 Heel Stone 왼쪽으로 해가 뜨고, 동지에는 트릴리톤 뒤로 해가 진다. 농경 사회에서 계절을 아는 것은 생존의 문제였다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>2. 치유의 장소</h4>
+      <p>블루스톤 조각을 부적이나 치유용으로 깎아낸 흔적이 발견됐다. 주변 매장지의 유골에서 외상 흔적도 나왔다. 중세 순례지 루르드처럼, 아픈 사람들이 치유를 위해 찾아온 곳이었을 수 있다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>3. 죽은 자의 영역</h4>
+      <p>영국에서 가장 오래된 화장 묘지. 근처 Durrington Walls는 산 자의 공간, 스톤헨지는 죽은 자의 영역이었다는 이론. Avon 강을 따라 이동하는 것이 삶에서 죽음으로의 의례적 여정을 상징했다.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>4. 고대의 콘서트홀</h4>
+      <p>블루스톤을 두드리면 종소리가 난다. 서클 안에서 소리가 증폭되고 바깥으로 새어나가지 않는다. 의도적으로 음향을 설계한 의식 공간이었을 가능성.</p>
+    </div>
+
+    <div class="stone-info">
+      <h4>5. 통합의 기념물</h4>
+      <p>웨일즈에서, 스코틀랜드에서, 브리튼 섬 곳곳에서 돌을 모아왔다. 서로 다른 지역의 사람들이 하나의 건축물을 함께 짓기 위해 협력한 — 평화와 통합의 상징.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">혼잡도</div>
+    2월은 비수기 — 여유롭게 사진 찍기 좋은 시기. 10:00 오전 입장은 가장 한산한 시간대. 단, UK Half Term 방학(2월 셋째 주)과 겹칠 수 있으니 현장 상황에 따라 유동적으로.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① 동쪽에서 서쪽으로 — 오전 빛이 돌에 따뜻한 톤을 입힘<br>
+    ② 낮은 각도 (광각) — 돌의 웅장함 극대화<br>
+    ③ 남서쪽 가장 큰 트릴리톤 클로즈업<br>
+    ④ 서클을 배경으로 가족사진 (직원에게 부탁 가능)<br>
+    2월 아침 안개가 끼면 드라마틱한 분위기 — 오히려 행운
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 대비 (2월)</div>
+    평균 기온 2~9°C, 그러나 노출된 평원이라 <strong>바람이 최대 적</strong>.<br>
+    방풍 재킷 + 겹겹이 입기 + 장갑/스카프 필수. 우산보다 후드가 낫다(바람에 뒤집힘).<br>
+    방수 워킹화 권장.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    비지터 센터에만 있음. 스톤헨지 서클에는 화장실 없음.<br>
+    셔틀 타기 전 + 복귀 후 출발 전, 두 번 다녀올 것.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">식사</div>
+    비지터 센터 카페에서 간단한 스낵/음료 구매 가능. 식사할 시간은 없으니 간식만.<br>
+    물과 간식은 차에 미리 준비 → 라콕 도착 후 점심.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">날씨 확인</div>
+    출발 1~2일 전 Met Office(metoffice.gov.uk)에서 <strong>"Amesbury"</strong> 날씨 검색 (London이나 Salisbury보다 정확).
+  </div>
+
+  <div class="checklist">
+    <h3>출발 전 체크리스트</h3>
+    <label><input type="checkbox"> 예약 확인서 / QR 코드 저장</label>
+    <label><input type="checkbox"> English Heritage 오디오 가이드 앱 사전 다운로드</label>
+    <label><input type="checkbox"> 방풍 재킷 + 장갑 + 스카프</label>
+    <label><input type="checkbox"> 방수 워킹화 착용</label>
+    <label><input type="checkbox"> 이어폰/헤드폰 3개 (오디오 가이드 각자 청취용)</label>
+    <label><input type="checkbox"> 물 + 간식 차에 준비</label>
+    <label><input type="checkbox"> 스마트폰 충전 (오디오 가이드 2시간 사용)</label>
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 라콕 (Lacock)</strong><br>
+  12:00 출발 → 렌터카 약 60분 이동
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>

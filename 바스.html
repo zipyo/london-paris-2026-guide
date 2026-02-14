@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>바스 가이드</title>
+<style>
+  :root {
+    --bg: #faf8f5;
+    --card: #fff;
+    --accent: #a0522d;
+    --accent-light: #fdf0e6;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f3ed;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #a0522d 0%, #6b3410 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+  section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 8px;
+    color: var(--accent);
+  }
+
+  /* Story Section */
+  .story { background: var(--story-bg); }
+  .story-block {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--accent);
+  }
+  .story-block h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-block p {
+    font-size: 13.5px;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  .story-block p:last-child { margin-bottom: 0; }
+
+  /* Route Section */
+  .route-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .route-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .route-stop {
+    position: relative;
+    margin-bottom: 20px;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .route-stop::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .route-stop .time {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .route-stop .name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .route-stop .desc {
+    font-size: 13px;
+    color: #4b5563;
+  }
+  .route-stop .highlight {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  /* Experience Section */
+  .experience { background: var(--accent-light); }
+  .exp-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .exp-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .exp-card p { font-size: 13px; color: #374151; }
+
+  /* Tips Section */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Checklist */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* Next Stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  /* Footer */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Collapsible */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<!-- ① HEADER -->
+<div class="header">
+  <h1>바스 <span class="en">Bath</span></h1>
+  <p class="oneliner">1만 년 전 빗물이 지하 4km를 여행해 46도로 솟아오르는 곳. 로마인은 여기에 신전을 세웠고, 18세기 건축가는 스톤헨지와 같은 지름의 원형 건물을 지었다. 오늘 아침 직접 본 그 스톤헨지의 치수가 도시 한복판에 숨어 있다.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">방문일</span>
+      <span class="value">2/21(토) 15:30~18:30</span>
+    </div>
+    <div class="info-item">
+      <span class="label">소요 시간</span>
+      <span class="value">180분</span>
+    </div>
+    <div class="info-item">
+      <span class="label">입장료 (Roman Baths)</span>
+      <span class="value">성인 £20 / 아동 할인</span>
+    </div>
+    <div class="info-item">
+      <span class="label">주차</span>
+      <span class="value">Park & Ride (무료+버스)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">개관 (Roman Baths)</span>
+      <span class="value">09:00~18:00 (입장 17:00)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">Bath Abbey</span>
+      <span class="value">성인 £9 / 아동 £5</span>
+    </div>
+  </div>
+  <div class="info-warn">온라인 사전 예매 시 £2 할인. 토요일 오후는 혼잡 — 15:30 도착 즉시 Roman Baths 입장</div>
+</div>
+
+<!-- ② 이곳의 이야기 -->
+<section class="story">
+  <h2><span class="icon">📖</span> 이곳의 이야기</h2>
+
+  <div class="story-block">
+    <h4>1만 년 된 빗물 한 방울의 여행</h4>
+    <p>지금 Roman Baths에서 솟아오르는 따뜻한 물은 약 1만 년 전 Mendip Hills에 내린 빗물이다. 빗방울은 석회암 사이로 스며들어 지하 2,700~4,300m까지 내려갔다. 그 깊이에서 지구 내부의 열이 물을 69~96도까지 데웠다.</p>
+    <p>뜨거워진 물은 압력을 받아 암석 틈새를 타고 다시 올라온다. Pennyquick 단층이라는 지질학적 균열을 따라 지표면까지 솟구치면, 온도는 46도. 하루에 117만 리터 — 올림픽 수영장 절반을 채울 양이 매일 쏟아져 나온다.</p>
+    <p>이 물이 그냥 따뜻한 게 아니라 43종의 미네랄을 품고 있다. 로마인들은 이 뜨거운 샘을 발견하고 "신이 만든 것"이라 확신했다. 켈트족의 물의 여신 Sulis와 로마의 지혜의 여신 Minerva를 합쳐 'Sulis Minerva'로 모시고, 이 샘 위에 신전을 세웠다. 도시의 로마식 이름 Aquae Sulis — "술리스의 물"이 여기서 나왔다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Bladud 왕자와 돼지 — 바스의 건국 신화</h4>
+    <p>기원전 863년, 브리튼의 왕자 Bladud는 나병에 걸려 궁에서 쫓겨났다. 함께 데리고 나온 돼지 떼마저 그의 병에 감염되었다. 왕자는 떠돌이 돼지치기가 되어 숲을 헤맸다.</p>
+    <p>어느 날 돼지들이 뜨거운 진흙 웅덩이에 뒹굴기 시작했다. 아무도 시키지 않았는데, 돼지들은 김이 모락모락 나는 진흙에서 나오려 하지 않았다. 며칠 뒤 돼지들의 피부병이 깨끗이 나았다. Bladud도 같은 진흙을 온몸에 발랐고, 기적처럼 나병이 사라졌다.</p>
+    <p>왕좌에 복귀한 Bladud는 이 뜨거운 샘 위에 도시를 세웠다 — 그것이 바스. 하지만 이야기의 끝은 비극이다. 왕이 된 그는 깃털로 날개를 만들어 하늘을 날려 했고, Apollo 신전(지금의 런던) 위에서 추락사했다. 그리스 신화의 이카로스와 놀랍도록 닮은 이야기다.</p>
+    <p>The Circus에 가면 지붕 위 도토리 장식을 찾아보자. Bladud의 돼지들이 먹던 도토리를 기념한 것이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>저주 석판 130개 — 고대 로마인의 SNS</h4>
+    <p>Roman Baths 박물관에서 가장 흥미로운 전시물 중 하나는 저주 석판(Curse Tablets)이다. 납이나 주석 판에 글을 새기고 돌돌 말아서 신성한 샘물에 던졌다. 2세기부터 4세기 후반까지 약 130개가 발견되었다.</p>
+    <p>내용은 대부분 이렇다: "목욕탕에서 내 옷(또는 동전)을 훔친 자가 누구든, Sulis Minerva 여신이여, 그의 피를 끓게 하소서." 도둑의 이름을 콕 집어 쓴 것도 있고, "빨간 망토를 훔친 자든 여자든 남자든 자유인이든 노예든" 이렇게 범인을 몰라서 전부 저주한 것도 있다.</p>
+    <p>공중목욕탕에서 옷을 벗어놓으면 누가 가져가는 건 2천 년 전이나 지금이나 마찬가지였다. 다른 점이라면, 로마인들은 SNS 대신 납판에 분노를 새겨 여신에게 보냈다는 것뿐이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>고르곤의 머리 — 메두사인데 왜 남자인가</h4>
+    <p>Roman Baths 박물관에 들어가면 거대한 돌 조각이 맞이한다. Sulis Minerva 신전의 정면 삼각 박공에서 15m 높이에서 내려다보던 조각이다. 그리스-로마 신화의 메두사(고르곤)를 표현한 것인데, 문제가 하나 있다 — 메두사는 여성인데 이 얼굴은 분명히 남성이다.</p>
+    <p>콧수염과 턱수염, 이마의 날개, 머리카락 대신 뱀. 학자들은 이것이 켈트-로마 문화 융합의 증거라고 본다. 켈트족의 물의 신 이미지와 로마의 메두사가 합쳐진 것이다. 또 다른 해석은 이것이 메두사가 아니라 바다의 신 오케아노스라는 것. 어느 쪽이든, 두 문명이 서로의 신을 존중하며 하나로 합친 유일무이한 조각이다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>John Wood 부자 — 스톤헨지를 도시에 재현한 건축가</h4>
+    <p>오늘 아침 직접 본 스톤헨지를 떠올려보자. 그 외곽 제방의 지름이 약 99m다. 18세기 건축가 John Wood 1세는 바스에서 스톤헨지를 직접 측량한 뒤, 그 치수와 거의 같은 지름 97m의 원형 건물을 설계했다 — 그것이 The Circus다.</p>
+    <p>Wood 1세는 바스가 고대 드루이드 문명의 중심지였다고 믿었다. 그래서 The Circus를 태양의 상징으로 설계했다. 원형 건물 외벽에는 도토리, 뱀, 드루이드 상징이 새겨져 있다. 안타깝게도 그는 착공 3개월 만에 세상을 떠났고, 아들 John Wood 2세가 아버지의 설계를 완성했다.</p>
+    <p>아들은 여기서 한 발 더 나갔다. The Circus(태양)에서 도보 2분 거리에 Royal Crescent(달)를 지었다. 반원형으로 펼쳐진 30채의 연립주택이 초승달 모양이다. 그리고 아버지가 이미 완성해둔 Queen's Square가 지구를 상징한다. 태양 — 달 — 지구. 우주적 건축 삼부작이 바스 도심에 숨어 있다.</p>
+  </div>
+
+  <div class="story-block">
+    <h4>Beau Nash — 칼을 금지한 바스의 왕</h4>
+    <p>18세기 바스를 영국 최고의 휴양도시로 만든 사람은 건축가가 아니라 도박꾼이었다. Richard "Beau" Nash. 1704년에 바스의 "Master of Ceremonies"가 되어 죽을 때까지 58년간 이 도시를 지배했다.</p>
+    <p>그의 첫 번째 명령: 모임 장소에서 칼 착용 금지. 당시 신사들은 칼을 차고 다니며 사소한 다툼에도 결투를 벌였다. Nash는 이를 금지하고, 복장 규정, 무도회 시간표, 심지어 음악이 끝나면 모두 귀가해야 한다는 규칙까지 만들었다. 야만적이던 온천마을이 유럽에서 가장 세련된 사교장이 되었다.</p>
+    <p>아이러니하게도, Nash 자신은 도박에 빠져 결국 파산했다. 말년에는 정부(情婦) Juliana Popjoy의 집에 얹혀살았다. Pump Room에 가면 그의 초상화가 걸려 있다 — 바스를 만든 남자의 화려하고 비참한 결말.</p>
+  </div>
+</section>
+
+<!-- ③ 핵심 포인트 (동선) -->
+<section>
+  <h2><span class="icon">🗺️</span> 핵심 포인트</h2>
+
+  <div class="route-timeline">
+    <div class="route-stop">
+      <div class="time">15:30~15:45</div>
+      <div class="name">① 도착 + 주차</div>
+      <div class="desc">라콕에서 A4 도로로 약 30분. Lansdown Park & Ride 이용 시 무료 주차 + 버스 10분(£3.60/인). 시내 주차는 비싸고 어려우므로 Park & Ride 추천.</div>
+      <div class="highlight">15분 · 버스 15분 간격 운행</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">15:45~17:15</div>
+      <div class="name">② Roman Baths</div>
+      <div class="desc">핵심 중의 핵심. 입장 즉시 오디오 가이드 수령(한국어 지원, 아동용 별도). 신전 박공의 고르곤 머리 → Sacred Spring(46도 온천수가 초록빛으로 솟구치는 모습) → 저주 석판 전시 → Great Bath(야외 대욕장). 겨울 오후라 수면에서 증기가 피어오른다 — 연중 최고의 사진 타이밍.</div>
+      <div class="highlight">90분 · 오디오 가이드 필수 (Bill Bryson 내레이션)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:15~17:35</div>
+      <div class="name">③ Bath Abbey</div>
+      <div class="desc">Roman Baths 바로 옆. 서쪽 정면의 천사들이 사다리를 오르내리는 조각(야곱의 사다리)을 올려다보자. 내부 부채꼴 천장(Fan Vault)은 영국 고딕 건축의 걸작. 일몰 무렵(17:19~25) 스테인드글라스에 마지막 빛이 드는 시간대.</div>
+      <div class="highlight">20분 · 성인 £9 / 아동 £5 (가족 10% 할인)</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">17:35~18:00</div>
+      <div class="name">④ Pulteney Bridge & Weir</div>
+      <div class="desc">Abbey에서 도보 5분. Robert Adam이 피렌체의 Ponte Vecchio에서 영감을 받아 설계한 다리. 세계에서 몇 안 되는 양쪽에 상점이 있는 다리. 다리 남쪽 계단으로 내려가면 반원형 Weir(보)와 다리를 함께 담는 바스의 대표 사진 스팟.</div>
+      <div class="highlight">25분 · 일몰 직후 조명이 켜지는 순간이 베스트</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:00~18:20</div>
+      <div class="name">⑤ Royal Crescent & The Circus</div>
+      <div class="desc">여유가 있다면 도보 15분 거리. 아침에 본 스톤헨지와 같은 지름(97m)의 The Circus → 2분 거리 Royal Crescent. 30채 연립주택이 만드는 초승달 곡선을 앞잔디에서 감상. 저녁 조명 아래의 Royal Crescent도 운치 있다.</div>
+      <div class="highlight">20분 · 스톤헨지를 떠올리며 The Circus 지름 비교</div>
+    </div>
+
+    <div class="route-stop">
+      <div class="time">18:20~18:30</div>
+      <div class="name">복귀 → 런던</div>
+      <div class="desc">Park & Ride 버스로 주차장 복귀. 바스에서 런던까지 M4 고속도로 약 2시간 30분. 토요일 저녁이라 정체 가능성 — 18:30 출발 목표.</div>
+      <div class="highlight">코스 종료 · 런던 도착 예상 21:00</div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ 체험 & 인터랙티브 -->
+<section class="experience">
+  <h2><span class="icon">🎯</span> 체험 & 인터랙티브</h2>
+
+  <div class="exp-card">
+    <h4>Pump Room 온천수 시음</h4>
+    <p>Roman Baths 티켓 소지자 무료 (일반 50p). Pump Room 내 분수대에서 43종 미네랄이 녹아 있는 온천수를 맛볼 수 있다. 1670년대 방문객 Celia Fiennes는 "계란 삶은 물 맛"이라고 했다. 미지근하고 금속성 맛이 나지만, 2천 년간 사람들이 마셔온 바로 그 물이다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>저주 석판 직접 읽기</h4>
+    <p>박물관 내 저주 석판 전시실에서 실물 납판 관람. "내 장갑을 훔친 자에게..." 같은 번역문이 함께 전시되어 있다. 2천 년 전 사람들의 일상적 분노를 읽는 재미가 있다. 아이용 오디오 가이드에서도 저주 석판 이야기를 재미있게 다룬다.</p>
+  </div>
+
+  <div class="exp-card">
+    <h4>Sacred Spring 증기 관찰</h4>
+    <p>2월 겨울 오후, 바깥 기온과 46도 온천수의 온도차로 수면 위에 짙은 증기가 피어오른다. Great Bath 야외 풀에서 가장 극적으로 보인다. 여름에는 잘 안 보이는 겨울 한정 광경.</p>
+  </div>
+</section>
+
+<!-- ⑤ 꿀팁 -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">주차 전략</div>
+    Lansdown Park & Ride 추천 (북쪽 진입 시). 무료 주차 + 버스 £3.60/인 (10분 간격, 소요 10분). 단체 티켓(5인) 이용 시 £2.24/인. 시내 주차는 토요일 오후 거의 불가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 스팟</div>
+    ① Great Bath 증기 (겨울 오후 최적)<br>
+    ② Pulteney Bridge + Weir (다리 남쪽 계단 하단)<br>
+    ③ Royal Crescent 잔디밭에서 전경<br>
+    ④ Bath Abbey 서쪽 정면 (천사의 사다리)
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">오디오 가이드</div>
+    Roman Baths 입장 시 무료 제공. 한국어 지원. 아동용 별도 트랙이 있어 아이도 지루하지 않다. Bill Bryson이 영어 내레이션을 맡았는데, 한국어가 좋더라도 몇 포인트는 영어로 들어볼 만하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Pump Room</div>
+    Roman Baths 출구와 연결. Afternoon Tea가 유명하지만 시간이 빠듯하므로, 온천수 시음만 하고 나오는 것이 현실적. 분수대에서 한 잔 무료.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">화장실</div>
+    Roman Baths 내부 + Bath Abbey 내부 + Park & Ride 정류장. Roman Baths 입장 전 Park & Ride 정류장에서 미리 다녀오면 편하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">일몰 활용</div>
+    2월 21일 일몰 약 17:19~17:25. Roman Baths에서 나온 직후가 일몰 시간대. Bath Abbey 스테인드글라스에 마지막 빛이 들고, 이후 Pulteney Bridge와 Royal Crescent는 조명 아래 야경으로 감상.
+  </div>
+
+  <h3>출발 전 체크리스트</h3>
+  <div class="checklist">
+    <label><input type="checkbox"> Roman Baths 온라인 티켓 예매 (£2 할인)</label>
+    <label><input type="checkbox"> Park & Ride 위치 네비에 저장</label>
+    <label><input type="checkbox"> 따뜻한 외투 (Great Bath 야외 구간 + 저녁 산책)</label>
+    <label><input type="checkbox"> 카메라 (증기 사진용, 스마트폰 OK)</label>
+    <label><input type="checkbox"> 동전 (Pump Room 온천수 시음 50p — 티켓 있으면 무료)</label>
+  </div>
+</section>
+
+<!-- 더 알아보기 -->
+<section>
+  <details>
+    <summary>Aquae Sulis — 로마 도시 바스의 역사</summary>
+    <div class="story-block">
+      <h4>로마의 도착 (AD 60년경)</h4>
+      <p>로마군은 브리튼 남서부를 정복하면서 이 뜨거운 샘을 발견했다. 켈트 부족 Dobunni가 이미 물의 여신 Sulis를 숭배하고 있었다. 로마인들은 Sulis를 자신들의 Minerva와 동일시하여 Sulis Minerva로 합쳤다 — 정복이 아닌 융합의 전략이었다.</p>
+    </div>
+    <div class="story-block">
+      <h4>대욕장의 전성기 (2~4세기)</h4>
+      <p>Great Bath는 원래 지붕이 있는 실내 시설이었다. 납으로 방수 처리한 바닥, 복잡한 배수 시스템, 언더플로어 히팅(hypocaust)까지 갖췄다. 영국 전역에서 사람들이 치료와 종교 의식을 위해 몰려들었다.</p>
+    </div>
+    <div class="story-block">
+      <h4>잊혀진 도시 (5~18세기)</h4>
+      <p>로마 제국 몰락 후 목욕 시설은 진흙에 묻혔다. 중세인들은 뜨거운 물이 나오는 것만 알았지, 그 아래 로마 유적이 있는 줄은 몰랐다. 1878년 하수도 공사 중 금박 입힌 Minerva 두상이 발견되면서 대규모 발굴이 시작되었다.</p>
+    </div>
+  </details>
+</section>
+
+<!-- 다음 일정 연결 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 런던 복귀</strong><br>
+  Park & Ride → M4 고속도로 → 런던 (약 2시간 30분)<br>
+  토요일 저녁 정체 감안, 18:30 출발 → 21:00 도착 예상
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
