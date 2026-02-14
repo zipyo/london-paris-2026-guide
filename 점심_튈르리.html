@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/25 점심 · 튈르리/콩코드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-french { background: #ede9fe; color: #5b21b6; }
+  .cuisine-cafe { background: #f3e8ff; color: #6b21a8; }
+  .cuisine-steak { background: #fee2e2; color: #991b1b; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/25 점심식사 <span class="sub">튈르리/콩코드</span></h1>
+  <div class="context">
+    오랑주리 미술관(~13:30) 나온 뒤 → 점심 → 14:30 샹젤리제 이동<br>
+    튈르리/콩코드 주변 도보 3~13분 이내 식당 4곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">13:30 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">오랑주리 미술관 출구</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">14:30 샹젤리제</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">2월 야외 기온 3~8°C — 정원 내 카페 이용 시 실내 좌석 여부를 반드시 전화 확인하세요!</div>
+</div>
+
+<!-- ── 한눈 비교 ── -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Brasserie Flottes</td>
+        <td>브라스리</td>
+        <td>~€75</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Café des Marronniers</td>
+        <td>정원 카페</td>
+        <td>~€60</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Le Petit Saint-Honoré</td>
+        <td>비스트로</td>
+        <td>~€70</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Hippopotamus Opera</td>
+        <td>스테이크</td>
+        <td>~€45</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── 식당 상세 ── -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Brasserie Flottes -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 · 프랑스 경험 추천</div>
+    <div class="rest-header">
+      <div class="rest-name">Brasserie Flottes</div>
+      <span class="rest-cuisine cuisine-french">프렌치 브라스리</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">07:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">런치 포뮬 €26부터</span>
+      <span class="tag tag-good">아르누보 인테리어</span>
+      <span class="tag tag-info">키즈메뉴 €17</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule déjeuner (앙트레+플라) × 2</span><span class="price">€52</span></div>
+        <div class="menu-line"><span class="item">Menu Enfant (메인+음료+디저트)</span><span class="price">€17</span></div>
+        <div class="menu-line"><span class="item">카페 크렘 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€77</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://brasserieflottes.fr/fr" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://www.google.com/maps/place/Brasserie+Flottes/@48.8662893,2.3253435,18z/" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Café des Marronniers -->
+  <div class="restaurant pick">
+    <div class="pick-badge">최단거리 · 정원 뷰</div>
+    <div class="rest-header">
+      <div class="rest-name">Café des Marronniers</div>
+      <span class="rest-cuisine cuisine-cafe">정원 카페</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">3분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~18:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">키즈메뉴 €15</span>
+      <span class="tag tag-good">오랑주리에서 가장 가까움</span>
+      <span class="tag tag-warn">겨울 실내 좌석 전화 확인</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Les Marronniers Menu (메인+디저트) × 2</span><span class="price">€40</span></div>
+        <div class="menu-line"><span class="item">Menu Enfant (메인+디저트+음료)</span><span class="price">€15</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€63</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://www.google.com/maps/search/Caf%C3%A9+des+Marronniers+Jardin+des+Tuileries+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Le Petit Saint-Honoré -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Le Petit Saint-Honoré</div>
+      <span class="rest-cuisine cuisine-french">프렌치 비스트로</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">8분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">09:00~00:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">TheFork 평점 9.1</span>
+      <span class="tag tag-good">연중무휴</span>
+      <span class="tag tag-info">키즈메뉴 미확인 · 전화 문의</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Argentine Beef Tartare + Frites</span><span class="price">€19</span></div>
+        <div class="menu-line"><span class="item">Duck Breast à l'orange</span><span class="price">€26</span></div>
+        <div class="menu-line"><span class="item">Argentine Beef Burger (아이)</span><span class="price">€21</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€74</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.thefork.fr/restaurant/le-petit-saint-honore-r811418" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://www.google.com/maps/search/Le+Petit+Saint-Honor%C3%A9+158+Rue+Saint-Honor%C3%A9+75001+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Hippopotamus Opera -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Hippopotamus Opera</div>
+      <span class="rest-cuisine cuisine-steak">스테이크하우스</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">13분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:00~00:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good" style="background:#fef3c7;color:#92400e;">수요일 키즈 €4.90 특가!</span>
+      <span class="tag tag-good">패밀리 체인</span>
+      <span class="tag tag-warn">오랑주리에서 다소 먼 편</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Formule déjeuner × 2</span><span class="price">€31.80</span></div>
+        <div class="menu-line"><span class="item">Menu Enfant 수요일 특가 (메인+디저트+음료)</span><span class="price">€4.90</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~€8</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~€45</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://bookings.zenchef.com/results?rid=350149&pid=1001" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://www.google.com/maps/search/Hippopotamus+1+Boulevard+des+Capucines+75002+Paris" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 꿀팁 ── -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">프랑스 서비스 차지</div>
+    프랑스는 법적으로 모든 메뉴 가격에 서비스료와 세금이 포함(service compris)되어 있습니다.
+    런던과 달리 별도 서비스 차지가 추가되지 않으며, 팁은 선택 사항입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    오랑주리 미술관 출구 → 튈르리 정원 안으로 나오면 Café des Marronniers가 가장 가깝습니다(3분).
+    Rue de Rivoli 쪽 출구로 나가면 Brasserie Flottes(Rue Cambon 방향, 5분).
+    식사 후 샹젤리제까지는 콩코드 광장에서 대로를 따라 도보 10분입니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">겨울 방문 주의</div>
+    2월 파리 평균 기온 3~8°C입니다.
+    튈르리 정원 내 카페(Marronniers)는 야외 테라스 중심이므로,
+    방문 전 전화(01 40 20 04 97)로 실내 좌석 이용 가능 여부를 확인하세요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025~2026년 초 확인 기준이며, 방문 시점에 소폭 변동될 수 있습니다.
+    Hippopotamus 수요일 키즈 특가(€4.90)는 성인 메인 1개 주문 시 적용됩니다.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 샹젤리제 (14:30)</strong><br>
+  도보 이동 · 콩코드 광장에서 샹젤리제 대로 직진 (~10분)<br>
+  Ladurée(75 Ave des Champs-Élysées)에서 마카롱!
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-14
+</div>
+
+</body>
+</html>
