@@ -149,30 +149,6 @@
     font-style: italic;
   }
 
-  /* ══ 촬영지 방문 가이드 ══ */
-  .visit-card {
-    background: var(--card); border-radius: 12px;
-    padding: 14px 16px; margin-bottom: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  }
-  .visit-card h4 {
-    font-size: 14px; font-weight: 700; color: var(--accent-dark); margin-bottom: 1px;
-  }
-  .visit-card .visit-en {
-    font-size: 11px; color: var(--muted); margin-bottom: 8px;
-  }
-  .visit-meta {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
-    font-size: 12px; margin-bottom: 8px;
-  }
-  .visit-meta .label { color: var(--muted); font-size: 10px; display: block; }
-  .visit-meta .value { font-weight: 600; }
-  .visit-now {
-    font-size: 12.5px; color: #374151; padding: 8px 10px;
-    background: var(--gold-light); border-radius: 8px;
-  }
-  .visit-now strong { color: var(--accent); }
-
   /* 그룹 라벨 */
   .group-title {
     font-size: 13px; font-weight: 700; color: var(--accent);
@@ -245,6 +221,12 @@
     color: #059669; background: #ecfdf5; padding: 2px 8px;
     border-radius: 4px; margin-left: 6px; vertical-align: middle;
   }
+  .scene-guide-link {
+    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600;
+    color: var(--accent); text-decoration: none; padding: 3px 10px;
+    border: 1px solid var(--accent); border-radius: 6px; transition: all 0.2s;
+  }
+  .scene-guide-link:hover { background: var(--accent); color: #fff; }
   .divider { height: 1px; background: var(--border); margin: 0 20px; }
   .footer { padding: 20px; text-align: center; font-size: 11px; color: var(--muted); }
 </style>
@@ -299,19 +281,22 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">킹스 크로스역 — 9와 3/4 승강장</div>
+        <div class="scene-loc">킹스 크로스역 — 9와 3/4 승강장 <span class="our-badge">2/24 방문</span></div>
         <div class="scene-loc-en">King's Cross Station</div>
         <p>해리가 해그리드에게서 받은 티켓을 들고 9와 3/4 승강장을 찾아 벽을 통과하는 장면. 호그와트 특급에 처음 탑승하며 론 위즐리를 만난다. 실제 촬영은 플랫폼 4와 5 사이에서 진행되었다 — 실제 9번과 10번 승강장은 서로 떨어져 있어 영화적 연출이 불가능했기 때문.</p>
+        <a class="scene-guide-link" href="HP_킹스크로스.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">레든홀 마켓 — 리키 콜드런 입구</div>
+        <div class="scene-loc">레든홀 마켓 — 리키 콜드런 입구 <span class="our-badge">2/20 방문</span></div>
         <div class="scene-loc-en">Leadenhall Market · Bull's Head Passage</div>
         <p>해리와 해그리드가 런던 거리를 걸어 리키 콜드런으로 향하는 장면. Bull's Head Passage의 문이 리키 콜드런 입구로 촬영되었다. 촬영 당시 제작진이 가게 외관을 검은색으로 칠했으나, 현재는 파란색 문이 달려 있다.</p>
+        <a class="scene-guide-link" href="HP_리든홀마켓.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">오스트레일리아 하우스 — 그린고츠 은행</div>
+        <div class="scene-loc">오스트레일리아 하우스 — 그린고츠 은행 <span class="our-badge">2/18 근처</span></div>
         <div class="scene-loc-en">Australia House · Strand</div>
         <p>해리와 해그리드가 그린고츠 은행에 들어가 금고에서 돈을 찾는 장면. 웅장한 대리석 기둥, 크리스탈 샹들리에, 모자이크 바닥이 도깨비가 운영하는 마법 은행의 분위기를 완벽하게 구현했다.</p>
+        <a class="scene-guide-link" href="HP_코벤트가든.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
         <div class="scene-loc">런던 동물원 파충류관 — 뱀의 말 발견</div>
@@ -333,14 +318,16 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">킹스 크로스역 — 닫혀버린 장벽</div>
+        <div class="scene-loc">킹스 크로스역 — 닫혀버린 장벽 <span class="our-badge">2/24 방문</span></div>
         <div class="scene-loc-en">King's Cross Station</div>
         <p>도비가 마법 장벽을 봉쇄하여 해리와 론의 트롤리가 벽에 부딪히는 장면. 호그와트 특급을 놓친 둘은 결국 날아다니는 포드 앵글리아를 타게 된다.</p>
+        <a class="scene-guide-link" href="HP_킹스크로스.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">세인트 판크라스 호텔 — 하늘을 나는 포드 앵글리아</div>
+        <div class="scene-loc">세인트 판크라스 호텔 — 하늘을 나는 포드 앵글리아 <span class="our-badge">2/24 경유</span></div>
         <div class="scene-loc-en">St Pancras Renaissance Hotel</div>
         <p>아서 위즐리의 포드 앵글리아가 호텔 앞에 주차된 장면. 승강장에 들어가지 못한 해리와 론이 이 차를 타고 시계탑 위로 날아오른다. 제작진은 실제 킹스 크로스역 외관이 평범하다고 판단, 고딕 리바이벌 양식의 세인트 판크라스를 대신 촬영에 사용했다.</p>
+        <a class="scene-guide-link" href="HP_킹스크로스.html">상세 가이드 →</a>
       </div>
     </div>
   </details>
@@ -357,14 +344,16 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">버러 마켓 — 나이트 버스의 도착</div>
+        <div class="scene-loc">버러 마켓 — 나이트 버스의 도착 <span class="our-badge">2/16 산책</span></div>
         <div class="scene-loc-en">Borough Market · Stoney Street</div>
         <p>해리가 나이트 버스를 타고 리키 콜드런에 도착하는 장면. 알폰소 쿠아론 감독은 원래 레든홀 마켓에서 촬영하려 했으나, 3층짜리 보라색 나이트 버스가 너무 커서 버러 마켓의 Stoney Street로 변경했다. 7A Stoney Street의 Chez Michele 꽃집이 리키 콜드런 입구로, 근처 Market Porter 펍 외관은 "Third Hand Book Emporium"으로 변환되어 촬영되었다.</p>
+        <a class="scene-guide-link" href="HP_템즈강변.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">램버스 브리지 — 납작해지는 나이트 버스</div>
+        <div class="scene-loc">램버스 브리지 — 납작해지는 나이트 버스 <span class="our-badge">2/18 근처</span></div>
         <div class="scene-loc-en">Lambeth Bridge</div>
         <p>나이트 버스가 다리 위에서 두 대의 런던 이층 버스 사이를 지나갈 때, 운전사가 레버를 당겨 버스가 납작해지는 장면.</p>
+        <a class="scene-guide-link" href="HP_웨스트민스터.html">상세 가이드 →</a>
       </div>
     </div>
   </details>
@@ -396,19 +385,21 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">클레어몬트 광장 — 그리몰드가 12번지</div>
+        <div class="scene-loc">클레어몬트 광장 — 그리몰드가 12번지 <span class="our-badge">2/24 근처</span></div>
         <div class="scene-loc-en">Claremont Square · 23-29, Islington N1 9LX</div>
         <p>시리우스 블랙의 집이자 불사조 기사단 본부인 그리몰드가 12번지의 외부. 마법으로 숨겨진 건물이 11번지와 13번지 사이에서 나타나는 장면. 외관만 현지 촬영, 내부는 리브스덴 세트.</p>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">웨스트민스터 지하철역 — 마법부 가는 길</div>
+        <div class="scene-loc">웨스트민스터 지하철역 — 마법부 가는 길 <span class="our-badge">2/18 경유</span></div>
         <div class="scene-loc-en">Westminster Tube Station</div>
         <p>해리와 아서 위즐리가 마법부 청문회를 위해 지하철 개찰구를 통과하는 장면. 머글 세계의 기술에 익숙하지 않은 아서 위즐리가 개찰구 사용법을 모르는 코믹한 장면. Transport for London이 영화 촬영을 위해 지하철역을 폐쇄한 최초의 사례였다.</p>
+        <a class="scene-guide-link" href="HP_웨스트민스터.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">그레이트 스코틀랜드 야드 — 빨간 전화박스</div>
+        <div class="scene-loc">그레이트 스코틀랜드 야드 — 빨간 전화박스 <span class="our-badge">2/18 근처</span></div>
         <div class="scene-loc-en">Great Scotland Yard · Whitehall 인근</div>
         <p>해리와 아서 위즐리가 빨간 전화박스를 통해 마법부로 들어가는 장면. 전화박스는 촬영용 소품으로, 가짜 다리와 아치 등 세트 드레싱과 함께 촬영 후 철거되었다.</p>
+        <a class="scene-guide-link" href="HP_웨스트민스터.html">상세 가이드 →</a>
       </div>
       <div class="scene-card vfx">
         <div class="scene-loc">국회의사당 / 빅 벤 <span class="vfx-badge">VFX</span></div>
@@ -430,9 +421,10 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">밀레니엄 브리지 — 다리 파괴</div>
+        <div class="scene-loc">밀레니엄 브리지 — 다리 파괴 <span class="our-badge">2/16 산책</span></div>
         <div class="scene-loc-en">Millennium Bridge</div>
         <p>죽음을 먹는 자들이 다리를 파괴하여 템즈강으로 붕괴시키는 오프닝 장면. Double Negative VFX팀이 제작했으며, 실제 다리는 건재하다. 원작 소설에서는 "Brockdale Bridge"로 불리며, 영화에서는 실제 밀레니엄 브리지를 기반으로 파괴 장면을 만들었다.</p>
+        <a class="scene-guide-link" href="HP_템즈강변.html">상세 가이드 →</a>
       </div>
       <div class="scene-card vfx">
         <div class="scene-loc">트래펄가 광장 <span class="vfx-badge">VFX</span></div>
@@ -459,12 +451,13 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">피카딜리 서커스 — 결혼식 탈출</div>
+        <div class="scene-loc">피카딜리 서커스 — 결혼식 탈출 <span class="our-badge">2/18 방문</span></div>
         <div class="scene-loc-en">Piccadilly Circus / Shaftesbury Avenue</div>
         <p>빌과 플뢰르의 결혼식에 죽음을 먹는 자들이 습격한 직후, 헤르미온느가 해리, 론과 함께 Shaftesbury Avenue 초입으로 순간이동하는 장면. GAP 매장 앞에 나타나 19번 버스 앞에 아슬아슬하게 등장한다. 원작에서는 토트넘 코트 로드이지만 영화에서는 위치가 변경되었다.</p>
+        <a class="scene-guide-link" href="HP_피카디리서커스.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">클레어몬트 광장 — 그리몰드가 12번지 (재등장)</div>
+        <div class="scene-loc">클레어몬트 광장 — 그리몰드가 12번지 (재등장) <span class="our-badge">2/24 근처</span></div>
         <div class="scene-loc-en">Claremont Square · Islington</div>
         <p>해리, 론, 헤르미온느가 볼드모트를 피해 그리몰드가 12번지에 숨어들어 슬리데린의 로켓(호크룩스)을 찾는 장면. 5편에 이어 재사용.</p>
       </div>
@@ -483,14 +476,16 @@
     </summary>
     <div class="film-scenes">
       <div class="scene-card">
-        <div class="scene-loc">오스트레일리아 하우스 — 그린고츠 침입</div>
+        <div class="scene-loc">오스트레일리아 하우스 — 그린고츠 침입 <span class="our-badge">2/18 근처</span></div>
         <div class="scene-loc-en">Australia House · Strand</div>
         <p>해리 일행이 호크룩스를 찾기 위해 그린고츠에 침입하는 장면의 기본 로케이션. 1편에 이어 재사용. 단, 드래곤 탈출과 파괴 장면은 리브스덴 스튜디오에서 내부를 재건한 후 촬영했다.</p>
+        <a class="scene-guide-link" href="HP_코벤트가든.html">상세 가이드 →</a>
       </div>
       <div class="scene-card">
-        <div class="scene-loc">세인트 판크라스 호텔 — 킹스 크로스 외관 (재등장)</div>
+        <div class="scene-loc">세인트 판크라스 호텔 — 킹스 크로스 외관 (재등장) <span class="our-badge">2/24 경유</span></div>
         <div class="scene-loc-en">St Pancras Renaissance Hotel</div>
         <p>킹스 크로스역 외관으로 재사용. 에필로그("19년 후") 장면은 원래 실제 킹스 크로스역에서 촬영했으나, 분장 문제로 리브스덴 스튜디오에서 재촬영되었다.</p>
+        <a class="scene-guide-link" href="HP_킹스크로스.html">상세 가이드 →</a>
       </div>
     </div>
   </details>
@@ -530,9 +525,10 @@
         <p>영화 속 파리의 페르 라셰즈 묘지 장면이 실제로는 런던 북부의 하이게이트 묘지에서 촬영되었다. 고대 레바논 삼나무 주위의 "Circle of Lebanon" 구역이 레스트레인지 가문 묘소 입구로 사용. 니콜라 플라멜 관련 장면도 이곳에서 촬영. 내부 장면(그린델왈드의 집회)은 리브스덴 스튜디오.</p>
       </div>
       <div class="scene-card fb-scene">
-        <div class="scene-loc">레든홀 마켓 — 프랑스 시장 (재등장)</div>
+        <div class="scene-loc">레든홀 마켓 — 프랑스 시장 (재등장) <span class="our-badge">2/20 방문</span></div>
         <div class="scene-loc-en">Leadenhall Market</div>
         <p>1편에서 다이애건 앨리 입구로 사용된 레든홀 마켓이, 이번에는 1920년대 프랑스 시장 장면으로 변환되어 촬영되었다.</p>
+        <a class="scene-guide-link" href="HP_리든홀마켓.html">상세 가이드 →</a>
       </div>
       <div class="scene-card fb-scene">
         <div class="scene-loc">세인트 메리 가든스 — 뉴트 스캐맨더의 집</div>
@@ -568,183 +564,6 @@
   </details>
 </section>
 
-<div class="divider"></div>
-
-<!-- ═══════════════════════════════════════
-     촬영지 방문 가이드 (실용 정보)
-     ═══════════════════════════════════════ -->
-<section>
-  <h2><span class="icon">📍</span> 촬영지 방문 가이드</h2>
-
-  <div class="group-title">킹스 크로스 / 이즐링턴</div>
-
-  <div class="visit-card">
-    <h4>킹스 크로스역 · 9와 3/4 승강장 <span class="our-badge">2/24 방문</span></h4>
-    <div class="visit-en">King's Cross Station · Euston Rd, N1 9AL</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">King's Cross St Pancras</span></div>
-      <div><span class="label">입장료</span><span class="value">무료</span></div>
-    </div>
-    <div class="visit-now">
-      역 서쪽 콘코스에 벽에 반쯤 박힌 수하물 카트 + 표지판 설치. 스태프가 기숙사 목도리·지팡이를 빌려주고 사진 촬영 도움. 개인 촬영 무료, 전문 사진사 1장 £9.50 / 2장 £15. 피크 시 1~2시간 대기 — <strong>이른 아침/저녁 추천</strong>. 옆 Harry Potter Shop에서 공식 굿즈 구매 가능.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>세인트 판크라스 호텔 <span class="our-badge">2/24 경유</span></h4>
-    <div class="visit-en">St Pancras Renaissance Hotel · Euston Rd, NW1 2AR</div>
-    <div class="visit-meta">
-      <div><span class="label">위치</span><span class="value">킹스 크로스역 바로 옆</span></div>
-      <div><span class="label">입장료</span><span class="value">외관 무료</span></div>
-    </div>
-    <div class="visit-now">
-      고딕 리바이벌 양식의 웅장한 외관을 자유롭게 감상. 내부 Grand Staircase(빨간색·금색 장식)도 로비에서 엿볼 수 있다.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>클레어몬트 광장 · 그리몰드가 12번지 <span class="our-badge">2/24 근처</span></h4>
-    <div class="visit-en">Claremont Square · 23-29, Islington N1 9LX</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Angel (도보 10분)</span></div>
-      <div><span class="label">입장료</span><span class="value">무료 (외관만)</span></div>
-    </div>
-    <div class="visit-now">
-      1815~1828년 조지안 양식 주택가. 일반 주거 지역이므로 외관 감상만 가능하며 주민에 대한 배려 필요.
-    </div>
-  </div>
-
-  <div class="group-title">시티 오브 런던 / 사우스뱅크</div>
-
-  <div class="visit-card">
-    <h4>레든홀 마켓 · 다이애건 앨리 입구 <span class="our-badge">2/20 방문</span></h4>
-    <div class="visit-en">Leadenhall Market · Gracechurch St, EC3V 1LT</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Bank / Monument</span></div>
-      <div><span class="label">입장료</span><span class="value">무료</span></div>
-    </div>
-    <div class="visit-now">
-      14세기부터 이어진 빅토리아식 유리 지붕의 covered market. Bull's Head Passage의 파란 문(현재 Glass House Opticians 안경점) 앞에서 사진 촬영 가능. <strong>금융가 소재라 평일 낮이 더 여유</strong>.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>오스트레일리아 하우스 · 그린고츠 은행 <span class="our-badge">2/18 근처</span></h4>
-    <div class="visit-en">Australia House · Strand, WC2B 4LA</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Temple / Holborn</span></div>
-      <div><span class="label">내부 공개</span><span class="value">불가 (호주 대사관)</span></div>
-    </div>
-    <div class="visit-now">
-      외관 자유 감상. 유리 문 사이로 대리석 바닥과 샹들리에를 엿볼 수 있다. 1918년 조지 5세가 개관한 Grade II 등재 건물.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>밀레니엄 브리지 <span class="our-badge">2/16 산책</span></h4>
-    <div class="visit-en">Millennium Bridge · EC4V 3QH</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">St Paul's / Blackfriars</span></div>
-      <div><span class="label">입장료</span><span class="value">무료 (보행자 전용)</span></div>
-    </div>
-    <div class="visit-now">
-      세인트 폴 대성당과 테이트 모던을 잇는 보행자 전용 다리. 런던 최고의 조망 포인트 중 하나.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>버러 마켓 · 리키 콜드런 (3편) <span class="our-badge">2/16 산책</span></h4>
-    <div class="visit-en">Borough Market · 8 Southwark St, SE1 1TL</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">London Bridge</span></div>
-      <div><span class="label">영업</span><span class="value">화~토 (일 일부)</span></div>
-    </div>
-    <div class="visit-now">
-      런던 최고의 푸드마켓. Stoney Street 촬영 골목에서 사진 가능. Chez Michele 자리에는 현재 El Pastor(멕시칸 레스토랑)가 영업 중.
-    </div>
-  </div>
-
-  <div class="group-title">웨스트민스터 / 웨스트엔드</div>
-
-  <div class="visit-card">
-    <h4>웨스트민스터 지하철역 <span class="our-badge">2/18 경유</span></h4>
-    <div class="visit-en">Westminster Tube Station · Bridge St, SW1A 2JR</div>
-    <div class="visit-meta">
-      <div><span class="label">접근</span><span class="value">지하철 이용 시 자연스럽게</span></div>
-      <div><span class="label">입장료</span><span class="value">무료</span></div>
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>그레이트 스코틀랜드 야드 <span class="our-badge">2/18 근처</span></h4>
-    <div class="visit-en">Great Scotland Yard · Whitehall 인근</div>
-    <div class="visit-meta">
-      <div><span class="label">접근</span><span class="value">Whitehall 도보</span></div>
-      <div><span class="label">참고</span><span class="value">촬영 소품(전화박스) 철거됨</span></div>
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>피카딜리 서커스 <span class="our-badge">2/18 방문</span></h4>
-    <div class="visit-en">Piccadilly Circus · W1D 7ET</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Piccadilly Circus</span></div>
-      <div><span class="label">입장료</span><span class="value">무료</span></div>
-    </div>
-    <div class="visit-now">
-      Shaftesbury Avenue 초입 콘크리트 기둥 구간에서 영화 장면 재현 사진 촬영 가능.
-    </div>
-  </div>
-
-  <div class="group-title">기타</div>
-
-  <div class="visit-card">
-    <h4>런던 동물원 파충류관</h4>
-    <div class="visit-en">London Zoo · Outer Circle, Regent's Park, NW1 4RY</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Camden Town / Regent's Park</span></div>
-      <div><span class="label">입장료</span><span class="value">유료 (London Pass 무료)</span></div>
-    </div>
-    <div class="visit-now">
-      촬영에 사용된 1927년 건물은 2023년 공개 종료. 2024년 부활절부터 인근에 "The Secret Life of Reptiles and Amphibians" 새 전시관 오픈.
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>램버스 브리지 <span class="our-badge">2/18 근처</span></h4>
-    <div class="visit-en">Lambeth Bridge · SE1 7SG</div>
-    <div class="visit-meta">
-      <div><span class="label">입장료</span><span class="value">무료 (보행 가능)</span></div>
-    </div>
-  </div>
-
-  <div class="group-title">신비한 동물사전 촬영지</div>
-
-  <div class="visit-card">
-    <h4>하이게이트 묘지</h4>
-    <div class="visit-en">Highgate Cemetery · 런던 북부</div>
-    <div class="visit-meta">
-      <div><span class="label">입장</span><span class="value">가이드 투어 예약 필요</span></div>
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>세인트 메리 가든스</h4>
-    <div class="visit-en">St Mary's Gardens · Lambeth</div>
-    <div class="visit-meta">
-      <div><span class="label">입장료</span><span class="value">무료 (공원)</span></div>
-    </div>
-  </div>
-
-  <div class="visit-card">
-    <h4>로스버리</h4>
-    <div class="visit-en">Lothbury · City of London</div>
-    <div class="visit-meta">
-      <div><span class="label">최근역</span><span class="value">Bank</span></div>
-      <div><span class="label">입장료</span><span class="value">무료 (거리)</span></div>
-    </div>
-  </div>
-</section>
 
 <div class="divider"></div>
 
