@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>해리 포터 런던 촬영지 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #5b2c6f;
+    --accent-light: #f3e8ff;
+    --accent-dark: #3b1a4a;
+    --gold: #d4a017;
+    --gold-light: #fef9e7;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --story-bg: #f8f6f0;
+    --tip-bg: #fff7ed;
+    --warn: #dc2626;
+    --gryffindor: #740001;
+    --slytherin: #1a472a;
+    --ravenclaw: #0e1a40;
+    --hufflepuff: #ecb939;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 헤더 */
+  .header {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* 섹션 공통 */
+  section { padding: 24px 20px; }
+  section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* 영화 타임라인 */
+  .film-timeline { background: var(--story-bg); }
+  .film-group-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 16px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--accent-light);
+  }
+  .film-group-title:first-of-type { margin-top: 0; }
+  .film-item {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13.5px;
+    align-items: baseline;
+  }
+  .film-num {
+    font-weight: 800;
+    color: var(--accent);
+    font-size: 15px;
+    text-align: center;
+  }
+  .film-title { font-weight: 600; }
+  .film-year { color: var(--muted); font-size: 12px; margin-left: 4px; }
+  .film-title-en { font-size: 12px; color: var(--muted); display: block; }
+
+  /* 촬영지 카드 */
+  .location-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid var(--accent);
+  }
+  .location-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--accent-dark);
+  }
+  .location-card .loc-en {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .film-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .film-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .film-tag.hp { background: var(--accent-light); color: var(--accent); }
+  .film-tag.fb { background: #e0f2fe; color: #0369a1; }
+  .scene-block {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .scene-block .scene-film {
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .scene-block p { color: #374151; margin-bottom: 4px; }
+  .scene-block p:last-child { margin-bottom: 0; }
+
+  .loc-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .loc-meta-item { font-size: 12px; }
+  .loc-meta-item .label { color: var(--muted); display: block; font-size: 11px; }
+  .loc-meta-item .value { font-weight: 600; }
+  .loc-visit {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #374151;
+    padding: 8px 12px;
+    background: var(--gold-light);
+    border-radius: 8px;
+  }
+  .loc-visit strong { color: var(--accent); }
+
+  /* 스튜디오 투어 */
+  .studio-section { background: var(--accent-light); }
+  .studio-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .studio-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  .studio-card p { font-size: 13px; color: #374151; }
+
+  .exhibit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .exhibit-item {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--accent);
+  }
+
+  .season-table {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+  .season-table th {
+    text-align: left;
+    padding: 6px 8px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .season-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* 팬 명소 */
+  .fan-spot {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .fan-spot h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .fan-spot .fan-en { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .fan-spot p { font-size: 13px; color: #374151; }
+
+  /* VFX 섹션 */
+  .vfx-section { background: #f1f5f9; }
+  .vfx-note {
+    font-size: 13px;
+    color: #475569;
+    padding: 10px 14px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .vfx-item {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    border-left: 3px solid #94a3b8;
+  }
+  .vfx-item h4 { font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 4px; }
+
+  /* 팁 */
+  .tips { background: var(--tip-bg); }
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* 참고 블로그 */
+  .blog-list {
+    list-style: none;
+  }
+  .blog-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .blog-list li:last-child { border-bottom: none; }
+  .blog-list a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .blog-list a:hover { text-decoration: underline; }
+  .blog-desc { color: var(--muted); font-size: 12px; display: block; margin-top: 2px; }
+
+  /* 체크리스트 */
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .checklist h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--accent);
+  }
+
+  /* 접기/펼치기 */
+  details { margin-bottom: 12px; }
+  details summary {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px 0;
+    color: var(--accent);
+  }
+  details[open] summary { margin-bottom: 8px; }
+
+  /* 푸터 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 구분선 */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 20px;
+  }
+
+  /* 카테고리 라벨 */
+  .category-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--accent-light);
+  }
+
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>해리 포터 런던 촬영지 가이드 <span class="en">Harry Potter Filming Locations in London</span></h1>
+  <p class="oneliner">머글의 세계 한복판에 숨어 있는 마법의 흔적들. 해리 포터 시리즈의 실제 촬영지를 따라 런던을 걷는 특별한 여정.</p>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">촬영지 수</span>
+      <span class="value">12곳 (실제 촬영지)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">성격</span>
+      <span class="value">범용 레퍼런스</span>
+    </div>
+    <div class="info-item">
+      <span class="label">커버 범위</span>
+      <span class="value">영화 8편 + 신비한 동물 3편</span>
+    </div>
+    <div class="info-item">
+      <span class="label">참고</span>
+      <span class="value">팩트 체크 완료 (2026.2)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     영화 시리즈 타임라인
+     ═══════════════════════════════════════ -->
+<section class="film-timeline">
+  <h2><span class="icon">🎬</span> 영화 시리즈 타임라인</h2>
+
+  <div class="film-group-title">해리 포터 시리즈</div>
+
+  <div class="film-item">
+    <span class="film-num">1</span>
+    <div>
+      <span class="film-title">해리 포터와 마법사의 돌</span><span class="film-year">2001</span>
+      <span class="film-title-en">Harry Potter and the Philosopher's Stone</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">2</span>
+    <div>
+      <span class="film-title">해리 포터와 비밀의 방</span><span class="film-year">2002</span>
+      <span class="film-title-en">Harry Potter and the Chamber of Secrets</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">3</span>
+    <div>
+      <span class="film-title">해리 포터와 아즈카반의 죄수</span><span class="film-year">2004</span>
+      <span class="film-title-en">Harry Potter and the Prisoner of Azkaban</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">4</span>
+    <div>
+      <span class="film-title">해리 포터와 불의 잔</span><span class="film-year">2005</span>
+      <span class="film-title-en">Harry Potter and the Goblet of Fire</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">5</span>
+    <div>
+      <span class="film-title">해리 포터와 불사조 기사단</span><span class="film-year">2007</span>
+      <span class="film-title-en">Harry Potter and the Order of the Phoenix</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">6</span>
+    <div>
+      <span class="film-title">해리 포터와 혼혈 왕자</span><span class="film-year">2009</span>
+      <span class="film-title-en">Harry Potter and the Half-Blood Prince</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">7</span>
+    <div>
+      <span class="film-title">해리 포터와 죽음의 성물 1</span><span class="film-year">2010</span>
+      <span class="film-title-en">Harry Potter and the Deathly Hallows – Part 1</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">8</span>
+    <div>
+      <span class="film-title">해리 포터와 죽음의 성물 2</span><span class="film-year">2011</span>
+      <span class="film-title-en">Harry Potter and the Deathly Hallows – Part 2</span>
+    </div>
+  </div>
+
+  <div class="film-group-title">신비한 동물사전 시리즈</div>
+
+  <div class="film-item">
+    <span class="film-num">9</span>
+    <div>
+      <span class="film-title">신비한 동물사전</span><span class="film-year">2016</span>
+      <span class="film-title-en">Fantastic Beasts and Where to Find Them</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">10</span>
+    <div>
+      <span class="film-title">신비한 동물들과 그린델왈드의 범죄</span><span class="film-year">2018</span>
+      <span class="film-title-en">Fantastic Beasts: The Crimes of Grindelwald</span>
+    </div>
+  </div>
+  <div class="film-item">
+    <span class="film-num">11</span>
+    <div>
+      <span class="film-title">신비한 동물들과 덤블도어의 비밀</span><span class="film-year">2022</span>
+      <span class="film-title-en">Fantastic Beasts: The Secrets of Dumbledore</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     실제 촬영지 - 해리 포터 시리즈
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📍</span> 런던 실제 촬영지</h2>
+
+  <div class="category-label">킹스 크로스 / 이즐링턴 지역</div>
+
+  <!-- King's Cross -->
+  <div class="location-card">
+    <h3>킹스 크로스역 — 9와 3/4 승강장</h3>
+    <div class="loc-en">King's Cross Station — Platform 9 3/4</div>
+    <div class="film-tags">
+      <span class="film-tag hp">1편 마법사의 돌</span>
+      <span class="film-tag hp">2편 비밀의 방</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">1편 — 호그와트로의 첫 여정</div>
+      <p>해리가 해그리드에게서 받은 티켓을 들고 9와 3/4 승강장을 찾아 벽을 통과하는 장면. 호그와트 특급에 처음 탑승하며 론 위즐리를 만난다.</p>
+      <p>실제 촬영은 플랫폼 4와 5 사이에서 진행되었다. 실제 플랫폼 9와 10은 서로 떨어져 있어 영화적 연출이 불가능했기 때문.</p>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">2편 — 닫혀버린 장벽</div>
+      <p>도비가 마법 장벽을 봉쇄하여, 해리와 론의 트롤리가 벽에 부딪히는 장면. 호그와트 특급을 놓친 둘은 결국 날아다니는 포드 앵글리아를 타게 된다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Euston Rd, London N1 9AL</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">King's Cross St Pancras</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">포토존 대기</span>
+        <span class="value">피크 시 1~2시간</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 역 서쪽 콘코스에 벽에 반쯤 박힌 수하물 카트와 "Platform 9 3/4" 표지판이 설치되어 있다. 스태프가 기숙사 목도리와 지팡이를 빌려주고 스카프를 날리며 사진 촬영을 도와준다. 개인 카메라 촬영은 무료, 전문 사진사 촬영은 1장 £9.50 / 2장 £15. 바로 옆 Harry Potter Shop에서 공식 굿즈 구매 가능. 이른 아침이나 저녁에 방문하면 대기 시간이 훨씬 짧다.
+    </div>
+  </div>
+
+  <!-- St Pancras -->
+  <div class="location-card">
+    <h3>세인트 판크라스 호텔 — "킹스 크로스역" 외관</h3>
+    <div class="loc-en">St Pancras Renaissance Hotel</div>
+    <div class="film-tags">
+      <span class="film-tag hp">2편 비밀의 방</span>
+      <span class="film-tag hp">8편 죽음의 성물 2</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">2편 — 하늘을 나는 포드 앵글리아</div>
+      <p>아서 위즐리의 포드 앵글리아가 호텔 앞에 주차된 장면. 승강장에 들어가지 못한 해리와 론이 이 차를 타고 호텔 시계탑 위로 날아오른다. 제작진은 실제 킹스 크로스역 외관이 평범하다고 판단, 고딕 리바이벌 양식의 세인트 판크라스를 대신 촬영에 사용했다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Euston Rd, London NW1 2AR</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">위치</span>
+        <span class="value">킹스 크로스역 바로 옆</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 고딕 양식의 웅장한 외관은 누구나 무료로 감상할 수 있다. 내부의 Grand Staircase(빨간색·금색 장식)도 로비에서 엿볼 수 있다.
+    </div>
+  </div>
+
+  <!-- Claremont Square -->
+  <div class="location-card">
+    <h3>클레어몬트 광장 — 그리몰드가 12번지</h3>
+    <div class="loc-en">Claremont Square — 12 Grimmauld Place</div>
+    <div class="film-tags">
+      <span class="film-tag hp">5편 불사조 기사단</span>
+      <span class="film-tag hp">7편 죽음의 성물 1</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">5편 — 불사조 기사단 본부</div>
+      <p>시리우스 블랙의 집이자 불사조 기사단 본부인 그리몰드가 12번지의 외부. 마법으로 숨겨진 건물이 11번지와 13번지 사이에서 나타나는 장면. 외관만 현지 촬영, 내부는 리브스덴 스튜디오 세트.</p>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">7편 — 호크룩스를 찾아서</div>
+      <p>해리, 론, 헤르미온느가 볼드모트를 피해 이곳에 숨어들어 슬리데린의 로켓(호크룩스)을 찾는 장면.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">23-29 Claremont Square, Islington, N1 9LX</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Angel (도보 10분)</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 일반 주거 지역이므로 외관 감상만 가능. 1815~1828년에 지어진 조지안 양식 주택가로, 영화 속 분위기가 고스란히 남아 있다. 주민에 대한 배려 필요.
+    </div>
+  </div>
+
+  <div class="category-label">시티 오브 런던 / 사우스뱅크 지역</div>
+
+  <!-- Leadenhall Market -->
+  <div class="location-card">
+    <h3>레든홀 마켓 — 다이애건 앨리 입구</h3>
+    <div class="loc-en">Leadenhall Market — Diagon Alley Entrance</div>
+    <div class="film-tags">
+      <span class="film-tag hp">1편 마법사의 돌</span>
+      <span class="film-tag fb">신비한 동물들과 그린델왈드의 범죄</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">1편 — 리키 콜드런으로 가는 길</div>
+      <p>해리와 해그리드가 런던 거리를 걸어 리키 콜드런으로 향하는 장면. Bull's Head Passage에 있는 문이 리키 콜드런 입구로 촬영되었다. 촬영 당시 제작진은 가게 외관을 검은색으로 칠했으나, 현재는 파란색 문이 달려 있으며 Glass House Opticians(안경점)이 영업 중이다.</p>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">그린델왈드의 범죄 — 프랑스 시장</div>
+      <p>1920년대 프랑스 시장 장면으로 변환되어 촬영되었다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Gracechurch St, London EC3V 1LT</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Bank / Monument</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">추천 시간</span>
+        <span class="value">평일 낮 (금융가 소재)</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 14세기부터 이어진 빅토리아식 유리 지붕의 아름다운 covered market. Bull's Head Passage의 파란 문 앞에서 사진 촬영 가능. 레스토랑과 카페가 있어 식사하며 분위기를 감상할 수 있다. 주말보다 평일이 더 조용하다.
+    </div>
+  </div>
+
+  <!-- Australia House -->
+  <div class="location-card">
+    <h3>오스트레일리아 하우스 — 그린고츠 은행</h3>
+    <div class="loc-en">Australia House — Gringotts Bank</div>
+    <div class="film-tags">
+      <span class="film-tag hp">1편 마법사의 돌</span>
+      <span class="film-tag hp">8편 죽음의 성물 2</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">1편 — 금고 방문</div>
+      <p>해리와 해그리드가 그린고츠 은행에 들어가 해리의 금고에서 돈을 찾는 장면. 웅장한 대리석 기둥, 크리스탈 샹들리에, 모자이크 바닥이 고블린이 운영하는 마법 은행의 분위기를 완벽하게 구현했다.</p>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">8편 — 그린고츠 침입</div>
+      <p>해리 일행이 호크룩스를 찾기 위해 그린고츠에 침입하는 장면의 기본 로케이션. 단, 드래곤 탈출과 파괴 장면은 리브스덴 스튜디오에서 내부를 재건한 후 촬영했다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Strand, London WC2B 4LA</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Temple / Holborn</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 호주 고등판무관 사무소(대사관)로 사용 중이라 내부 일반 공개 불가. 건물 외관은 자유롭게 감상 가능하고, 유리 문 사이로 대리석 바닥과 샹들리에를 엿볼 수 있다. 1918년 조지 5세가 개관한 Grade II 등재 건물.
+    </div>
+  </div>
+
+  <!-- Millennium Bridge -->
+  <div class="location-card">
+    <h3>밀레니엄 브리지 — 죽음을 먹는 자의 공격</h3>
+    <div class="loc-en">Millennium Bridge</div>
+    <div class="film-tags">
+      <span class="film-tag hp">6편 혼혈 왕자</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">6편 — 오프닝 다리 파괴</div>
+      <p>죽음을 먹는 자들이 다리를 파괴하여 템즈강으로 붕괴시키는 오프닝 장면. Double Negative의 VFX팀이 제작했으며, 실제 다리는 건재하다. 영화 속에서는 "Brockdale Bridge"로 불린다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Thames Embankment, EC4V 3QH</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">St Paul's / Blackfriars</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료 (보행자 전용)</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">연결 명소</span>
+        <span class="value">세인트 폴 대성당 ↔ 테이트 모던</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 세인트 폴 대성당과 테이트 모던을 잇는 보행자 전용 다리. 런던 최고의 조망 포인트 중 하나로, 다리 위에서 템즈강과 런던 스카이라인을 감상할 수 있다.
+    </div>
+  </div>
+
+  <!-- Borough Market -->
+  <div class="location-card">
+    <h3>버러 마켓 — 리키 콜드런 (3편)</h3>
+    <div class="loc-en">Borough Market — The Leaky Cauldron (Film 3)</div>
+    <div class="film-tags">
+      <span class="film-tag hp">3편 아즈카반의 죄수</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">3편 — 나이트 버스의 도착</div>
+      <p>해리가 나이트 버스를 타고 리키 콜드런에 도착하는 장면. 알폰소 쿠아론 감독은 원래 레든홀 마켓에서 촬영하려 했으나, 3층짜리 보라색 나이트 버스가 들어가기엔 너무 좁아 버러 마켓의 Stoney Street로 변경했다. 7A Stoney Street의 Chez Michele 꽃집이 리키 콜드런 입구로 촬영되었고, 근처 Market Porter 펍(9 Stoney Street)의 외관은 "Third Hand Book Emporium"으로 변환되어 촬영에 사용되었다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">8 Southwark St, London SE1 1TL</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">London Bridge</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">영업</span>
+        <span class="value">화~토 (일 일부)</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 런던 최고의 푸드마켓 중 하나. Stoney Street의 촬영 골목에서 사진 촬영 가능. Chez Michele 자리에는 현재 El Pastor(멕시칸 레스토랑)가 영업 중이다. 마켓 자체만으로도 다양한 먹거리를 즐기기에 좋다.
+    </div>
+  </div>
+
+  <div class="category-label">웨스트민스터 / 웨스트엔드 지역</div>
+
+  <!-- Westminster Tube Station -->
+  <div class="location-card">
+    <h3>웨스트민스터 지하철역 — 마법부 가는 길</h3>
+    <div class="loc-en">Westminster Tube Station — Ministry of Magic</div>
+    <div class="film-tags">
+      <span class="film-tag hp">5편 불사조 기사단</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">5편 — 마법부 청문회</div>
+      <p>해리와 아서 위즐리가 마법부 청문회를 위해 지하철 개찰구를 통과하는 장면. 머글 세계의 기술에 익숙하지 않은 아서 위즐리가 개찰구 사용법을 모르는 코믹한 장면이 촬영되었다. Transport for London이 영화 촬영을 위해 지하철역을 폐쇄한 최초의 사례였다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Bridge St, Westminster, SW1A 2JR</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">접근</span>
+        <span class="value">지하철 이용 시 자연스럽게</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Great Scotland Yard -->
+  <div class="location-card">
+    <h3>그레이트 스코틀랜드 야드 — 마법부 방문자 입구</h3>
+    <div class="loc-en">Great Scotland Yard — Ministry of Magic Visitor Entrance</div>
+    <div class="film-tags">
+      <span class="film-tag hp">5편 불사조 기사단</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">5편 — 빨간 전화박스</div>
+      <p>해리와 아서 위즐리가 빨간 전화박스를 통해 마법부로 들어가는 장면. Whitehall과 Northumberland Avenue 사이의 거리에서 촬영되었다. 전화박스는 촬영용 소품으로, 가짜 다리와 두 번째 아치 등 세트 드레싱과 함께 촬영 후 철거되었다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">위치</span>
+        <span class="value">Whitehall 인근</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료 (거리)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Piccadilly Circus -->
+  <div class="location-card">
+    <h3>피카딜리 서커스 — 결혼식 탈출</h3>
+    <div class="loc-en">Piccadilly Circus / Shaftesbury Avenue</div>
+    <div class="film-tags">
+      <span class="film-tag hp">7편 죽음의 성물 1</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">7편 — 순간이동</div>
+      <p>빌과 플뢰르의 결혼식에 죽음을 먹는 자들이 습격한 직후, 헤르미온느가 해리, 론과 함께 Shaftesbury Avenue 초입으로 순간이동하는 장면. GAP 매장 앞에 나타나 19번 버스 앞에 아슬아슬하게 등장한다. 회색 콘크리트 기둥과 카페 앞 은색 테이블을 지나가는 장면이 촬영되었다. 원작에서는 토트넘 코트 로드(Tottenham Court Road)이지만 영화에서는 위치가 변경되었다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Piccadilly Circus, W1D 7ET</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Piccadilly Circus</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 런던의 상징적인 광장. Shaftesbury Avenue 초입에서 영화 장면 재현 사진 촬영이 가능하다.
+    </div>
+  </div>
+
+  <!-- Lambeth Bridge -->
+  <div class="location-card">
+    <h3>램버스 브리지 — 나이트 버스</h3>
+    <div class="loc-en">Lambeth Bridge</div>
+    <div class="film-tags">
+      <span class="film-tag hp">3편 아즈카반의 죄수</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">3편 — 납작해지는 나이트 버스</div>
+      <p>나이트 버스가 다리 위에서 두 대의 런던 이층 버스 사이를 지나갈 때, 운전사가 레버를 당겨 버스가 납작해지는 장면.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Lambeth Bridge, London SE1 7SG</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료 (보행 가능)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="category-label">기타</div>
+
+  <!-- London Zoo -->
+  <div class="location-card">
+    <h3>런던 동물원 파충류관 — 뱀과의 대화</h3>
+    <div class="loc-en">London Zoo — Reptile House</div>
+    <div class="film-tags">
+      <span class="film-tag hp">1편 마법사의 돌</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">1편 — 뱀의 말(Parseltongue) 발견</div>
+      <p>더즐리 가족과의 동물원 방문에서 해리가 뱀과 대화하는 능력을 처음 발견하는 장면. 유리가 사라지며 더들리가 뱀 우리 안에 갇힌다. 원작 소설에서는 브라질산 보아뱀(Boa Constrictor)이지만, 영화에서는 버마비단뱀(Burmese Python)으로 변경되었다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Outer Circle, Regent's Park, NW1 4RY</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Camden Town / Regent's Park</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">유료 (London Pass 무료)</span>
+      </div>
+    </div>
+
+    <div class="loc-visit">
+      <strong>현재 방문:</strong> 촬영에 사용된 1927년 건물의 원래 파충류관은 2023년 일반 공개가 종료되었다. 2024년 부활절부터 인근에 "The Secret Life of Reptiles and Amphibians" 새 전시관이 오픈했다.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     신비한 동물사전 촬영지
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">🧳</span> 신비한 동물사전 런던 촬영지</h2>
+
+  <div class="location-card" style="border-left-color: #0369a1;">
+    <h3>하이게이트 묘지 — 레스트레인지 묘소</h3>
+    <div class="loc-en">Highgate Cemetery</div>
+    <div class="film-tags">
+      <span class="film-tag fb">그린델왈드의 범죄</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">그린델왈드의 범죄 — 페르 라셰즈 묘지</div>
+      <p>영화 속 파리의 페르 라셰즈 묘지(Cimetiere du Pere-Lachaise) 장면이 실제로는 런던 북부의 하이게이트 묘지에서 촬영되었다. 고대 레바논 삼나무 주위에 만들어진 20개의 지하 무덤으로 구성된 "Circle of Lebanon" 구역이 레스트레인지 가문 묘소(Mausoleum) 입구로 사용되었다. 니콜라 플라멜 관련 장면도 이곳에서 촬영. 내부 장면(그린델왈드가 추종자를 모으는 원형극장)은 리브스덴 스튜디오에서 촬영했다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">위치</span>
+        <span class="value">런던 북부 (Highgate)</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장</span>
+        <span class="value">가이드 투어 예약 필요</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="location-card" style="border-left-color: #0369a1;">
+    <h3>세인트 메리 가든스 — 뉴트 스캐맨더의 집</h3>
+    <div class="loc-en">St Mary's Gardens, Lambeth</div>
+    <div class="film-tags">
+      <span class="film-tag fb">그린델왈드의 범죄</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">그린델왈드의 범죄 — 뉴트의 집 외부</div>
+      <p>뉴트 스캐맨더의 집 외부로 사용된 Grade II listed 건물. 2017년 11월, 150명의 촬영진이 이틀간 촬영했으며, 1920년대 설정을 위해 도로 표시와 현대 간판을 가리고, 현대 차량은 Imperial War Museum 주차장으로 이동시켰다. 내부는 리브스덴 스튜디오에서 촬영.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">위치</span>
+        <span class="value">Lambeth, 남쪽 런던</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">무료 (공원)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="location-card" style="border-left-color: #0369a1;">
+    <h3>로스버리 — 런던 거리 장면</h3>
+    <div class="loc-en">Lothbury, City of London</div>
+    <div class="film-tags">
+      <span class="film-tag fb">그린델왈드의 범죄</span>
+    </div>
+
+    <div class="scene-block">
+      <div class="scene-film">그린델왈드의 범죄 — 서커스 아르카누스</div>
+      <p>300명의 촬영진이 참여한 대규모 촬영. 서커스 아르카누스(Circus Arcanus) 관련 장면으로 추정되나, 제작진이 촬영 내용을 비밀로 유지하여 구체적인 장면은 공개 정보가 제한적이다.</p>
+    </div>
+
+    <div class="loc-meta">
+      <div class="loc-meta-item">
+        <span class="label">위치</span>
+        <span class="value">City of London</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">최근역</span>
+        <span class="value">Bank</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     VFX/CGI로 등장하는 런던 랜드마크
+     ═══════════════════════════════════════ -->
+<section class="vfx-section">
+  <h2><span class="icon">🖥️</span> VFX/CGI로 등장하는 런던 랜드마크</h2>
+
+  <div class="vfx-note">
+    아래 장소들은 영화에 등장하지만 실제 현장 촬영이 아닌 VFX/CGI로 구현된 곳들이다. 런던 관광 중 지나칠 때 "여기가 영화에 나왔구나" 하고 떠올릴 수 있는 장소들.
+  </div>
+
+  <div class="vfx-item">
+    <h4>트래펄가 광장 Trafalgar Square</h4>
+    <p><strong>6편 혼혈 왕자</strong> — 죽음을 먹는 자들이 상공을 날아 다이애건 앨리로 향하는 오프닝. Double Negative VFX팀이 6개월간 현장을 조사·문서화한 뒤 완전히 디지털로 재현했다.</p>
+  </div>
+
+  <div class="vfx-item">
+    <h4>더 거킨 (30 St Mary Axe)</h4>
+    <p><strong>6편 혼혈 왕자</strong> — 런던 상공에 어둠의 표식(Dark Mark)이 나타나는 장면의 배경으로 런던 스카이라인이 디지털 재현되었다.</p>
+  </div>
+
+  <div class="vfx-item">
+    <h4>국회의사당 / 빅 벤</h4>
+    <p><strong>5편 불사조 기사단</strong> — 불사조 기사단이 빗자루를 타고 해리를 에스코트하며 템즈강을 따라 비행하는 장면. 타워 브리지에서 웨스트민스터 브리지까지의 런던 스카이라인이 배경으로 등장한다.</p>
+  </div>
+
+  <div class="vfx-item">
+    <h4>세인트 폴 대성당 St Paul's Cathedral</h4>
+    <p><strong>그린델왈드의 범죄</strong> — 덤블도어와 뉴트 스캐맨더가 대화하는 장면의 배경. 배우들은 그린스크린 앞에서 촬영했으며 대성당 지붕은 CGI로 합성되었다.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     워너 브라더스 스튜디오 투어
+     ═══════════════════════════════════════ -->
+<section class="studio-section">
+  <h2><span class="icon">🏰</span> 워너 브라더스 스튜디오 투어</h2>
+
+  <div class="studio-card">
+    <h4>The Making of Harry Potter</h4>
+    <p>해리 포터 시리즈 전 8편이 촬영된 리브스덴 스튜디오. 대연회장(Great Hall), 다이애건 앨리, 그린고츠 은행, 금지된 숲, 호그와트 특급 등 실제 촬영 세트를 그대로 보존·전시하고 있다. 1:24 스케일의 호그와트 성 대형 모형(폭 15.25m, 2,500개 이상의 광섬유 조명)은 외부 촬영에 실제 사용된 것이다.</p>
+
+    <div class="exhibit-grid">
+      <div class="exhibit-item">대연회장</div>
+      <div class="exhibit-item">다이애건 앨리</div>
+      <div class="exhibit-item">그린고츠 은행</div>
+      <div class="exhibit-item">금지된 숲</div>
+      <div class="exhibit-item">호그와트 특급</div>
+      <div class="exhibit-item">덤블도어 교장실</div>
+      <div class="exhibit-item">해그리드의 오두막</div>
+      <div class="exhibit-item">올리밴더 지팡이 가게</div>
+    </div>
+  </div>
+
+  <div class="studio-card">
+    <h4>2026 시즌별 특별 이벤트</h4>
+    <table class="season-table">
+      <tr><th>이벤트</th><th>기간</th></tr>
+      <tr><td>Magical Mischief</td><td>1.24 ~ 4.27</td></tr>
+      <tr><td>25주년 기념 특별전</td><td>5.7 ~ 9.7</td></tr>
+      <tr><td>Dark Arts</td><td>9.16 ~ 11.8</td></tr>
+      <tr><td>Hogwarts in the Snow</td><td>11.14 ~ 2027.1.17</td></tr>
+    </table>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--muted);">25주년 특별전은 「마법사의 돌」 개봉 25주년 기념. Golden Snitch, 마법사의 돌 등 소품 전시.</p>
+  </div>
+
+  <div class="studio-card">
+    <h4>방문 정보</h4>
+    <div class="loc-meta" style="border-top: none; padding-top: 0; margin-top: 0;">
+      <div class="loc-meta-item">
+        <span class="label">주소</span>
+        <span class="value">Studio Tour Dr, Leavesden, WD25 7LR</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">입장료</span>
+        <span class="value">성인 £56~ / 5-15세 £40</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">교통</span>
+        <span class="value">Euston → Watford Junction (15~30분) + 셔틀버스</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">소요시간</span>
+        <span class="value">평균 3~4시간</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">예약</span>
+        <span class="value">사전 예약 필수 (당일 불가)</span>
+      </div>
+      <div class="loc-meta-item">
+        <span class="label">주차</span>
+        <span class="value">무료</span>
+      </div>
+    </div>
+    <p style="margin-top: 8px; font-size: 12px; color: var(--muted);">버터맥주(Butterbeer) 시음 가능. 4세 이하 무료.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     팬 필수 방문 명소
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">⭐</span> 팬 필수 방문 명소</h2>
+
+  <div class="fan-spot">
+    <h4>하우스 오브 미나리마</h4>
+    <div class="fan-en">House of MinaLima — 157 Wardour St, Soho, W1F 8WQ</div>
+    <p>해리 포터 &amp; 신비한 동물사전 시리즈의 모든 그래픽 디자인 원본을 전시하는 4층 규모 갤러리. 호그와트 입학 통지서, 도둑 지도, 예언자 일보 등 영화 속 소품의 원본 디자인을 볼 수 있다. <strong>무료 입장</strong>, 월·화요일 무료 가이드 투어(첫 투어 12:15pm, 마지막 6:15pm). 매일 11am~6:45pm 운영.</p>
+  </div>
+
+  <div class="fan-spot">
+    <h4>해리 포터와 저주받은 아이</h4>
+    <div class="fan-en">Harry Potter and the Cursed Child — Palace Theatre, Shaftesbury Avenue</div>
+    <p>해리 포터 정식 후속 연극. <strong>2026년 9월 20일까지는 기존 2파트 형식</strong>(같은 날 또는 이틀에 걸쳐 관람), <strong>10월 6일부터는 1파트(2시간 55분)로 전환</strong>되어 재개막한다. 사전 예매 필수.</p>
+  </div>
+
+  <div class="fan-spot">
+    <h4>세실 코트</h4>
+    <div class="fan-en">Cecil Court — Leicester Square역 근처 보행자 골목</div>
+    <p>고서점, 골동품점이 줄지어 있어 <strong>팬들 사이에서 다이애건 앨리를 연상시키는 분위기로 유명</strong>한 골목. 단, J.K. 롤링은 2020년에 다이애건 앨리가 특정 장소에서 영감을 받은 것이 아니라고 공식 부인했다.</p>
+  </div>
+
+  <div class="fan-spot">
+    <h4>굿윈스 코트</h4>
+    <div class="fan-en">Goodwin's Court — Cecil Court 근처</div>
+    <p>17세기 건물, 보우 윈도우, 가스 램프가 있는 좁고 어두운 골목으로 <strong>녹턴 앨리를 연상시키는 분위기</strong>. 세실 코트와 마찬가지로 공식적으로 확인된 영감의 원천은 아니지만, 분위기 때문에 팬들에게 인기가 있다.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     꿀팁
+     ═══════════════════════════════════════ -->
+<section class="tips">
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">셀프 워킹 투어 동선</div>
+    시티 지역 촬영지를 효율적으로 돌기: King's Cross/St Pancras → (도보 10분) Claremont Square → (지하철) Bank역 → Leadenhall Market → (도보 5분) Australia House → (도보 15분) Millennium Bridge → (도보 10분) Borough Market. 약 반나절 소요.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">9와 3/4 승강장 포토존</div>
+    피크 시간(오전 10시~오후 4시)에는 1~2시간 대기할 수 있다. 이른 아침이나 저녁에 방문하면 대기가 훨씬 짧다. 기차표 없이도 역 콘코스 내 무료 접근 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가이드 투어</div>
+    직접 돌기 어려우면 가이드 투어도 있다. London Walks(Bank역 출발, 약 2시간), Brit Movie Tours(소규모 그룹), Evan Evans Tours 등. GetYourGuide/Viator에서도 예약 가능.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">스튜디오 투어 예약</div>
+    워너 브라더스 스튜디오 투어는 반드시 사전 예약. 인기 날짜는 수개월 전에 매진된다. 공식 웹사이트(wbstudiotour.co.uk)에서 직접 예매하는 것이 가장 확실하다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">사진 촬영 포인트 TOP 5</div>
+    ① 9와 3/4 승강장 카트 (스태프 도움) ② Leadenhall Market Bull's Head Passage 파란 문 ③ Millennium Bridge 위에서 ④ St Pancras Hotel 고딕 외관 ⑤ Borough Market Stoney Street 골목
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     참고 블로그 & 사진 자료
+     ═══════════════════════════════════════ -->
+<section>
+  <h2><span class="icon">📸</span> 참고 블로그 &amp; 사진 자료</h2>
+
+  <p style="font-size: 13px; color: #374151; margin-bottom: 12px;">각 촬영지의 실제 모습과 영화 장면 비교 사진을 볼 수 있는 블로그들. 방문 전 미리 확인하면 현장에서 영화 속 장면을 더 잘 떠올릴 수 있다.</p>
+
+  <ul class="blog-list">
+    <li>
+      <a href="https://happytowander.com/harry-potter-filming-locations-in-london-full-list/" target="_blank" rel="noopener">Happy To Wander</a>
+      <span class="blog-desc">20개 이상 촬영지 총정리, 풍부한 현장 사진</span>
+    </li>
+    <li>
+      <a href="https://thirdeyetraveller.com/leadenhall-market-harry-potter/" target="_blank" rel="noopener">Third Eye Traveller</a>
+      <span class="blog-desc">촬영지별 개별 상세 포스트 (Leadenhall, Platform 9¾, Millennium Bridge 등)</span>
+    </li>
+    <li>
+      <a href="https://www.findingtheuniverse.com/london-harry-potter-locations/" target="_blank" rel="noopener">Finding the Universe</a>
+      <span class="blog-desc">상세한 사진 + 방문 팁, 지도 포함</span>
+    </li>
+    <li>
+      <a href="https://www.adoptinglifesjourney.com/travel-1/behind-the-magic-visiting-harry-potter-filming-locations-in-london" target="_blank" rel="noopener">Adopting Life's Journey</a>
+      <span class="blog-desc">"Behind the Magic" 시리즈 — 영화 장면과 실제 장소 비교 사진</span>
+    </li>
+    <li>
+      <a href="https://www.aladyinlondon.com/2025/04/harry-potter-locations-london.html" target="_blank" rel="noopener">A Lady in London</a>
+      <span class="blog-desc">깔끔한 사진과 지도 포함</span>
+    </li>
+    <li>
+      <a href="https://freetoursbyfoot.com/harry-potter-locations-london/" target="_blank" rel="noopener">Free Tours By Foot</a>
+      <span class="blog-desc">셀프 가이드 워킹 투어 지도 + 무료 PDF 다운로드</span>
+    </li>
+    <li>
+      <a href="https://www.visitbritain.com/en/things-to-do/visit-harry-potter-filming-locations" target="_blank" rel="noopener">VisitBritain 공식</a>
+      <span class="blog-desc">영국 관광청 공식 가이드, 신뢰도 높은 정보</span>
+    </li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     체크리스트
+     ═══════════════════════════════════════ -->
+<section>
+  <div class="checklist">
+    <h3>방문 전 체크리스트</h3>
+    <label><input type="checkbox"> 워너 브라더스 스튜디오 투어 사전 예약</label>
+    <label><input type="checkbox"> 「저주받은 아이」 공연 티켓 예매 (관심 시)</label>
+    <label><input type="checkbox"> 셀프 워킹 투어 경로 확인</label>
+    <label><input type="checkbox"> 기숙사 로브/목도리 준비 (사진용)</label>
+    <label><input type="checkbox"> 참고 블로그 사진 미리 확인</label>
+    <label><input type="checkbox"> Oyster Card / Contactless 결제 준비 (이동용)</label>
+  </div>
+</section>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-15
+</div>
+
+</body>
+</html>
