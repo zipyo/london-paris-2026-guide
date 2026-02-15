@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화장실 가이드 - 런던·파리 2026</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card: #fff;
+    --accent: #0369a1;
+    --accent-light: #e0f2fe;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --free: #15803d;
+    --free-bg: #dcfce7;
+    --paid: #b45309;
+    --paid-bg: #fef3c7;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --tip-bg: #f0f9ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    background: linear-gradient(135deg, #0369a1 0%, #0c4a6e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; }
+  .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .header .en { font-size: 13px; opacity: 0.7; font-weight: 400; }
+  .header .oneliner { margin-top: 12px; font-size: 14px; line-height: 1.6; opacity: 0.92; }
+
+  .summary-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .summary-item { font-size: 13px; }
+  .summary-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .summary-item .value { font-weight: 600; }
+
+  section { padding: 20px 16px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 18px; }
+
+  /* 날짜 섹션 */
+  .day-section {
+    margin: 12px 16px;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  .day-section summary {
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    user-select: none;
+  }
+  .day-section summary::-webkit-details-marker { display: none; }
+  .day-section summary::after {
+    content: '\25B6';
+    font-size: 10px;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .day-section[open] summary::after { transform: rotate(90deg); }
+  .day-section summary .day-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .day-section summary .city-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .city-london { background: #dbeafe; color: #1d4ed8; }
+  .city-paris { background: #fce7f3; color: #be185d; }
+  .city-drive { background: #e0e7ff; color: #4338ca; }
+  .city-transit { background: #f3e8ff; color: #7c3aed; }
+  .day-content { padding: 0 16px 16px; }
+
+  /* 타임슬롯 */
+  .slot {
+    border-left: 3px solid var(--accent);
+    padding: 10px 0 10px 14px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .slot:last-child { margin-bottom: 0; }
+  .slot-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .slot-place {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .slot-info {
+    font-size: 12.5px;
+    color: #374151;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .slot-info .info-icon { flex-shrink: 0; width: 16px; text-align: center; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .badge-free { background: var(--free-bg); color: var(--free); }
+  .badge-paid { background: var(--paid-bg); color: var(--paid); }
+
+  /* 경고 */
+  .warn-box {
+    background: var(--warn-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+    border-left: 3px solid var(--warn);
+  }
+
+  /* 팁 */
+  .tip-box {
+    background: var(--tip-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 6px 0;
+    font-size: 12px;
+    color: #0c4a6e;
+  }
+
+  /* 일반 정보 카드 */
+  .info-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .info-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .info-card p, .info-card li {
+    font-size: 13px;
+    color: #374151;
+    margin-bottom: 6px;
+  }
+  .info-card ul { padding-left: 18px; }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  a { color: var(--accent); }
+
+  .checklist {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .checklist h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--accent);
+  }
+  .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    padding: 5px 0;
+    cursor: pointer;
+  }
+  .checklist input[type="checkbox"] { margin-top: 3px; accent-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>화장실 가이드 <span class="en">Restroom Guide</span></h1>
+  <p class="oneliner">런던-파리 12박 13일 동선별 화장실 위치·요금·운영시간 총정리. 공식 출처로 검증된 정보만 수록했습니다.</p>
+</div>
+
+<div class="summary-box">
+  <div class="summary-grid">
+    <div class="summary-item">
+      <span class="label">런던 공공화장실</span>
+      <span class="value">대부분 20p (카드 가능)</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">파리 Sanisettes</span>
+      <span class="value">무료 · 435개소</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">런던 유용 앱</span>
+      <span class="value">Flush / Toilet Map</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">파리 유용 앱</span>
+      <span class="value">Google Maps "toilet"</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 필수 주의사항 ═══════ -->
+<section>
+  <h2><span class="icon">&#9888;&#65039;</span> 사전 이용 필수 장소</h2>
+  <div class="warn-box">
+    <strong>스톤헨지</strong> (2/21) — 현장에 화장실 없음. Visitor Centre에서 셔틀 탑승 전 필수 이용
+  </div>
+  <div class="warn-box">
+    <strong>세븐시스터즈 트래킹</strong> (2/22) — 절벽 구간 화장실 없음. Exceat 출발 전 + Birling Gap(유일한 중간 지점)
+  </div>
+  <div class="warn-box">
+    <strong>근위병 교대식</strong> (2/18) — 관람 중 화장실 접근 불가. 10:00 전 St James's Park에서 이용
+  </div>
+  <div class="warn-box">
+    <strong>Aura Invalides</strong> (2/25) — 현장 화장실 없음. 50분 쇼 전 저녁 식당에서 반드시 이용
+  </div>
+  <div class="warn-box">
+    <strong>베르사유 궁전</strong> (2/27) — 1층에 화장실 없음, 순환 동선이라 되돌아갈 수 없음. 입장 전 필수 이용
+  </div>
+  <div class="warn-box">
+    <strong>해리포터 스튜디오</strong> (2/23) — 입장 후 Dark Arts 섹션까지 화장실 없음. 로비에서 먼저 이용
+  </div>
+</section>
+
+<!-- ═══════ 2/16 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D1</span>
+    <span class="city-badge city-london">London</span>
+    2/16(월) 런던 도착
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">16:30</div>
+      <div class="slot-place">Heathrow T4</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 터미널 내 전층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 24시간 · 기저귀 교환실 완비</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.heathrow.com/at-the-airport/terminal-facilities/toilets-and-showers" target="_blank">Heathrow 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">17:00</div>
+      <div class="slot-place">Paddington Station</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Platform 1, Platform 12</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (2023년부터 무료화)</div>
+      <div class="slot-info"><span class="info-icon">&#11088;</span> Platform 12: 2026년 영국 최우수 역사 화장실 수상, Changing Places 시설</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.networkrailmediacentre.co.uk/news/paddington-takes-the-throne-as-network-rail-makes-a-splash-at-loo-of-the-year-awards" target="_blank">Network Rail</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">17:30</div>
+      <div class="slot-place">Charing Cross Station</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 중앙 통로(main concourse)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 역 운영시간</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.southwesternrailway.com/travelling-with-us/at-the-station/london-charing-cross" target="_blank">SWR 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">19:00</div>
+      <div class="slot-place">Trafalgar Square 주변</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 광장 서쪽 중앙계단 하부</div>
+      <div class="slot-info"><span class="badge badge-paid">20p</span> 카드 결제 가능 · 장애인용 무료</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 10:00-18:00 (행사 시 변동)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.westminster.gov.uk/leisure-libraries-and-community/public-toilets" target="_blank">Westminster Council</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">20:00</div>
+      <div class="slot-place">템즈강변 산책 (Embankment)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Victoria Embankment Gardens 외부, Embankment역 옆</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 공원 운영시간</div>
+      <div class="tip-box">2026.1 신규 개장: Bazalgette Embankment (Blackfriars Bridge 북단) - RADAR 키 필요</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/17 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D2</span>
+    <span class="city-badge city-london">London</span>
+    2/17(화) 사우스켄싱턴~해러즈
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:30</div>
+      <div class="slot-place">South Kensington역</div>
+      <div class="warn-box">역 내 화장실 없음! 자연사박물관까지 도보 5분, 도착 후 이용</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.timeout.com/london/news/revealed-the-only-london-tube-stations-with-toilets-080923" target="_blank">Timeout 조사</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">자연사박물관</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Ground Floor, Lower Ground Floor 전층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> Changing Places (Mammals-Reptiles 갤러리 사이), 기저귀 교환실</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.nhm.ac.uk/visit/access-at-south-kensington.html" target="_blank">NHM 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">11:30</div>
+      <div class="slot-place">과학박물관</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 모든 층 (Level -1, 0, 1, 2), West Hall 포함</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> Changing Places (Level 0, RADAR 키), 기저귀 교환 3곳 (L-1, L0, L2)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.sciencemuseum.org.uk/visit/accessibility" target="_blank">Science Museum 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:00</div>
+      <div class="slot-place">Sloane Street 이동 구간</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Harvey Nichols / Peter Jones 백화점 고객용 화장실</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="tip-box">Sloane Square APC(자동 화장실)는 2023년 폐쇄됨 - 백화점 이용이 확실한 대안</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">15:00</div>
+      <div class="slot-place">사치갤러리</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Lower Ground Floor (2곳), Mezzanine</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (갤러리 입장 무료)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.saatchigallery.com/visit/accessibility" target="_blank">Saatchi Gallery 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">Harrods 백화점</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 2층, 4층 (장애인용) · 기저귀 교환: 1층, 4층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (과거 유료 폐지)</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 월-토 10:00-21:00, 일 11:30-18:00</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.harrods.com/en-gb/c/faqs/visiting-our-store" target="_blank">Harrods 공식</a></div>
+      <div class="tip-box">넓은 매장에서 찾기 어려울 수 있음 - 직원에게 위치 문의</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/18 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D3</span>
+    <span class="city-badge city-london">London</span>
+    2/18(수) 웨스트민스터~코벤트가든
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:00</div>
+      <div class="slot-place">St James's Park</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Marlborough Gate 입구 근처</div>
+      <div class="slot-info"><span class="badge badge-paid">20p</span> contactless 결제 가능 · 장애인용 RADAR 키</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.royalparks.org.uk/visit/parks/st-jamess-park/faqs" target="_blank">Royal Parks</a></div>
+      <div class="warn-box">근위병 교대식(10:30~) 중에는 화장실 접근 어려움 - 10:00 전 반드시 이용!</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">12:30</div>
+      <div class="slot-place">웨스트민스터 사원</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Cloisters(회랑) + Cellarium 카페 내</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> 휠체어 접근 가능, 기저귀 교환대</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.westminster-abbey.org/visit-us/plan-your-visit/access-facilities-and-faq" target="_blank">Westminster Abbey</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:30</div>
+      <div class="slot-place">Trafalgar Square</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 광장 서쪽 중앙계단 하부</div>
+      <div class="slot-info"><span class="badge badge-paid">20p</span> contactless · 장애인용 무료</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 10:00-18:00</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">15:30</div>
+      <div class="slot-place">Covent Garden</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Market Building South Hall 지하 (2theloo) · Tavistock Court (장애인용)</div>
+      <div class="slot-info"><span class="badge badge-paid">50p~&#163;1</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.coventgarden.london/faq/" target="_blank">Covent Garden 공식</a></div>
+      <div class="tip-box">무료 대안: National Gallery, Apple Store Covent Garden</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">Piccadilly Circus</div>
+      <div class="warn-box">역 화장실 리모델링 폐쇄 중 (2025 가을~)</div>
+      <div class="tip-box">대안: Leicester Square 화장실 (북쪽 모퉁이), Fortnum &amp; Mason, McDonald's</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/19 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D4</span>
+    <span class="city-badge city-london">London</span>
+    2/19(목) 윔블던~뮤지컬
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">11:30</div>
+      <div class="slot-place">Wimbledon역</div>
+      <div class="warn-box">2026년 초봄까지 리모델링으로 전체 폐쇄!</div>
+      <div class="tip-box">대안: Community Toilet Scheme 참여 카페/식당 이용 (Merton Council)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.merton.gov.uk/streets-parking-transport/community-toilet-scheme" target="_blank">Merton Council</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">13:00</div>
+      <div class="slot-place">윔블던 박물관 (AELTC)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Long Bar 옆 · Centre Court 1층 · North Road 구역</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> RADAR 키 (보안 직원에게 요청)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.accessable.co.uk/wimbledon-the-all-england-lawn-tennis-club" target="_blank">AccessAble</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:30</div>
+      <div class="slot-place">Lyceum Theatre (라이온킹)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Stalls(1층), Grand Circle, Upper Circle - 각 층마다 화장실</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> Stalls에 휠체어 접근 가능 2개</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.thelyceumtheatre.com/visitors/your-visit" target="_blank">Lyceum Theatre</a></div>
+      <div class="tip-box">인터미션 대기줄 길 수 있음 - 공연 전 또는 막 시작 직후 이용 권장</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/20 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D5</span>
+    <span class="city-badge city-london">London</span>
+    2/20(금) 타워~시티~대영박물관
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:30</div>
+      <div class="slot-place">런던 타워</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 성 내부: Brick Tower, Salt Tower, Cradle Tower</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> New Armouries: Changing Places (카페 직원에게 RADAR 키 요청)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.hrp.org.uk/tower-of-london/visit/facilities/" target="_blank">HRP 공식</a></div>
+      <div class="tip-box">2.5시간 관람 - 내부 화장실 위치(Brick/Salt/Cradle Tower) 미리 숙지</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">13:00</div>
+      <div class="slot-place">타워 브리지</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> South Tower + Engine Rooms</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장권 소지 시) · 기저귀 교환대</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.towerbridge.org.uk/plan-your-visit" target="_blank">Tower Bridge 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:00</div>
+      <div class="slot-place">리든홀 마켓</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 마켓 내 식당/카페 (Community Toilet Scheme)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (파란 스티커 참여점은 구매 없이 이용 가능)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.cityoflondon.gov.uk/services/streets/clean-streets/public-toilets" target="_blank">City of London</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">15:00</div>
+      <div class="slot-place">Sky Garden</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 건물 내 남녀공용 화장실</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · 기저귀 교환대</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">대영박물관</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Great Court · -2층 · -1층 · 0층 · 3층 · 4층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#11088;</span> 런던 최고의 무료 화장실 중 하나 (깨끗·넓음)</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 금요일 야간개장 20:30까지 동일 운영</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.britishmuseum.org/visit/accessibility-museum" target="_blank">British Museum 공식</a></div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/21 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D6</span>
+    <span class="city-badge city-drive">Drive</span>
+    2/21(토) 스톤헨지~라콕~바스
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">08:30</div>
+      <div class="slot-place">M3 Fleet Services</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Welcome Break Fleet, M3 J4A-5</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 24시간 · 2시간 무료 주차</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://welcomebreak.co.uk/locations/fleet/" target="_blank">Welcome Break</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">스톤헨지 Visitor Centre</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Visitor Centre 건물 내 (입장권 없이도 이용 가능)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · Changing Places · 기저귀 교환대</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.english-heritage.org.uk/visit/places/stonehenge/plan-your-visit/facilities/" target="_blank">English Heritage</a></div>
+      <div class="warn-box">스톤헨지 현장에는 화장실이 전혀 없음! 셔틀버스 탑승 전 반드시 이용</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">13:00</div>
+      <div class="slot-place">라콕</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Stables Caf&#233; (Red Lion 주차장 옆) · Abbey 안뜰 · Red Lion 주차장</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · Red Lion 주차장: RADAR 키 (Stables Caf&#233;에서 대여)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.nationaltrust.org.uk/visit/wiltshire/lacock" target="_blank">National Trust</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">16:00</div>
+      <div class="slot-place">바스</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Roman Baths 입구 근처 + 관람 끝 지점 (2곳)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입구 근처는 티켓 없이 이용 가능)</div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> 장애인 화장실 (reception 옆, 평지 접근)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.romanbaths.co.uk/visit" target="_blank">Roman Baths 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:30</div>
+      <div class="slot-place">M4 Leigh Delamere Services</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Moto Leigh Delamere (동향/서향 양쪽), M4 J17-18</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 24시간 · Changing Places · 샤워시설</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://motorwayservices.uk/Leigh_Delamere" target="_blank">Motorway Services</a></div>
+      <div class="tip-box">Membury Services(M4)는 청결도 불만 다수 - Leigh Delamere 이용 권장</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/22 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D7</span>
+    <span class="city-badge city-drive">Drive</span>
+    2/22(일) 세븐시스터즈~브라이튼
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:00</div>
+      <div class="slot-place">M23 Pease Pottage Services</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Moto Pease Pottage, M23 J11</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> 24시간 · RADAR 키 · 기저귀 교환대</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://motorwayservices.uk/Pease_Pottage" target="_blank">Motorway Services</a></div>
+      <div class="tip-box">M23 유일한 서비스 지역 - 세븐시스터즈 전 마지막 주요 휴게소</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">세븐시스터즈 Visitor Centre (Exceat)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Visitor Centre 근처 + North Car Park 근처</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · Changing Places</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 매일 07:00-18:00</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.sevensisters.org.uk/about/faqs/" target="_blank">Seven Sisters Park</a></div>
+      <div class="warn-box">트래킹 구간에 화장실 없음! 출발 전 반드시 이용. 중간 지점 Birling Gap이 유일한 화장실</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">트래킹 중</div>
+      <div class="slot-place">Birling Gap (중간 지점)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> National Trust Caf&#233; 건물 내</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 10:00-17:00</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.nationaltrust.org.uk/visit/sussex/birling-gap-and-the-seven-sisters" target="_blank">National Trust</a></div>
+      <div class="tip-box">세븐시스터즈 트래킹 구간 유일한 화장실!</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:30</div>
+      <div class="slot-place">브라이튼 (로열 파빌리언)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Royal Pavilion Gardens (Prince's Place 끝)</div>
+      <div class="warn-box">2022.10월부터 리모델링 중 - 2026.2월 재개장 여부 불확실</div>
+      <div class="tip-box">대안: Jubilee Library 화장실 (200m 이내)</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/23 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D8</span>
+    <span class="city-badge city-drive">Drive</span>
+    2/23(월) 옥스포드~해리포터
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:30</div>
+      <div class="slot-place">Westgate Oxford</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Westgate Social 구역 내 · Roof Terrace에 Changing Places</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.oxford.gov.uk/directory-record/260/westgate-shopping-centre-toilets" target="_blank">Oxford City Council</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">Christ Church College</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Visitor Centre (메도우 외부)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.chch.ox.ac.uk/visit/accessibility" target="_blank">Christ Church 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">11:45</div>
+      <div class="slot-place">Weston Library</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Blackwell Hall (메인 입구 좌측, 카페 구역) · Level G, 1, 5</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.bodleian.ox.ac.uk/libraries/weston/using-this-library" target="_blank">Bodleian Library</a></div>
+      <div class="tip-box">Duke Humfrey's Library 내부에는 화장실 없음 - Weston Library에서 미리 이용</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">15:00</div>
+      <div class="slot-place">해리포터 스튜디오</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 메인 로비 · 카파크(버스 정류장 옆) · 중간 Backlot Caf&#233;</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · 기저귀 교환대 각 화장실 블록</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.wbstudiotour.co.uk/facilities/" target="_blank">WB Studio Tour</a></div>
+      <div class="warn-box">입장 후 Dark Arts 섹션까지 화장실 없음 - 로비에서 먼저 이용!</div>
+      <div class="tip-box">4.5시간 체류 - 중간 지점 Backlot Caf&#233; 화장실이 메인 이용 포인트</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/24 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D9</span>
+    <span class="city-badge city-transit">Transit</span>
+    2/24(화) 런던 &rarr; 파리
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">King's Cross역</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Platform 9 근처 · Mezzanine Level</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (최근 무료화)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.networkrail.co.uk/wp-content/uploads/2024/09/London-Kings-Cross-Station-Map.pdf" target="_blank">Network Rail 지도</a></div>
+      <div class="tip-box">Platform 9&frac34; 대기줄 서기 전 메인 concourse 화장실 이용 - 줄 중간에 빠지면 자리 잃음</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">11:30</div>
+      <div class="slot-place">St Pancras International</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Lower Ground Arcade · Circle 구역 · 출국심사 후 Departures Lounge</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 06:00-23:30</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://stpancras.com/station-facilities" target="_blank">St Pancras 공식</a></div>
+      <div class="tip-box">출국심사 후 Departures Lounge = 유로스타 탑승 전 마지막 기회</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">12:31</div>
+      <div class="slot-place">유로스타 열차 내</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 각 coach 끝 · Coach 1, 18에 기저귀 교환시설</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://help.eurostar.com/faq/us-en/question/Are-there-toilets-on-the-train" target="_blank">Eurostar</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">15:59</div>
+      <div class="slot-place">Gare du Nord (파리)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Platform 36 근처</div>
+      <div class="slot-info"><span class="badge badge-paid">&euro;0.70</span></div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 06:00-23:30</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://secretsofparis.com/practical/bathroom-lounges-and-left-luggage-at-gare-du-nord-train-station/" target="_blank">Secrets of Paris</a></div>
+      <div class="tip-box">급하지 않으면 숙소 근처 무료 Sanisette 이용 권장</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">16:00~</div>
+      <div class="slot-place">마레 지구 (숙소 주변)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Sanisettes 다수 · Mus&#233;e Carnavalet 무료 화장실</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://opendata.paris.fr/explore/dataset/sanisettesparis/map/" target="_blank">Paris Open Data</a></div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/25 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D10</span>
+    <span class="city-badge city-paris">Paris</span>
+    2/25(수) 에펠탑~샹젤리제~개선문
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:00</div>
+      <div class="slot-place">트로카데로/에펠탑</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 트로카데로 정원 내 이동식 화장실 · Ave des Nations-Unies 터널 (19개)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 에펠탑: 파비스(Parvis) + 1층 + 2층 + 정상 · 기저귀 교환: 파비스~2층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.toureiffel.paris/en/faq/spot/are-there-toilets-or-baby-changing-facilities" target="_blank">Tour Eiffel</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">11:00</div>
+      <div class="slot-place">콩코드 광장 / 튈르리 정원</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 튈르리 정원 콩코드 입구 (206 rue de Rivoli 근처)</div>
+      <div class="slot-info"><span class="badge badge-paid">&euro;0.70</span></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">12:00</div>
+      <div class="slot-place">오랑주리 미술관</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> -1층, -2층 · 물 분수: -2층 화장실 입구</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> 기저귀 교환: -2층 2곳 (여성용 1, 남녀공용 1)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.musee-orangerie.fr/en/visit-orangerie" target="_blank">Orangerie 공식</a></div>
+      <div class="tip-box">입장 후 재입장 불가 - 관람 전 화장실 위치 확인</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:00</div>
+      <div class="slot-place">샹젤리제 (3시간)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 거리 곳곳 Sanisettes (무료) · Le Point WC 26번지 (&euro;1~2, 고급)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 백화점: Galeries Lafayette (무료), Printemps (Le Point WC)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://secretsofparis.com/practical/restrooms/" target="_blank">Secrets of Paris</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">17:30</div>
+      <div class="slot-place">개선문</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 1층(지상층) 화장실</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.toilettespubliques.com/paris/toilettes-publiques/arc-de-triomphe" target="_blank">toilettespubliques.com</a></div>
+      <div class="tip-box">꼭대기 올라가기 전 1층에서 이용! 장애인 화장실은 구조상 접근 불가</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">20:00</div>
+      <div class="slot-place">Aura Invalides</div>
+      <div class="warn-box">현장 화장실 없음! 50분 쇼 중 이용 불가. 저녁 식당에서 반드시 미리 이용</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://aura-invalides.com/en_GB/products/indiv/aura-invalides" target="_blank">Aura 공식</a></div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/26 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D11</span>
+    <span class="city-badge city-paris">Paris</span>
+    2/26(목) 노트르담~오르세
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:00</div>
+      <div class="slot-place">노트르담 대성당</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Rue d'Arcole Sanisette (무료, 혼잡) · Parvis 광장 유료 화장실</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.notredamedeparis.fr/en/visit/practical-information/services/" target="_blank">Notre-Dame 공식</a></div>
+      <div class="warn-box">성당 내부에는 화장실 없음! 관람 전 Rue d'Arcole Sanisette 이용 필수</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">10:30</div>
+      <div class="slot-place">생 샤펠</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Palais de Justice 건물 중정, 계단 아래</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (보안검색 후)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.sainte-chapelle.fr/en/visit/practical-information" target="_blank">Sainte-Chapelle 공식</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">11:30</div>
+      <div class="slot-place">시테섬 / 라틴 쿼터</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 곳곳에 Sanisettes 배치</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · 대부분 06:00-22:00 (일부 24시간)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://opendata.paris.fr/explore/dataset/sanisettesparis/table/" target="_blank">Paris Open Data</a></div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">오르세 미술관 (야간개장)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Rue de Lille 쪽 -2층 · 1층 Chauchard Gallery 입구</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> (입장객)</div>
+      <div class="slot-info"><span class="info-icon">&#9855;</span> 기저귀 교환: -1층 단체 접수 구역</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 목요일 야간 21:45까지 동일 운영</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.musee-orsay.fr/en/visit" target="_blank">Mus&#233;e d'Orsay 공식</a></div>
+      <div class="tip-box">입장 후 재입장 불가 - 3.5시간 체류 계획, 층별 화장실 위치 미리 확인</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/27 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D12</span>
+    <span class="city-badge city-paris">Paris</span>
+    2/27(금) 베르사유~루브르
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">09:30</div>
+      <div class="slot-place">베르사유 궁전</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>입장 전:</strong> South Ministers' Wing (Information desk 지나서) · Dufour Pavilion 지하</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Palace 내:</strong> Gabriel 계단 옆 지하 · Gallery of Palace History 끝</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Grand Trianon:</strong> Chemin Creux pavilion (티켓 없이 접근 가능)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Petit Trianon:</strong> 입구 중정 (티켓 체크 전)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>정원:</strong> Opera House 후 · La Petite Venise · Buvette du Dauphin 맞은편</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://en.chateauversailles.fr/plan-your-visit/facilities/toilets-and-baby-changing-facilities" target="_blank">Versailles 공식</a></div>
+      <div class="warn-box">궁전 1층에 화장실 없음, 순환 동선이라 되돌아갈 수 없음 - 입장 전 South Ministers' Wing에서 반드시 이용!</div>
+      <div class="tip-box">정원이 매우 넓으므로 Trianon/Gardens 화장실 위치 사전 숙지 필수</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">14:30</div>
+      <div class="slot-place">몽마르트</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 사크레쾨르 아래: 푸니쿨라역 앞 (무료) · 언덕 위 키오스크 근처 (&euro;0.80)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> Sanisettes: Place Suzanne Valadon · 3 Place Saint-Pierre</div>
+      <div class="tip-box">언덕 오르기 전 아래 무료 화장실 이용 권장</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">16:30</div>
+      <div class="slot-place">갤러리 라파예트</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 6층 · 엘리베이터 근처 · 최하층</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span></div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 매일 11:00-20:00</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.obonparis.com/en/magazine/galeries-lafayette-useful-informations" target="_blank">OBonParis</a></div>
+      <div class="tip-box">파리 백화점 중 깨끗한 무료 화장실로 유명</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">루브르 박물관 (야간개장)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Hall Napol&#233;on:</strong> 피라미드 아래 (3개 Wing 입구 전)</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>각 Wing:</strong> Richelieu, Sully, Denon 입구 · 내부 전 층 분산 배치</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · 기저귀 교환대</div>
+      <div class="slot-info"><span class="info-icon">&#128339;</span> 금요일 야간 21:45까지</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.louvre.fr/en/visit/visitor-amenities" target="_blank">Louvre 공식</a></div>
+      <div class="tip-box">입장 시 안내 데스크에서 평면도 수령 - 화장실 위치 표시됨</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 2/28 ═══════ -->
+<details class="day-section">
+  <summary>
+    <span class="day-badge">D13</span>
+    <span class="city-badge city-paris">Paris</span>
+    2/28(토) 디즈니랜드~CDG 귀국
+  </summary>
+  <div class="day-content">
+
+    <div class="slot">
+      <div class="slot-time">10:00</div>
+      <div class="slot-place">디즈니랜드 파리</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Main Street:</strong> Stroller Rental 옆 · Discovery Arcade · Liberty Arcade · Baby Care Centre 근처</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Frontierland:</strong> Fort Comstock 근처</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> <strong>Adventureland:</strong> Colonel Hathi's Pizza Outpost 근처</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 기타 각 Land에 분산 배치 (파크 지도 참조)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · 모든 Land에 Unisex 장애인 화장실</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.disneylandparis.com/en-int/guest-services/restrooms" target="_blank">Disneyland Paris</a> · <a href="https://www.dlpguide.com/planning/practicalities/toilets/" target="_blank">DLP Guide</a></div>
+      <div class="tip-box">6.5시간 체류 - 입장 시 파크 지도에서 화장실 위치 확인. Main Street Arcade 내 화장실이 비교적 한산</div>
+    </div>
+
+    <div class="slot">
+      <div class="slot-time">18:00</div>
+      <div class="slot-place">CDG 공항 T2E</div>
+      <div class="slot-info"><span class="info-icon">&#128205;</span> 체크인 구역 · Gates K, L, M (면세구역)</div>
+      <div class="slot-info"><span class="badge badge-free">무료</span> · Family 화장실 (기저귀 교환대, 어린이용 시트)</div>
+      <div class="slot-info"><span class="info-icon">&#128279;</span> <a href="https://www.charlesdegaulleairport.co.uk/information/facilities/" target="_blank">CDG Airport</a></div>
+      <div class="tip-box">보안검색 전/후 모두 다수 · 물병 충전소도 화장실 근처에 있음</div>
+    </div>
+
+  </div>
+</details>
+
+<!-- ═══════ 일반 정보 ═══════ -->
+<section>
+  <h2><span class="icon">&#128218;</span> 런던 화장실 일반 정보</h2>
+</section>
+
+<div class="info-card">
+  <h3>Community Toilet Scheme</h3>
+  <p>런던 일부 자치구에서 카페·식당이 구매 없이 무료로 화장실을 개방하는 제도. 참여점은 창문에 <strong>파란 스티커</strong> 부착.</p>
+  <ul>
+    <li><a href="https://www.cityoflondon.gov.uk/services/streets/clean-streets/public-toilets" target="_blank">City of London</a> (타워/리든홀 지역)</li>
+    <li><a href="https://www.merton.gov.uk/streets-parking-transport/community-toilet-scheme" target="_blank">Merton Council</a> (윔블던 지역)</li>
+  </ul>
+</div>
+
+<div class="info-card">
+  <h3>런던 지하철역 화장실</h3>
+  <p>약 100개 역에 무료 화장실 설치. 단, <strong>South Kensington 등 주요 Zone 1 역에는 없는 경우 많음</strong>.</p>
+  <ul>
+    <li><a href="https://tfl.gov.uk/help-and-contact/public-toilets-in-london" target="_blank">TfL 화장실 지도</a></li>
+    <li>주요 기차역(Paddington, King's Cross, Charing Cross 등)은 모두 무료</li>
+  </ul>
+</div>
+
+<div class="info-card">
+  <h3>긴급 대안 (런던 전역)</h3>
+  <ul>
+    <li><strong>백화점</strong>: Harrods, Harvey Nichols, Selfridges (무료, 청결)</li>
+    <li><strong>박물관/갤러리</strong>: 대부분 무료 (NHM, Science, British Museum 등)</li>
+    <li><strong>체인점</strong>: McDonald's, Pret, Costa, Starbucks (음료 구매 권장)</li>
+    <li><strong>대형 서점</strong>: Waterstones (대부분 공공 화장실 제공)</li>
+  </ul>
+</div>
+
+<section>
+  <h2><span class="icon">&#128218;</span> 파리 화장실 일반 정보</h2>
+</section>
+
+<div class="info-card">
+  <h3>Sanisettes (무료 자동 공공화장실)</h3>
+  <p>파리 전역 <strong>435개소</strong> (2024 올림픽 대비 업그레이드). 자동 청소(30초), 장애인 접근 가능.</p>
+  <ul>
+    <li><strong>운영시간</strong>: 주요 도로 150개는 24시간, 나머지 06:00-22:00</li>
+    <li><strong>찾는 법</strong>: Google Maps에 "public toilet" 검색</li>
+    <li><a href="https://opendata.paris.fr/explore/dataset/sanisettesparis/map/" target="_blank">Paris Open Data 지도</a></li>
+    <li><a href="https://www.paris.fr/en/pages/paris-modernizes-its-435-public-toilets-27250" target="_blank">Paris 공식 안내</a></li>
+  </ul>
+</div>
+
+<div class="info-card">
+  <h3>파리 메트로역</h3>
+  <p>거의 모든 역에 <strong>화장실 없음</strong>. 예외: H&#244;tel de Ville역 (낮시간).</p>
+  <p>메트로 타기 전/후 Sanisette, 카페, 또는 관광지 화장실 이용 필수.</p>
+</div>
+
+<div class="info-card">
+  <h3>긴급 대안 (파리 전역)</h3>
+  <ul>
+    <li><strong>백화점</strong>: Galeries Lafayette (무료, 깨끗), Printemps</li>
+    <li><strong>박물관</strong>: 입장 시 모두 무료 화장실 (재입장 불가 주의)</li>
+    <li><strong>카페</strong>: 음료 구매 시 이용 가능 (출입코드 필요할 수 있음)</li>
+    <li><strong>기차역</strong>: 대부분 &euro;0.70 유료 (Navigo 패스 소지 시 무료인 역도 있음)</li>
+  </ul>
+</div>
+
+<!-- ═══════ 체크리스트 ═══════ -->
+<div class="checklist">
+  <h3>출발 전 체크리스트</h3>
+  <label><input type="checkbox"> TfL 화장실 지도 다운로드 (런던)</label>
+  <label><input type="checkbox"> Flush 또는 Toilet Map 앱 설치</label>
+  <label><input type="checkbox"> 20p 동전 또는 contactless 카드 준비 (런던 유료 화장실)</label>
+  <label><input type="checkbox"> 파리 Sanisette 지도 북마크</label>
+  <label><input type="checkbox"> 휴대용 티슈/물티슈 준비 (야외 화장실 대비)</label>
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-16<br>
+  공식 출처 기반 검증 정보 · 현장 상황에 따라 변동 가능
+</div>
+
+</body>
+</html>
