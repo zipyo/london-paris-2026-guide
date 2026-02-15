@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2/16 저녁 · Trafalgar Square</title>
+<style>
+  :root {
+    --bg: #fafaf8;
+    --card: #fff;
+    --accent: #b45309;
+    --accent-light: #fffbeb;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #15803d;
+    --green-bg: #f0fdf4;
+    --warn: #dc2626;
+    --warn-bg: #fef2f2;
+    --blue: #1d4ed8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    color: #fff;
+    padding: 32px 20px 24px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+  .header .sub { font-size: 13px; opacity: 0.8; font-weight: 400; }
+  .header .context {
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.92;
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  /* Info Box */
+  .info-box {
+    margin: -12px 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 1;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .info-item { font-size: 13px; }
+  .info-item .label { color: var(--muted); font-size: 11px; display: block; }
+  .info-item .value { font-weight: 600; }
+  .info-warn {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--warn-bg);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--warn);
+    font-weight: 500;
+  }
+
+  /* Section */
+  section { padding: 20px; }
+  section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .icon { font-size: 20px; }
+
+  /* Restaurant Card */
+  .restaurant {
+    background: var(--card);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .restaurant.pick {
+    border: 2px solid var(--accent);
+  }
+  .rest-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .rest-cuisine {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cuisine-italian { background: #fef3c7; color: #78350f; }
+  .cuisine-chicken { background: #f0fdf4; color: #166534; }
+  .cuisine-japanese { background: #fce7f3; color: #831843; }
+  .cuisine-british { background: #ecfdf5; color: #065f46; }
+  .cuisine-vietnamese { background: #e0f2fe; color: #075985; }
+
+  .rest-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 0 16px 12px;
+    font-size: 12px;
+  }
+  .rest-meta .meta-item {
+    text-align: center;
+    padding: 6px 4px;
+    background: #f9fafb;
+    border-radius: 6px;
+  }
+  .rest-meta .meta-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .rest-meta .meta-value {
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  /* Menu Section */
+  .rest-menu {
+    padding: 0 16px 12px;
+  }
+  .menu-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .menu-combo {
+    background: var(--accent-light);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .menu-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    padding: 2px 0;
+  }
+  .menu-line .item { color: #374151; }
+  .menu-line .price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+  .menu-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  /* Booking */
+  .rest-booking {
+    padding: 0 16px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn-book {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-map {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .btn-walkin {
+    background: #f3f4f6;
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Tags */
+  .rest-tags {
+    padding: 0 16px 12px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  .tag-good { background: var(--green-bg); color: var(--green); }
+  .tag-warn { background: var(--warn-bg); color: var(--warn); }
+  .tag-info { background: #eff6ff; color: var(--blue); }
+
+  /* Pick badge */
+  .pick-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* Comparison Table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 8px 6px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .compare-table td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .name-cell { font-weight: 600; }
+
+  /* Tips */
+  .tip-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .tip-card .tip-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* Next stop */
+  .next-stop {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 0 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .next-stop .arrow { font-size: 20px; margin-bottom: 6px; }
+  .next-stop strong { color: var(--accent); }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* 홈 버튼 */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+  }
+  .home-link:hover { color: #fff; }
+  .home-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="header">
+  <a href="https://zipyo.github.io/london-paris-2026-guide/" class="home-link">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+    전체 일정
+  </a>
+  <h1>2/16 저녁식사 <span class="sub">Trafalgar Square</span></h1>
+  <div class="context">
+    호텔 체크인(18:30) 후 → 저녁식사 → 20:00 템즈강변 산책<br>
+    14시간 50분 장거리 비행 직후, 런던 첫 끼니!<br>
+    호텔(Northumberland Ave) 주변 도보 10분 이내 식당 5곳
+  </div>
+</div>
+
+<div class="info-box">
+  <div class="info-grid">
+    <div class="info-item">
+      <span class="label">식사 시간</span>
+      <span class="value">19:00 (1시간)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">출발점</span>
+      <span class="value">호텔 (체크인 직후)</span>
+    </div>
+    <div class="info-item">
+      <span class="label">다음 일정</span>
+      <span class="value">20:00 템즈강변 산책</span>
+    </div>
+    <div class="info-item">
+      <span class="label">인원</span>
+      <span class="value">3인 (성인2+아이)</span>
+    </div>
+  </div>
+  <div class="info-warn">Half Term 첫날 (2/16~20) + 장거리 비행 직후 — 가까운 곳에서 빠르게 먹고 쉬는 게 핵심!</div>
+</div>
+
+<!-- 한눈 비교 -->
+<section>
+  <h2><span class="icon">⚖️</span> 한눈 비교</h2>
+
+  <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <tr>
+        <th>식당</th>
+        <th>요리</th>
+        <th>3인 예상</th>
+        <th>예약</th>
+      </tr>
+      <tr>
+        <td class="name-cell">Prezzo</td>
+        <td>이탈리안</td>
+        <td>~£40</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Nando's</td>
+        <td>치킨</td>
+        <td>~£31</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Wagamama</td>
+        <td>일식/아시안</td>
+        <td>~£42</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Sherlock Holmes</td>
+        <td>영국 펍</td>
+        <td>~£43</td>
+        <td style="color:var(--warn)">불가</td>
+      </tr>
+      <tr>
+        <td class="name-cell">Pho</td>
+        <td>베트남</td>
+        <td>~£41</td>
+        <td style="color:var(--green)">가능</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- 식당 상세 -->
+<section style="background:var(--accent-light);">
+  <h2><span class="icon">🍽️</span> 식당 상세</h2>
+
+  <!-- 1. Prezzo -->
+  <div class="restaurant pick">
+    <div class="pick-badge">호텔 바로 옆 · 1분</div>
+    <div class="rest-header">
+      <div class="rest-name">Prezzo</div>
+      <span class="rest-cuisine cuisine-italian">이탈리안</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">1분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">호텔과 같은 건물</span>
+      <span class="tag tag-good">키즈메뉴 3코스</span>
+      <span class="tag tag-warn">이 지점 키즈무료 제외</span>
+      <span class="tag tag-info">서비스차지 없음</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Spaghetti Carbonara</span><span class="price">£13.95</span></div>
+        <div class="menu-line"><span class="item">Margherita Pizza</span><span class="price">£10.95</span></div>
+        <div class="menu-line"><span class="item">키즈 3코스 (파스타+메인+디저트)</span><span class="price">£7.95</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£40</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.prezzo.co.uk/restaurants/london-northumberland-avenue/" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Prezzo,+31-32+Northumberland+Avenue,+London+WC2N+5BW" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 2. Nando's -->
+  <div class="restaurant pick">
+    <div class="pick-badge">가성비 최고</div>
+    <div class="rest-header">
+      <div class="rest-name">Nando's Covent Garden</div>
+      <span class="rest-cuisine cuisine-chicken">PERi-PERi 치킨</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">5분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~22:30</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">서비스차지 없음</span>
+      <span class="tag tag-good">키즈 무한 아이스크림</span>
+      <span class="tag tag-good">매운맛 단계 선택</span>
+      <span class="tag tag-warn">walk-in 전용 · 대기 가능</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">½ Chicken + Regular Side</span><span class="price">£12.45</span></div>
+        <div class="menu-line"><span class="item">Butterfly Burger + Regular Side</span><span class="price">£15.00</span></div>
+        <div class="menu-line"><span class="item">Nandinos (메인+사이드2+디저트/음료)</span><span class="price">£6.25</span></div>
+        <div class="menu-line"><span class="item">음료 × 2 (리필 가능)</span><span class="price">~£5.50</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£39</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://maps.google.com/?q=Nando's,+66-68+Chandos+Place,+London+WC2N+4HG" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 3. Wagamama -->
+  <div class="restaurant pick">
+    <div class="pick-badge">아시안 음식으로 편안하게</div>
+    <div class="rest-header">
+      <div class="rest-name">Wagamama</div>
+      <span class="rest-cuisine cuisine-japanese">일식 · 아시안</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">7분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:30~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">라멘 · 카레 · 볶음면</span>
+      <span class="tag tag-good">키즈 주스+아이스크림 포함</span>
+      <span class="tag tag-info">Leicester Square 위치</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Chicken Katsu Curry</span><span class="price">£15.00</span></div>
+        <div class="menu-line"><span class="item">Chicken Ramen</span><span class="price">£14.50</span></div>
+        <div class="menu-line"><span class="item">Mini Chicken Katsu (키즈, 주스+아이스크림 포함)</span><span class="price">£5.00</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£42</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.wagamama.com/restaurants/london/leicester-square" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Wagamama,+14+Irving+Street,+London+WC2H+7AF" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 4. Sherlock Holmes -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">The Sherlock Holmes</div>
+      <span class="rest-cuisine cuisine-british">영국 펍</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">2분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">11:00~23:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--warn)">불가</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">호텔에서 2분</span>
+      <span class="tag tag-info">셜록 홈즈 박물관 재현</span>
+      <span class="tag tag-good">키즈메뉴 있음</span>
+      <span class="tag tag-info">런던 펍 첫 경험</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Fish & Chips</span><span class="price">£13.99</span></div>
+        <div class="menu-line"><span class="item">Steak & Ale Pie</span><span class="price">£12.99</span></div>
+        <div class="menu-line"><span class="item">Kids Meal (메인+사이드+음료)</span><span class="price">~£7.50</span></div>
+        <div class="menu-line"><span class="item">음료 × 2 (에일/소프트)</span><span class="price">~£10.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£45</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <span class="btn btn-walkin">예약 불가 · Walk-in</span>
+      <a href="https://maps.google.com/?q=The+Sherlock+Holmes,+10-11+Northumberland+Street,+London+WC2N+5DB" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+
+  <!-- 5. Pho -->
+  <div class="restaurant">
+    <div class="rest-header">
+      <div class="rest-name">Pho Covent Garden</div>
+      <span class="rest-cuisine cuisine-vietnamese">베트남 쌀국수</span>
+    </div>
+    <div class="rest-meta">
+      <div class="meta-item">
+        <span class="meta-label">도보</span>
+        <span class="meta-value">10분</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">영업</span>
+        <span class="meta-value">12:00~22:00</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">예약</span>
+        <span class="meta-value" style="color:var(--green)">가능</span>
+      </div>
+    </div>
+    <div class="rest-tags">
+      <span class="tag tag-good">뜨끈한 쌀국수</span>
+      <span class="tag tag-good">비건/글루텐프리 다수</span>
+      <span class="tag tag-info">장거리 비행 후 속 편한 음식</span>
+      <span class="tag tag-warn">가장 먼 거리</span>
+    </div>
+    <div class="rest-menu">
+      <div class="menu-title">추천 조합 (3인)</div>
+      <div class="menu-combo">
+        <div class="menu-line"><span class="item">Phở Bò (소고기 쌀국수)</span><span class="price">~£14.00</span></div>
+        <div class="menu-line"><span class="item">Phở Gà (치킨 쌀국수)</span><span class="price">~£13.50</span></div>
+        <div class="menu-line"><span class="item">Kids Meal (쌀국수+음료)</span><span class="price">£6.95</span></div>
+        <div class="menu-line"><span class="item">음료 × 2</span><span class="price">~£7.00</span></div>
+        <div class="menu-total"><span>예상 합계</span><span>~£41</span></div>
+      </div>
+    </div>
+    <div class="rest-booking">
+      <a href="https://www.opentable.co.uk/r/pho-covent-garden-london" class="btn btn-book" target="_blank">예약하기</a>
+      <a href="https://maps.google.com/?q=Pho,+65A+Long+Acre,+London+WC2E+9JD" class="btn btn-map" target="_blank">지도</a>
+    </div>
+  </div>
+</section>
+
+<!-- 꿀팁 -->
+<section>
+  <h2><span class="icon">💡</span> 꿀팁</h2>
+
+  <div class="tip-card">
+    <div class="tip-title">장거리 비행 직후 전략</div>
+    15시간 비행 후 첫 식사라 체력이 바닥입니다.
+    <strong>Prezzo(1분)나 Sherlock Holmes(2분)</strong>처럼 호텔에서 가장 가까운 곳을 추천합니다.
+    여유가 있으면 Wagamama(7분)에서 따뜻한 라멘 한 그릇도 좋습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Half Term 주의</div>
+    2/16~20은 영국 학교 방학 주간입니다. 저녁 19시는 가족 외식 피크 타임이니
+    예약 가능한 곳(Prezzo, Wagamama, Pho)은 미리 예약하세요.
+    Nando's와 Sherlock Holmes는 walk-in 전용이라 대기가 있을 수 있습니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">Prezzo 키즈 무료 주의</div>
+    Prezzo는 2/9~3/2 기간 키즈 무료 프로모션을 하지만,
+    <strong>Northumberland Avenue 지점은 프로모션 제외 대상</strong>입니다.
+    키즈 무료를 원하면 다른 Prezzo 지점을 이용해야 합니다.
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">동선 효율</div>
+    호텔(8 Northumberland Ave) 기준 — Prezzo는 같은 건물(1분), Sherlock Holmes는 옆 골목(2분),
+    Nando's는 Chandos Place 방향(5분), Wagamama는 Leicester Square 방향(7분),
+    Pho는 Long Acre까지(10분). 식사 후 Embankment 방향으로 걸으면 바로 템즈강변 산책 시작!
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-title">가격 참고</div>
+    표시 가격은 2025년 확인 기준이며, 방문 시점에 소폭 인상될 수 있습니다.
+    Nando's와 Prezzo는 서비스 차지가 없습니다.
+    Wagamama, Pho, Sherlock Holmes는 서비스 차지 12.5%가 자동 추가될 수 있으니
+    합계에 +12.5% 예상하세요.
+  </div>
+</section>
+
+<!-- 다음 일정 -->
+<div class="next-stop">
+  <div class="arrow">→</div>
+  <strong>다음: 템즈강변 산책 (20:00)</strong><br>
+  Embankment 방향 도보 이동 · 호텔에서 강변까지 5분
+</div>
+
+<div class="footer">
+  2026 런던-파리 여행 가이드 · 최종 업데이트 2026-02-15
+</div>
+
+</body>
+</html>
